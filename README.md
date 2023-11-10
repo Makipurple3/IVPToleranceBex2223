@@ -1,6 +1,8 @@
 ---
 title: "BEX 223 MAungKyaw"
-output: pdf_document
+output:
+  html_document:
+    df_print: paged
 ---
 
 ```{r setup, include=FALSE}
@@ -80,10 +82,10 @@ glimpse(Boxex)
      "Time is coded" in a **POSIXct** format 
      
     * I do not plan to use this variable but we can see that "Time" has hours displayed with a date which is incorrect. 
-    * In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior, I would need to correct the incorrect display of the date in the dataset.
-    * This variable could also be usefull to seen when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
+    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **SOURCE**I would need to correct the incorrect display of the date in the     dataset.
+    * This variable could also be usefull to see when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
     * For now, the values in "Time" are all on the same (wrong) day which is the **31st  of December** 
-    * I will describe the variable again after cleaning it
+    * Nevertheless I am not going to use this variable
     
     
 * Data                   : chr 
@@ -225,23 +227,89 @@ glimpse(Boxex)
 
 ## 2. Cleaning the data
 
-### Select variables
+### Creating a new dataframe
 * Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
 
-* I will keep Date, MaleID, FemaleID, Male placement corn, MaleCorn, FemaleCorn, DyadDistance, DyadResponse,OtherResponse, Audience...15, IDIndividual1, IntruderID, Remarks
+* I will keep Date,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
 
-```{r Bex Df, Echo=False} 
+```{r Bex Df, echo=FALSE} 
 Bex<-Boxex%>%
-  select(Date,Time,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks, )
-
+  select(Date,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks )
 glimpse(Bex)
+
+View(Bex)
 ```
 
 
-### Replace/Remove NA’S
+### Replacing and removing NA’S
+  * 
+  
+  
+   * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
+    * I will create a variable called **Session** where **1 session = 1 day**
+    * The data has values from the **14th of September 2022** until the **13th of September 2023**
+    * I may consider, in parallel of my hypothesis, to separate the data in *4 seasons* to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout      tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report.
+    l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of          data will be separated in 4 categories
+   
 
 
 * But before I may want to make a few changes already by merging **Male corn** and **Male placement corn** into " Male corn" and maybe replacing all of the NA's in "Other response" by response
+
+
+
+
+
+
+5. **Handling Missing Data:**
+
+   - Checked for missing values in different Female and Male ID
+
+    ```{r FemMal ID NA, echo=FALSE}
+   
+   # Missing values in FemaleID
+   View(Boxex[is.na(Boxex$FemaleID), ])
+
+   # Missing values in MaleID
+   View(Boxex[is.na(Boxex$MaleID), ])
+   
+    ```
+
+6. **Replacing Missing Values:**
+   - Replaced missing values in `MaleID` and `FemaleID` columns with specified values.
+
+   
+    {r replace NA FemMalID, echo=false} 
+   
+   replace_rows <- c(1699, 1700, ..., 2675)
+   Bex$MaleID[replace_rows] <- "Pom"
+   Bex$FemaleID[replace_rows] <- "Xian"
+    
+
+7. **Handling NAs in Specific Columns:**
+   - Checked and replaced NAs in specific rows and columns.
+
+    ```{r replace NA FemID, echo=FALSE} 
+   # Replace NAs in FemaleID based on row numbers
+   replace_rows <- c(865:879, 1827:1839, 1913:1914, 2665:2675)
+   Bex$FemaleID[replace_rows] <- c("Ndaw", "Sirk", "Oort", "Oerw")
+    ```
+
+8. **Replacing NAs in Male Corn with 0:**
+   - Replaced NAs in `MaleCorn` and `FemaleCorn` columns with 0.
+
+    ```{r replace NA Male Corn, echo=FALSE} 
+   Bex$MaleCorn[is.na(Bex$MaleCorn)] <- 0
+   Bex$FemaleCorn[is.na(Bex$FemaleCorn)] <- 0
+    ```
+   
+
+9. **Resolving Issues:**
+   - Discussed and resolved various issues related to data import, formatting, and error messages.
+
+10. **Printing Summary:**
+    - Provided a summary of the steps and code snippets for reference.
+
+Please note that the code snippets may need to be adapted to your specific data and requirements. Let me know if you have any specific questions or if there's anything else you'd like assistance with!
 
 
 
