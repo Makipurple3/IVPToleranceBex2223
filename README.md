@@ -240,11 +240,52 @@ glimpse(Bex)
 View(Bex)
 ```
 
+### Merging `Male placement corn` and MaleCorn
+* I want to process all the missing data in Bex. But before I will merge the column **MaleCorn* and       **`Male placement corn`** as the data of both columns is supposed to be together under "MaleCorn"
+* Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it       seems to be in **´Male placement corn´**.
+* Everytime there is a missing value un Male placement corn we can see a value in Male Corn, I will this create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld. If there is no NA it will take the value of ´Male placement corn´
+* I will first rename MaleCorn to MaleCornOld and proceed
+
+```{r rename MaleCorn to MaleCornOld, include=FALSE}
+
+# Rename MaleCorn to MaleCornOld
+names(Bex)[names(Bex) == "MaleCorn"] <- "MaleCornOld"
+
+# Check the structure of Bex to confirm the changes
+str(Bex)
+
+```
+
+```{r Fuse MaleCornOld and male placement corn into MaleCorn, include=FALSE}
+# Create a new variable MaleCorn
+Bex$MaleCorn <- ifelse(is.na(Bex$`Male placement corn`), Bex$MaleCornOld, Bex$`Male placement corn`)
+
+
+
+# Check the structure of Bex to confirm the changes
+str(Bex)
+
+```
+* In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn.
+
 
 ### Replacing and removing NA’S
-  * 
+
+```{r Find Missing data, echo=FALSE}
+
+View(Bex)
+# Check for missing data
+missing_data <- sapply(Bex, function(x) sum(is.na(x)))
+
+# Print missing data
+cat("Variables with Missing Data:\n")
+print(missing_data[missing_data > 0])
+
+cat("\nVariables with No Missing Data:\n")
+print(missing_data[missing_data == 0])
   
-  
+```
+
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
