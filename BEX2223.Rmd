@@ -1,5 +1,5 @@
 ---
-title: "BEX 223 MAungKyaw"
+title: "BEX 2223 MAungKyaw"
 output:
   html_document:
     df_print: paged
@@ -31,13 +31,14 @@ library(dplyr)
 library("readxl")
 
 # Read xlsx files
-Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/IVP BEX 2223/Box Experiments.xls")
+Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
 
 ``` 
 
 * First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file.I also loaded nd the **pander** package for better presentation
 * The **dplyr** package was installed for better manipulation of the data as filtering or creating new variables
 * Then, I installed the **readxl package** to import my dataset which is called **Box Experiments.xls**
+* This dataset contains information related to my master thesis project. I used cyber tracker in order to record the behaviors of dyads of Vervet monkeys in a box experiment on tolerance from September 2022 to September 2023
 
 ## 1.Explore the data
 
@@ -63,19 +64,17 @@ glimpse(Boxex)
 
 * The highlighted variables are the ones I will use for my new df. I will then **clean the data** before heading to the **statistical analysis**
 
-* The variables we have in this dataset are the following:
 
 #### Variables of Boxex
 
 * **Date**               :
-    "Date"cis in ac**POSIXct** format which is appropriate for the display of time 
+    "Date" is in ac**POSIXct** format which is appropriate for the display of time 
 
     * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
-    * I may consider, in parallel of my hypothesis, to separate the data in *4 seasons* to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout      tools to measure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report.
-    l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of          data will be separated in 4 categories
-   
+    * I may consider separating the **12 months** of data in **4 seasons** to make a preliminary check of a potential effect of seasonality. Nevertheless we did not use any tools to measure the weather,         temperature, humidity or food availability (also related to seasonality and weather). Categorizing my data in 4 without having further data would then be quite arbitrary. If I end up doing it in my          report, it will be done without any intention to include it in scientific analysis nor my scientific report .
+    
 
     
 * **Time**                  : 
@@ -90,26 +89,24 @@ glimpse(Boxex)
     
 * Data                   : chr 
     "Data" is coded as **character**
-    * It describes **what type of data** has been entered the software **cybertracker**. We installed the software on tablets to record the different behaviours of vervet monkeys in our research center
-    * In our case, the whole dataset is coded as **Box Experiment** as it was the type of behaviour that we were recording
+    * It describes **the type of data** being recorded in the software **cybertracker**. We installed the software on tablets to record the different behaviors of vervet monkeys in our research center
+    * In our case, my data was recorded in cybertracker as **Box Experiment** as we created a form specifically for this experiment
     * For this reason we can remove this column as the information is unecessary
-    
+      
 * Group             : chr 
     The data is coded in r as a **character**
     * It describes the **group of monkey** in which we did the trial
     * I will keep this column to see theamount of trials that we did in the 3 group of monkeys which are Baie-Dankie **(BD)**, Ankhase **(AK)**, and Noha **(NH)**
-    
+      
 * GPSS                   : num 
     "GPSS" is coded as **numerical**
     * It gives the **south coordinates** in which we started the experiment
     * I do not plan to use coordinates nor look at locations so I will remove this acolumn
     
-  
 * GPSE                   : num 
     "GPSE" is coded in as **numerical**
     * It gives the **east coordinates** in which we started the experiment
     * I do not plan to use coordinates nor look at locations so I will remove this column
-  
   
 * **MaleID**             : chr 
     "MaleID" is coded as **character**
@@ -119,7 +116,7 @@ glimpse(Boxex)
   
   
 * **FemaleID**           : chr
-    "FealeID" is coded as **character**
+    "FemaleID" is coded as **character**
     * It gives the **name of the female involved in the trial**
     * I plan to use this variable in the same way as "Male ID"
     * It will also help me see which behaviour was displayed by each individuals (here females)
@@ -129,18 +126,18 @@ glimpse(Boxex)
 * **Male placement corn**: dbl
     "Male placement corn is coded in r as **double**
     * It gives the **amount of corn given to the monkey of the dyad before the trials**
-    * Within a session it happened that we gave more placement corn t to attract the monkeys again to the boxes. This lead to an update of the number in the same session. The number that at the end of the         session is the total placement corn an individual has received
+    * Within a session it happened that we gave more placement corn to attract the monkeys again to the boxes. This lead to an update of the number in the same session. The number found at the end of the         session is the total placement corn an individual has received
     * I will fuse this column with **male corn***as the data has been separated between these two variables. This is due to a mistake when creating the original box experiment form in cybertracker
     
     * This variable could be related to the level of motivation of a monkey but as it is not directly related to my hypothesis I may not use this column. I will re-consider the use of this column later on
-    * I will change the format of the varaible to numerical 
+    * In regards of this possibility I will change the format of the variable to numerical 
   
   
 * **MaleCorn**           : dbl
     "MaleCorn" is coded in r as **double**
     * It gives the same information as in ***male placement corn***
-    * I will add the data from "male placement corn" into this one
-    * I will change the format of the varaible to numerical 
+    * I will import the values from "male placement corn" into this one
+    * I will change the format of the variable to numerical 
     
     
 * **FemaleCorn**         : dbl
@@ -160,12 +157,19 @@ glimpse(Boxex)
   
 * **DyadResponse**       : chr 
     The data is coded in r as **character**
-    * It gives the **response for each trial** we have done with the dyads
-    * The different behaviours were: **Distracted**.**Female aggress male**,      **Male aggress female**, **Intrusion**, **Loosing interest**, **Not          approaching**, **Tolerance** and **Other**
-    * I will create diatomic variable for each behaviour in **DyadResponse**       to have the frequency of each behaviour
-    * As multiple behaviours could be found in a single cell I will create a      hierarchy to reduce the amount of behaviours assigned to each trial (if       there is more than one) 
-    * Projection of the hierarchy (to be modified)
+    * It gives the code of **the behaviour produced by each dyad per trial**
+    * The different behaviours were: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
+    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**    into dichotomic variables in order to see the frequency of each behaviour
+    * This will allow me to see which behavior occured more than others, and what differences are between dydads 
+    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
+      1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
+      2. assign as few labels per trial 
+      3. get a better view and understanding of the data and the most common behaviours produced by each dyad
+      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
+      
+    * Projection of the hierarchy (changes will be made)
       - Create a table with each combination existing
+      
       - Decide what is more important
       - Ex:
         - Aggression > Tolerance
@@ -187,39 +191,42 @@ glimpse(Boxex)
   
 * **OtherResponse**      : chr 
     "The data"OtherResponse" is coded as **character**
-    * It describes **another behaviour from the one found in Dyad Response**     (so if it is not tolerance, aggression, intrusion, loosing interest, not     approaching, distracted)
-    * I will have to look at every **OtherResponse** and rename them
-    * If I want to do an intermediate manipulation I may rename every NA in       "OtherResponse" into **Response** to see the amount of case to treat
+    * It describes **Any behaviour that is not included in the  ones from Dyad Response**     (meaning ≠ tolerance, aggression, intrusion, loosing interest, not approaching, distracted)
+    * I will have to look at every **OtherResponse** and rename each entry in one of the response already if exstiting. I will proceed case by case.
+    * If I want to do an intermediate manipulation I may rename every NA in "OtherResponse" into **Response** to see the amount of case to treat and how many occurences seem to not fit in the categories of        "DyadResponse"
     
 * **Audience**      : chr 
     "Audience" is r as **character**
     * It gives the **names of the individuals in the audience**
     * I would like to use it to see the **amount of audience (big vs small)**     and the **dominance level of the audience (high vs low)** 
-    * I will create a variable called **NAudience** to see hoy many                individuals are in the audience for each trial
-    * After calculating the elo ratings of the individuals using another         dataset, I will create a dichotomic variable called **RankAudience** to        see effects related to rank with the effect of audience
+    * I will create a variable called **NAudience** to see hoy many individuals are in the audience for each trial
+    * After calculating the elo ratings of the individuals using another dataset (Life history), I will create a dichotomic variable called **RankAudience** to see effects related to rank with the effect of audience
     
 * **IDIndividual1**      : chr 
     "IDIndividual1" is coded in r as **character**
-    * It gives the **names of the individuals that did not approach, show        aggression or lost interest** during a trial
-    * I will have to look at it to see how often these behaviours occured and     from which individual
-    * I will consider how to use this vaiable in more detail later
+    * It gives the **names of the individuals that did not approach, show aggression or lost interest** during a trial
+    * I will have to look at it to see how often these behaviors occurred
+    * I will consider how to use this variable during the cleaning of the data
     
 * **IntruderID**         : chr 
     "IndtruderID" is coded as **character**
-    * It gives the **name of the individual that did an intrusion during          a trial**
+    * It gives the **name of the individual that did an intrusion during a trial**
+    * Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the other individual
+    * I will have to check if there is a rule (ex. each intrsuion = no corn/tolerance, or if it depends from case to case)
     
 * **Remarks**            : chr 
     The data is coded in r as **character**
-    * It gives supplementary information concerning the experiment when            unusual behaviors occurred or when we considered to add informations on       the trial 
+    * It gives supplementary information concerning the experiment when unusual behaviors occurred or when we considered adding informations on the trial was necessary
     
 * Observers               .chr
     The data is coded in r as **character**
     * It gives the **names of the observers during the experiment**
-    * We will not use this data as we do not look at the effect that an           experimenter would have on the monkeys
+    * We will not use this data as we do not look at the effect that an experimenter would have on the monkeys
+    * (Should I still look at an effect of the amount of experimenter?...maybe better for detailled analysis of our study)
     
 * DeviceID             .chr
     "The data "DeviceID" is coded in r as **character**
-    * It gives the **name of the device/tablet** used to record the data         during the experiment
+    * It gives the **name of the device/tablet** used to record the data during the experiment
     * We will not use this data either
     
     
@@ -230,7 +237,7 @@ glimpse(Boxex)
 ### Creating a new dataframe
 * Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
 
-* I will keep Date,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
+* I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
 
 ```{r Bex Df, echo=FALSE} 
 Bex<-Boxex%>%
@@ -240,10 +247,10 @@ glimpse(Bex)
 View(Bex)
 ```
 
-### Merging `Male placement corn` and MaleCorn
-* I want to process all the missing data in Bex. But before I will merge the column **MaleCorn* and       **`Male placement corn`** as the data of both columns is supposed to be together under "MaleCorn"
-* Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it       seems to be in **´Male placement corn´**.
-* Everytime there is a missing value un Male placement corn we can see a value in Male Corn, I will this create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld. If there is no NA it will take the value of ´Male placement corn´
+### Merging Male placement corn and MaleCorn
+* I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
+* Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
+* Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
 * I will first rename MaleCorn to MaleCornOld and proceed
 
 ```{r rename MaleCorn to MaleCornOld, include=FALSE}
@@ -256,14 +263,58 @@ str(Bex)
 
 ```
 
-```{r Fuse MaleCornOld and male placement corn into MaleCorn}
+*Now before merging MaleCornOld and Male placement corn I will check the amount of NA's in both column
+
+```{r NA Check in Male Corn variables, include=FALSE}
+# Check for missing values in MaleCornOld
+NA_MaleCornOld <- Bex[is.na(Bex$MaleCornOld), ]
+View(NA_MaleCornOld)
+
+# Check for missing values in Male placement corn
+NA_MalePlacementCorn <- Bex[is.na(Bex$`Male placement corn`), ]
+View(NA_MalePlacementCorn)
+
+# Check the intersection of rows with NA in MaleCornOld and Male placement corn and display them
+Cross_NA <- Bex[is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`), ]
+View(Cross_NA)
+
+
+# Check the amount of NA's that will be transformed to 0
+common_NA_data <- Bex[Bex$Date %in% as.Date(common_NA_rows), ]
+View(common_NA_data)
+
+
+```
+
+
+
+
+
+* When fusing MaleCornOld and Male placement corn, I will put different conditions
+* First, I want my code to retreive the data per column for each and take the value that is different than NA. If there is a row a value in MaleCornOld and NA in male placement corn it will take the value in MaleCornOld and if the missing value is in MaleCornOld it will take the value in Male placement corn
+* Also if there is no value for both MaleCornOld and Male placement corn for a given row, I would like the code to display 0 as it means that no placement was given
+* In this way, I should not loose any data, minimize the mistakes and already transform the NA's of this variable into a number which will be usefull for further operations
+
+```{r Fuse MaleCornOld and male placement corn into MaleCorn, include=FALSE}
 # Create a new variable MaleCorn
 Bex$MaleCorn <- ifelse(is.na(Bex$`Male placement corn`), Bex$MaleCornOld, Bex$`Male placement corn`)
+Bex$MaleCorn <- ifelse(!is.na(Bex$MaleCornOld) | !is.na(Bex$`Male placement corn`), coalesce(Bex$MaleCornOld, Bex$`Male placement corn`), 0)
+
 
 # Check the structure of Bex to confirm the changes
 str(Bex)
 
+# Remove the original MaleCornOld and Male placement corn
+Bex$MaleCornOld <- Bex$`Male placement corn` <- NULL
+
+
+# Check for missing values in the new MaleCorn
+NA_MaleCorn <- Bex[is.na(Bex$MaleCorn), ]
+View(NA_MaleCorn)
+
 ```
+
+
 * In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn.
 
 
@@ -352,6 +403,21 @@ Please note that the code snippets may need to be adapted to your specific data 
 
 
 #########
+
+# Glossary
+* **Tolerance**: Tolerance: An individual has an encounter with a conspecific and
+  can freely leave but remains in the encounter without acting aggressively
+  toward the conspecific. (Pisor & Surbeck, 2019)
+* **Agression**
+* **Session** 
+* **Trial**
+* **Group**: In the Primate order, groups are individuals “which remain [physically] together in or separate from a larger unit” and interact with each other more than with other individuals.6 This            definition does not cover all uses of the word “group” in the social sciences (e.g., human identity groups who identify with a common name or symbol may or may not interact with one another more frequently   than with other individuals). Because of this ambiguity, we use the word “community” when referring to humans to better capture the notion of spatial proximity, per Ref. 54. Members of the same group are    referred to as “same-group” and those from another group “extra-group.” (Pisor & Surbeck, 2019)
+
+
+# Bibliography
+ •	Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. https://doi.org/10.1002/evan.21793
+(Pisor & Surbeck, 2019)
+
 
 
 # Annex
