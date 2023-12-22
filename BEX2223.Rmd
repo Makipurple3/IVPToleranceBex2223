@@ -278,16 +278,26 @@ View(NA_MalePlacementCorn)
 Cross_NA <- Bex[is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`), ]
 View(Cross_NA)
 
+# Count the common NA values
+common_na_count <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`)& !is.na(Bex$MaleCornOld) & !is.na(Bex$`Male placement corn`))
+
+# Print the result
+cat("Number of rows with common NAs in MaleCornOld and 'Male placement corn':", common_na_count, "\n")
+
+
 
 # Check the amount of NA's that will be transformed to 0
 common_NA_data <- Bex[Bex$Date %in% as.Date(common_NA_rows), ]
-View(common_NA_data)
+View(common_NA_count)
+
 
 
 ```
 
 
-
+* We have 1499 NA in common in MaleCornOld and 'male placement corn'
+* 1609 NA in Male placement corn
+* 2685 in MaleCorn old
 
 
 * When fusing MaleCornOld and Male placement corn, I will put different conditions
