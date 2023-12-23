@@ -286,11 +286,11 @@ cat("Number of rows with common NAs in MaleCornOld and 'Male placement corn':", 
 
 
 
-# Check the amount of NA's that will be transformed to 0
-common_NA_data <- Bex[Bex$Date %in% as.Date(common_NA_rows), ]
-View(common_NA_count)
+# Check the amount of common NA between MaleCornOld and Male placement corn
 
 
+common_nas <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`))
+print(common_nas)
 
 ```
 
@@ -307,7 +307,7 @@ View(common_NA_count)
 
 ```{r Fuse MaleCornOld and male placement corn into MaleCorn, include=FALSE}
 # Create a new variable MaleCorn
-Bex$MaleCorn <- ifelse(is.na(Bex$`Male placement corn`), Bex$MaleCornOld, Bex$`Male placement corn`)
+
 Bex$MaleCorn <- ifelse(!is.na(Bex$MaleCornOld) | !is.na(Bex$`Male placement corn`), coalesce(Bex$MaleCornOld, Bex$`Male placement corn`), 0)
 
 
@@ -320,7 +320,7 @@ Bex$MaleCornOld <- Bex$`Male placement corn` <- NULL
 
 # Check for missing values in the new MaleCorn
 NA_MaleCorn <- Bex[is.na(Bex$MaleCorn), ]
-View(NA_MaleCorn)
+is.na(NA_MaleCorn)
 
 ```
 
