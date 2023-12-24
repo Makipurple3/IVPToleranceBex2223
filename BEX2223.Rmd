@@ -399,22 +399,55 @@ Bex$Distracted <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Distracte
 # Check for multiple responses
 Bex$MultipleResponses <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse), ">1 Response", "Single Response")
 
-
-  
 ```
-  
   
 
 #### Cleaning "Audience"
+* Audience is made to report every name of individuals around our dyad during a given trial
+* I will replace every NA by **No audience** as no entry means the absence of other individuals around
+* I will also create a new variable called "Amount audience" that will have to tell me how many individuals are found in the column Audience 
+
+```{r Audience NA, echo=FALSE}
+#Creating amount of audience
+Bex$AmountAudience <- ifelse(is.na(Bex$Audience), 0, lengths(strsplit(Bex$Audience, "; ")))
+
+#Changing NA's in No audience
+Bex$Audience[is.na(Bex$Audience)] <- "No audience"
+
+View(Bex)
+
+```
+
 
 #### Cleaning "OtherResponse"
-
-#### Cleaning "DyadResponse"
-
-
-
+```{r OtherResposne NA, echo=FALSE}
+# Replace NA in OtherResponse by "No Response"
+Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
 
 
+```
+
+
+
+#### Cleaning DyadDistance
+*Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to have a numerical form for this variable
+*Then I will look where are the NA's in the data to look at them case by case
+```{r DyadDistance NA, echo=FALSE}
+# Remove "m" from DyadDistance and convert to numeric
+Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance))
+
+
+# Identify NA values in DyadDistance
+NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
+
+# View the locations of NA values
+View(NA_DyadDistance)
+
+
+```
+
+
+#### Cleaning DyadResponse
 
 #### Cleaning Female and Male ID
 
