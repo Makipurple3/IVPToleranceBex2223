@@ -352,7 +352,7 @@ pre code {
 </ul></li>
 <li><p><strong>IDIndividual1</strong> : chr “IDIndividual1” is coded in r as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>names of the individuals that did not approach, show aggression or lost interest</strong> during a trial</li>
+<li>It gives the <strong>names of the individuals that did not approach, showed aggression, distraction or lost interest</strong> during a trial</li>
 <li>I will have to look at it to see how often these behaviors occurred</li>
 <li>I will consider how to use this variable during the cleaning of the data</li>
 </ul></li>
@@ -520,11 +520,16 @@ pre code {
 </ul>
 <pre><code>## Number of &#39;No Intrusion&#39; in the &#39;Intruder ID&#39; column after replacement: 2737</code></pre>
 <ul>
-<li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurences of IntruderID which shis that the transformation went as intended</li>
+<li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended</li>
 </ul>
 </div>
 <div id="cleaning-idindividual1" class="section level4">
 <h4>Cleaning “IdIndividual1”</h4>
+<ul>
+<li>IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
+<li>I will now replace every NA in this column by No individual</li>
+<li>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion” (Used for double check), “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a value different than “No individual” 2.If the value ≠“No individual” then I want it to take the response found in “DyadResposne” and if there are more than one value, report it in a new column called “&gt;1 Response”</li>
+</ul>
 </div>
 <div id="cleaning-audience" class="section level4">
 <h4>Cleaning “Audience”</h4>

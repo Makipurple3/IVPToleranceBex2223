@@ -204,7 +204,7 @@ glimpse(Boxex)
     
 * **IDIndividual1**      : chr 
     "IDIndividual1" is coded in r as **character**
-    * It gives the **names of the individuals that did not approach, show aggression or lost interest** during a trial
+    * It gives the **names of the individuals that did not approach, showed aggression, distraction or lost interest** during a trial
     * I will have to look at it to see how often these behaviors occurred
     * I will consider how to use this variable during the cleaning of the data
     
@@ -375,9 +375,35 @@ cat("Number of 'No Intrusion' in the 'Intruder ID' column after replacement:", n
 View(Bex)
 
 ```
-* We previously had 2737 NA's in IntruderID while now we have the same amount of occurences of IntruderID which shis that the transformation went as intended
+* We previously had 2737 NA's in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended
 
 #### Cleaning "IdIndividual1"
+
+* IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial
+* I will now replace every NA in this column by No individual
+* I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion" (Used for double check), "Losing interest", "Distracted", for this I would like the function to
+  1.Check if there is a value different than "No individual"
+  2.If the value ≠"No individual" then I want it to take the response found in "DyadResposne" and if there are more than one value, report it in a new column called ">1 Response"
+  
+  
+```{r IdIndividual1 NA, echo=FALSE}
+  #Replace NA in IDindividual1 by No individual
+  Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
+
+# Create dichotomic variables
+Bex$NotApproaching <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Not approaching", Bex$DyadResponse), 1, 0)
+Bex$Intrusion <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Intrusion", Bex$DyadResponse), 1, 0)
+Bex$LosingInterest <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Losing interest", Bex$DyadResponse), 1, 0)
+Bex$Distracted <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Distracted", Bex$DyadResponse), 1, 0)
+
+# Check for multiple responses
+Bex$MultipleResponses <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse), ">1 Response", "Single Response")
+
+
+  
+```
+  
+  
 
 #### Cleaning "Audience"
 
