@@ -412,16 +412,11 @@ pre code {
 <li><p>I want to process all the missing data in Bex. But before I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
 <li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
 <li><p>Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</p></li>
-<li><p>I will first rename MaleCorn to MaleCornOld and proceed</p></li>
-<li><p>Then, before merging MaleCornOld and Male placement corn I will check the amount of NA’s in both column</p></li>
-<li><p>We have 1499 NA in common in MaleCornOld and ‘male placement corn’</p></li>
-<li><p>1609 NA in Male placement corn</p></li>
-<li><p>2685 in MaleCorn old</p></li>
-<li><p>When fusing MaleCornOld and Male placement corn, I will put different conditions</p></li>
-<li><p>First, I want my code to retreive the data per column for each and take the value that is different than NA. If there is a row a value in MaleCornOld and NA in male placement corn it will take the value in MaleCornOld and if the missing value is in MaleCornOld it will take the value in Male placement corn</p></li>
-<li><p>Also if there is no value for both MaleCornOld and Male placement corn for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
-<li><p>In this way, I should not loose any data, minimize the mistakes and already transform the NA’s of this variable into a number which will be usefull for further operations</p></li>
-<li><p>In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn.</p></li>
+<li><p>I will first <strong>rename MaleCorn to MaleCornOld</strong>, then <strong>check the amount of NA’s</strong> and then <strong>merge “MaleCornOld” and “male placement corn”</strong> into the <strong>new variable “MaleCorn”</strong></p></li>
+<li><p>I have found <strong>1499 NA in common</strong> between MaleCornOld and ‘male placement corn’, <strong>1609 NA in Male placement corn</strong> and <strong>2685 in MaleCorn old</strong></p></li>
+<li><p>For the <strong>merge of MaleCornOld and Male placement corn</strong>, I used different conditions: 1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn. 2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
+<li><p>In this way, I should not loose any data, minimize the mistakes and already transform the NA’s of this variable into a number which will remove the remaining NA’s which are meant to be 0</p></li>
+<li><p>After the merge I found that there were <strong>no NA’s remaining</strong> in the <strong>“New” Male Corn</strong> and that <strong>1499 0’s</strong> where found in the column which <strong>corresponds to the amount of common NA’s found previously</strong> between the <strong>“Old” Male Corn</strong> and <strong>male placement corn</strong></p></li>
 </ul>
 <pre class="r"><code>View(Bex)</code></pre>
 </div>

@@ -251,8 +251,7 @@ View(Bex)
 * I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
 * Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
-* I will first rename MaleCorn to MaleCornOld and proceed
-* Then, before merging MaleCornOld and Male placement corn I will check the amount of NA's in both column
+* I will first **rename MaleCorn to MaleCornOld**, then **check the amount of NA's** and then **merge "MaleCornOld" and "male placement corn"** into the **new variable "MaleCorn"**
 
 ```{r handling MaleCorn to MaleCornOld, include=FALSE}
 
@@ -284,6 +283,10 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 
   # Create a new variable MaleCorn
   Bex$MaleCorn <- ifelse(!is.na(Bex$MaleCornOld) | !is.na(Bex$`Male placement corn`), coalesce(Bex$MaleCornOld, Bex$`Male placement corn`), 0)
+  
+   # Count occurrences of 0 in MaleCorn
+  zero_count <- sum(Bex$MaleCorn == 0)
+  cat("Number of occurrences of 0 in MaleCorn:", zero_count, "\n")
 
   # Check the structure of Bex to confirm the changes
   str(Bex)
@@ -301,19 +304,19 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 }
 
 
+
 ```
 
-* We have 1499 NA in common in MaleCornOld and 'male placement corn'
-* 1609 NA in Male placement corn
-* 2685 in MaleCorn old
+* I have found **1499 NA in common** between MaleCornOld and 'male placement corn', **1609 NA in Male placement corn** and **2685 in MaleCorn old**
 
 
-* When fusing MaleCornOld and Male placement corn, I will put different conditions
-* First, I want my code to retreive the data per column for each and take the value that is different than NA. If there is a row a value in MaleCornOld and NA in male placement corn it will take the value in MaleCornOld and if the missing value is in MaleCornOld it will take the value in Male placement corn
-* Also if there is no value for both MaleCornOld and Male placement corn for a given row, I would like the code to display 0 as it means that no placement was given
-* In this way, I should not loose any data, minimize the mistakes and already transform the NA's of this variable into a number which will be usefull for further operations
+* For the **merge of MaleCornOld and Male placement corn**, I used different conditions:
+  1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement     corn.
+  2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given
+  
+* In this way, I should not loose any data, minimize the mistakes and already transform the NA's of this variable into a number which will remove the remaining NA's which are meant to be 0
+* After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
-* In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn.
 
 
 ```{r test before next steps}
