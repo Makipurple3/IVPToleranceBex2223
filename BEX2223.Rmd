@@ -356,7 +356,10 @@ cat("Number of 'No Remarks' in the 'Remarks' column:", no_remarks_count, "\n")
 
 #### Cleaning "Intruder ID"
 * Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column
-* Because nothing was entered when there was no intrusion, I will replace every NA's by **No Intrusion**
+* Because nothing was enter
+
+
+ed when there was no intrusion, I will replace every NA's by **No Intrusion**
 * Also, I will use a function to create a new dichotomic variable called **Intrusion**. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)
 
 
@@ -430,12 +433,14 @@ Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
 
 
 #### Cleaning DyadDistance
-*Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to have a numerical form for this variable
-*Then I will look where are the NA's in the data to look at them case by case
-```{r DyadDistance NA, echo=FALSE}
-# Remove "m" from DyadDistance and convert to numeric
-Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance))
+* Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to      have a numerical variable
+* Then I will look at the location of the NA's in the data to treat them case by case.
+* Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I will import it again in Bex and use it for this cleaning
 
+```{r DyadDistance NA, echo=FALSE}
+
+# Remove "m" from DyadDistance and convert to numeric
+Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
 
 # Identify NA values in DyadDistance
 NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
@@ -443,8 +448,39 @@ NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
 # View the locations of NA values
 View(NA_DyadDistance)
 
+# Count the number of missing values in the DyadDistance column
+dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
+
+# Print the result
+cat("Number of NA values in DyadDistance column (using second approach):", nrow(dyad_distance_missing_data), "\n")
+
+# Find row indices with NA values in DyadDistance
+dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
+
+# Print the row indices
+cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
+
+# Display the cleaned dataset
+View(Bex)
+
+
+
 
 ```
+
+
+
+* We have 69 missing values in  DyadDistance. I will look at each row in it's context as the actual distance of the box was always dependent of the previous trials. I will start with the bigger number as for now the oldest trial is at the last row while the closest one is in row 1.
+
+
+
+  - If **tolerance** was achieved **twice in a row**     =   <1m
+  - If **aggression** (male agress female or female agress male), not approaching,or **loosing     interest** occured                                   =   >1m
+  - If **distracted** or **intrusion** occured           =    same distance
+  
+  1. 2729 - 
+
+
 
 
 #### Cleaning DyadResponse

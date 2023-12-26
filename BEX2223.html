@@ -515,9 +515,9 @@ pre code {
 <h4>Cleaning “Intruder ID”</h4>
 <ul>
 <li>Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column</li>
-<li>Because nothing was entered when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong></li>
-<li>Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</li>
+<li>Because nothing was enter</li>
 </ul>
+<p>ed when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong> * Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</p>
 <pre><code>## Number of &#39;No Intrusion&#39; in the &#39;Intruder ID&#39; column after replacement: 2737</code></pre>
 <ul>
 <li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended</li>
@@ -544,8 +544,25 @@ pre code {
 </div>
 <div id="cleaning-dyaddistance" class="section level4">
 <h4>Cleaning DyadDistance</h4>
-<p><em>Before looking at the NA’s of Dyaddistance I will remove the “m” that is in front of every number to have a numerical form for this variable </em>Then I will look where are the NA’s in the data to look at them case by case</p>
+<ul>
+<li>Before looking at the NA’s of Dyaddistance I will remove the “m” that is in front of every number to have a numerical variable</li>
+<li>Then I will look at the location of the NA’s in the data to treat them case by case.</li>
+<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I will import it again in Bex and use it for this cleaning</li>
+</ul>
 <pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
+<pre><code>## Number of NA values in DyadDistance column (using second approach): 69</code></pre>
+<pre><code>## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
+<ul>
+<li><p>We have 69 missing values in DyadDistance. I will look at each row in it’s context as the actual distance of the box was always dependent of the previous trials. I will start with the bigger number as for now the oldest trial is at the last row while the closest one is in row 1.</p>
+<ul>
+<li>If <strong>tolerance</strong> was achieved <strong>twice in a row</strong> = &lt;1m</li>
+<li>If <strong>aggression</strong> (male agress female or female agress male), not approaching,or <strong>loosing interest</strong> occured = &gt;1m</li>
+<li>If <strong>distracted</strong> or <strong>intrusion</strong> occured = same distance</li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>2729 -</li>
+</ol></li>
+</ul>
 </div>
 <div id="cleaning-dyadresponse" class="section level4">
 <h4>Cleaning DyadResponse</h4>
