@@ -390,7 +390,8 @@ pre code {
 <li><p>I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</p></li>
 </ul>
 <pre><code>## Rows: 2,795
-## Columns: 14
+## Columns: 15
+## $ Time                  &lt;dttm&gt; 1899-12-31 09:47:50, 1899-12-31 09:50:07, 1899-…
 ## $ Date                  &lt;dttm&gt; 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27,…
 ## $ Group                 &lt;chr&gt; &quot;Baie Dankie&quot;, &quot;Baie Dankie&quot;, &quot;Baie Dankie&quot;, &quot;Ba…
 ## $ MaleID                &lt;chr&gt; &quot;Nge&quot;, &quot;Nge&quot;, &quot;Nge&quot;, &quot;Nge&quot;, &quot;Nge&quot;, &quot;Nge&quot;, &quot;Nge&quot;,…
@@ -484,14 +485,18 @@ pre code {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Date</td>
+<td align="left">Time</td>
 <td align="right">0</td>
 </tr>
 <tr class="even">
-<td align="left">Group</td>
+<td align="left">Date</td>
 <td align="right">0</td>
 </tr>
 <tr class="odd">
+<td align="left">Group</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
 <td align="left">MaleCorn</td>
 <td align="right">0</td>
 </tr>
@@ -542,13 +547,20 @@ pre code {
 <div id="cleaning-otherresponse" class="section level4">
 <h4>Cleaning “OtherResponse”</h4>
 </div>
+<div id="cleaning-of-time" class="section level4">
+<h4>Cleaning of “Time”</h4>
+<ul>
+<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code nade for Bex and added <em>Time</em> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now</li>
+</ul>
+</div>
 <div id="cleaning-dyaddistance" class="section level4">
 <h4>Cleaning DyadDistance</h4>
 <ul>
 <li>Before looking at the NA’s of Dyaddistance I will remove the “m” that is in front of every number to have a numerical variable</li>
 <li>Then I will look at the location of the NA’s in the data to treat them case by case.</li>
-<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I will import it again in Bex and use it for this cleaning</li>
 </ul>
+<div id="section" class="section level5">
+<h5></h5>
 <pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
 <pre><code>## Number of NA values in DyadDistance column (using second approach): 69</code></pre>
 <pre><code>## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
@@ -560,9 +572,69 @@ pre code {
 <li>If <strong>distracted</strong> or <strong>intrusion</strong> occured = same distance</li>
 </ul>
 <ol style="list-style-type: decimal">
-<li>2729 -</li>
+<li><strong>24</strong> - In trial23 (0m) there was aggression then at trial24 (1m) there was tolerance. The 24th trial is supposed to be at <strong>1m</strong></li>
+<li><strong>27</strong> - In trial25 (1m) there was not approaching then at trial26 (2m) there was tolerance.The 25th trial is supposed to be at <strong>2m</strong></li>
+<li><strong>95</strong> - In trial93 (2m ) there was male agress female then at trial 94 (3m) there was not approaching. The 95th trial is supposed to be at <strong>4m</strong></li>
+<li><strong>492</strong> - In trial490 (0m) there was tolerance then at trial491 (0m) there was tolerance. The 492nd trial is supposed to be at <strong>0m</strong></li>
+<li><strong>744</strong> - In trial742 (3m) there was aggression then at trial743 (4m) there was tolerance. The 744th trial is supposed to be at <strong>4m</strong><br />
+</li>
+<li><strong>971</strong> - In trial969 (0m) there was tolerance then at trial970 (0m) there was tolerance. The 971st trial is supposed to be at <strong>0m</strong></li>
+<li><strong>1113</strong> - In trial1111 (2m) there was tolerance then at trial1112 (0m) there was tolerance. The 1113th trial is supposed to be at <strong>0m</strong></li>
+<li><strong>1130</strong> - In trial1128 there was another dyad so we can not use this cell. Then at trial1129 (3m) there was not approaching. Nevertheless, we don’t have any DyadResponse, i will thus <strong>delete this row</strong></li>
+<li><strong>1164</strong> - In trial1162 (3m) there was not approaching then at trial1163 (3m) there was not approaching. The 1164th trial is supposed to be at <strong>4m</strong></li>
+<li><strong>1261</strong> - The two preivous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1341</strong> - In trial1339 (0m) there was tolerance then at trial1340 (0m) there was tolerance. The 1341st trial is supposed to be at <strong>0m</strong></li>
+<li><strong>1396</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1491</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1583</strong> - In trial1581 (2m) there was not approaching and intrusion then at trial1582 (2m) there was not approaching. The 1583rd trial is supposed to be at <strong>3m</strong></li>
+<li><strong>1683</strong> - One trial only was made with tolerance (2m) but since there are no DyadResponse I will <strong>delete this row</strong></li>
+<li><strong>1693</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1717</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1718</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1719</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1724</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1725</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1739</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1755</strong> - since there are no DyadResponse I will <strong>delete this row</strong></li>
+<li><strong>1756</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1757</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1764</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
+<li><strong>1779</strong> - It seems like it was the first trial of the Dyad Pom Xian, if so, the distance has to be <strong>5m</strong></li>
+<li><strong>1782</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1792</strong> - Trial1791 was intrusion (4m) so this trial should be at <strong>4m</strong></li>
+<li><strong>1799</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1800</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1840</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1841</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1868</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1869</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1911</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1912</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1915</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1918</strong> - In trial1916 (4m) there was tolerance then at trial1917 (4m) there was not loosing interest The 1918th trial is supposed to be at <strong>4m</strong></li>
+<li><strong>1919</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1952</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1953</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1958</strong> - In trial1956 (2m) there was tolerance then at trial1957 (2m) there was distracted. The 1958th trial is supposed to be at *(empty space)<strong>2m</strong></li>
+<li><strong>1980</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1981</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1984</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1986</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>1996</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>2000</strong> - In trial1997 and 1999 (5m) there was tolerance then at trial1999 (5m) there was intrusion. The 2000th trial is supposed to be at <strong>4m</strong></li>
+<li><strong>2009</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
+<li><strong>2054</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>2104</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>2105</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
+<li><strong>2191</strong> - In trial2189 (1m) there was not approaching then at trial2190 (2m) there was not approaching. The 2191st trial is supposed to be at <strong>3m</strong></li>
+<li><strong>2233</strong> - In trial2231 (3m) there was not approaching then at trial2232 (4m) there was not approaching. The 2233rd trial is supposed to be at <strong>5m</strong></li>
+<li><strong>2234* - The trial did not happen because they where not at the right distance. I will thus </strong>delete this row**</li>
+<li><strong>2287</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
+<li><strong>2437</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
 </ol></li>
+<li><p>MAYBE INSTEAD OF DELETING THESE ROWS PUT DISTANCE <strong>100M</strong> (EXCLUDE IN FURTHER ANALYSIS) AND RESPONSE <strong>NO TRIAL</strong> SINCE THESE TRIALS ARE MOSTLY CASES WHERE WE OPENED THE FORM WITH THE INTEND TO DO THE EXPERIMENT BUT HAD NO DISTANCE NOR BEHAVIOUR BECAUSE WE DID NOT SUCEED IN GETTING THE INDIVIDUALS CLOSER OR WE GOT A BETTER OPPORTUNITY WITH ANOTHER DYAD. I COULD BE GODD TO COUNT THEM OR TREAT THEM IN A WAY TO COUNT EVERY TIME THAT THIS HAPPENED IN OUR DATASET (ALSO WE CAN FIND OTHER CASES LIKE THIS UN IN THE COMMENTS)</p></li>
 </ul>
+</div>
 </div>
 <div id="cleaning-dyadresponse" class="section level4">
 <h4>Cleaning DyadResponse</h4>
@@ -618,7 +690,7 @@ pre code {
 </ul></li>
 </ol>
 <p>Please note that the code snippets may need to be adapted to your specific data and requirements. Let me know if you have any specific questions or if there’s anything else you’d like assistance with!</p>
-<div id="section" class="section level9">
+<div id="section-1" class="section level9">
 <p class="heading"></p>
 </div>
 </div>
