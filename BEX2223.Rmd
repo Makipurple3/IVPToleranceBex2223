@@ -505,7 +505,8 @@ View(Bex)
   7. **1113** - In trial1111 (2m) there was tolerance then at trial1112 (0m) there was tolerance. The 1113th trial is supposed to be at **0m**
   8. **1130** - In trial1128 there was another dyad so we can not use this cell. Then at trial1129 (3m) there was not approaching. Nevertheless, we don't have any DyadResponse, i will thus **delete this row** 
   9. **1164** - In trial1162 (3m) there was not approaching then at trial1163 (3m) there was not approaching. The 1164th trial is supposed to be at **4m**
-  10. **1261** - The two preivous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  10. **1261** - The two
+  preivous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
   11. **1341** - In trial1339 (0m) there was tolerance then at trial1340 (0m) there was tolerance. The 1341st trial is supposed to be at **0m**
   12. **1396** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
   13. **1491** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
@@ -571,8 +572,95 @@ View(Bex)
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
 * For the variable **No trial**, I would like to have a dichotomic variable and instead of deleting the rows where no distance could be assigned,I would like the colum to put 1 in No trial every time there was no distance and no DyadResponse, and If a distance was assigned, then I want it to put 0 as there was a trial
 * I decided to this since the lines where we could not assign any distance when the monekys where not close enough and also it happened that we opened the form for a dyad and had to open a new form since a better opportunity to fo the experiment with another dyad was present. This could help have an idea of how many times this happened
+ 
+```{r Distance, include=FALSE}
+
+# Assuming Bex is your original dataset
+# Create a new variable Distance with values from DyadDistance
+Bex$Distance <- Bex$DyadDistance
+
+# Creating a function to apply rules for updating Distance
+update_distance <- function(row_number, distance_value) {
+  Bex$Distance[row_number] <- distance_value
+}
+
+# Applying rules to update Distance
+update_distance(24, 1)
+update_distance(27, 2)
+update_distance(95, 4)
+update_distance(492, 0)
+update_distance(744, 4)
+update_distance(971, 0)
+update_distance(1113, 0)
+update_distance(1130, NA)  # Delete this row
+update_distance(1164, 4)
+update_distance(1261, NA)  # Delete this row
+update_distance(1341, 0)
+update_distance(1396, NA)  # Delete this row
+update_distance(1491, NA)  # Delete this row
+update_distance(1583, 3)
+update_distance(1683, NA)  # Delete this row
+update_distance(1693, NA)  # Delete this row
+update_distance(1717, NA)  # Delete this row
+update_distance(1718, NA)  # Delete this row
+update_distance(1719, NA)  # Delete this row
+update_distance(1724, NA)  # Delete this row
+update_distance(1725, NA)  # Delete this row
+update_distance(1739, NA)  # Delete this row
+update_distance(1755, NA)  # Delete this row
+update_distance(1756, NA)  # Delete this row
+update_distance(1757, NA)  # Delete this row
+update_distance(1764, NA)  # Delete this row
+update_distance(1779, 5)
+update_distance(1782, NA)  # Delete this row
+update_distance(1792, 4)
+update_distance(1799, NA)  # Delete this row
+update_distance(1800, NA)  # Delete this row
+update_distance(1840, NA)  # Delete this row
+update_distance(1841, NA)  # Delete this row
+update_distance(1868, NA)  # Delete this row
+update_distance(1869, NA)  # Delete this row
+update_distance(1888, NA)  # Delete this row
+update_distance(1891, NA)  # Delete this row
+update_distance(1892, NA)  # Delete this row
+update_distance(1896, NA)  # Delete this row
+update_distance(1911, NA)  # Delete this row
+update_distance(1912, NA)  # Delete this row
+update_distance(1915, NA)  # Delete this row
+update_distance(1918, 4)
+update_distance(1919, NA)  # Delete this row
+update_distance(1952, NA)  # Delete this row
+update_distance(1953, NA)  # Delete this row
+update_distance(1958, 2)
+update_distance(1980, NA)  # Delete this row
+update_distance(1981, NA)  # Delete this row
+update_distance(1984, NA)  # Delete this row
+update_distance(1986, NA)  # Delete this row
+update_distance(1996, NA)  # Delete this row
+update_distance(2000, 4)
+update_distance(2009, NA)  # Delete this row
+update_distance(2054, NA)  # Delete this row
+update_distance(2104, NA)  # Delete this row
+update_distance(2105, NA)  # Delete this row
+update_distance(2191, 3)
+update_distance(2233, 5)
+# update_distance(2234, NA)  # Delete this row (commented because the row didn't happen)
+update_distance(2287, NA)  # Delete this row
+update_distance(2437, NA)  # Delete this row
+update_distance(2569, 0)
+update_distance(2579, 1)
+# update_distance(2580, NA)  # Delete this row (commented because the row didn't happen)
+update_distance(2643, NA)  # Delete this row
+update_distance(2676, 0)
+update_distance(2709, 1)
+update_distance(2729, 2)
 
 
+# View the updated dataset
+View(Bex)
+```
+
+  
 
 
 
