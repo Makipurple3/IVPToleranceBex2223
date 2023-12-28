@@ -527,36 +527,51 @@ View(Bex)
   29. **1792** - Trial1791 was intrusion (4m) so this trial should be at **4m**
   30. **1799** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
   31. **1800** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  31. **1840** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  32. **1841** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  33. **1868** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  34. **1869** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  35. **1911** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  36. **1912** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  37. **1915** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  38. **1918** - In trial1916 (4m) there was tolerance then at trial1917 (4m) there was not loosing interest The 1918th trial is supposed to be at **4m**
-  39. **1919** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  40. **1952** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  41. **1953** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  42. **1958** - In trial1956 (2m) there was tolerance then at trial1957 (2m) there was distracted. The 1958th trial is supposed to be at *(empty space)**2m**
-  43. **1980** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  44. **1981** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  45. **1984** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  46. **1986** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  47. **1996** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  48. **2000** - In trial1997 and 1999 (5m) there was tolerance then at trial1999 (5m) there was intrusion. The 2000th trial is supposed to be at **4m**
-  49. **2009** - Since there are no DyadResponse I will **delete this row**
-  50. **2054** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  51. **2104** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  52. **2105** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
-  53. **2191** - In trial2189 (1m) there was not approaching then at trial2190 (2m) there was not approaching. The 2191st trial is supposed to be at **3m**
-  54. **2233** - In trial2231 (3m) there was not approaching then at trial2232 (4m) there was not approaching. The 2233rd trial is supposed to be at **5m**
-  55. **2234* - The trial did not happen because they where not at the right distance. I will thus **delete this row**
-  56. **2287** - Since there are no DyadResponse I will **delete this row**
-  57. **2437** - Since there are no DyadResponse I will **delete this row**
+  32. **1840** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  33. **1841** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  34. **1868** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  35. **1869** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  36. **1888** - he two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  37. **1891** - Since there are no DyadResponse I will **delete this row**
+  38. **1892** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  39. **1896** - Since there are no DyadResponse I will **delete this row**
+  40. **1911** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  41. **1912** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  42. **1915** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  43. **1918** - In trial1916 (4m) there was tolerance then at trial1917 (4m) there was not loosing interest The 1918th trial is supposed to be at **4m**
+  44. **1919** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  45. **1952** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  46. **1953** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  47. **1958** - In trial1956 (2m) there was tolerance then at trial1957 (2m) there was distracted. The 1958th trial is supposed to be at **2m**
+  48. **1980** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  49. **1981** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  50. **1984** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  51. **1986** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  52. **1996** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  53. **2000** - In trial1997 and 1999 (5m) there was tolerance then at trial1999 (5m) there was intrusion. The 2000th trial is supposed to be at **4m**
+  54. **2009** - Since there are no DyadResponse I will **delete this row**
+  55. **2054** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  56. **2104** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  57. **2105** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  58. **2191** - In trial2189 (1m) there was not approaching then at trial2190 (2m) there was not approaching. The 2191st trial is supposed to be at **3m**
+  59. **2233** - In trial2231 (3m) there was not approaching then at trial2232 (4m) there was not approaching. The 2233rd trial is supposed to be at **5m**
+  60. **2234* - The trial did not happen because they where not at the right distance. I will thus **delete this row**
+  61. **2287** - Since there are no DyadResponse I will **delete this row**
+  62. **2437** - Since there are no DyadResponse I will **delete this row**
+  63. **2569** - In trial2567 (1m) there was tolerance then at trial2568 (1m) there was tolerance. The 2569th trial is supposed to be at (0m)
+  64. **2579** - In trial2577 (1m) there was tolerance then at trial2578 (0m) there was not approaching. The 2579th trial is supposed to be at **1m**
+  65. **2580** - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus **delete this row**
+  66. **2643** - Since there are no DyadResponse I will **delete this row**
+  67. **2676** - In trial2674 (1m) there was tolerance then at trial2675 (0m) there was tolerance. The 2676th trial is supposed to be at **0m**
+  68. **2709** - In trial2707 (2m) there was tolerance then at trial2708 (2m) there was tolerance. The 2709th trial is supposed to be at **1m**
+  69. **2729** - In trial2727 (3m) there wastolerance then at trial2728 (2m) there was tolerance. The 2729th trial is supposed to be at **2m**
 
 
-* MAYBE INSTEAD OF DELETING THESE ROWS PUT DISTANCE **100M** (EXCLUDE IN FURTHER ANALYSIS) AND RESPONSE **NO TRIAL** SINCE THESE TRIALS ARE MOSTLY CASES WHERE WE OPENED THE FORM WITH THE INTEND TO DO THE EXPERIMENT BUT HAD NO DISTANCE NOR BEHAVIOUR BECAUSE WE DID NOT SUCEED IN GETTING THE INDIVIDUALS CLOSER OR WE GOT A BETTER OPPORTUNITY WITH ANOTHER DYAD. I COULD BE GODD TO COUNT THEM OR TREAT THEM IN A WAY TO COUNT EVERY TIME THAT THIS HAPPENED IN OUR DATASET (ALSO WE CAN FIND OTHER CASES LIKE THIS UN IN THE COMMENTS)
+* Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called **Distance**. I will also to create a new variable called **No trial**.
+* For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
+* For the variable **No trial**, I would like to have a dichotomic variable and instead of deleting the rows where no distance could be assigned,I would like the colum to put 1 in No trial every time there was no distance and no DyadResponse, and If a distance was assigned, then I want it to put 0 as there was a trial
+* I decided to this since the lines where we could not assign any distance when the monekys where not close enough and also it happened that we opened the form for a dyad and had to open a new form since a better opportunity to fo the experiment with another dyad was present. This could help have an idea of how many times this happened
+
 
 
 
