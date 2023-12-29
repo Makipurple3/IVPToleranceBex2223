@@ -570,100 +570,68 @@ View(Bex)
 
 * Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called **Distance**. I will also to create a new variable called **No trial**.
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
-* For the variable **No trial**, I would like to have a dichotomic variable and instead of deleting the rows where no distance could be assigned,I would like the colum to put 1 in No trial every time there was no distance and no DyadResponse, and If a distance was assigned, then I want it to put 0 as there was a trial
-* I decided to this since the lines where we could not assign any distance when the monekys where not close enough and also it happened that we opened the form for a dyad and had to open a new form since a better opportunity to fo the experiment with another dyad was present. This could help have an idea of how many times this happened
  
-```{r Distance, include=FALSE}
+```{r Distance, echo=TRUE}
 
-# Assuming Bex is your original dataset
+library(dplyr)
+
 # Create a new variable Distance with values from DyadDistance
-Bex$Distance <- Bex$DyadDistance
+Bex <- Bex %>% mutate(Distance = DyadDistance)
 
-# Creating a function to apply rules for updating Distance
-update_distance <- function(row_number, distance_value) {
-  Bex$Distance[row_number] <- distance_value
-}
+# Define replacement values
+replacement_values <- c(
+  `24` = 1, `27` = 2, `95` = 4, `492` = 0, `744` = 4, `971` = 0, `1113` = 0, `1164` = 4,
+  `1341` = 0, `1583` = 3, `1779` = 5, `1792` = 4, `1840` = 0, `1868` = 0, `1918` = 4,
+  `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
+)
 
 # Applying rules to update Distance
-update_distance(24, 1)
-update_distance(27, 2)
-update_distance(95, 4)
-update_distance(492, 0)
-update_distance(744, 4)
-update_distance(971, 0)
-update_distance(1113, 0)
-update_distance(1130, NA)  # Delete this row
-update_distance(1164, 4)
-update_distance(1261, NA)  # Delete this row
-update_distance(1341, 0)
-update_distance(1396, NA)  # Delete this row
-update_distance(1491, NA)  # Delete this row
-update_distance(1583, 3)
-update_distance(1683, NA)  # Delete this row
-update_distance(1693, NA)  # Delete this row
-update_distance(1717, NA)  # Delete this row
-update_distance(1718, NA)  # Delete this row
-update_distance(1719, NA)  # Delete this row
-update_distance(1724, NA)  # Delete this row
-update_distance(1725, NA)  # Delete this row
-update_distance(1739, NA)  # Delete this row
-update_distance(1755, NA)  # Delete this row
-update_distance(1756, NA)  # Delete this row
-update_distance(1757, NA)  # Delete this row
-update_distance(1764, NA)  # Delete this row
-update_distance(1779, 5)
-update_distance(1782, NA)  # Delete this row
-update_distance(1792, 4)
-update_distance(1799, NA)  # Delete this row
-update_distance(1800, NA)  # Delete this row
-update_distance(1840, NA)  # Delete this row
-update_distance(1841, NA)  # Delete this row
-update_distance(1868, NA)  # Delete this row
-update_distance(1869, NA)  # Delete this row
-update_distance(1888, NA)  # Delete this row
-update_distance(1891, NA)  # Delete this row
-update_distance(1892, NA)  # Delete this row
-update_distance(1896, NA)  # Delete this row
-update_distance(1911, NA)  # Delete this row
-update_distance(1912, NA)  # Delete this row
-update_distance(1915, NA)  # Delete this row
-update_distance(1918, 4)
-update_distance(1919, NA)  # Delete this row
-update_distance(1952, NA)  # Delete this row
-update_distance(1953, NA)  # Delete this row
-update_distance(1958, 2)
-update_distance(1980, NA)  # Delete this row
-update_distance(1981, NA)  # Delete this row
-update_distance(1984, NA)  # Delete this row
-update_distance(1986, NA)  # Delete this row
-update_distance(1996, NA)  # Delete this row
-update_distance(2000, 4)
-update_distance(2009, NA)  # Delete this row
-update_distance(2054, NA)  # Delete this row
-update_distance(2104, NA)  # Delete this row
-update_distance(2105, NA)  # Delete this row
-update_distance(2191, 3)
-update_distance(2233, 5)
-# update_distance(2234, NA)  # Delete this row (commented because the row didn't happen)
-update_distance(2287, NA)  # Delete this row
-update_distance(2437, NA)  # Delete this row
-update_distance(2569, 0)
-update_distance(2579, 1)
-# update_distance(2580, NA)  # Delete this row (commented because the row didn't happen)
-update_distance(2643, NA)  # Delete this row
-update_distance(2676, 0)
-update_distance(2709, 1)
-update_distance(2729, 2)
+Bex <- Bex %>%
+  mutate(
+    Distance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], Distance)
+  )
 
+# Count NA's in Distance
+na_count <- sum(is.na(Bex$Distance))
+print(paste("Number of NA's in Distance: ", na_count))
+
+# Remove rows with NA in Distance after replacing values 
+Bex <- Bex %>% filter(!is.na(Distance))
+
+# Count NA's in Distance after removing NA's
+na_count <- sum(is.na(Bex$Distance))
+print(paste("Number of NA's in Distance: ", na_count))
 
 # View the updated dataset
 View(Bex)
+
+
 ```
 
   
+* **23 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
 
+* Now I would like to create a dichotomic variable called **No trial** that will use the rows that I deleted in Distance. I would like this column to put 1 for every trial that was deleted from Distance. I will later on look again at this column. 
+* I decided to this since I remebered that the lines where we could not assign any distance happened when the monekys where
+ 1. The dyad was not close enough to do the experiment 
+ 2. We had another dyad at proximity that we were more interested or that was easier to test
+I will use this variable to look at the cases where this happen. at term I will not use this variable in my analysis
 
+```{r No Trial, include=FALSE}
 
+# Identify rows to delete based on the rules
+rows_to_delete <- c(24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719,
+                    1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891,
+                    1892, 1896, 1911, 1912, 1915, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104,
+                    2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729)
+
+# Create NoTrial variable
+Bex$NoTrial <- ifelse(seq_along(Bex$Distance) %in% rows_to_delete, 1, 0)
+
+# View the updated dataset
+View(Bex)
+
+```
 
 
 #### Cleaning DyadResponse

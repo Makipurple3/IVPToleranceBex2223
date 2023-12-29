@@ -645,9 +645,47 @@ pre code {
 </ol></li>
 <li><p>Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called <strong>Distance</strong>. I will also to create a new variable called <strong>No trial</strong>.</p></li>
 <li><p>For the variable <strong>Distance</strong> I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done</p></li>
-<li><p>For the variable <strong>No trial</strong>, I would like to have a dichotomic variable and instead of deleting the rows where no distance could be assigned,I would like the colum to put 1 in No trial every time there was no distance and no DyadResponse, and If a distance was assigned, then I want it to put 0 as there was a trial</p></li>
-<li><p>I decided to this since the lines where we could not assign any distance when the monekys where not close enough and also it happened that we opened the form for a dyad and had to open a new form since a better opportunity to fo the experiment with another dyad was present. This could help have an idea of how many times this happened</p></li>
 </ul>
+<pre class="r"><code>library(dplyr)
+
+# Create a new variable Distance with values from DyadDistance
+Bex &lt;- Bex %&gt;% mutate(Distance = DyadDistance)
+
+# Define replacement values
+replacement_values &lt;- c(
+  `24` = 1, `27` = 2, `95` = 4, `492` = 0, `744` = 4, `971` = 0, `1113` = 0, `1164` = 4,
+  `1341` = 0, `1583` = 3, `1779` = 5, `1792` = 4, `1840` = 0, `1868` = 0, `1918` = 4,
+  `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
+)
+
+# Applying rules to update Distance
+Bex &lt;- Bex %&gt;%
+  mutate(
+    Distance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], Distance)
+  )
+
+# Count NA&#39;s in Distance
+na_count &lt;- sum(is.na(Bex$Distance))
+print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre>
+<pre><code>## [1] &quot;Number of NA&#39;s in Distance:  46&quot;</code></pre>
+<pre class="r"><code># Remove rows with NA in Distance after replacing values 
+Bex &lt;- Bex %&gt;% filter(!is.na(Distance))
+
+# Count NA&#39;s in Distance after removing NA&#39;s
+na_count &lt;- sum(is.na(Bex$Distance))
+print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre>
+<pre><code>## [1] &quot;Number of NA&#39;s in Distance:  0&quot;</code></pre>
+<pre class="r"><code># View the updated dataset
+View(Bex)</code></pre>
+<ul>
+<li><p><strong>23 values</strong> were inserted in <strong>Distance</strong> to replace the NA’s where the distance could be found by looking at the previous rows. The <strong>46 remaining NA’s</strong> were then <strong>removed</strong> from Distance <strong>leaving 0 NA in Distance</strong></p></li>
+<li><p>Now I would like to create a dichotomic variable called <strong>No trial</strong> that will use the rows that I deleted in Distance. I would like this column to put 1 for every trial that was deleted from Distance. I will later on look again at this column.</p></li>
+<li><p>I decided to this since I remebered that the lines where we could not assign any distance happened when the monekys where</p></li>
+</ul>
+<ol style="list-style-type: decimal">
+<li>The dyad was not close enough to do the experiment</li>
+<li>We had another dyad at proximity that we were more interested or that was easier to test I will use this variable to look at the cases where this happen. at term I will not use this variable in my analysis</li>
+</ol>
 </div>
 </div>
 <div id="cleaning-dyadresponse" class="section level4">
