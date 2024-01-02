@@ -688,7 +688,7 @@ male_missing_rows <- which(is.na(Bex$MaleID))
 cat("Row numbers with missing values in MaleID: ", male_missing_rows, "\n")
 cat("Number of missing values in MaleID: ", length(male_missing_rows), "\n")
 
-View(Bex)
+
 
 # Check where we have Na in both Female and Male ID  and in whcih rows
 # Row numbers with missing values in both FemaleID and MaleID
@@ -774,8 +774,6 @@ cat("Number of NA values in MaleID: ", na_count_male, "\n")
 na_count_female <- sum(is.na(Bex$FemaleID))
 cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 
-
-View(Bex)
 ```
 
 
@@ -806,7 +804,7 @@ cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
     
   * The remaining rows with NA's are the row **866** that I will delete since no information at all is available for the DyadResponse. Concerning the row **1211** we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to "Other"
   
-```{r Cleaning remaining NA, echo=FALSE}
+```{r Cleaning remaining, include=FALSE}
 # Delete row where no information is available for DyadResponse
 Bex <- Bex[!is.na(Bex$DyadResponse), ]
 
@@ -820,7 +818,6 @@ rows_with_na_numbers <- which(rowSums(is.na(Bex)) > 0)
 cat("Number of rows with NA values in the dataset:", length(rows_with_na_numbers), "\n")
 cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
 
-View(Bex)
 ```
 
 * It seems now that no NA's are remaining in the dataset, we can thus continue with the rest
