@@ -407,7 +407,7 @@ pre code {
 ## $ IntruderID            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;Sey…
 ## $ Remarks               &lt;chr&gt; NA, NA, &quot;Nge box did not open because of the bat…</code></pre>
 <div id="merging-male-placement-corn-and-malecorn" class="section level4">
-<h4>Merging Male placement corn and MaleCorn</h4>
+<h4>2.1 Merging Male placement corn and MaleCorn</h4>
 <ul>
 <li><p>I want to process all the missing data in Bex. But before I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
 <li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
@@ -423,7 +423,7 @@ pre code {
 <div id="replacing-and-removing-nas" class="section level3">
 <h3>Replacing and removing NA’S</h3>
 <div id="identifying-variables-with-missing-data" class="section level4">
-<h4>Identifying variables with missing data</h4>
+<h4>2.2 Identifying variables with missing data</h4>
 <pre><code>## Variables with Missing Data:</code></pre>
 <table>
 <thead>
@@ -508,7 +508,7 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-remarks" class="section level4">
-<h4>Cleaning “Remarks”</h4>
+<h4>2.3 Cleaning “Remarks”</h4>
 <ul>
 <li>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</li>
 <li>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found are the same as the amount of NA’s previously found</li>
@@ -517,7 +517,7 @@ pre code {
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
 </div>
 <div id="cleaning-intruder-id" class="section level4">
-<h4>Cleaning “Intruder ID”</h4>
+<h4>2.4 Cleaning “Intruder ID”</h4>
 <ul>
 <li>Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column</li>
 <li>Because nothing was enter</li>
@@ -529,7 +529,7 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-idindividual1" class="section level4">
-<h4>Cleaning “IdIndividual1”</h4>
+<h4>2.5 Cleaning “IdIndividual1”</h4>
 <ul>
 <li>IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
 <li>I will now replace every NA in this column by No individual</li>
@@ -537,7 +537,7 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-audience" class="section level4">
-<h4>Cleaning “Audience”</h4>
+<h4>2.6 Cleaning “Audience”</h4>
 <ul>
 <li>Audience is made to report every name of individuals around our dyad during a given trial</li>
 <li>I will replace every NA by <strong>No audience</strong> as no entry means the absence of other individuals around</li>
@@ -545,22 +545,20 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-otherresponse" class="section level4">
-<h4>Cleaning “OtherResponse”</h4>
+<h4>2.7 Cleaning “OtherResponse”</h4>
 </div>
 <div id="cleaning-of-time" class="section level4">
-<h4>Cleaning of “Time”</h4>
+<h4>2.8 Cleaning of “Time”</h4>
 <ul>
 <li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code nade for Bex and added <em>Time</em> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now</li>
 </ul>
 </div>
 <div id="cleaning-dyaddistance" class="section level4">
-<h4>Cleaning DyadDistance</h4>
+<h4>2.9 Cleaning DyadDistance</h4>
 <ul>
 <li>Before looking at the NA’s of Dyaddistance I will remove the “m” that is in front of every number to have a numerical variable</li>
 <li>Then I will look at the location of the NA’s in the data to treat them case by case.</li>
 </ul>
-<div id="section" class="section level5">
-<h5></h5>
 <pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
 <pre><code>## Number of NA values in DyadDistance column (using second approach): 69</code></pre>
 <pre><code>## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
@@ -632,7 +630,7 @@ pre code {
 <li><strong>2105</strong> - The two previous trials were made with another Dyad. Also DyadResponse is not available. I will thus <strong>delete this row</strong></li>
 <li><strong>2191</strong> - In trial2189 (1m) there was not approaching then at trial2190 (2m) there was not approaching. The 2191st trial is supposed to be at <strong>3m</strong></li>
 <li><strong>2233</strong> - In trial2231 (3m) there was not approaching then at trial2232 (4m) there was not approaching. The 2233rd trial is supposed to be at <strong>5m</strong></li>
-<li><strong>2234* - The trial did not happen because they where not at the right distance. I will thus </strong>delete this row**</li>
+<li><strong>2234</strong> - The trial did not happen because they where not at the right distance. I will thus <strong>delete this row</strong></li>
 <li><strong>2287</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
 <li><strong>2437</strong> - Since there are no DyadResponse I will <strong>delete this row</strong></li>
 <li><strong>2569</strong> - In trial2567 (1m) there was tolerance then at trial2568 (1m) there was tolerance. The 2569th trial is supposed to be at (0m)</li>
@@ -687,30 +685,32 @@ View(Bex)</code></pre>
 <li>We had another dyad at proximity that we were more interested or that was easier to test I will use this variable to look at the cases where this happen. at term I will not use this variable in my analysis</li>
 </ol>
 </div>
-</div>
-<div id="cleaning-dyadresponse" class="section level4">
-<h4>Cleaning DyadResponse</h4>
-</div>
 <div id="cleaning-female-and-male-id" class="section level4">
-<h4>Cleaning Female and Male ID</h4>
-<p><strong>Handling Missing Data:</strong></p>
+<h4>2.10 Cleaning Female and Male ID</h4>
 <ul>
-<li>Checked for missing values in different Female and Male ID</li>
+<li>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad, trating these two columns together makes more sense.</li>
 </ul>
-<pre><code>``{r FemMal ID NA, echo=FALSE}</code></pre>
-</div>
-</div>
-</div>
-<div id="missing-values-in-femaleid" class="section level1">
-<h1>Missing values in FemaleID</h1>
-<p>View(Bex[is.na(Bex$FemaleID), ])</p>
-</div>
-<div id="missing-values-in-maleid" class="section level1">
-<h1>Missing values in MaleID</h1>
-<p>View(Bex[is.na(Bex$MaleID), ])</p>
-<pre><code>``</code></pre>
+<pre><code>## Number of missing values in FemaleID:  59</code></pre>
+<pre><code>## Number of missing values in MaleID:  18</code></pre>
+<pre><code>## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</code></pre>
+<pre><code>## Number of missing values in FemaleID:  59</code></pre>
+<pre><code>## Row numbers with missing values in MaleID:  1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710</code></pre>
+<pre><code>## Number of missing values in MaleID:  18</code></pre>
+<pre><code>## Number of rows with missing values in both FemaleID and MaleID:  18</code></pre>
+<pre><code>## Row numbers with missing values in both FemaleID and MaleID:  1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704, 1705, 1706, 1707, 1708, 1709, 1710</code></pre>
+<pre><code>## Number of missing values in FemaleID not in MaleID:  41</code></pre>
+<pre><code>## Row numbers with missing values in FemaleID not in MaleID:  865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1886, 1887, 2620, 2621, 2622, 2623, 2624, 2625, 2626, 2627, 2628, 2629, 2630</code></pre>
+<ul>
+<li><p><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></p></li>
+<li><p>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</p></li>
+<li><p>Let’s first loo</p></li>
+<li><p>Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</p></li>
+<li><p>Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 Number of missing values in MaleID: 18</p></li>
+</ul>
 <p><strong>Replacing Missing Values:</strong> - Replaced missing values in <code>MaleID</code> and <code>FemaleID</code> columns with specified values.</p>
 <pre><code>``{r replace NA FemMalID, echo=FALSE} </code></pre>
+</div>
+</div>
 </div>
 <div id="replaced-missing-values-in-maleid-and-femaleid-columns-with-specified-values." class="section level1">
 <h1>Replaced missing values in MaleID and FemaleID columns with specified values.</h1>
@@ -721,6 +721,8 @@ View(Bex)</code></pre>
 <li><p>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I may consider, in parallel of my hypothesis, to separate the data in <em>4 seasons</em> to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report. l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of data will be separated in 4 categories</p></li>
 <li><p>But before I may want to make a few changes already by merging <strong>Male corn</strong> and <strong>Male placement corn</strong> into ” Male corn” and maybe replacing all of the NA’s in “Other response” by response</p></li>
 </ul>
+<div id="cleaning-dyadresponse" class="section level4">
+<h4>Cleaning DyadResponse</h4>
 <ol start="7" style="list-style-type: decimal">
 <li><strong>Handling NAs in Specific Columns:</strong>
 <ul>
@@ -742,8 +744,9 @@ View(Bex)</code></pre>
 </ul></li>
 </ol>
 <p>Please note that the code snippets may need to be adapted to your specific data and requirements. Let me know if you have any specific questions or if there’s anything else you’d like assistance with!</p>
-<div id="section-1" class="section level9">
+<div id="section" class="section level9">
 <p class="heading"></p>
+</div>
 </div>
 </div>
 <div id="glossary" class="section level1">
