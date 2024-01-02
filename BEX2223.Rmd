@@ -641,6 +641,13 @@ View(Bex)
 
 ```{r FemaleMaleID NA, echo=FALSE}
 
+# Replace all NA values in MaleID and FemaleID with NA
+Bex <- Bex %>%
+  mutate(
+    MaleID = ifelse(is.na(MaleID), NA, MaleID),
+    FemaleID = ifelse(is.na(FemaleID), NA, FemaleID)
+  )
+
 # Checking for amount of  missing values in FemaleID and MaleID
 
 # Missing values in FemaleID
@@ -695,7 +702,33 @@ cat("Row numbers with missing values in FemaleID not in MaleID: ", toString(only
     
 * **FemaleID** has **44 NA's** while they are **18 NA's** in **Male ID**
 * In these missing data, we have **18 NA's** that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID
-* Let's first loo
+* Looking at he NA's in Male ID, we see that all the missing data except one entry, comes from the 19th of april 2023 in Noha. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trails made and the audience we can see that these NA's in female and male ID are in the rows 1699 to 1716 and should have been made with **Xian** for the female ID and **Pom** for the **MaleID**. I will thus replace these values using a condtion. These NA's in Noha (Trial 1699 to 1716) are the only NA's that MaleID has and are the only NA's of female ID in Noha. I will thus replace every NA of **MaleID NA in Noha** with **Pom** and every **Female ID NA in Noha** with **Xian**
+
+
+```{r Male ID NA, echo=FALSE}
+library(dplyr)
+
+# Update the dataset
+Bex <- Bex %>%
+  mutate(
+    MaleID = ifelse(Group == "Noha" & is.na(MaleID), "Pom", MaleID),
+    FemaleID = ifelse(Group == "Noha" & is.na(FemaleID), "Xian", FemaleID)
+  )
+
+View(Bex)
+
+
+```
+
+
+
+```{r FemaleID, include=FALSE}
+
+
+```
+
+
+*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don't want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse
 
 * Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630 
 

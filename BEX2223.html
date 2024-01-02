@@ -701,9 +701,12 @@ View(Bex)</code></pre>
 <pre><code>## Number of missing values in FemaleID not in MaleID:  41</code></pre>
 <pre><code>## Row numbers with missing values in FemaleID not in MaleID:  865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1886, 1887, 2620, 2621, 2622, 2623, 2624, 2625, 2626, 2627, 2628, 2629, 2630</code></pre>
 <ul>
-<li><p><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></p></li>
-<li><p>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</p></li>
-<li><p>Let’s first loo</p></li>
+<li><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></li>
+<li>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</li>
+<li>Looking at he NA’s in Male ID, we see that all the missing data except one entry, comes from the 19th of april 2023 in Noha. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trails made and the audience we can see that these NA’s in female and male ID are in the rows 1699 to 1716 and should have been made with <strong>Xian</strong> for the female ID and <strong>Pom</strong> for the <strong>MaleID</strong>. I will thus replace these values using a condtion. These NA’s in Noha (Trial 1699 to 1716) are the only NA’s that MaleID has and are the only NA’s of female ID in Noha. I will thus replace every NA of <strong>MaleID NA in Noha</strong> with <strong>Pom</strong> and every <strong>Female ID NA in Noha</strong> with <strong>Xian</strong></li>
+</ul>
+<p>*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don’t want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse</p>
+<ul>
 <li><p>Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</p></li>
 <li><p>Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 Number of missing values in MaleID: 18</p></li>
 </ul>
