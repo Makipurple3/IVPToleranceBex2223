@@ -574,8 +574,6 @@ View(Bex)
 
 library(dplyr)
 
-# Create a new variable Distance with values from DyadDistance
-Bex <- Bex %>% mutate(Distance = DyadDistance)
 
 # Define replacement values
 replacement_values <- c(
@@ -584,11 +582,15 @@ replacement_values <- c(
   `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
 )
 
-# Applying rules to update Distance
+# Applying rules to update DyadDistance
 Bex <- Bex %>%
   mutate(
-    Distance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], Distance)
+    Dyadistance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], DyadDistance)
   )
+
+
+# Create a new variable Distance with values from DyadDistance
+Bex <- Bex %>% mutate(Distance = DyadDistance)
 
 # Count NA's in Distance
 na_count <- sum(is.na(Bex$Distance))
@@ -789,28 +791,41 @@ View(Bex)
 Number of missing values in MaleID:  18 
 
 
+```{r Check if Remaing NA, include=FALSE}
 
-**Replacing Missing Values:**
-   - Replaced missing values in `MaleID` and `FemaleID` columns with specified values.
+# Find rows with any NA values in the dataset
+rows_with_na_numbers <- which(rowSums(is.na(Bex)) > 0)
 
-   
-    ``{r replace NA FemMalID, echo=FALSE} 
+# Print the number of rows with NA values and their row numbers
+cat("Number of rows with NA values in the dataset:", length(rows_with_na_numbers), "\n")
+cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
+
+
+```
     
-# Replaced missing values in MaleID and FemaleID columns with specified values.
-replace_rows <- c(1699, 1700, ..., 2675)
-Bex$MaleID[replace_rows] <- "Pom"
-Bex$FemaleID[replace_rows] <- "Xian"
-   
-   
-  # Checked and replaced NAs in specific rows and columns.
-# Replace NAs in FemaleID based on row numbers
-replace_rows <- c(865:879, 1827:1839, 1913:1914, 2665:2675)
-Bex$FemaleID[replace_rows] <- c("Ndaw", "Sirk", "Oort", "Oerw")
-
-    ``
     
+  * The remaining rows with NA's are the row **866** that I will delete since no information at all is available for the DyadResponse. Concerning the row **1211** we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to "Other"
+  
+```{r Cleaning remaining NA, echo=FALSE}
+# Delete row where no information is available for DyadResponse
+Bex <- Bex[!is.na(Bex$DyadResponse), ]
 
+# Change DyadResponse where the corn was stolen to "Other"
+Bex$DyadResponse[Bex$DyadResponse == "Unknown" & Bex$FoodSource == "Stolen corn by Oup & Oort"] <- "Other"
 
+# Find rows with any NA values in the dataset
+rows_with_na_numbers <- which(rowSums(is.na(Bex)) > 0)
+
+# Print the number of rows with NA values and their row numbers
+cat("Number of rows with NA values in the dataset:", length(rows_with_na_numbers), "\n")
+cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
+
+View(Bex)
+```
+
+* It seems now that no NA's are remaining in the dataset, we can thus continue with the rest
+
+### Creating New Variables and cleaning the remaining ones
 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
