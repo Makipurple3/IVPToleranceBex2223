@@ -636,6 +636,19 @@ View(Bex)
 
 
 #### 2.10 Cleaning Female and Male ID
+
+* Before cleaning here are all the dyads that were present during the experiment. This will help us find the missing names when only one ID is missing (either male or female):
+  a. Sirk & Sey - BD
+  b. Ouli & Xin - BD
+  c. Piep & Xia - BD
+  d. Oerw & Nge - BD
+  e. Oort & Kom - BD
+  
+  f. Ginq & Sho - AK
+  g. Ndaw & Buk - Ak
+  
+  h. Xian & Pom - AK
+  i. Guat & Pom - Ak
 * First I have to check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad, trating these two columns together makes more sense. 
 
 
@@ -715,17 +728,57 @@ Bex <- Bex %>%
     FemaleID = ifelse(Group == "Noha" & is.na(FemaleID), "Xian", FemaleID)
   )
 
-View(Bex)
 
 
 ```
 
 
+* In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:
+
+  If there is NA in female ID, we willr eplace the value with 
+    - Sirk if MaleID is Sey
+    - Ouli if MaleID  is Xin
+    - Piep if MaleID  is  Xia 
+    - Oerw if MaleID  is  Nge 
+    - Oort if MaleID  is  Kom 
+    - Ginq if MaleID  is  Sho 
+    - Ndaw if MaleID  is  Buk 
 
 ```{r FemaleID, include=FALSE}
 
+library(dplyr)
 
+# Assuming Bex is your data frame
+Bex <- Bex %>%
+  mutate(
+    FemaleID = case_when(
+      is.na(FemaleID) & MaleID == "Sey" ~ "Sirk",
+      is.na(FemaleID) & MaleID == "Xin" ~ "Ouli",
+      is.na(FemaleID) & MaleID == "Xia" ~ "Piep",
+      is.na(FemaleID) & MaleID == "Nge" ~ "Oerw",
+      is.na(FemaleID) & MaleID == "Kom" ~ "Oort",
+      is.na(FemaleID) & MaleID == "Sho" ~ "Ginq",
+      is.na(FemaleID) & MaleID == "Buk" ~ "Ndaw",
+      TRUE ~ FemaleID  # Keep the existing value if none of the conditions are met
+    )
+  )
+
+
+# Count NA values in MaleID
+na_count_male <- sum(is.na(Bex$MaleID))
+cat("Number of NA values in MaleID: ", na_count_male, "\n")
+
+# Count NA values in FemaleID
+na_count_female <- sum(is.na(Bex$FemaleID))
+cat("Number of NA values in FemaleID: ", na_count_female, "\n")
+
+
+View(Bex)
 ```
+
+
+* After the use of the conditions in FemaleID I could see the the changes where successufly done and that 0 NA's are remaing in both FemaleID and MaleID
+
 
 
 *I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don't want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse

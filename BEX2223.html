@@ -688,6 +688,18 @@ View(Bex)</code></pre>
 <div id="cleaning-female-and-male-id" class="section level4">
 <h4>2.10 Cleaning Female and Male ID</h4>
 <ul>
+<li>Before cleaning here are all the dyads that were present during the experiment. This will help us find the missing names when only one ID is missing (either male or female):
+<ol style="list-style-type: lower-alpha">
+<li><p>Sirk &amp; Sey - BD</p></li>
+<li><p>Ouli &amp; Xin - BD</p></li>
+<li><p>Piep &amp; Xia - BD</p></li>
+<li><p>Oerw &amp; Nge - BD</p></li>
+<li><p>Oort &amp; Kom - BD</p></li>
+<li><p>Ginq &amp; Sho - AK</p></li>
+<li><p>Ndaw &amp; Buk - Ak</p></li>
+<li><p>Xian &amp; Pom - AK</p></li>
+<li><p>Guat &amp; Pom - Ak</p></li>
+</ol></li>
 <li>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad, trating these two columns together makes more sense.</li>
 </ul>
 <pre><code>## Number of missing values in FemaleID:  59</code></pre>
@@ -701,9 +713,21 @@ View(Bex)</code></pre>
 <pre><code>## Number of missing values in FemaleID not in MaleID:  41</code></pre>
 <pre><code>## Row numbers with missing values in FemaleID not in MaleID:  865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1886, 1887, 2620, 2621, 2622, 2623, 2624, 2625, 2626, 2627, 2628, 2629, 2630</code></pre>
 <ul>
-<li><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></li>
-<li>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</li>
-<li>Looking at he NA’s in Male ID, we see that all the missing data except one entry, comes from the 19th of april 2023 in Noha. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trails made and the audience we can see that these NA’s in female and male ID are in the rows 1699 to 1716 and should have been made with <strong>Xian</strong> for the female ID and <strong>Pom</strong> for the <strong>MaleID</strong>. I will thus replace these values using a condtion. These NA’s in Noha (Trial 1699 to 1716) are the only NA’s that MaleID has and are the only NA’s of female ID in Noha. I will thus replace every NA of <strong>MaleID NA in Noha</strong> with <strong>Pom</strong> and every <strong>Female ID NA in Noha</strong> with <strong>Xian</strong></li>
+<li><p><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></p></li>
+<li><p>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</p></li>
+<li><p>Looking at he NA’s in Male ID, we see that all the missing data except one entry, comes from the 19th of april 2023 in Noha. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trails made and the audience we can see that these NA’s in female and male ID are in the rows 1699 to 1716 and should have been made with <strong>Xian</strong> for the female ID and <strong>Pom</strong> for the <strong>MaleID</strong>. I will thus replace these values using a condtion. These NA’s in Noha (Trial 1699 to 1716) are the only NA’s that MaleID has and are the only NA’s of female ID in Noha. I will thus replace every NA of <strong>MaleID NA in Noha</strong> with <strong>Pom</strong> and every <strong>Female ID NA in Noha</strong> with <strong>Xian</strong></p></li>
+<li><p>In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:</p>
+<p>If there is NA in female ID, we willr eplace the value with</p>
+<ul>
+<li>Sirk if MaleID is Sey</li>
+<li>Ouli if MaleID is Xin</li>
+<li>Piep if MaleID is Xia</li>
+<li>Oerw if MaleID is Nge</li>
+<li>Oort if MaleID is Kom</li>
+<li>Ginq if MaleID is Sho</li>
+<li>Ndaw if MaleID is Buk</li>
+</ul></li>
+<li><p>After the use of the conditions in FemaleID I could see the the changes where successufly done and that 0 NA’s are remaing in both FemaleID and MaleID</p></li>
 </ul>
 <p>*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don’t want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse</p>
 <ul>
