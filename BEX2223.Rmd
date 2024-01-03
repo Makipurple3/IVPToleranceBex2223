@@ -901,8 +901,27 @@ View(Bex)
 ```
 
 
-* Group
-* Male and Female ID - Creation of Dyad, Trial and Session
+#### Group - Ok
+#### Male and Female ID - Creation of Dyad, Trial and Session
+
+* I will use Female and Male ID to create different variables
+  1. Check what **unique outputs** exist **for FemaleID and MaleID** to make sure they are no mistakes
+  2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
+    - Sirk Sey
+    - Ouli Xin
+    - Piep Xia 
+    - Oerw Nge 
+    - Oort Kom 
+    - Ginq Sho 
+    - Ndaw Buk 
+    - Xian Pom
+    - Guat Pom
+  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial**
+  4. Create the variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  5. Make a summary   of trial and session so I can see see how many trials and sessions have been done with the individuals
+  
+
+
 * Female Corn and Male Corn - 
 * DyadDistance - Creation of proximity
 * Dyad Response - Detailed cleaning

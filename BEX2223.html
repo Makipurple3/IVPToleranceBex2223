@@ -762,26 +762,53 @@ View(Bex)</code></pre>
 <div id="date---creation-of-month-and-day" class="section level4">
 <h4>Date - Creation of Month and Day</h4>
 <ul>
-<li><p>i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)</p></li>
-<li><p>Group</p></li>
-<li><p>Male and Female ID - Creation of Dyad, Trial and Session</p></li>
-<li><p>Female Corn and Male Corn -</p></li>
-<li><p>DyadDistance - Creation of proximity</p></li>
-<li><p>Dyad Response - Detailed cleaning</p></li>
-<li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
-<li><p>Audience - Creation of Amount Audience and Density</p></li>
-<li><p>ID Individua1 - Not sure yet</p></li>
-<li><p>Intruder ID</p></li>
-<li><p>Remarks - Detailed Cleaning</p></li>
-<li><p>Intrusion</p></li>
-<li><p>Not Approaching</p></li>
-<li><p>Lossing Interest</p></li>
-<li><p>Distracted</p></li>
-<li><p>MultipleResponse</p></li>
-<li><p>Amount Audience</p></li>
-<li><p>DyadDistance</p></li>
-<li><p>Distance</p></li>
-<li><p>No trial</p></li>
+<li>i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)</li>
+</ul>
+</div>
+<div id="group---ok" class="section level4">
+<h4>Group - Ok</h4>
+</div>
+<div id="male-and-female-id---creation-of-dyad-trial-and-session" class="section level4">
+<h4>Male and Female ID - Creation of Dyad, Trial and Session</h4>
+<ul>
+<li>I will use Female and Male ID to create different variables
+<ol style="list-style-type: decimal">
+<li>Check what <strong>unique outputs</strong> exist <strong>for FemaleID and MaleID</strong> to make sure they are no mistakes</li>
+<li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here;</li>
+</ol>
+<ul>
+<li>Sirk Sey</li>
+<li>Ouli Xin</li>
+<li>Piep Xia</li>
+<li>Oerw Nge</li>
+<li>Oort Kom</li>
+<li>Ginq Sho</li>
+<li>Ndaw Buk</li>
+<li>Xian Pom</li>
+<li>Guat Pom</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong></li>
+<li>Create the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong></li>
+<li>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</li>
+</ol></li>
+<li>Female Corn and Male Corn -</li>
+<li>DyadDistance - Creation of proximity</li>
+<li>Dyad Response - Detailed cleaning</li>
+<li>Other Reponse - DEtailed cleaning to delete the column</li>
+<li>Audience - Creation of Amount Audience and Density</li>
+<li>ID Individua1 - Not sure yet</li>
+<li>Intruder ID</li>
+<li>Remarks - Detailed Cleaning</li>
+<li>Intrusion</li>
+<li>Not Approaching</li>
+<li>Lossing Interest</li>
+<li>Distracted</li>
+<li>MultipleResponse</li>
+<li>Amount Audience</li>
+<li>DyadDistance</li>
+<li>Distance</li>
+<li>No trial</li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
 <pre><code>## [1] &quot;12:58:09&quot; &quot;12:58:17&quot; &quot;12:58:25&quot; &quot;12:58:44&quot; &quot;12:58:52&quot; &quot;12:59:00&quot;</code></pre>
