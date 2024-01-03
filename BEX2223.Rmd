@@ -783,6 +783,8 @@ cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 
 *I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don't want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse
 
+
+* Row numbers of Female and Male ID to check if every line was correctly changed
 * Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630 
 
 * Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 
@@ -820,19 +822,97 @@ cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
 
 ```
 
-* It seems now that no NA's are remaining in the dataset, we can thus continue with the rest
+* It seems now that no NA's are remaining in the dataset, we can thus continue with the process of cleaning the dataset
 
-### Creating New Variables and cleaning the remaining ones
+### Creating New Variables and modifying the existing ones
+
+* I will now treat the remaining variables, let's see which ones and why
+
+```{r Bex Names, include=FALSE}
+
+
+# Get the names of variables in the dataframe
+variable_names <- names(Bex)
+
+# Print the list of variable names
+cat("Variable names: ", toString(variable_names), "\n")
+
+
+
+```
+
+#### Time - Creation of Period
+* Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
+
+```{r Time Periods, include=FALSE}
+
+
+```
+* The **Minimum Time** in the dataset is **06:03:26*** while the **Maximum Time** is at **16:36:59**
+* In my box experiment I have this variable called time that tells me when the experiment was done. I don't think I need this information per se. I was wondering if it could be easy and interesting to see from when to when the time occurs and then separate this time in a few sections like early, monring, morning, miday, afternoon, end of the day
+* a.6 to 8 : Early morning
+  b.8 to 10: Morning
+  c.10 to 12: Noon
+  d.12 to 14: Afternoon
+  e.14 to 17: End of the day
+
+> 
+
+
+* Date
+* Group
+* MaleID
+* Female ID
+* Female Corn
+* Male Corn
+* DyadDistance
+* Dyad Response
+* Other Reponse
+* Audience
+* ID Individua1
+* Intruder ID
+* Remarks
+* Male Corn
+* Intrusion
+* Not Approaching
+* Lossing Interest
+* Distracted
+* MultipleResponse
+* Amount Audience
+* DyadDistance
+* Distance
+* No trial
+
+```{r temporary section}
+head(Bex$Time)
+
+```
+
+
+
 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
+    * I will also create a variable called **Trial** to know how many trials have been done with each dyad where **1 row = 1 trial** 
+    
     * I may consider, in parallel of my hypothesis, to separate the data in *4 seasons* to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout      tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report.
     l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of          data will be separated in 4 categories
    
 
 
 * But before I may want to make a few changes already by merging **Male corn** and **Male placement corn** into " Male corn" and maybe replacing all of the NA's in "Other response" by response
+
+#Lines to check unique values in MaleFemaleID to see if they are any problems with it
+# Unique values in MaleID
+unique_male_ids <- unique(Bex$MaleID)
+
+# Unique values in FemaleID
+unique_female_ids <- unique(Bex$FemaleID)
+
+# Print the unique values
+cat("Unique values in MaleID: ", toString(unique_male_ids), "\n")
+cat("Unique values in FemaleID: ", toString(unique_female_ids), "\n")
 
 
 
@@ -871,6 +951,10 @@ Please note that the code snippets may need to be adapted to your specific data 
 
 
 # Sections below are here for the organization of my paper and will be worked on once the data cleaning and exploration is done
+
+## 3. Describing the data
+
+## 4.Visualizing the data
 
 ## 5.Research question & Hypothesis
 
@@ -1151,7 +1235,7 @@ experiments made
 
 
 # Bibliography
- •	Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. https://doi.org/10.1002/evan.21793
+ • Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. https://doi.org/10.1002/evan.21793
 (Pisor & Surbeck, 2019)
 
 

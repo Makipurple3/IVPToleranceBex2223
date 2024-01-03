@@ -733,21 +733,78 @@ View(Bex)</code></pre>
 </ul>
 <p>*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don’t want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse</p>
 <ul>
+<li><p>Row numbers of Female and Male ID to check if every line was correctly changed</p></li>
 <li><p>Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</p></li>
 <li><p>Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 Number of missing values in MaleID: 18</p>
 <ul>
 <li>The remaining rows with NA’s are the row <strong>866</strong> that I will delete since no information at all is available for the DyadResponse. Concerning the row <strong>1211</strong> we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to “Other”</li>
 </ul></li>
-<li><p>It seems now that no NA’s are remaining in the dataset, we can thus continue with the rest</p></li>
+<li><p>It seems now that no NA’s are remaining in the dataset, we can thus continue with the process of cleaning the dataset</p></li>
 </ul>
 </div>
 </div>
-<div id="creating-new-variables-and-cleaning-the-remaining-ones" class="section level3">
-<h3>Creating New Variables and cleaning the remaining ones</h3>
+<div id="creating-new-variables-and-modifying-the-existing-ones" class="section level3">
+<h3>Creating New Variables and modifying the existing ones</h3>
 <ul>
-<li><p>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I may consider, in parallel of my hypothesis, to separate the data in <em>4 seasons</em> to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report. l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of data will be separated in 4 categories</p></li>
-<li><p>But before I may want to make a few changes already by merging <strong>Male corn</strong> and <strong>Male placement corn</strong> into ” Male corn” and maybe replacing all of the NA’s in “Other response” by response</p></li>
+<li>I will now treat the remaining variables, let’s see which ones and why</li>
 </ul>
+<div id="time---creation-of-period" class="section level4">
+<h4>Time - Creation of Period</h4>
+<ul>
+<li><p>Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise.</p></li>
+<li><p>The <strong>Minimum Time</strong> in the dataset is <strong>06:03:26</strong>* while the <strong>Maximum Time</strong> is at <strong>16:36:59</strong></p></li>
+<li><p>In my box experiment I have this variable called time that tells me when the experiment was done. I don’t think I need this information per se. I was wondering if it could be easy and interesting to see from when to when the time occurs and then separate this time in a few sections like early, monring, morning, miday, afternoon, end of the day</p></li>
+<li><p>a.6 to 8 : Early morning b.8 to 10: Morning c.10 to 12: Noon d.12 to 14: Afternoon e.14 to 17: End of the day</p></li>
+</ul>
+<blockquote>
+
+</blockquote>
+<ul>
+<li>Date</li>
+<li>Group</li>
+<li>MaleID</li>
+<li>Female ID</li>
+<li>Female Corn</li>
+<li>Male Corn</li>
+<li>DyadDistance</li>
+<li>Dyad Response</li>
+<li>Other Reponse</li>
+<li>Audience</li>
+<li>ID Individua1</li>
+<li>Intruder ID</li>
+<li>Remarks</li>
+<li>Male Corn</li>
+<li>Intrusion</li>
+<li>Not Approaching</li>
+<li>Lossing Interest</li>
+<li>Distracted</li>
+<li>MultipleResponse</li>
+<li>Amount Audience</li>
+<li>DyadDistance</li>
+<li>Distance</li>
+<li>No trial</li>
+</ul>
+<pre class="r"><code>head(Bex$Time)</code></pre>
+<pre><code>## [1] &quot;09:47:50&quot; &quot;09:50:07&quot; &quot;09:53:11&quot; &quot;09:54:28&quot; &quot;09:55:19&quot; &quot;09:56:56&quot;</code></pre>
+<ul>
+<li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
+</ul>
+<pre><code>* I may consider, in parallel of my hypothesis, to separate the data in *4 seasons* to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout      tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report.
+l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of          data will be separated in 4 categories</code></pre>
+<ul>
+<li>But before I may want to make a few changes already by merging <strong>Male corn</strong> and <strong>Male placement corn</strong> into ” Male corn” and maybe replacing all of the NA’s in “Other response” by response</li>
+</ul>
+<p>#Lines to check unique values in MaleFemaleID to see if they are any problems with it # Unique values in MaleID unique_male_ids &lt;- unique(Bex$MaleID)</p>
+</div>
+</div>
+</div>
+<div id="unique-values-in-femaleid" class="section level1">
+<h1>Unique values in FemaleID</h1>
+<p>unique_female_ids &lt;- unique(Bex$FemaleID)</p>
+</div>
+<div id="print-the-unique-values" class="section level1">
+<h1>Print the unique values</h1>
+<p>cat(“Unique values in MaleID:”, toString(unique_male_ids), “”) cat(“Unique values in FemaleID:”, toString(unique_female_ids), “”)</p>
 <div id="cleaning-dyadresponse" class="section level4">
 <h4>Cleaning DyadResponse</h4>
 <ol start="7" style="list-style-type: decimal">
@@ -773,9 +830,14 @@ View(Bex)</code></pre>
 <p>Please note that the code snippets may need to be adapted to your specific data and requirements. Let me know if you have any specific questions or if there’s anything else you’d like assistance with!</p>
 </div>
 </div>
-</div>
 <div id="sections-below-are-here-for-the-organization-of-my-paper-and-will-be-worked-on-once-the-data-cleaning-and-exploration-is-done" class="section level1">
 <h1>Sections below are here for the organization of my paper and will be worked on once the data cleaning and exploration is done</h1>
+<div id="describing-the-data" class="section level2">
+<h2>3. Describing the data</h2>
+</div>
+<div id="visualizing-the-data" class="section level2">
+<h2>4.Visualizing the data</h2>
+</div>
 <div id="research-question-hypothesis" class="section level2">
 <h2>5.Research question &amp; Hypothesis</h2>
 <div id="research-question" class="section level3">
