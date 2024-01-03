@@ -773,25 +773,337 @@ View(Bex)</code></pre>
 <ul>
 <li>I will use Female and Male ID to create different variables
 <ol style="list-style-type: decimal">
-<li>Check what <strong>unique outputs</strong> exist <strong>for FemaleID and MaleID</strong> to make sure they are no mistakes</li>
-<li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here;</li>
+<li>While checking if there are still any mistakes in <strong>FemaleID and MaleID</strong> using <strong>unique</strong>, I saw that some of the names are in the wrong rows. I want the <strong>3 letter male codes</strong> whether they are in the column FemaleID or MaleID to be in the <strong>new column Male</strong> while I want the <strong>4 letter female codes</strong> whether they are in FemaleID or MaleID to be in the <strong>new column Female</strong> before checking again with unique that the transformation worked. I will use mutate</li>
+</ol></li>
+</ul>
+<pre><code>## Unique Female IDs: Sirk Piep Oerw Xin Ginq Ndaw Xia Sey Ouli Nge Oort Xian Guat Kom</code></pre>
+<pre><code>## 
+## Ginq Guat  Kom Ndaw  Nge Oerw Oort Ouli Piep  Sey Sirk  Xia Xian  Xin 
+##  279    5   29  257   19  162  341  158  571   17  567   35  257   27</code></pre>
+<pre><code>## Unique Male IDs: Sey Xia Nge Ouli Sho Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
+<pre><code>## 
+##  Buk  Kom  Nge Oerw Oort Ouli Piep  Pom  Sey  Sho Sirk  Xia  Xin 
+##  263  337  162   19   29   27   35  262  567  273   17  571  162</code></pre>
+<pre><code>##       
+##        Buk Kom Nge Oerw Oort Ouli Piep Pom Sey Sho Sirk Xia Xin
+##   Ginq   6   0   0    0    0    0    0   0   0 273    0   0   0
+##   Guat   0   0   0    0    0    0    0   5   0   0    0   0   0
+##   Kom    0   0   0    0   29    0    0   0   0   0    0   0   0
+##   Ndaw 257   0   0    0    0    0    0   0   0   0    0   0   0
+##   Nge    0   0   0   19    0    0    0   0   0   0    0   0   0
+##   Oerw   0   0 162    0    0    0    0   0   0   0    0   0   0
+##   Oort   0 337   0    0    0    0    0   0   0   0    0   0   4
+##   Ouli   0   0   0    0    0    0    0   0   0   0    0   0 158
+##   Piep   0   0   0    0    0    0    0   0   0   0    0 571   0
+##   Sey    0   0   0    0    0    0    0   0   0   0   17   0   0
+##   Sirk   0   0   0    0    0    0    0   0 567   0    0   0   0
+##   Xia    0   0   0    0    0    0   35   0   0   0    0   0   0
+##   Xian   0   0   0    0    0    0    0 257   0   0    0   0   0
+##   Xin    0   0   0    0    0   27    0   0   0   0    0   0   0</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="right">Buk</th>
+<th align="right">Kom</th>
+<th align="right">Nge</th>
+<th align="right">Oerw</th>
+<th align="right">Oort</th>
+<th align="right">Ouli</th>
+<th align="right">Piep</th>
+<th align="right">Pom</th>
+<th align="right">Sey</th>
+<th align="right">Sho</th>
+<th align="right">Sirk</th>
+<th align="right">Xia</th>
+<th align="right">Xin</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Ginq</td>
+<td align="right">6</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">273</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Guat</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">5</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">29</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Ndaw</td>
+<td align="right">257</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Nge</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">19</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Oerw</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">162</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Oort</td>
+<td align="right">0</td>
+<td align="right">337</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Ouli</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">158</td>
+</tr>
+<tr class="odd">
+<td align="left">Piep</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">571</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Sey</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">17</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Sirk</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">567</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Xia</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">35</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
+<td align="left">Xian</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">257</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+<tr class="even">
+<td align="left">Xin</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">27</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+<td align="right">0</td>
+</tr>
+</tbody>
+</table>
+<ol style="list-style-type: decimal">
+<li>Create a variavble called Male that in each row will take the name of the <strong>3 letter code</strong> that is either in MaleID or Female ID</li>
+<li>Create a variable called Female that in each row will take the name of the <strong>4 letter code</strong> that is either in MaleID or FemaleID</li>
+<li>Create Dyad that take the **3 letter code*3 then a space and the <strong>4 letter code</strong></li>
+</ol>
+<pre><code>## 
+## Unique Female: Sirk Piep Oerw Ouli Ginq Ndaw Oort Xian Guat</code></pre>
+<pre><code>## Unique Male: Sey Xia Nge Xin Sho Buk Kom Pom</code></pre>
+<pre><code>## Unique Dyad Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Xin   Oort</code></pre>
+<ol start="2" style="list-style-type: decimal">
+<li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here; - Sirk Sey - Ouli Xin - Piep Xia - Oerw Nge - Oort Kom - Ginq Sho - Ndaw Buk - Xian Pom - Guat Pom</li>
+<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
+</ol>
+<pre><code>## Trial Summary:</code></pre>
+<pre><code>## # A tibble: 16 × 2
+##    Dyad     Num_Trials
+##    &lt;chr&gt;         &lt;int&gt;
+##  1 Ginq Buk          6
+##  2 Ginq Sho        273
+##  3 Guat Pom          5
+##  4 Kom Oort         29
+##  5 Ndaw Buk        257
+##  6 Nge Oerw         19
+##  7 Oerw Nge        162
+##  8 Oort Kom        337
+##  9 Oort Xin          4
+## 10 Ouli Xin        158
+## 11 Piep Xia        571
+## 12 Sey Sirk         17
+## 13 Sirk Sey        567
+## 14 Xia Piep         35
+## 15 Xian Pom        257
+## 16 Xin Ouli         27</code></pre>
+<pre><code>## 
+## Session Summary:</code></pre>
+<pre><code>## # A tibble: 16 × 2
+##    Dyad     Num_Sessions
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 Ginq Buk            5
+##  2 Ginq Sho           17
+##  3 Guat Pom            5
+##  4 Kom Oort           15
+##  5 Ndaw Buk           17
+##  6 Nge Oerw           12
+##  7 Oerw Nge           16
+##  8 Oort Kom           18
+##  9 Oort Xin            4
+## 10 Ouli Xin           19
+## 11 Piep Xia           17
+## 12 Sey Sirk           13
+## 13 Sirk Sey           22
+## 14 Xia Piep           15
+## 15 Xian Pom           23
+## 16 Xin Ouli           10</code></pre>
+<ol start="5" style="list-style-type: decimal">
+<li>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</li>
 </ol>
 <ul>
-<li>Sirk Sey</li>
-<li>Ouli Xin</li>
-<li>Piep Xia</li>
-<li>Oerw Nge</li>
-<li>Oort Kom</li>
-<li>Ginq Sho</li>
-<li>Ndaw Buk</li>
-<li>Xian Pom</li>
-<li>Guat Pom</li>
-</ul>
-<ol start="3" style="list-style-type: decimal">
-<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong></li>
-<li>Create the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong></li>
-<li>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</li>
-</ol></li>
 <li>Female Corn and Male Corn -</li>
 <li>DyadDistance - Creation of proximity</li>
 <li>Dyad Response - Detailed cleaning</li>

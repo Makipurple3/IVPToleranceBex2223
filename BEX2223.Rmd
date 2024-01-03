@@ -905,7 +905,55 @@ View(Bex)
 #### Male and Female ID - Creation of Dyad, Trial and Session
 
 * I will use Female and Male ID to create different variables
-  1. Check what **unique outputs** exist **for FemaleID and MaleID** to make sure they are no mistakes
+  1. While checking if there are still any mistakes  in **FemaleID and MaleID** using **unique**, I saw that some of the names are in the wrong rows. I want the **3 letter male codes** whether they are in the column FemaleID or MaleID to be in the **new column Male** while I want the **4 letter female codes** whether they are in FemaleID or MaleID to be in the **new column Female** before checking again with unique that the transformation worked. I will use mutate
+```{r Female Male ID Check, echo=FALSE}
+#Unique outputs for FemaleID
+unique_female_ids <- unique(Bex$FemaleID)
+cat("Unique Female IDs:", unique_female_ids, "\n")
+
+# Count the occurrences of each name before the transformation
+table(Bex$FemaleID)
+
+# Unique outputs for MaleID
+unique_male_ids <- unique(Bex$MaleID)
+cat("Unique Male IDs:", unique_male_ids, "\n")
+
+# Count the occurrences of each name before the transformation
+table(Bex$MaleID)
+
+
+before_summary <- table(Bex$FemaleID, Bex$MaleID)
+kable(print(before_summary))
+
+```
+1. Create a variavble called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID
+2. Create a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
+3. Create Dyad that take the **3 letter code*3 then a space and the **4 letter code**
+```{r Female Male ID correction, echo=FALSE}
+
+Bex <- Bex %>%
+  mutate(
+    Male = ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
+    Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA)),
+    Dyad = paste(ifelse(nchar(Male) == 3, Male, NA), " ", ifelse(nchar(Female) == 4, Female, NA))
+  )
+
+# Check and summarize unique Female and Male IDs after the transformation
+unique_female <- unique(Bex$Female)
+unique_male <- unique(Bex$Male)
+unique_dyad <- unique(Bex$Dyad)
+
+cat("\nUnique Female:", unique_female, "\n")
+cat("Unique Male:", unique_male, "\n")
+cat("Unique Dyad", unique_dyad, "\n")
+
+```
+  
+  
+
+
+
+
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
     - Sirk Sey
     - Ouli Xin
@@ -916,8 +964,44 @@ View(Bex)
     - Ndaw Buk 
     - Xian Pom
     - Guat Pom
-  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial**
-  4. Create the variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  Now, let's proceed with creating the Dyad variable, Trial, and Session:
+
+```{r Dyad and Session, echo=FALSE}
+
+# Create Dyad variable
+Bex <- Bex %>%
+  mutate(Dyad = paste(FemaleID, MaleID, sep = " "))
+
+# Create Trial variable
+Bex <- Bex %>%
+  arrange(Date, Dyad) %>%
+  group_by(Dyad) %>%
+  mutate(Trial = row_number())
+
+# Create Session variable
+Bex <- Bex %>%
+  arrange(Date, Dyad) %>%
+  group_by(Dyad, Date) %>%
+  mutate(Session = row_number())
+
+# Summary of Trial and Session
+summary_trial <- Bex %>%
+  group_by(Dyad) %>%
+  summarise(Num_Trials = max(Trial))
+
+summary_session <- Bex %>%
+  group_by(Dyad) %>%
+  summarise(Num_Sessions = max(Session))
+
+cat("Trial Summary:\n")
+print(summary_trial)
+
+cat("\nSession Summary:\n")
+print(summary_session)
+
+```
+
   5. Make a summary   of trial and session so I can see see how many trials and sessions have been done with the individuals
   
 
