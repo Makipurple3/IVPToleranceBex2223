@@ -758,9 +758,33 @@ View(Bex)</code></pre>
 <li><p>Last, I want to create a variable called Hour that will take the value in Time and round it to the hour in which it is ex: from 06:00 to 06:59 -&gt; 6, from 07:00 to 07:59 -&gt; 7 etc…</p></li>
 <li><p>This will allow me to see when most of the trials occured with more detail and I will be to see in which hour most of the trial happened. Nevertheless Period will be better for an improved readability</p></li>
 </ul>
-<p>####Date - Creation of Month * Group * Male and Female ID - Creation of Dyad, Trial and Session * Female Corn and Male Corn - * DyadDistance - Creation of proximity * Dyad Response - Detailed cleaning * Other Reponse - DEtailed cleaning to delete the column * Audience - Creation of Amount Audience and Density * ID Individua1 - Not sure yet * Intruder ID * Remarks - Detailed Cleaning * Intrusion * Not Approaching * Lossing Interest * Distracted * MultipleResponse * Amount Audience * DyadDistance * Distance * No trial</p>
+</div>
+<div id="date---creation-of-month-and-day" class="section level4">
+<h4>Date - Creation of Month and Day</h4>
+<ul>
+<li><p>i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)</p></li>
+<li><p>Group</p></li>
+<li><p>Male and Female ID - Creation of Dyad, Trial and Session</p></li>
+<li><p>Female Corn and Male Corn -</p></li>
+<li><p>DyadDistance - Creation of proximity</p></li>
+<li><p>Dyad Response - Detailed cleaning</p></li>
+<li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
+<li><p>Audience - Creation of Amount Audience and Density</p></li>
+<li><p>ID Individua1 - Not sure yet</p></li>
+<li><p>Intruder ID</p></li>
+<li><p>Remarks - Detailed Cleaning</p></li>
+<li><p>Intrusion</p></li>
+<li><p>Not Approaching</p></li>
+<li><p>Lossing Interest</p></li>
+<li><p>Distracted</p></li>
+<li><p>MultipleResponse</p></li>
+<li><p>Amount Audience</p></li>
+<li><p>DyadDistance</p></li>
+<li><p>Distance</p></li>
+<li><p>No trial</p></li>
+</ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
-<pre><code>## [1] &quot;09:47:50&quot; &quot;09:50:07&quot; &quot;09:53:11&quot; &quot;09:54:28&quot; &quot;09:55:19&quot; &quot;09:56:56&quot;</code></pre>
+<pre><code>## [1] &quot;12:58:09&quot; &quot;12:58:17&quot; &quot;12:58:25&quot; &quot;12:58:44&quot; &quot;12:58:52&quot; &quot;12:59:00&quot;</code></pre>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
 </ul>

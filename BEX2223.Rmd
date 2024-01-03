@@ -880,11 +880,27 @@ Bex <- Bex %>%
          Hour = format(Hour, "%H:%M:%S"),  # Format Hour for display
          Time = format(Time, "%H:%M:%S"))  # Format Time for display
 
+
+```
+
+#### Date - Creation of Month and Day
+*  i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)
+```{r Month and Day, include=FALSE}
+
+# Assuming 'Date' is the name of your variable
+Bex <- Bex %>%
+  arrange(Date) %>%  # Arrange data in ascending order of Date
+  mutate(
+    Day = as.numeric(difftime(Date, min(Date), units = "days")) + 1,  # Assign a unique day number
+    Month = format(Date, "%Y-%m")  # Include both year and month in Month variable
+  )
+
+
 View(Bex)
 
 ```
 
-####Date - Creation of Month
+
 * Group
 * Male and Female ID - Creation of Dyad, Trial and Session
 * Female Corn and Male Corn - 
