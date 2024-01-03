@@ -869,6 +869,275 @@ Please note that the code snippets may need to be adapted to your specific data 
 
 
 
+
+# Sections below are here for the organization of my paper and will be worked on once the data cleaning and exploration is done
+
+## 5.Research question & Hypothesis
+
+### Research question
+
+-   What factors influence the rate at which individuals (vervets) learn
+    to tolerate each other in a controlled box experiment?
+
+-   Ex: The rate at which individuals (vervets) learn to tolerate each
+    other in a box experiment is influenced by social factors (audience,
+    social network, behavior of the partner) and idioyncratic factors
+    (age, rank)
+
+### Hypothesis
+
+-   1.  Hypothesis about the Presence of High-Ranking Individuals:
+
+The presence of a higher number of high-ranking individuals in the
+audience will negatively correlate with the level of tolerance achieved
+among vervets in the box experiment. This is expected to result in
+higher frequencies of aggressive behaviors, intrusions, and loss of
+interest, particularly from lower-ranking individuals.
+
+-   2.  Hypothesis about Partner Agonistic Behaviors:
+
+Vervets tolerance levels in the box experiment will be influenced by
+their partner’s display of agonistic behaviors. Specifically, partners
+who exhibit more frequent agonistic behaviors towards their partner will
+lead to decrease in their motivation to participate in future trials.
+
+-   3.  Hypothesis about the Establishment of an Optimal Distance:
+
+During the box experiment, vervet dyads will establish an “optimal”
+distance for interaction, characterized by a higher frequency of
+tolerance compared to other distances. This optimal distance is expected
+to signify that the individuals tolerate each other more effectively at
+this specific proximity .
+
+-   4.  Hypothesis about Age and Rank:
+
+The age and rank of individual vervets within the group will influence
+the success of the trials in the box experiment. Specifically, older and
+higher-ranking individuals are expected to exhibit lower rates of
+success compared to dyads consisting of younger and lower-ranked
+individuals. This decrease in success is anticipated to be associated
+with a higher frequency of aggressive behaviors displayed by older and
+higher-ranking individuals towards their partners. (I’m not sure this
+hypothesis makes sens, I have the feeling age and rank must have an
+influence but I don’t know how to put it, I will think about it)
+
+-   5.  Hyptohesis about seasonality
+
+Seasonality is expected to impact the motivation of vervet dyads to
+participate in the box experiment. We hypothesize that dyads will have
+lower motivation, as indicated by a reduced number of trials, during the
+summer months compared to the winter months. This difference in
+motivation is likely influenced by temperature and food availability. To
+test this hypothesis, we will categorize the data into four seasonal
+periods, each spanning four months, and analyze whether there is a
+significant effect of seasonality on the motivation to engage in the
+trials.
+
+## 6.Statistical tests and analisis of the data
+
+### Statistical tests
+
+-   **Hypothesis 1**: Influence of High-Ranking Individuals
+
+Variables Needed:
+
+**DyadResponse** (specifically, “aggression” responses)
+**Amountaudience** (to measure the number of individuals in the
+audience) **Audience…15** (to identify the names of individuals in the
+audience for calculating dominance ranks) **Elo rating** of the
+individuals based on the ab libitum data collected in IVP (which I have
+to calculate asap)
+
+Statistical Analysis:**Logistic Regression**, as it could analyze the
+influence of high-ranking individuals on the occurrence of aggression in
+dyad responses. This will help determine whether the presence of
+high-ranking individuals affects the likelihood of aggression.
+
+-   **Hypothesis 2**: Impact of Partner’s Agonistic Behaviors
+
+Variables Needed:
+
+-   **DyadResponse** (specifically, “aggression” responses)
+-   **MaleagressF** (male’s aggression towards female)
+-   **FemaleaggressM** (female’s aggression towards male)
+
+Statistical Analysis: **Logistic Regression** as it could be used to
+assess how the occurrence of aggression in dyad responses is influenced
+by the partner’s gender-specific agonistic behaviors.
+
+-   **Hypothesis 3**: Identification of an Optimal Interaction Distance
+
+Variables Needed:
+
+-   **DyadDistance** (distance between boxes)
+-   **Tolerance** (as a binary outcome)
+
+Statistical Analysis: **generalized Linear Model (GLM)** to investigate
+whether there is an optimal distance that leads to a higher likelihood
+of tolerance (Tolerance = 1).
+
+-   **Hypothesis 4**: Role of Age and Rank
+
+Variables Needed:
+
+-   **Tolerance** (as a binary outcome)
+-   **Male and Female** (to identify individuals’ ages and ranks)
+-   **Dyad** (to link individuals to dyads)
+-   **Birthdate** to calculate the age of each individual
+
+Statistical Analysis: **Logistic Regression** Logistic regression can be
+employed to determine whether the age and rank of individual vervets
+within dyads have an impact on the likelihood of tolerance (Tolerance =
+1).
+
+-   **Hypothesis 5**: Influence of Seasonality
+
+Variables Needed:
+
+-   **Date** (to categorize data into seasons)
+-   **Trial** (to count the number of trials in each season) and the
+    data for at least 365 days so i can separate the data in 4 (1 year =
+    4 seasons = 12\*4 month) to see if they may be an effect of
+    seasonality on the motivation (amount of trials) of the dyads
+
+Statistical Analysis:
+
+ANOVA or Kruskal-Wallis Test: Depending on the distribution of your
+trial data, you can use either ANOVA (if the data are normally
+distributed) or the Kruskal-Wallis test (for non-normally distributed
+data) to assess the impact of seasonality on the number of trials. If
+significant differences are found, you can follow up with post-hoc tests
+to identify which seasons differ from each other. Please note that the
+effectiveness of these analyses may depend on the distribution of your
+data and specific research objectives. You may also consider conducting
+exploratory data analysis (e.g., visualization) to gain a better
+understanding of your dataset before performing these analyses.
+Additionally, if you have specific questions about data preprocessing or
+variable transformations, feel free to ask for further guidance. –> I
+took this from ChatGPT, I have to look more into it
+
+**REMARKS**: So here are a few updates I made in the document. I also
+planned to send my cleaned data to Radu (the statistician of UNINE) as
+he was keen to help me find the right test. Of course I will also look
+again in Bshary’s and Charlotte’s work with the boxes and improve these
+suggestions that are quite simple for now
+
+Also I still have to clean the last grpahs about male/female aggression
+as I didn’t finish that yet. I juste wanted to share my hypothesis and
+ideas for statistics so I can soon go into the “serious” work
+
+Anyway, thank you in advance for your help \<3
+
+Michael
+
+## 7. Plotting the results of the analysis
+
+## 9. Interpretation of the results
+
+## 10. Comeback on the research question and hypothesis
+
+## 11. Bibliography
+
+## 12. Organization for my paper
+
+-   Introduction
+    -   Tolerance humans, primates
+    -   Apes vs monkeys / Captivity vs Wild
+    -   IVP: Wild habituated vervets, experiments possible
+    -   Paper Bshary, Canteloup… Prolongation study
+    -   Relevance idea/topic research
+    -   Research question & hypothesis
+
+But: intro need triangle shape: broad to narrow end wiht research
+question> tolerance importance \> animal reign, actual knowledge/
+direction knowledge we need \> show how my experiment goes in that way
+How to adress the gap, answer with research question
+
+Then explain why choosing vervet monkeys, (IVP in methods), sociality,
+experiments made
+
+-   Methods
+
+    -   IVP, research area, (goal, house, type people)
+
+    -   Population: groups, dyads, male/female, ranks..
+
+    -   Box material: boxes, remotes, batteries, camera, tripod, corn
+        (no marmelade ;), (water spray, security reason, non agressive
+        way to select individuals and not engage with mokeys when
+        reachrging boxes with corn), pattern, previous distances,
+        tablets, box experiment form
+
+    -   Tablets
+
+    -   (No observers mentionned)
+
+    -   Habituation boxes > individuals trained to recognice boxes, they
+        have differernt levels of habituation
+
+    -   Patterns > appendix, mention similar to habituation, use to
+        recognize box but efficieny depeds of experience)
+
+    -   Selection dyads > assigment from elo rating (different rank), if
+        above average bond no dyad made, if not possible, availibilty of
+        monkey also factor !! Non random can be a problem, think about
+        why and how you selected data We created variations in dyads
+        made by different sex, rank and not above average bonde
+        (calculate bondeness)
+
+    -   Amount corn, do you want to mention it> maybe important
+        Calculate corn during and placement cf paper on corn /food
+        motivation
+
+    -   Corn (daily intake vervet % made from corn, cf site we saw, cf
+        screenshot, comapre paper previousely made an all)
+
+    -   1st dyad trial (BD) > appendix
+
+    -   Videos > details appendix
+
+    -   Finding dyads > appendix
+
+    -   Placement to attract them > meniton if statiscial made on
+        placement corn
+
+    -   Trials (1 session = max 15 trials/in total) (session could be
+        broken in different sub sessions to reach 15 trials max)
+
+    -   If agression > 1m / If 2x tolerance \< 1m , also if not
+        approaching > 1m ( if no tolerance increase distance except if
+        intrusion) (borgeaud > expectation fo aggression)
+
+    -   Time of the day > appendix
+
+    -   Territory? > appendix
+
+    -   Amount sessions p day/week, how we chose the moment to follow
+        them >appendix
+
+    -   Problems/ unplanned events: weather, BGE’s, not finding the
+        monkeys (group, dyad or individual), dispersal of males, river
+        crossing, inacessibility (experiments or boxes), low vision
+        (experiments or monkeys),> appendix
+
+    -   (Where do i mention the confounding variables?) > look in
+        litterature, if something that could affect and already reported
+        in papers check, oterhwise exclude “normal life” factors for
+        both monekys and Experimenter
+
+    -   Types of experimental plan
+
+    -   Statistical tests (for each hypothesis)
+
+-   Analysis
+
+-   Results
+
+-   Interpretation
+
+-   Conclusion
+
+
 #########
 
 # Glossary
@@ -884,7 +1153,6 @@ Please note that the code snippets may need to be adapted to your specific data 
 # Bibliography
  •	Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. https://doi.org/10.1002/evan.21793
 (Pisor & Surbeck, 2019)
-
 
 
 # Annex
