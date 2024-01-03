@@ -30,6 +30,9 @@ library(dplyr)
 # Load readxl package to import the data
 library("readxl")
 
+
+library(lubridate)
+
 # Read xlsx files
 Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
 
@@ -841,11 +844,22 @@ cat("Variable names: ", toString(variable_names), "\n")
 
 ```
 
-#### Time - Creation of Period
+#### Time - Creation of Period nad Hour
 * Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
 ```{r Time Periods, include=FALSE}
-
+Bex <- Bex %>%
+  mutate(Time = as.POSIXct(Time, format = "%H:%M:%S"),
+         Period = case_when(
+           between(hour(Time), 6, 8) ~ "Early Morning",
+           between(hour(Time), 8, 10) ~ "Morning",
+           between(hour(Time), 10, 12) ~ "Noon",
+           between(hour(Time), 12, 14) ~ "Afternoon",
+           between(hour(Time), 14, 17) ~ "End of the Day",
+           TRUE ~ NA_character_
+         )
+  )
+View(Bex)
 
 ```
 * The **Minimum Time** in the dataset is **06:03:26*** while the **Maximum Time** is at **16:36:59**
@@ -855,24 +869,32 @@ cat("Variable names: ", toString(variable_names), "\n")
   c.10 to 12: Noon
   d.12 to 14: Afternoon
   e.14 to 17: End of the day
+  
+* Last, I want to create a variable called Hour that will take the value in Time and  round it to the hour in which it is ex: from 06:00 to 06:59 -> 6, from 07:00 to 07:59 -> 7 etc...
+* This will allow me to see when most of the trials occured with more detail and I will be to see in which hour most of the trial happened. Nevertheless Period will be better for an improved readability
+```{r Hour, include=FALSE}
 
-> 
+Bex <- Bex %>%
+  mutate(Time = as.POSIXct(Time, format = "%H:%M:%S"),  # Convert Time back to POSIXct
+         Hour = floor_date(Time, "hour"),  # Create Hour variable
+         Hour = format(Hour, "%H:%M:%S"),  # Format Hour for display
+         Time = format(Time, "%H:%M:%S"))  # Format Time for display
 
+View(Bex)
 
-* Date
+```
+
+####Date - Creation of Month
 * Group
-* MaleID
-* Female ID
-* Female Corn
-* Male Corn
-* DyadDistance
-* Dyad Response
-* Other Reponse
-* Audience
-* ID Individua1
-* Intruder ID
-* Remarks
-* Male Corn
+* Male and Female ID - Creation of Dyad, Trial and Session
+* Female Corn and Male Corn - 
+* DyadDistance - Creation of proximity
+* Dyad Response - Detailed cleaning
+* Other Reponse - DEtailed cleaning to delete the column
+* Audience - Creation of Amount Audience and Density
+* ID Individua1 - Not sure yet
+* Intruder ID 
+* Remarks - Detailed Cleaning
 * Intrusion
 * Not Approaching
 * Lossing Interest

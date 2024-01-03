@@ -748,42 +748,17 @@ View(Bex)</code></pre>
 <ul>
 <li>I will now treat the remaining variables, let’s see which ones and why</li>
 </ul>
-<div id="time---creation-of-period" class="section level4">
-<h4>Time - Creation of Period</h4>
+<div id="time---creation-of-period-nad-hour" class="section level4">
+<h4>Time - Creation of Period nad Hour</h4>
 <ul>
 <li><p>Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise.</p></li>
 <li><p>The <strong>Minimum Time</strong> in the dataset is <strong>06:03:26</strong>* while the <strong>Maximum Time</strong> is at <strong>16:36:59</strong></p></li>
 <li><p>In my box experiment I have this variable called time that tells me when the experiment was done. I don’t think I need this information per se. I was wondering if it could be easy and interesting to see from when to when the time occurs and then separate this time in a few sections like early, monring, morning, miday, afternoon, end of the day</p></li>
 <li><p>a.6 to 8 : Early morning b.8 to 10: Morning c.10 to 12: Noon d.12 to 14: Afternoon e.14 to 17: End of the day</p></li>
+<li><p>Last, I want to create a variable called Hour that will take the value in Time and round it to the hour in which it is ex: from 06:00 to 06:59 -&gt; 6, from 07:00 to 07:59 -&gt; 7 etc…</p></li>
+<li><p>This will allow me to see when most of the trials occured with more detail and I will be to see in which hour most of the trial happened. Nevertheless Period will be better for an improved readability</p></li>
 </ul>
-<blockquote>
-
-</blockquote>
-<ul>
-<li>Date</li>
-<li>Group</li>
-<li>MaleID</li>
-<li>Female ID</li>
-<li>Female Corn</li>
-<li>Male Corn</li>
-<li>DyadDistance</li>
-<li>Dyad Response</li>
-<li>Other Reponse</li>
-<li>Audience</li>
-<li>ID Individua1</li>
-<li>Intruder ID</li>
-<li>Remarks</li>
-<li>Male Corn</li>
-<li>Intrusion</li>
-<li>Not Approaching</li>
-<li>Lossing Interest</li>
-<li>Distracted</li>
-<li>MultipleResponse</li>
-<li>Amount Audience</li>
-<li>DyadDistance</li>
-<li>Distance</li>
-<li>No trial</li>
-</ul>
+<p>####Date - Creation of Month * Group * Male and Female ID - Creation of Dyad, Trial and Session * Female Corn and Male Corn - * DyadDistance - Creation of proximity * Dyad Response - Detailed cleaning * Other Reponse - DEtailed cleaning to delete the column * Audience - Creation of Amount Audience and Density * ID Individua1 - Not sure yet * Intruder ID * Remarks - Detailed Cleaning * Intrusion * Not Approaching * Lossing Interest * Distracted * MultipleResponse * Amount Audience * DyadDistance * Distance * No trial</p>
 <pre class="r"><code>head(Bex$Time)</code></pre>
 <pre><code>## [1] &quot;09:47:50&quot; &quot;09:50:07&quot; &quot;09:53:11&quot; &quot;09:54:28&quot; &quot;09:55:19&quot; &quot;09:56:56&quot;</code></pre>
 <ul>
