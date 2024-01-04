@@ -981,6 +981,60 @@ Xin Oort	4
 Xin Ouli	185
 
 
+  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
+    -Buk Ginq - 6 occurences
+    -Xin Oort - 4 occurences
+  
+```{r Wrong Dyads, echo=FALSE}
+  
+# Part 1: Identify rows with wrong dyads
+wrong_dyads <- c("Buk Ginq", "Xin Oort")
+
+wrong_rows <- which(Bex$Dyad %in% wrong_dyads)
+
+# Display the row numbers
+print(wrong_rows)
+
+
+# Replace "Buk" with "Sho" in rows 1 to 5
+Bex$MaleID[c(1, 2, 3, 4, 5)] <- "Sho"
+
+# Replace "Xin" with "Kom" in rows 2536 to 2539
+Bex$MaleID[c(2536, 2537, 2538, 2539)] <- "Kom"
+# Delete row 6
+Bex <- Bex[-6, ]
+
+
+# Check and summarize unique MaleIDs after correction
+unique_male <- unique(Bex$MaleID)
+cat("Unique Male after correction", unique_male, "\n")
+
+kable(table(Bex$MaleID))
+
+
+# Update Dyad based on the corrected MaleID
+Bex <- Bex %>%
+  mutate(
+    Dyad = paste(
+      ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
+      " ",
+      ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA))
+    )
+  )
+
+# Check and summarize unique Dyads after correction
+unique_dyad <- unique(Bex$Dyad)
+cat("Unique Dyad after correction", unique_dyad, "\n")
+
+kable(table(Bex$Dyad))
+```
+
+  * The rows 1 to 6 are not all in the same row of trials. While I found out using comments that Sho was in the first 5 trials, I will change the occurences of **Buk Ginq** to **Sho Ginq** for row 1,2,3,4,5, and delete row 6
+  
+  * Since Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli** in the rows 2536,2537,2538,2539. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
+  
+  * I thus want **Buk** to be replaced in male ID in rows 1,2,3,4,5 with **Sho** and **Xin** to be replaced by **Kom** in rows 2536,2537,2538,2539 in Male ID before updating Dyad
+
   3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Session:
 

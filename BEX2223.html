@@ -1112,40 +1112,74 @@ View(Bex)</code></pre>
 </ol>
 <pre><code>Var1    Freq</code></pre>
 <p>Buk Ginq 6 Buk Ndaw 257 Kom Oort 366 Nge Oerw 181 Pom Guat 5 Pom Xian 257 Sey Sirk 584 Sho Ginq 273 Xia Piep 606 Xin Oort 4 Xin Ouli 185</p>
-<ol start="3" style="list-style-type: decimal">
-<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
-</ol>
-<pre><code>## Trial Summary:</code></pre>
-<pre><code>## # A tibble: 11 × 2
-##    Dyad     Num_Trials
-##    &lt;chr&gt;         &lt;int&gt;
-##  1 Buk Ginq          6
-##  2 Buk Ndaw        257
-##  3 Kom Oort        366
-##  4 Nge Oerw        181
-##  5 Pom Guat          5
-##  6 Pom Xian        257
-##  7 Sey Sirk        584
-##  8 Sho Ginq        273
-##  9 Xia Piep        606
-## 10 Xin Oort          4
-## 11 Xin Ouli        185</code></pre>
-<pre><code>## 
-## Session Summary:</code></pre>
-<pre><code>## # A tibble: 11 × 2
-##    Dyad     Num_Sessions
-##    &lt;chr&gt;           &lt;int&gt;
-##  1 Buk Ginq            2
-##  2 Buk Ndaw           41
-##  3 Kom Oort           72
-##  4 Nge Oerw           94
-##  5 Pom Guat           95
-##  6 Pom Xian          114
-##  7 Sey Sirk          167
-##  8 Sho Ginq          201
-##  9 Xia Piep          250
-## 10 Xin Oort          251
-## 11 Xin Ouli          278</code></pre>
+<ul>
+<li>They are a few <strong>wrong dyads</strong> that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences</li>
+</ul>
+<pre><code>##  [1]  605  606  607  608  609  921 2692 2693 2694 2695</code></pre>
+<pre><code>## Unique Male after correction Sho Sey Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Buk</td>
+<td align="right">263</td>
+</tr>
+<tr class="even">
+<td align="left">Kom</td>
+<td align="right">341</td>
+</tr>
+<tr class="odd">
+<td align="left">Nge</td>
+<td align="right">162</td>
+</tr>
+<tr class="even">
+<td align="left">Oerw</td>
+<td align="right">19</td>
+</tr>
+<tr class="odd">
+<td align="left">Oort</td>
+<td align="right">29</td>
+</tr>
+<tr class="even">
+<td align="left">Ouli</td>
+<td align="right">27</td>
+</tr>
+<tr class="odd">
+<td align="left">Piep</td>
+<td align="right">35</td>
+</tr>
+<tr class="even">
+<td align="left">Pom</td>
+<td align="right">262</td>
+</tr>
+<tr class="odd">
+<td align="left">Sey</td>
+<td align="right">561</td>
+</tr>
+<tr class="even">
+<td align="left">Sho</td>
+<td align="right">278</td>
+</tr>
+<tr class="odd">
+<td align="left">Sirk</td>
+<td align="right">17</td>
+</tr>
+<tr class="even">
+<td align="left">Xia</td>
+<td align="right">568</td>
+</tr>
+<tr class="odd">
+<td align="left">Xin</td>
+<td align="right">161</td>
+</tr>
+</tbody>
+</table>
+<pre><code>## Unique Dyad after correction Sho   Sirk Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Kom   Piep Kom   Ouli Xin   Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1167,6 +1201,14 @@ View(Bex)</code></pre>
 <td align="right">366</td>
 </tr>
 <tr class="even">
+<td align="left">Kom Ouli</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Piep</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
 <td align="left">Nge Oerw</td>
 <td align="right">181</td>
 </tr>
@@ -1180,23 +1222,138 @@ View(Bex)</code></pre>
 </tr>
 <tr class="odd">
 <td align="left">Sey Sirk</td>
-<td align="right">584</td>
+<td align="right">578</td>
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
 <td align="right">273</td>
 </tr>
 <tr class="odd">
-<td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="left">Sho Sirk</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
+<td align="left">Xia Piep</td>
+<td align="right">603</td>
+</tr>
+<tr class="odd">
 <td align="left">Xin Oort</td>
 <td align="right">4</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">184</td>
+</tr>
+</tbody>
+</table>
+<ul>
+<li><p>The rows 1 to 6 are not all in the same row of trials. While I found out using comments that Sho was in the first 5 trials, I will change the occurences of <strong>Buk Ginq</strong> to <strong>Sho Ginq</strong> for row 1,2,3,4,5, and delete row 6</p></li>
+<li><p>Since Ouli is in the audience it is unlikely that we had trials with the dyad <strong>Xin Ouli</strong> in the rows 2536,2537,2538,2539. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had <strong>Xin Oort</strong> by <strong>Kom Oort</strong></p></li>
+<li><p>I thus want <strong>Buk</strong> to be replaced in male ID in rows 1,2,3,4,5 with <strong>Sho</strong> and <strong>Xin</strong> to be replaced by <strong>Kom</strong> in rows 2536,2537,2538,2539 in Male ID before updating Dyad</p></li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
+</ol>
+<pre><code>## Trial Summary:</code></pre>
+<pre><code>## # A tibble: 14 × 2
+##    Dyad       Num_Trials
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 Buk   Ginq          6
+##  2 Buk   Ndaw        257
+##  3 Kom   Oort        366
+##  4 Kom   Ouli          1
+##  5 Kom   Piep          3
+##  6 Nge   Oerw        181
+##  7 Pom   Guat          5
+##  8 Pom   Xian        257
+##  9 Sey   Sirk        578
+## 10 Sho   Ginq        273
+## 11 Sho   Sirk          5
+## 12 Xia   Piep        603
+## 13 Xin   Oort          4
+## 14 Xin   Ouli        184</code></pre>
+<pre><code>## 
+## Session Summary:</code></pre>
+<pre><code>## # A tibble: 14 × 2
+##    Dyad       Num_Sessions
+##    &lt;chr&gt;             &lt;int&gt;
+##  1 Buk   Ginq            2
+##  2 Buk   Ndaw           41
+##  3 Kom   Oort           72
+##  4 Kom   Ouli           73
+##  5 Kom   Piep           74
+##  6 Nge   Oerw           96
+##  7 Pom   Guat           97
+##  8 Pom   Xian          116
+##  9 Sey   Sirk          169
+## 10 Sho   Ginq          203
+## 11 Sho   Sirk          204
+## 12 Xia   Piep          253
+## 13 Xin   Oort          254
+## 14 Xin   Ouli          281</code></pre>
+<table>
+<thead>
+<tr class="header">
+<th align="left">Var1</th>
+<th align="right">Freq</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">Buk Ginq</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
+<td align="left">Buk Ndaw</td>
+<td align="right">257</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Oort</td>
+<td align="right">366</td>
+</tr>
+<tr class="even">
+<td align="left">Kom Ouli</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Piep</td>
+<td align="right">3</td>
+</tr>
+<tr class="even">
+<td align="left">Nge Oerw</td>
+<td align="right">181</td>
+</tr>
+<tr class="odd">
+<td align="left">Pom Guat</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Pom Xian</td>
+<td align="right">257</td>
+</tr>
+<tr class="odd">
+<td align="left">Sey Sirk</td>
+<td align="right">578</td>
+</tr>
+<tr class="even">
+<td align="left">Sho Ginq</td>
+<td align="right">273</td>
+</tr>
+<tr class="odd">
+<td align="left">Sho Sirk</td>
+<td align="right">5</td>
+</tr>
+<tr class="even">
+<td align="left">Xia Piep</td>
+<td align="right">603</td>
+</tr>
+<tr class="odd">
+<td align="left">Xin Oort</td>
+<td align="right">4</td>
+</tr>
+<tr class="even">
+<td align="left">Xin Ouli</td>
+<td align="right">184</td>
 </tr>
 </tbody>
 </table>
