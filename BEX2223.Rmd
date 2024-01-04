@@ -378,8 +378,6 @@ Bex$Intrusion <- ifelse(Bex$IntruderID == "No Intrusion", 0, 1)
 no_intrusion_count <- sum(Bex$IntruderID == "No Intrusion")
 cat("Number of 'No Intrusion' in the 'Intruder ID' column after replacement:", no_intrusion_count, "\n")
 
-View(Bex)
-
 ```
 * We previously had 2737 NA's in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended
 
@@ -447,7 +445,7 @@ Bex$Time <- as.POSIXct(Bex$Time, format = "%Y-%m-%d %H:%M:%S")
 Bex$Time <- format(Bex$Time, "%H:%M:%S")
 
 # Display the updated dataset
-View(Bex)
+
 
 ```
 
@@ -740,7 +738,7 @@ Bex <- Bex %>%
 
 * In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:
 
-  If there is NA in female ID, we willr eplace the value with 
+  If there is NA in female ID, we will eplace the value with 
     - Sirk if MaleID is Sey
     - Ouli if MaleID  is Xin
     - Piep if MaleID  is  Xia 
@@ -776,6 +774,8 @@ cat("Number of NA values in MaleID: ", na_count_male, "\n")
 # Count NA values in FemaleID
 na_count_female <- sum(is.na(Bex$FemaleID))
 cat("Number of NA values in FemaleID: ", na_count_female, "\n")
+
+
 
 ```
 
@@ -859,7 +859,6 @@ Bex <- Bex %>%
            TRUE ~ NA_character_
          )
   )
-View(Bex)
 
 ```
 * The **Minimum Time** in the dataset is **06:03:26*** while the **Maximum Time** is at **16:36:59**
@@ -895,9 +894,6 @@ Bex <- Bex %>%
     Month = format(Date, "%Y-%m")  # Include both year and month in Month variable
   )
 
-
-View(Bex)
-
 ```
 
 
@@ -926,17 +922,20 @@ before_summary <- table(Bex$FemaleID, Bex$MaleID)
 kable(print(before_summary))
 
 ```
-1. Create a variavble called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID
-2. Create a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
-3. Create Dyad that take the **3 letter code*3 then a space and the **4 letter code**
+1. Create a variavble called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
+
 ```{r Female Male ID correction, echo=FALSE}
 
+# Create Male and Female variables
 Bex <- Bex %>%
   mutate(
-    Male = ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
-    Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA)),
-    Dyad = paste(ifelse(nchar(Male) == 3, Male, NA), " ", ifelse(nchar(Female) == 4, Female, NA))
+    Male = ifelse(nchar(MaleID) == 3, as.character(MaleID), ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
+    Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA))
   )
+
+# Create Dyad variable
+Bex <- Bex %>%
+  mutate(Dyad = paste(Male, Female, sep = " "))
 
 # Check and summarize unique Female and Male IDs after the transformation
 unique_female <- unique(Bex$Female)
@@ -946,6 +945,9 @@ unique_dyad <- unique(Bex$Dyad)
 cat("\nUnique Female:", unique_female, "\n")
 cat("Unique Male:", unique_male, "\n")
 cat("Unique Dyad", unique_dyad, "\n")
+
+kable(table(Bex$Dyad))
+
 
 ```
   
@@ -964,14 +966,25 @@ cat("Unique Dyad", unique_dyad, "\n")
     - Ndaw Buk 
     - Xian Pom
     - Guat Pom
+    
+    Var1	Freq
+Buk Ginq	6
+Buk Ndaw	257
+Kom Oort	366
+Nge Oerw	181
+Pom Guat	5
+Pom Xian	257
+Sey Sirk	584
+Sho Ginq	273
+Xia Piep	606
+Xin Oort	4
+Xin Ouli	185
+
+
   3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Session:
 
 ```{r Dyad and Session, echo=FALSE}
-
-# Create Dyad variable
-Bex <- Bex %>%
-  mutate(Dyad = paste(FemaleID, MaleID, sep = " "))
 
 # Create Trial variable
 Bex <- Bex %>%
@@ -981,9 +994,9 @@ Bex <- Bex %>%
 
 # Create Session variable
 Bex <- Bex %>%
-  arrange(Date, Dyad) %>%
+  arrange(Dyad, Date) %>%
   group_by(Dyad, Date) %>%
-  mutate(Session = row_number())
+  mutate(Session = cur_group_id())
 
 # Summary of Trial and Session
 summary_trial <- Bex %>%
@@ -1000,8 +1013,13 @@ print(summary_trial)
 cat("\nSession Summary:\n")
 print(summary_session)
 
-```
+kable(table(Bex$Dyad))
 
+```
+  4. Correct the wrong dyads that are in Male and Female to correct Dyad
+  
+  * Looking at the summary of the Dyad column, I saw that some 
+  
   5. Make a summary   of trial and session so I can see see how many trials and sessions have been done with the individuals
   
 
