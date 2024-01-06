@@ -794,15 +794,34 @@ cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 Number of missing values in MaleID:  18 
 
 
-```{r Check if Remaing NA, include=FALSE}
 
-# Find rows with any NA values in the dataset
-rows_with_na_numbers <- which(rowSums(is.na(Bex)) > 0)
 
-# Print the number of rows with NA values and their row numbers
-cat("Number of rows with NA values in the dataset:", length(rows_with_na_numbers), "\n")
-cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
+#### 2.11 Cleaning FemaleCorn
 
+```{r FemaleCorn, echo=FALSE}
+# Replace NA values in "FemaleCorn" with 0
+Bex$FemaleCorn <- ifelse(is.na(Bex$FemaleCorn), 0, Bex$FemaleCorn)
+
+# Check how many NA values are left in "FemaleCorn"
+remaining_na <- sum(is.na(Bex$FemaleCorn))
+cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
+```
+
+
+
+#### 2.12 Final check: remaing NA's in Bex?
+
+```{r Check if Remaing NA, echo=FALSE}
+# Find columns with NA values
+columns_with_na <- colnames(Bex)[colSums(is.na(Bex)) > 0]
+
+# Print the columns with NA values
+cat("Columns with NA values:", toString(columns_with_na), "\n")
+
+# Print the number of NA values in each column
+for (col in columns_with_na) {
+  cat("Number of NA values in", col, ":", sum(is.na(Bex[[col]])), "\n")
+}
 
 ```
     
