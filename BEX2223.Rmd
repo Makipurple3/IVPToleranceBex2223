@@ -30,7 +30,7 @@ library(dplyr)
 # Load readxl package to import the data
 library("readxl")
 
-
+# Load Lubridate fort better date and time manipulation
 library(lubridate)
 
 # Read xlsx files
@@ -38,8 +38,8 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 
 ``` 
 
-* First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file.I also loaded nd the **pander** package for better presentation
-* The **dplyr** package was installed for better manipulation of the data as filtering or creating new variables
+* First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file. I also loaded nd the **pander** package for better presentation
+* The **dplyr** package was installed for better manipulation of the data as filtering or creating new variables and **lubridate** for a better manipulation of dates and time
 * Then, I installed the **readxl package** to import my dataset which is called **Box Experiments.xls**
 * This dataset contains information related to my master thesis project. I used cyber tracker in order to record the behaviors of dyads of Vervet monkeys in a box experiment on tolerance from September 2022 to September 2023
 
@@ -418,8 +418,6 @@ Bex$AmountAudience <- ifelse(is.na(Bex$Audience), 0, lengths(strsplit(Bex$Audien
 #Changing NA's in No audience
 Bex$Audience[is.na(Bex$Audience)] <- "No audience"
 
-View(Bex)
-
 ```
 
 
@@ -427,7 +425,6 @@ View(Bex)
 ```{r OtherResposne NA, echo=FALSE}
 # Replace NA in OtherResponse by "No Response"
 Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
-
 
 ```
 
@@ -477,11 +474,6 @@ dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
 
 # Print the row indices
 cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
-
-# Display the cleaned dataset
-View(Bex)
-
-
 
 
 ```
@@ -604,10 +596,6 @@ Bex <- Bex %>% filter(!is.na(Distance))
 na_count <- sum(is.na(Bex$Distance))
 print(paste("Number of NA's in Distance: ", na_count))
 
-# View the updated dataset
-View(Bex)
-
-
 ```
 
   
@@ -629,9 +617,6 @@ rows_to_delete <- c(24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 139
 
 # Create NoTrial variable
 Bex$NoTrial <- ifelse(seq_along(Bex$Distance) %in% rows_to_delete, 1, 0)
-
-# View the updated dataset
-View(Bex)
 
 ```
 
@@ -731,8 +716,6 @@ Bex <- Bex %>%
     FemaleID = ifelse(Group == "Noha" & is.na(FemaleID), "Xian", FemaleID)
   )
 
-
-
 ```
 
 
@@ -774,8 +757,6 @@ cat("Number of NA values in MaleID: ", na_count_male, "\n")
 # Count NA values in FemaleID
 na_count_female <- sum(is.na(Bex$FemaleID))
 cat("Number of NA values in FemaleID: ", na_count_female, "\n")
-
-
 
 ```
 
@@ -822,6 +803,8 @@ cat("Columns with NA values:", toString(columns_with_na), "\n")
 for (col in columns_with_na) {
   cat("Number of NA values in", col, ":", sum(is.na(Bex[[col]])), "\n")
 }
+
+View(Bex)
 
 ```
     
@@ -1053,6 +1036,7 @@ kable(table(Bex$Dyad))
   * Since Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli** in the rows 2536,2537,2538,2539. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
   
   * I thus want **Buk** to be replaced in male ID in rows 1,2,3,4,5 with **Sho** and **Xin** to be replaced by **Kom** in rows 2536,2537,2538,2539 in Male ID before updating Dyad
+  
 
   3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Session:
@@ -1089,7 +1073,7 @@ print(summary_session)
 kable(table(Bex$Dyad))
 
 ```
-  4. Correct the wrong dyads that are in Male and Female to correct Dyad
+
   
   * Looking at the summary of the Dyad column, I saw that some 
   

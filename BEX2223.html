@@ -182,8 +182,8 @@ pre code {
 <div id="loading-data" class="section level3">
 <h3>Loading data</h3>
 <ul>
-<li>First I downloaded the <strong>knitr package</strong> to create outputs as html, pdf or word files when knitting my r markdown file.I also loaded nd the <strong>pander</strong> package for better presentation</li>
-<li>The <strong>dplyr</strong> package was installed for better manipulation of the data as filtering or creating new variables</li>
+<li>First I downloaded the <strong>knitr package</strong> to create outputs as html, pdf or word files when knitting my r markdown file. I also loaded nd the <strong>pander</strong> package for better presentation</li>
+<li>The <strong>dplyr</strong> package was installed for better manipulation of the data as filtering or creating new variables and <strong>lubridate</strong> for a better manipulation of dates and time</li>
 <li>Then, I installed the <strong>readxl package</strong> to import my dataset which is called <strong>Box Experiments.xls</strong></li>
 <li>This dataset contains information related to my master thesis project. I used cyber tracker in order to record the behaviors of dyads of Vervet monkeys in a box experiment on tolerance from September 2022 to September 2023</li>
 </ul>
@@ -675,8 +675,6 @@ Bex &lt;- Bex %&gt;% filter(!is.na(Distance))
 na_count &lt;- sum(is.na(Bex$Distance))
 print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre>
 <pre><code>## [1] &quot;Number of NA&#39;s in Distance:  0&quot;</code></pre>
-<pre class="r"><code># View the updated dataset
-View(Bex)</code></pre>
 <ul>
 <li><p><strong>23 values</strong> were inserted in <strong>Distance</strong> to replace the NA’s where the distance could be found by looking at the previous rows. The <strong>46 remaining NA’s</strong> were then <strong>removed</strong> from Distance <strong>leaving 0 NA in Distance</strong></p></li>
 <li><p>Now I would like to create a dichotomic variable called <strong>No trial</strong> that will use the rows that I deleted in Distance. I would like this column to put 1 for every trial that was deleted from Distance. I will later on look again at this column.</p></li>
@@ -1366,9 +1364,6 @@ View(Bex)</code></pre>
 </tr>
 </tbody>
 </table>
-<ol start="4" style="list-style-type: decimal">
-<li>Correct the wrong dyads that are in Male and Female to correct Dyad</li>
-</ol>
 <ul>
 <li>Looking at the summary of the Dyad column, I saw that some</li>
 </ul>
