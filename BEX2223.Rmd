@@ -804,7 +804,6 @@ for (col in columns_with_na) {
   cat("Number of NA values in", col, ":", sum(is.na(Bex[[col]])), "\n")
 }
 
-View(Bex)
 
 ```
     
@@ -829,7 +828,16 @@ cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
 
 * It seems now that no NA's are remaining in the dataset, we can thus continue with the process of cleaning the dataset
 
-### Creating New Variables and modifying the existing ones
+### 3. Creating New Variables and modifying the existing ones
+
+#### Making a backup of Bex
+* I will now continue making changes, in case they are any problems or comparason to be made I may use this function to look how Bex looked at that point
+
+```{r Backup Bex 1, include=FALSE}
+# Create a backup
+backup_Bex <- Bex
+```
+
 
 * I will now treat the remaining variables, let's see which ones and why
 
@@ -841,7 +849,7 @@ variable_names <- names(Bex)
 
 # Print the list of variable names
 cat("Variable names: ", toString(variable_names), "\n")
-
+print(variable_names)
 
 
 ```
@@ -924,9 +932,18 @@ before_summary <- table(Bex$FemaleID, Bex$MaleID)
 kable(print(before_summary))
 
 ```
-1. Create a variavble called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
+1. Create a variable called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
 
 ```{r Female Male ID correction, echo=FALSE}
+
+# Check and remove existing columns
+if ("Male" %in% names(Bex)) {
+  Bex$Male <- NULL  # Remove the existing Male column
+}
+
+if ("Female" %in% names(Bex)) {
+  Bex$Female <- NULL  # Remove the existing Female column
+}
 
 # Create Male and Female variables
 Bex <- Bex %>%
@@ -938,6 +955,7 @@ Bex <- Bex %>%
 # Create Dyad variable
 Bex <- Bex %>%
   mutate(Dyad = paste(Male, Female, sep = " "))
+
 
 # Check and summarize unique Female and Male IDs after the transformation
 unique_female <- unique(Bex$Female)
@@ -988,31 +1006,23 @@ Xin Ouli	185
     -Xin Oort - 4 occurences
   
 ```{r Wrong Dyads, echo=FALSE}
-  
 # Part 1: Identify rows with wrong dyads
 wrong_dyads <- c("Buk Ginq", "Xin Oort")
 
+# Identify the rows with wrong dyads
 wrong_rows <- which(Bex$Dyad %in% wrong_dyads)
 
 # Display the row numbers
 print(wrong_rows)
 
+# Correct "Buk" with "Sho" in rows 1 to 5
+Bex$MaleID[wrong_rows[1:5]] <- "Sho"
 
-# Replace "Buk" with "Sho" in rows 1 to 5
-Bex$MaleID[c(1, 2, 3, 4, 5)] <- "Sho"
+# Correct "Xin" with "Kom" in rows 2536 to 2539
+Bex$MaleID[wrong_rows[6:9]] <- "Kom"
 
-# Replace "Xin" with "Kom" in rows 2536 to 2539
-Bex$MaleID[c(2536, 2537, 2538, 2539)] <- "Kom"
-# Delete row 6
-Bex <- Bex[-6, ]
-
-
-# Check and summarize unique MaleIDs after correction
-unique_male <- unique(Bex$MaleID)
-cat("Unique Male after correction", unique_male, "\n")
-
-kable(table(Bex$MaleID))
-
+# Delete duplicate rows if any
+Bex <- Bex[!duplicated(Bex), ]
 
 # Update Dyad based on the corrected MaleID
 Bex <- Bex %>%
@@ -1024,11 +1034,16 @@ Bex <- Bex %>%
     )
   )
 
-# Check and summarize unique Dyads after correction
+# Check and summarize unique MaleIDs and Dyads after correction
+unique_male <- unique(Bex$MaleID)
+cat("Unique Male after correction", unique_male, "\n")
+
 unique_dyad <- unique(Bex$Dyad)
 cat("Unique Dyad after correction", unique_dyad, "\n")
 
+kable(table(Bex$MaleID))
 kable(table(Bex$Dyad))
+
 ```
 
   * The rows 1 to 6 are not all in the same row of trials. While I found out using comments that Sho was in the first 5 trials, I will change the occurences of **Buk Ginq** to **Sho Ginq** for row 1,2,3,4,5, and delete row 6
@@ -1038,7 +1053,7 @@ kable(table(Bex$Dyad))
   * I thus want **Buk** to be replaced in male ID in rows 1,2,3,4,5 with **Sho** and **Xin** to be replaced by **Kom** in rows 2536,2537,2538,2539 in Male ID before updating Dyad
   
 
-  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Session:
 
 ```{r Dyad and Session, echo=FALSE}

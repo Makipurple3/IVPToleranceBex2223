@@ -751,10 +751,14 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </div>
 </div>
 <div id="creating-new-variables-and-modifying-the-existing-ones" class="section level3">
-<h3>Creating New Variables and modifying the existing ones</h3>
+<h3>3. Creating New Variables and modifying the existing ones</h3>
+<div id="making-a-backup-of-bex" class="section level4">
+<h4>Making a backup of Bex</h4>
 <ul>
-<li>I will now treat the remaining variables, let’s see which ones and why</li>
+<li><p>I will now continue making changes, in case they are any problems or comparason to be made I may use this function to look how Bex looked at that point</p></li>
+<li><p>I will now treat the remaining variables, let’s see which ones and why</p></li>
 </ul>
+</div>
 <div id="time---creation-of-period-nad-hour" class="section level4">
 <h4>Time - Creation of Period nad Hour</h4>
 <ul>
@@ -1054,7 +1058,7 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </tbody>
 </table>
 <ol style="list-style-type: decimal">
-<li>Create a variavble called Male that in each row will take the name of the <strong>3 letter code</strong> that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the <strong>4 letter code</strong> that is either in MaleID or FemaleID</li>
+<li>Create a variable called Male that in each row will take the name of the <strong>3 letter code</strong> that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the <strong>4 letter code</strong> that is either in MaleID or FemaleID</li>
 </ol>
 <pre><code>## 
 ## Unique Female: Sirk Piep Oerw Ouli Ginq Ndaw Oort Xian Guat</code></pre>
@@ -1123,7 +1127,8 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 <li>They are a few <strong>wrong dyads</strong> that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences</li>
 </ul>
 <pre><code>##  [1]  605  606  607  608  609  921 2692 2693 2694 2695</code></pre>
-<pre><code>## Unique Male after correction Sho Sey Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
+<pre><code>## Unique Male after correction Sey Xia Nge Ouli Sho Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
+<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Kom   Oort Kom   Ginq Pom   Xian Pom   Guat Xin   Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1134,7 +1139,7 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 <tbody>
 <tr class="odd">
 <td align="left">Buk</td>
-<td align="right">263</td>
+<td align="right">257</td>
 </tr>
 <tr class="even">
 <td align="left">Kom</td>
@@ -1166,7 +1171,7 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </tr>
 <tr class="odd">
 <td align="left">Sey</td>
-<td align="right">561</td>
+<td align="right">567</td>
 </tr>
 <tr class="even">
 <td align="left">Sho</td>
@@ -1178,15 +1183,14 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </tr>
 <tr class="even">
 <td align="left">Xia</td>
-<td align="right">568</td>
+<td align="right">571</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin</td>
-<td align="right">161</td>
+<td align="right">159</td>
 </tr>
 </tbody>
 </table>
-<pre><code>## Unique Dyad after correction Sho   Sirk Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Kom   Piep Kom   Ouli Xin   Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1196,24 +1200,16 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Buk Ginq</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
 <td align="left">Buk Ndaw</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
-<td align="left">Kom Oort</td>
-<td align="right">366</td>
-</tr>
 <tr class="even">
-<td align="left">Kom Ouli</td>
+<td align="left">Kom Ginq</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">Kom Piep</td>
-<td align="right">3</td>
+<td align="left">Kom Oort</td>
+<td align="right">369</td>
 </tr>
 <tr class="even">
 <td align="left">Nge Oerw</td>
@@ -1229,27 +1225,23 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </tr>
 <tr class="odd">
 <td align="left">Sey Sirk</td>
-<td align="right">578</td>
+<td align="right">584</td>
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
-<td align="right">273</td>
+<td align="right">278</td>
 </tr>
 <tr class="odd">
-<td align="left">Sho Sirk</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
 <td align="left">Xia Piep</td>
-<td align="right">603</td>
-</tr>
-<tr class="odd">
-<td align="left">Xin Oort</td>
-<td align="right">4</td>
+<td align="right">606</td>
 </tr>
 <tr class="even">
+<td align="left">Xin Oort</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">184</td>
+<td align="right">185</td>
 </tr>
 </tbody>
 </table>
@@ -1259,45 +1251,39 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 <li><p>I thus want <strong>Buk</strong> to be replaced in male ID in rows 1,2,3,4,5 with <strong>Sho</strong> and <strong>Xin</strong> to be replaced by <strong>Kom</strong> in rows 2536,2537,2538,2539 in Male ID before updating Dyad</p></li>
 </ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
+<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad and day</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
 </ol>
 <pre><code>## Trial Summary:</code></pre>
-<pre><code>## # A tibble: 14 × 2
+<pre><code>## # A tibble: 11 × 2
 ##    Dyad       Num_Trials
 ##    &lt;chr&gt;           &lt;int&gt;
-##  1 Buk   Ginq          6
-##  2 Buk   Ndaw        257
-##  3 Kom   Oort        366
-##  4 Kom   Ouli          1
-##  5 Kom   Piep          3
-##  6 Nge   Oerw        181
-##  7 Pom   Guat          5
-##  8 Pom   Xian        257
-##  9 Sey   Sirk        578
-## 10 Sho   Ginq        273
-## 11 Sho   Sirk          5
-## 12 Xia   Piep        603
-## 13 Xin   Oort          4
-## 14 Xin   Ouli        184</code></pre>
+##  1 Buk   Ndaw        257
+##  2 Kom   Ginq          1
+##  3 Kom   Oort        369
+##  4 Nge   Oerw        181
+##  5 Pom   Guat          5
+##  6 Pom   Xian        257
+##  7 Sey   Sirk        584
+##  8 Sho   Ginq        278
+##  9 Xia   Piep        606
+## 10 Xin   Oort          1
+## 11 Xin   Ouli        185</code></pre>
 <pre><code>## 
 ## Session Summary:</code></pre>
-<pre><code>## # A tibble: 14 × 2
+<pre><code>## # A tibble: 11 × 2
 ##    Dyad       Num_Sessions
 ##    &lt;chr&gt;             &lt;int&gt;
-##  1 Buk   Ginq            2
-##  2 Buk   Ndaw           41
-##  3 Kom   Oort           72
-##  4 Kom   Ouli           73
-##  5 Kom   Piep           74
-##  6 Nge   Oerw           96
-##  7 Pom   Guat           97
-##  8 Pom   Xian          116
-##  9 Sey   Sirk          169
-## 10 Sho   Ginq          203
-## 11 Sho   Sirk          204
-## 12 Xia   Piep          253
-## 13 Xin   Oort          254
-## 14 Xin   Ouli          281</code></pre>
+##  1 Buk   Ndaw           39
+##  2 Kom   Ginq           40
+##  3 Kom   Oort           71
+##  4 Nge   Oerw           93
+##  5 Pom   Guat           94
+##  6 Pom   Xian          113
+##  7 Sey   Sirk          166
+##  8 Sho   Ginq          200
+##  9 Xia   Piep          249
+## 10 Xin   Oort          250
+## 11 Xin   Ouli          277</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1307,24 +1293,16 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Buk Ginq</td>
-<td align="right">6</td>
-</tr>
-<tr class="even">
 <td align="left">Buk Ndaw</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
-<td align="left">Kom Oort</td>
-<td align="right">366</td>
-</tr>
 <tr class="even">
-<td align="left">Kom Ouli</td>
+<td align="left">Kom Ginq</td>
 <td align="right">1</td>
 </tr>
 <tr class="odd">
-<td align="left">Kom Piep</td>
-<td align="right">3</td>
+<td align="left">Kom Oort</td>
+<td align="right">369</td>
 </tr>
 <tr class="even">
 <td align="left">Nge Oerw</td>
@@ -1340,27 +1318,23 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 </tr>
 <tr class="odd">
 <td align="left">Sey Sirk</td>
-<td align="right">578</td>
+<td align="right">584</td>
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
-<td align="right">273</td>
+<td align="right">278</td>
 </tr>
 <tr class="odd">
-<td align="left">Sho Sirk</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
 <td align="left">Xia Piep</td>
-<td align="right">603</td>
-</tr>
-<tr class="odd">
-<td align="left">Xin Oort</td>
-<td align="right">4</td>
+<td align="right">606</td>
 </tr>
 <tr class="even">
+<td align="left">Xin Oort</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">184</td>
+<td align="right">185</td>
 </tr>
 </tbody>
 </table>
@@ -1390,7 +1364,7 @@ print(paste(&quot;Number of NA&#39;s in Distance: &quot;, na_count))</code></pre
 <li>No trial</li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
-<pre><code>## [1] &quot;07:52:59&quot; &quot;07:54:33&quot; &quot;07:57:35&quot; &quot;08:05:31&quot; &quot;08:09:47&quot; &quot;11:42:49&quot;</code></pre>
+<pre><code>## [1] &quot;08:18:23&quot; &quot;08:37:12&quot; &quot;08:37:58&quot; &quot;08:16:30&quot; &quot;08:01:59&quot; &quot;08:02:58&quot;</code></pre>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
 </ul>
