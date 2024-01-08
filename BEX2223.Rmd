@@ -990,7 +990,7 @@ kable(table(Bex$Dyad))
 
 ```
   
-  
+  # Correct from here, mistake were inserted in dyad by changin wrong lines 
 
 
 
@@ -1025,20 +1025,29 @@ Xin Ouli	185
     -Xin Oort - 4 occurences
   
 ```{r Wrong Dyads, echo=FALSE}
+
 # Part 1: Identify rows with wrong dyads
 wrong_dyads <- c("Buk Ginq", "Xin Oort")
 
 # Identify the rows with wrong dyads
 wrong_rows <- which(Bex$Dyad %in% wrong_dyads)
 
-# Display the row numbers
+# Part 3: Print wron rows and dyads
 print(wrong_rows)
+print(wrong_dyads)
 
-# Correct "Buk" with "Sho" in rows 1 to 5
-Bex$MaleID[wrong_rows[921]] <- "Sho"
+# Check if corrections have already been made for "Sho"
+if (!all(Bex$MaleID[921] == "Sho")) {
+  # Correct "Buk" with "Sho" in row 921
+  Bex$MaleID[921] <- "Sho"
+}
 
-# Correct "Xin" with "Kom" in rows 2536 to 2539
-Bex$MaleID[wrong_rows[2692:2695]] <- "Kom"
+# Check if corrections have already been made for "Kom"
+if (!all(Bex$MaleID[2536:2539] == "Kom")) {
+  # Correct "Xin" with "Kom" in rows 2536 to 2539
+  Bex$MaleID[2536:2539] <- "Kom"
+}
+
 
 # Delete duplicate rows if any
 Bex <- Bex[!duplicated(Bex), ]
@@ -1062,6 +1071,10 @@ cat("Unique Dyad after correction", unique_dyad, "\n")
 
 kable(table(Bex$MaleID))
 kable(table(Bex$Dyad))
+
+
+
+
 
 ```
 

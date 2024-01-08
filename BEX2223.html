@@ -1134,6 +1134,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 </tbody>
 </table>
+<p># Correct from here, mistake were inserted in dyad by changin wrong lines</p>
 <ol start="2" style="list-style-type: decimal">
 <li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here; - Sirk Sey - Ouli Xin - Piep Xia - Oerw Nge - Oort Kom - Ginq Sho - Ndaw Buk - Xian Pom - Guat Pom</li>
 </ol>
@@ -1143,8 +1144,9 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <li>They are a few <strong>wrong dyads</strong> that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences</li>
 </ul>
 <pre><code>##  [1]  605  606  607  608  609  921 2692 2693 2694 2695</code></pre>
+<pre><code>## [1] &quot;Buk Ginq&quot; &quot;Xin Oort&quot;</code></pre>
 <pre><code>## Unique Male after correction Sey Xia Nge Ouli Sho Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
-<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Xin   Oort</code></pre>
+<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Kom   Piep Kom   Ouli Xin   Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1155,11 +1157,11 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tbody>
 <tr class="odd">
 <td align="left">Buk</td>
-<td align="right">263</td>
+<td align="right">262</td>
 </tr>
 <tr class="even">
 <td align="left">Kom</td>
-<td align="right">337</td>
+<td align="right">341</td>
 </tr>
 <tr class="odd">
 <td align="left">Nge</td>
@@ -1191,7 +1193,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Sho</td>
-<td align="right">273</td>
+<td align="right">274</td>
 </tr>
 <tr class="odd">
 <td align="left">Sirk</td>
@@ -1199,11 +1201,11 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Xia</td>
-<td align="right">571</td>
+<td align="right">568</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin</td>
-<td align="right">162</td>
+<td align="right">161</td>
 </tr>
 </tbody>
 </table>
@@ -1217,7 +1219,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tbody>
 <tr class="odd">
 <td align="left">Buk Ginq</td>
-<td align="right">6</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">Buk Ndaw</td>
@@ -1226,6 +1228,14 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tr class="odd">
 <td align="left">Kom Oort</td>
 <td align="right">366</td>
+</tr>
+<tr class="even">
+<td align="left">Kom Ouli</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Piep</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">Nge Oerw</td>
@@ -1245,11 +1255,11 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
-<td align="right">273</td>
+<td align="right">274</td>
 </tr>
 <tr class="odd">
 <td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="right">603</td>
 </tr>
 <tr class="even">
 <td align="left">Xin Oort</td>
@@ -1257,7 +1267,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">184</td>
 </tr>
 </tbody>
 </table>
@@ -1270,36 +1280,40 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad and day</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
 </ol>
 <pre><code>## Trial Summary:</code></pre>
-<pre><code>## # A tibble: 11 × 2
+<pre><code>## # A tibble: 13 × 2
 ##    Dyad       Num_Trials
 ##    &lt;chr&gt;           &lt;int&gt;
-##  1 Buk   Ginq          6
+##  1 Buk   Ginq          5
 ##  2 Buk   Ndaw        257
 ##  3 Kom   Oort        366
-##  4 Nge   Oerw        181
-##  5 Pom   Guat          5
-##  6 Pom   Xian        257
-##  7 Sey   Sirk        584
-##  8 Sho   Ginq        273
-##  9 Xia   Piep        606
-## 10 Xin   Oort          4
-## 11 Xin   Ouli        185</code></pre>
+##  4 Kom   Ouli          1
+##  5 Kom   Piep          3
+##  6 Nge   Oerw        181
+##  7 Pom   Guat          5
+##  8 Pom   Xian        257
+##  9 Sey   Sirk        584
+## 10 Sho   Ginq        274
+## 11 Xia   Piep        603
+## 12 Xin   Oort          4
+## 13 Xin   Ouli        184</code></pre>
 <pre><code>## 
 ## Session Summary:</code></pre>
-<pre><code>## # A tibble: 11 × 2
+<pre><code>## # A tibble: 13 × 2
 ##    Dyad       Num_Sessions
 ##    &lt;chr&gt;             &lt;int&gt;
-##  1 Buk   Ginq            2
-##  2 Buk   Ndaw           41
-##  3 Kom   Oort           72
-##  4 Nge   Oerw           94
-##  5 Pom   Guat           95
-##  6 Pom   Xian          114
-##  7 Sey   Sirk          167
-##  8 Sho   Ginq          201
-##  9 Xia   Piep          250
-## 10 Xin   Oort          251
-## 11 Xin   Ouli          278</code></pre>
+##  1 Buk   Ginq            1
+##  2 Buk   Ndaw           40
+##  3 Kom   Oort           71
+##  4 Kom   Ouli           72
+##  5 Kom   Piep           73
+##  6 Nge   Oerw           95
+##  7 Pom   Guat           96
+##  8 Pom   Xian          115
+##  9 Sey   Sirk          168
+## 10 Sho   Ginq          202
+## 11 Xia   Piep          251
+## 12 Xin   Oort          252
+## 13 Xin   Ouli          279</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1310,7 +1324,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tbody>
 <tr class="odd">
 <td align="left">Buk Ginq</td>
-<td align="right">6</td>
+<td align="right">5</td>
 </tr>
 <tr class="even">
 <td align="left">Buk Ndaw</td>
@@ -1319,6 +1333,14 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tr class="odd">
 <td align="left">Kom Oort</td>
 <td align="right">366</td>
+</tr>
+<tr class="even">
+<td align="left">Kom Ouli</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Piep</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
 <td align="left">Nge Oerw</td>
@@ -1338,11 +1360,11 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
-<td align="right">273</td>
+<td align="right">274</td>
 </tr>
 <tr class="odd">
 <td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="right">603</td>
 </tr>
 <tr class="even">
 <td align="left">Xin Oort</td>
@@ -1350,7 +1372,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">184</td>
 </tr>
 </tbody>
 </table>
