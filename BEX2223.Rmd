@@ -1007,14 +1007,14 @@ kable(table(Bex$Dyad))
     - Guat Pom
     
     Var1	Freq
-Buk Ginq	6
+Buk Ginq	1
 Buk Ndaw	257
 Kom Oort	366
 Nge Oerw	181
 Pom Guat	5
 Pom Xian	257
 Sey Sirk	584
-Sho Ginq	273
+Sho Ginq	278
 Xia Piep	606
 Xin Oort	4
 Xin Ouli	185
@@ -1035,10 +1035,10 @@ wrong_rows <- which(Bex$Dyad %in% wrong_dyads)
 print(wrong_rows)
 
 # Correct "Buk" with "Sho" in rows 1 to 5
-Bex$MaleID[wrong_rows[1:5]] <- "Sho"
+Bex$MaleID[wrong_rows[921]] <- "Sho"
 
 # Correct "Xin" with "Kom" in rows 2536 to 2539
-Bex$MaleID[wrong_rows[6:9]] <- "Kom"
+Bex$MaleID[wrong_rows[2692:2695]] <- "Kom"
 
 # Delete duplicate rows if any
 Bex <- Bex[!duplicated(Bex), ]
@@ -1076,18 +1076,23 @@ kable(table(Bex$Dyad))
   Now, let's proceed with creating the Dyad variable, Trial, and Session:
 
 ```{r Dyad and Session, echo=FALSE}
+# Create a unique identifier for each row
+Bex <- Bex %>% mutate(RowID = row_number())
 
 # Create Trial variable
 Bex <- Bex %>%
-  arrange(Date, Dyad) %>%
+  arrange(RowID) %>%
   group_by(Dyad) %>%
   mutate(Trial = row_number())
 
 # Create Session variable
 Bex <- Bex %>%
-  arrange(Dyad, Date) %>%
+  arrange(RowID) %>%
   group_by(Dyad, Date) %>%
   mutate(Session = cur_group_id())
+
+# Remove the temporary identifier
+Bex$RowID <- NULL
 
 # Summary of Trial and Session
 summary_trial <- Bex %>%
@@ -1107,6 +1112,15 @@ print(summary_session)
 kable(table(Bex$Dyad))
 
 ```
+* I added a new column RowID that assigns a unique identifier to each row.
+I replaced the arrange(Date, Dyad) and arrange(Dyad, Date) with arrange(RowID) to use the unique identifier for ordering.
+I removed the RowID column after creating the trial and session variables.
+These changes ensure that the code produces consistent results regardless of the order of rows in the dataset.
+
+
+
+
+
 
   * Looking at the summary of the Dyad column, I saw that some 
   
@@ -1165,35 +1179,6 @@ cat("Unique values in FemaleID: ", toString(unique_female_ids), "\n")
 
 
 
-
-#### Cleaning DyadResponse
-
-
-7. **Handling NAs in Specific Columns:**
-   - Checked and replaced NAs in specific rows and columns.
-
-    ```{r replace NA FemID, echo=FALSE} 
-   # Replace NAs in FemaleID based on row numbers
-   replace_rows <- c(865:879, 1827:1839, 1913:1914, 2665:2675)
-   Bex$FemaleID[replace_rows] <- c("Ndaw", "Sirk", "Oort", "Oerw")
-    ```
-
-8. **Replacing NAs in Male Corn with 0:**
-   - Replaced NAs in `MaleCorn` and `FemaleCorn` columns with 0.
-
-    ```{r replace NA Male Corn, echo=FALSE} 
-   Bex$MaleCorn[is.na(Bex$MaleCorn)] <- 0
-   Bex$FemaleCorn[is.na(Bex$FemaleCorn)] <- 0
-    ```
-   
-
-9. **Resolving Issues:**
-   - Discussed and resolved various issues related to data import, formatting, and error messages.
-
-10. **Printing Summary:**
-    - Provided a summary of the steps and code snippets for reference.
-
-Please note that the code snippets may need to be adapted to your specific data and requirements. Let me know if you have any specific questions or if there's anything else you'd like assistance with!
 
 
 
