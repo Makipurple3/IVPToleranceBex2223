@@ -451,26 +451,33 @@ Bex$Time <- format(Bex$Time, "%H:%M:%S")
 # Check if the dataset has the necessary columns before proceeding 
 if ("DyadDistance" %in% names(Bex)) {
 
-  # Remove "m" from DyadDistance and convert to numeric
-  Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
+  # Check if modifications are needed (avoiding unnecessary changes on multiple runs)
+  if (!all(grepl("^\\d+$", as.character(Bex$DyadDistance)))) {
+    
+    # Remove "m" from DyadDistance and convert to numeric
+    Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
+    
+    # Identify NA values in DyadDistance
+    NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
+    
+    # View the locations of NA values
+    View(NA_DyadDistance)
+    
+    # Count the number of missing values in the DyadDistance column
+    dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
+    
+    # Print the result
+    cat("Number of NA values in DyadDistance column (using second approach):", nrow(dyad_distance_missing_data), "\n")
+    
+    # Find row indices with NA values in DyadDistance
+    dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
+    
+    # Print the row indices
+    cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
 
-  # Identify NA values in DyadDistance
-  NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
-
-  # View the locations of NA values
-  View(NA_DyadDistance)
-
-  # Count the number of missing values in the DyadDistance column
-  dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
-
-  # Print the result
-  cat("Number of NA values in DyadDistance column (using second approach):", nrow(dyad_distance_missing_data), "\n")
-
-  # Find row indices with NA values in DyadDistance
-  dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
-
-  # Print the row indices
-  cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
+  } else {
+    cat("No modifications needed for DyadDistance. It already appears to be in the desired format.\n")
+  }
 
 } else {
   # Display a message or take alternative actions if columns are missing
@@ -565,40 +572,51 @@ if ("DyadDistance" %in% names(Bex)) {
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
  
 ```{r Distance, echo=TRUE}
+# Check if the dataset has the necessary columns before proceeding 
+if ("DyadDistance" %in% names(Bex)) {
 
-library(dplyr)
+  # Check if the modification has already been applied
+  if (!all(c("Dyadistance", "Distance") %in% names(Bex))) {
+    
+    # Define replacement values
+    replacement_values <- c(
+      `24` = 1, `27` = 2, `95` = 4, `492` = 0, `744` = 4, `971` = 0, `1113` = 0, `1164` = 4,
+      `1341` = 0, `1583` = 3, `1779` = 5, `1792` = 4, `1840` = 0, `1868` = 0, `1918` = 4,
+      `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
+    )
+    
+    # Applying rules to update DyadDistance
+    Bex <- Bex %>%
+      mutate(
+        Dyadistance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], DyadDistance)
+      )
+    
+    # Create a new variable Distance with values from DyadDistance
+    Bex <- Bex %>% mutate(Distance = DyadDistance)
+    
+    # Count NA's in Distance
+    na_count <- sum(is.na(Bex$Distance))
+    print(paste("Number of NA's in Distance: ", na_count))
+    
+    # Remove rows with NA in Distance after replacing values 
+    Bex <- Bex %>% filter(!is.na(Distance))
+    
+    # Count NA's in Distance after removing NA's
+    na_count <- sum(is.na(Bex$Distance))
+    print(paste("Number of NA's in Distance: ", na_count))
+    
+  } else {
+    # Display a message if the modifications have already been applied
+    cat("Modification already applied. No changes made.\n")
+  }
 
-
-# Define replacement values
-replacement_values <- c(
-  `24` = 1, `27` = 2, `95` = 4, `492` = 0, `744` = 4, `971` = 0, `1113` = 0, `1164` = 4,
-  `1341` = 0, `1583` = 3, `1779` = 5, `1792` = 4, `1840` = 0, `1868` = 0, `1918` = 4,
-  `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
-)
-
-# Applying rules to update DyadDistance
-Bex <- Bex %>%
-  mutate(
-    Dyadistance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], DyadDistance)
-  )
-
-
-# Create a new variable Distance with values from DyadDistance
-Bex <- Bex %>% mutate(Distance = DyadDistance)
-
-# Count NA's in Distance
-na_count <- sum(is.na(Bex$Distance))
-print(paste("Number of NA's in Distance: ", na_count))
-
-# Remove rows with NA in Distance after replacing values 
-Bex <- Bex %>% filter(!is.na(Distance))
-
-# Count NA's in Distance after removing NA's
-na_count <- sum(is.na(Bex$Distance))
-print(paste("Number of NA's in Distance: ", na_count))
+} else {
+  # Display a message or take alternative actions if columns are missing
+  cat("Error: Required columns not found in the dataset.\n")
+}
 
 ```
-
+*In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don't exist, it proceeds with the modifications. This way, running the code multiple times won't cause redundant changes.
   
 * **23 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
 
