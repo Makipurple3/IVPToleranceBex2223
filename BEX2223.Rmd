@@ -60,12 +60,12 @@ glimpse(Boxex)
 
 
 
-* I am now using the **glimpse** function to display a summary of my dataset
+* I am now using the **view** function to have a sight on the entire dataset and **glimpse** to display a summary of my dataset
 * I have **20 columns** (here variables) and **2795 rows** (here trials)
 
-* I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest
+* I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call **Bex**
 
-* The highlighted variables are the ones I will use for my new df. I will then **clean the data** before heading to the **statistical analysis**
+* The highlighted variables are the ones I will use for **Bex**. I will then **clean the data**  before heading to the **statistical analysis** and the **interpretation of the results*
 
 
 #### Variables of Boxex
@@ -84,11 +84,10 @@ glimpse(Boxex)
      "Time is coded" in a **POSIXct** format 
      
     * I do not plan to use this variable but we can see that "Time" has hours displayed with a date which is incorrect. 
-    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **SOURCE**I would need to correct the incorrect display of the date in the     dataset.
-    * This variable could also be usefull to see when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
+    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **SOURCE**I would need to correct the incorrect display of the date in the dataset.
+    * This variable could also be useful to see when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
     * For now, the values in "Time" are all on the same (wrong) day which is the **31st  of December** 
-    * Nevertheless I am not going to use this variable
-    
+    * Note: I first did not intend to keep **Time** in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.
     
 * Data                   : chr 
     "Data" is coded as **character**
@@ -124,8 +123,6 @@ glimpse(Boxex)
     * I plan to use this variable in the same way as "Male ID"
     * It will also help me see which behaviour was displayed by each individuals (here females)
     
-  
-  
 * **Male placement corn**: dbl
     "Male placement corn is coded in r as **double**
     * It gives the **amount of corn given to the monkey of the dyad before the trials**
@@ -134,7 +131,6 @@ glimpse(Boxex)
     
     * This variable could be related to the level of motivation of a monkey but as it is not directly related to my hypothesis I may not use this column. I will re-consider the use of this column later on
     * In regards of this possibility I will change the format of the variable to numerical 
-  
   
 * **MaleCorn**           : dbl
     "MaleCorn" is coded in r as **double**
@@ -234,7 +230,6 @@ glimpse(Boxex)
     
     
 
-
 ## 2. Cleaning the data
 
 ### Creating a new dataframe
@@ -250,7 +245,7 @@ glimpse(Bex)
 View(Bex)
 ```
 
-#### 2.1 Merging Male placement corn and MaleCorn
+#### 2.0.1 Merging Male placement corn and MaleCorn
 * I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
 * Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
@@ -314,15 +309,19 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 
 
 * For the **merge of MaleCornOld and Male placement corn**, I used different conditions:
-  1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement     corn.
+  1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn.
   2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given
-  
 * In this way, I should not loose any data, minimize the mistakes and already transform the NA's of this variable into a number which will remove the remaining NA's which are meant to be 0
 * After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
-### Replacing and removing NA’S
 
-#### 2.2 Identifying variables with missing data
+###2.1 Replacing and removing NA’S
+
+#### 2.1.2 Identifying variables with missing data
+
+* Now in order to see where are located the missing points in the data, I'm going to **print** the variables **with and without NA's**
+
+* The function **sapply** is used to apply the function **sum** for NA's to each column of the data frame, so each variable
 
 ```{r Find Missing data, echo=FALSE}
 # Check for missing data
@@ -359,10 +358,7 @@ cat("Number of 'No Remarks' in the 'Remarks' column:", no_remarks_count, "\n")
 
 #### 2.4 Cleaning "Intruder ID"
 * Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column
-* Because nothing was enter
-
-
-ed when there was no intrusion, I will replace every NA's by **No Intrusion**
+* Because nothing was entered when there was no intrusion, I will replace every NA's by **No Intrusion**
 * Also, I will use a function to create a new dichotomic variable called **Intrusion**. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)
 
 
@@ -430,7 +426,7 @@ Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
 
 
 #### 2.8 Cleaning of "Time"
-* Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code nade for Bex and added *Time* in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now
+* Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added **Time** in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now
 
 ```{r Time, include=FALSE}
 
@@ -438,10 +434,8 @@ Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
 # Convert 'Time' to POSIXct format
 Bex$Time <- as.POSIXct(Bex$Time, format = "%Y-%m-%d %H:%M:%S")
 
-# Extract only the time from 'Time' and assign it to a new variable 'OnlyTime'
+# Extract only the time from 'Time' and assign it update Time'
 Bex$Time <- format(Bex$Time, "%H:%M:%S")
-
-# Display the updated dataset
 
 
 ```
@@ -454,27 +448,34 @@ Bex$Time <- format(Bex$Time, "%H:%M:%S")
 
 ```{r DyadDistance NA, echo=FALSE}
 
-# Remove "m" from DyadDistance and convert to numeric
-Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
+# Check if the dataset has the necessary columns before proceeding 
+if ("DyadDistance" %in% names(Bex)) {
 
-# Identify NA values in DyadDistance
-NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
+  # Remove "m" from DyadDistance and convert to numeric
+  Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
 
-# View the locations of NA values
-View(NA_DyadDistance)
+  # Identify NA values in DyadDistance
+  NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
 
-# Count the number of missing values in the DyadDistance column
-dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
+  # View the locations of NA values
+  View(NA_DyadDistance)
 
-# Print the result
-cat("Number of NA values in DyadDistance column (using second approach):", nrow(dyad_distance_missing_data), "\n")
+  # Count the number of missing values in the DyadDistance column
+  dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
 
-# Find row indices with NA values in DyadDistance
-dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
+  # Print the result
+  cat("Number of NA values in DyadDistance column (using second approach):", nrow(dyad_distance_missing_data), "\n")
 
-# Print the row indices
-cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
+  # Find row indices with NA values in DyadDistance
+  dyad_distance_na_row <- which(is.na(Bex$DyadDistance))
 
+  # Print the row indices
+  cat("Rows with NA values in DyadDistance column:", paste(dyad_distance_na_row, collapse = ", "), "\n")
+
+} else {
+  # Display a message or take alternative actions if columns are missing
+  cat("Error: Required columns not found in the dataset.\n")
+}
 
 ```
 
@@ -1089,7 +1090,6 @@ kable(table(Bex$Dyad))
 
 ```
 
-  
   * Looking at the summary of the Dyad column, I saw that some 
   
   5. Make a summary   of trial and session so I can see see how many trials and sessions have been done with the individuals

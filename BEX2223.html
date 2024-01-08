@@ -217,10 +217,10 @@ pre code {
 ## $ Observers             &lt;chr&gt; &quot;Josefien; Michael; Ona; Zonke&quot;, &quot;Josefien; Mich…
 ## $ DeviceId              &lt;chr&gt; &quot;{7A4E6639-7387-7648-88EC-7FD27A0F258A}&quot;, &quot;{7A4E…</code></pre>
 <ul>
-<li><p>I am now using the <strong>glimpse</strong> function to display a summary of my dataset</p></li>
+<li><p>I am now using the <strong>view</strong> function to have a sight on the entire dataset and <strong>glimpse</strong> to display a summary of my dataset</p></li>
 <li><p>I have <strong>20 columns</strong> (here variables) and <strong>2795 rows</strong> (here trials)</p></li>
-<li><p>I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest</p></li>
-<li><p>The highlighted variables are the ones I will use for my new df. I will then <strong>clean the data</strong> before heading to the <strong>statistical analysis</strong></p></li>
+<li><p>I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call <strong>Bex</strong></p></li>
+<li><p>The highlighted variables are the ones I will use for <strong>Bex</strong>. I will then <strong>clean the data</strong> before heading to the <strong>statistical analysis</strong> and the **interpretation of the results*</p></li>
 </ul>
 <div id="variables-of-boxex" class="section level4">
 <h4>Variables of Boxex</h4>
@@ -236,9 +236,9 @@ pre code {
 <ul>
 <li>I do not plan to use this variable but we can see that “Time” has hours displayed with a date which is incorrect.</li>
 <li>(In the case I wanted to observe <strong>when the trials occurred during the day</strong> as time may have an influence on their behavior) <strong>SOURCE</strong>I would need to correct the incorrect display of the date in the dataset.</li>
-<li>This variable could also be usefull to see when the <strong>seasonal effect</strong> took place as we only went in the morning during summer because of the heat while we went later and for longer times in the field to do the box experiment in winter</li>
+<li>This variable could also be useful to see when the <strong>seasonal effect</strong> took place as we only went in the morning during summer because of the heat while we went later and for longer times in the field to do the box experiment in winter</li>
 <li>For now, the values in “Time” are all on the same (wrong) day which is the <strong>31st of December</strong></li>
-<li>Nevertheless I am not going to use this variable</li>
+<li>Note: I first did not intend to keep <strong>Time</strong> in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.</li>
 </ul></li>
 <li><p>Data : chr “Data” is coded as <strong>character</strong></p>
 <ul>
@@ -407,23 +407,25 @@ pre code {
 ## $ IntruderID            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;Sey…
 ## $ Remarks               &lt;chr&gt; NA, NA, &quot;Nge box did not open because of the bat…</code></pre>
 <div id="merging-male-placement-corn-and-malecorn" class="section level4">
-<h4>2.1 Merging Male placement corn and MaleCorn</h4>
+<h4>2.0.1 Merging Male placement corn and MaleCorn</h4>
 <ul>
 <li><p>I want to process all the missing data in Bex. But before I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
 <li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
 <li><p>Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</p></li>
 <li><p>I will first <strong>rename MaleCorn to MaleCornOld</strong>, then <strong>check the amount of NA’s</strong> and then <strong>merge “MaleCornOld” and “male placement corn”</strong> into the <strong>new variable “MaleCorn”</strong></p></li>
 <li><p>I have found <strong>1499 NA in common</strong> between MaleCornOld and ‘male placement corn’, <strong>1609 NA in Male placement corn</strong> and <strong>2685 in MaleCorn old</strong></p></li>
-<li><p>For the <strong>merge of MaleCornOld and Male placement corn</strong>, I used different conditions: 1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placement corn. 2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
+<li><p>For the <strong>merge of MaleCornOld and Male placement corn</strong>, I used different conditions: 1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn. 2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
 <li><p>In this way, I should not loose any data, minimize the mistakes and already transform the NA’s of this variable into a number which will remove the remaining NA’s which are meant to be 0</p></li>
 <li><p>After the merge I found that there were <strong>no NA’s remaining</strong> in the <strong>“New” Male Corn</strong> and that <strong>1499 0’s</strong> where found in the column which <strong>corresponds to the amount of common NA’s found previously</strong> between the <strong>“Old” Male Corn</strong> and <strong>male placement corn</strong></p></li>
 </ul>
+<p>###2.1 Replacing and removing NA’S</p>
 </div>
-</div>
-<div id="replacing-and-removing-nas" class="section level3">
-<h3>Replacing and removing NA’S</h3>
 <div id="identifying-variables-with-missing-data" class="section level4">
-<h4>2.2 Identifying variables with missing data</h4>
+<h4>2.1.2 Identifying variables with missing data</h4>
+<ul>
+<li><p>Now in order to see where are located the missing points in the data, I’m going to <strong>print</strong> the variables <strong>with and without NA’s</strong></p></li>
+<li><p>The function <strong>sapply</strong> is used to apply the function <strong>sum</strong> for NA’s to each column of the data frame, so each variable</p></li>
+</ul>
 <pre><code>## Variables with Missing Data:</code></pre>
 <table>
 <thead>
@@ -520,9 +522,9 @@ pre code {
 <h4>2.4 Cleaning “Intruder ID”</h4>
 <ul>
 <li>Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column</li>
-<li>Because nothing was enter</li>
+<li>Because nothing was entered when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong></li>
+<li>Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</li>
 </ul>
-<p>ed when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong> * Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</p>
 <pre><code>## Number of &#39;No Intrusion&#39; in the &#39;Intruder ID&#39; column after replacement: 2737</code></pre>
 <ul>
 <li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended</li>
@@ -550,7 +552,7 @@ pre code {
 <div id="cleaning-of-time" class="section level4">
 <h4>2.8 Cleaning of “Time”</h4>
 <ul>
-<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code nade for Bex and added <em>Time</em> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now</li>
+<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added <strong>Time</strong> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now</li>
 </ul>
 </div>
 <div id="cleaning-dyaddistance" class="section level4">
@@ -560,8 +562,8 @@ pre code {
 <li>Then I will look at the location of the NA’s in the data to treat them case by case.</li>
 </ul>
 <pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
-<pre><code>## Number of NA values in DyadDistance column (using second approach): 69</code></pre>
-<pre><code>## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
+<pre><code>## Number of NA values in DyadDistance column (using second approach): 69 
+## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
 <ul>
 <li><p>We have 69 missing values in DyadDistance. I will look at each row in it’s context as the actual distance of the box was always dependent of the previous trials. I will start with the bigger number as for now the oldest trial is at the last row while the closest one is in row 1.</p>
 <ul>
