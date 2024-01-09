@@ -1138,7 +1138,8 @@ kable(table(Bex$Dyad))
 
 #### Female Corn and Male Corn 
 
-* The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
+* The idea is that for each Dyad, we gave an amount of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day. 
+* I decided to create **two variables**, that are called **PlacementMale** and **PlacementFemale** that will only keep the final amount of corn given to each individual within a day of experiment
 
 ```{r FemaleMale Corn, echo=FALSE}
 
@@ -1152,14 +1153,55 @@ Bex <- Bex %>%
     PlacementFemale = last(FemaleCorn)
   )
 
-View(Bex)
-
-
-View(Bex)
-
 ```
 
-* DyadDistance - Creation of proximity
+#### DyadDistance - Creation of proximity
+* I would like to create a variable called proximity to have another measure of the proximity of the individuals. 
+* First lets look at the maximum and minimum distance found in Dyad Distance
+```{r DyadDistance Max & Min, echo=FALSE}
+# Find maximum distance
+max_distance <- max(Bex$DyadDistance, na.rm = TRUE)
+
+# Find minimum distance
+min_distance <- min(Bex$DyadDistance, na.rm = TRUE)
+
+# Print the results
+cat("Maximum Distance:", max_distance, "\n")
+cat("Minimum Distance:", min_distance, "\n")
+
+```
+* The **minumum Distance** is **0m** while the **maximum Distance** is **10m**
+* Now lets create a new variable called **Proximity** using the distances found in **DyadDistance** on the following model:
+  a. 0 = Contact
+  b. 1 - 2 = Very close
+  c. 2 - 3 = Close
+  d. 4 - 5 = Distant
+  e. 5 - 6 = Far
+  d. 7 - 8 = Very Far
+  f. 9 - 10 = Maximum Distance
+  
+```{r Proximity, echo=FALSE}
+  # Assuming 'DyadDistance' is the name of your distance variable
+Bex <- Bex %>%
+  mutate(
+    Proximity = case_when(
+      DyadDistance == 0 ~ "Contact",
+      between(DyadDistance, 1, 2) ~ "Very Close",
+      between(DyadDistance, 2, 3) ~ "Close",
+      between(DyadDistance, 4, 5) ~ "Distant",
+      between(DyadDistance, 5, 6) ~ "Far",
+      between(DyadDistance, 7, 8) ~ "Very Far",
+      between(DyadDistance, 9, 10) ~ "Maximum Distance",
+      TRUE ~ NA_character_
+    )
+  )
+
+# Print the first few rows of the updated dataset
+View(Bex)
+
+  
+```
+
 * Dyad Response - Detailed cleaning
 * Other Reponse - DEtailed cleaning to delete the column
 * Audience - Creation of Amount Audience and Density

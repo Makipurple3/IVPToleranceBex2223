@@ -1343,23 +1343,45 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <div id="female-corn-and-male-corn" class="section level4">
 <h4>Female Corn and Male Corn</h4>
 <ul>
-<li><p>The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day</p></li>
-<li><p>DyadDistance - Creation of proximity</p></li>
-<li><p>Dyad Response - Detailed cleaning</p></li>
-<li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
-<li><p>Audience - Creation of Amount Audience and Density</p></li>
-<li><p>ID Individua1 - Not sure yet</p></li>
-<li><p>Intruder ID</p></li>
-<li><p>Remarks - Detailed Cleaning</p></li>
-<li><p>Intrusion</p></li>
-<li><p>Not Approaching</p></li>
-<li><p>Lossing Interest</p></li>
-<li><p>Distracted</p></li>
-<li><p>MultipleResponse</p></li>
-<li><p>Amount Audience</p></li>
-<li><p>DyadDistance</p></li>
-<li><p>Distance</p></li>
-<li><p>No trial</p></li>
+<li>The idea is that for each Dyad, we gave an amount of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day.</li>
+<li>I decided to create <strong>two variables</strong>, that are called <strong>PlacementMale</strong> and <strong>PlacementFemale</strong> that will only keep the final amount of corn given to each individual within a day of experiment</li>
+</ul>
+</div>
+<div id="dyaddistance---creation-of-proximity" class="section level4">
+<h4>DyadDistance - Creation of proximity</h4>
+<ul>
+<li>I would like to create a variable called proximity to have another measure of the proximity of the individuals.</li>
+<li>First lets look at the maximum and minimum distance found in Dyad Distance</li>
+</ul>
+<pre><code>## Maximum Distance: 10</code></pre>
+<pre><code>## Minimum Distance: 0</code></pre>
+<ul>
+<li>The <strong>minumum Distance</strong> is <strong>0m</strong> while the <strong>maximum Distance</strong> is <strong>10m</strong></li>
+<li>Now lets create a new variable called <strong>Proximity</strong> using the distances found in <strong>DyadDistance</strong> on the following model:
+<ol style="list-style-type: lower-alpha">
+<li>0 = Contact</li>
+<li>1 - 2 = Very close</li>
+<li>2 - 3 = Close</li>
+<li>4 - 5 = Distant</li>
+<li>5 - 6 = Far</li>
+<li>7 - 8 = Very Far</li>
+<li>9 - 10 = Maximum Distance</li>
+</ol></li>
+<li>Dyad Response - Detailed cleaning</li>
+<li>Other Reponse - DEtailed cleaning to delete the column</li>
+<li>Audience - Creation of Amount Audience and Density</li>
+<li>ID Individua1 - Not sure yet</li>
+<li>Intruder ID</li>
+<li>Remarks - Detailed Cleaning</li>
+<li>Intrusion</li>
+<li>Not Approaching</li>
+<li>Lossing Interest</li>
+<li>Distracted</li>
+<li>MultipleResponse</li>
+<li>Amount Audience</li>
+<li>DyadDistance</li>
+<li>Distance</li>
+<li>No trial</li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
 <pre><code>## [1] &quot;08:18:23&quot; &quot;08:37:12&quot; &quot;08:37:58&quot; &quot;08:16:30&quot; &quot;08:01:59&quot; &quot;08:02:58&quot;</code></pre>
