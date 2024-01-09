@@ -1203,6 +1203,86 @@ View(Bex)
 ```
 
 * Dyad Response - Detailed cleaning
+
+  * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
+    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**    into dichotomic variables in order to see the frequency of each behaviour
+    * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
+    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
+      1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
+      2. assign as few labels per trial 
+      3. get a better view and understanding of the data and the most common behaviours produced by each dyad
+      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
+      
+    * Projection of the hierarchy (changes will be made)
+      - Create a table with each combination existing
+      
+      - Decide what is more important
+      - Ex:
+        - Aggression > Tolerance
+        - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
+        - Tolerance > Loosing interest
+        - Tolerance > Intrusion
+        - Not approaching = looking box but not coming while Loosing interest           = not paying attention to the box
+        - Intrusion > Loosing interest
+        - Intrusion > Not approaching
+        - Not approaching > Looks at partner
+        - We can code every look at partner as no approaching and keep the             count of looks at partner as additional information
+        - Not approaching >?> Loosing interest ? !!
+        - Define distracted
+        - Not approaching > Distracted
+        - Aggression > Not approaching
+        - Other > Look case by case and categorize depending of behavior
+        - Remarks may be used for the same reason
+        
+
+  * First I want to see how many rows in DyadResponse have more than one entry per cell
+  
+```{r DyadResponse MultipleResponse, echo=FALSE}
+  # Assuming 'DyadResponse' is the name of your variable
+rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Display the rows with multiple entries in DyadResponse
+View(Bex[rows_with_multiple_entries, ])
+
+# Print the amount of cells with multiple entries and the total number of rows
+cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_multiple_entries), "\n")
+
+```
+
+
+* Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print. 
+* I will make an intermediary graph and a summary to see that state of DyadResponse at the moment
+
+```{r DyadResponse Sumamry, echo=FALSE}
+# Assuming 'DyadResponse' is the name of your variable
+rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ","))) > 1))
+
+# Display unique combinations of entries for rows with multiple entries in DyadResponse
+unique_combinations <- lapply(rows_with_multiple_entries, function(row) unique(unlist(strsplit(as.character(Bex$DyadResponse[row]), ","))))
+
+# Display every combination of entries
+for (i in seq_along(rows_with_multiple_entries)) {
+  row <- rows_with_multiple_entries[i]
+  entries <- unique_combinations[[i]]
+  cat("Row number: ", row, "\n")
+  cat("Entries: ", toString(entries), "\n\n")
+}
+
+# Summary of the data
+summary_DyadResponse <- summary(Bex$DyadResponse)
+cat("Summary Dyad Response:\n")
+print(summary_DyadResponse)
+
+# Graph of DyadResponse and the amount of each output
+library(ggplot2)
+
+ggplot(Bex, aes(x = DyadResponse)) +
+  geom_bar() +
+  labs(title = "Distribution of DyadResponse")
+
+
+```
+
 * Other Reponse - DEtailed cleaning to delete the column
 * Audience - Creation of Amount Audience and Density
 * ID Individua1 - Not sure yet
