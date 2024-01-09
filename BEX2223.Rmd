@@ -1140,6 +1140,25 @@ kable(table(Bex$Dyad))
 
 * The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
 
+```{r FemaleMale Corn, echo=FALSE}
+
+
+
+Bex <- Bex %>%
+  arrange(Dyad, Date) %>%
+  group_by(Dyad, Day) %>%
+  mutate(
+    PlacementMale = last(MaleCorn),
+    PlacementFemale = last(FemaleCorn)
+  )
+
+View(Bex)
+
+
+View(Bex)
+
+```
+
 * DyadDistance - Creation of proximity
 * Dyad Response - Detailed cleaning
 * Other Reponse - DEtailed cleaning to delete the column
