@@ -1136,7 +1136,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </table>
 <p># Correct from here, mistake were inserted in dyad by changin wrong lines</p>
 <ol start="2" style="list-style-type: decimal">
-<li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here; - Sirk Sey - Ouli Xin - Piep Xia - Oerw Nge - Oort Kom - Ginq Sho - Ndaw Buk - Xian Pom - Guat Pom</li>
+<li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here;</li>
 </ol>
 <pre><code>Var1    Freq</code></pre>
 <p>Buk Ginq 1 Buk Ndaw 257 Kom Oort 366 Nge Oerw 181 Pom Guat 5 Pom Xian 257 Sey Sirk 584 Sho Ginq 278 Xia Piep 606 Xin Oort 4 Xin Ouli 185</p>
@@ -1145,8 +1145,15 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </ul>
 <pre><code>##  [1]  605  606  607  608  609  921 2692 2693 2694 2695</code></pre>
 <pre><code>## [1] &quot;Buk Ginq&quot; &quot;Xin Oort&quot;</code></pre>
+<ul>
+<li><ul>
+<li><p>I will change the occurences of <strong>Buk Ginq</strong> to <strong>Sho Ginq</strong> for <strong>row 605 to 609</strong> and <strong>row 921</strong>. I know these triasl are with SHo Ginq because the comments metionned Sho in them while Male(ID) gave Buk</p></li>
+<li><p>For the <strong>rows from 2692 to 2695</strong> since, Ouli is in the audience it is unlikely that we had trials with the dyad <strong>Xin Ouli</strong>. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had <strong>Xin Oort</strong> by <strong>Kom Oort</strong></p></li>
+<li><p>I thus want <strong>Buk</strong> to be replaced in male ID in rows 605 to 609 and row 921 with <strong>Sho</strong> and, <strong>Xin</strong> to be replaced by <strong>Kom</strong> in rows 2692 to 2695 in Male ID before updating Dyad</p></li>
+</ul></li>
+</ul>
 <pre><code>## Unique Male after correction Sey Xia Nge Ouli Sho Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
-<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Buk   Ginq Kom   Oort Pom   Xian Pom   Guat Kom   Piep Kom   Ouli Xin   Oort</code></pre>
+<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Kom   Oort Pom   Xian Pom   Guat</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1157,7 +1164,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <tbody>
 <tr class="odd">
 <td align="left">Buk</td>
-<td align="right">262</td>
+<td align="right">257</td>
 </tr>
 <tr class="even">
 <td align="left">Kom</td>
@@ -1193,7 +1200,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Sho</td>
-<td align="right">274</td>
+<td align="right">279</td>
 </tr>
 <tr class="odd">
 <td align="left">Sirk</td>
@@ -1201,11 +1208,11 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </tr>
 <tr class="even">
 <td align="left">Xia</td>
-<td align="right">568</td>
+<td align="right">571</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin</td>
-<td align="right">161</td>
+<td align="right">158</td>
 </tr>
 </tbody>
 </table>
@@ -1218,102 +1225,74 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Buk Ginq</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
 <td align="left">Buk Ndaw</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kom Oort</td>
-<td align="right">366</td>
-</tr>
-<tr class="even">
-<td align="left">Kom Ouli</td>
-<td align="right">1</td>
+<td align="right">370</td>
 </tr>
 <tr class="odd">
-<td align="left">Kom Piep</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
 <td align="left">Nge Oerw</td>
 <td align="right">181</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pom Guat</td>
 <td align="right">5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Pom Xian</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Sey Sirk</td>
 <td align="right">584</td>
 </tr>
-<tr class="even">
-<td align="left">Sho Ginq</td>
-<td align="right">274</td>
-</tr>
 <tr class="odd">
-<td align="left">Xia Piep</td>
-<td align="right">603</td>
+<td align="left">Sho Ginq</td>
+<td align="right">279</td>
 </tr>
 <tr class="even">
-<td align="left">Xin Oort</td>
-<td align="right">4</td>
+<td align="left">Xia Piep</td>
+<td align="right">606</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">184</td>
+<td align="right">185</td>
 </tr>
 </tbody>
 </table>
-<ul>
-<li><p>The rows 1 to 6 are not all in the same row of trials. While I found out using comments that Sho was in the first 5 trials, I will change the occurences of <strong>Buk Ginq</strong> to <strong>Sho Ginq</strong> for row 1,2,3,4,5, and delete row 6</p></li>
-<li><p>Since Ouli is in the audience it is unlikely that we had trials with the dyad <strong>Xin Ouli</strong> in the rows 2536,2537,2538,2539. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had <strong>Xin Oort</strong> by <strong>Kom Oort</strong></p></li>
-<li><p>I thus want <strong>Buk</strong> to be replaced in male ID in rows 1,2,3,4,5 with <strong>Sho</strong> and <strong>Xin</strong> to be replaced by <strong>Kom</strong> in rows 2536,2537,2538,2539 in Male ID before updating Dyad</p></li>
-</ul>
 <ol start="3" style="list-style-type: decimal">
-<li>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Session</strong> where the data will be <strong>sorted by date and dyad and day</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Session:</li>
+<li><p>Create the variable called <strong>Trial</strong> where the data will be <strong>sorted by date and dyad</strong> in order to see how many trials have been done with each individual: <strong>One row (per dyad) = one trial</strong> and the variable called <strong>Day</strong> where the data will be <strong>sorted by date and dyad and day</strong> in order to see how many sessions have been done with each individual: <strong>One day (per dyad) = one session</strong> Now, let’s proceed with creating the Dyad variable, Trial, and Day:</p></li>
+<li><p>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</p></li>
 </ol>
 <pre><code>## Trial Summary:</code></pre>
-<pre><code>## # A tibble: 13 × 2
-##    Dyad       Num_Trials
-##    &lt;chr&gt;           &lt;int&gt;
-##  1 Buk   Ginq          5
-##  2 Buk   Ndaw        257
-##  3 Kom   Oort        366
-##  4 Kom   Ouli          1
-##  5 Kom   Piep          3
-##  6 Nge   Oerw        181
-##  7 Pom   Guat          5
-##  8 Pom   Xian        257
-##  9 Sey   Sirk        584
-## 10 Sho   Ginq        274
-## 11 Xia   Piep        603
-## 12 Xin   Oort          4
-## 13 Xin   Ouli        184</code></pre>
+<pre><code>## # A tibble: 9 × 2
+##   Dyad       Num_Trials
+##   &lt;chr&gt;           &lt;int&gt;
+## 1 Buk   Ndaw        257
+## 2 Kom   Oort        370
+## 3 Nge   Oerw        181
+## 4 Pom   Guat          5
+## 5 Pom   Xian        257
+## 6 Sey   Sirk        584
+## 7 Sho   Ginq        279
+## 8 Xia   Piep        606
+## 9 Xin   Ouli        185</code></pre>
 <pre><code>## 
-## Session Summary:</code></pre>
-<pre><code>## # A tibble: 13 × 2
-##    Dyad       Num_Sessions
-##    &lt;chr&gt;             &lt;int&gt;
-##  1 Buk   Ginq            1
-##  2 Buk   Ndaw           40
-##  3 Kom   Oort           71
-##  4 Kom   Ouli           72
-##  5 Kom   Piep           73
-##  6 Nge   Oerw           95
-##  7 Pom   Guat           96
-##  8 Pom   Xian          115
-##  9 Sey   Sirk          168
-## 10 Sho   Ginq          202
-## 11 Xia   Piep          251
-## 12 Xin   Oort          252
-## 13 Xin   Ouli          279</code></pre>
+## Day Summary:</code></pre>
+<pre><code>## # A tibble: 9 × 2
+##   Dyad       Num_y
+##   &lt;chr&gt;      &lt;int&gt;
+## 1 Buk   Ndaw    39
+## 2 Kom   Oort    70
+## 3 Nge   Oerw    92
+## 4 Pom   Guat    93
+## 5 Pom   Xian   112
+## 6 Sey   Sirk   165
+## 7 Sho   Ginq   199
+## 8 Xia   Piep   248
+## 9 Xin   Ouli   275</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -1323,68 +1302,48 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 </thead>
 <tbody>
 <tr class="odd">
-<td align="left">Buk Ginq</td>
-<td align="right">5</td>
-</tr>
-<tr class="even">
 <td align="left">Buk Ndaw</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Kom Oort</td>
-<td align="right">366</td>
-</tr>
-<tr class="even">
-<td align="left">Kom Ouli</td>
-<td align="right">1</td>
+<td align="right">370</td>
 </tr>
 <tr class="odd">
-<td align="left">Kom Piep</td>
-<td align="right">3</td>
-</tr>
-<tr class="even">
 <td align="left">Nge Oerw</td>
 <td align="right">181</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pom Guat</td>
 <td align="right">5</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Pom Xian</td>
 <td align="right">257</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Sey Sirk</td>
 <td align="right">584</td>
 </tr>
-<tr class="even">
-<td align="left">Sho Ginq</td>
-<td align="right">274</td>
-</tr>
 <tr class="odd">
-<td align="left">Xia Piep</td>
-<td align="right">603</td>
+<td align="left">Sho Ginq</td>
+<td align="right">279</td>
 </tr>
 <tr class="even">
-<td align="left">Xin Oort</td>
-<td align="right">4</td>
+<td align="left">Xia Piep</td>
+<td align="right">606</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">184</td>
+<td align="right">185</td>
 </tr>
 </tbody>
 </table>
+</div>
+<div id="female-corn-and-male-corn" class="section level4">
+<h4>Female Corn and Male Corn</h4>
 <ul>
-<li><p>I added a new column RowID that assigns a unique identifier to each row. I replaced the arrange(Date, Dyad) and arrange(Dyad, Date) with arrange(RowID) to use the unique identifier for ordering. I removed the RowID column after creating the trial and session variables. These changes ensure that the code produces consistent results regardless of the order of rows in the dataset.</p>
-<ul>
-<li>Looking at the summary of the Dyad column, I saw that some</li>
-</ul>
-<ol start="5" style="list-style-type: decimal">
-<li>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</li>
-</ol></li>
-<li><p>Female Corn and Male Corn -</p></li>
+<li><p>The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day</p></li>
 <li><p>DyadDistance - Creation of proximity</p></li>
 <li><p>Dyad Response - Detailed cleaning</p></li>
 <li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
@@ -1403,7 +1362,7 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <li><p>No trial</p></li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
-<pre><code>## [1] &quot;12:58:09&quot; &quot;12:58:17&quot; &quot;12:58:25&quot; &quot;12:58:44&quot; &quot;12:58:52&quot; &quot;12:59:00&quot;</code></pre>
+<pre><code>## [1] &quot;08:18:23&quot; &quot;08:37:12&quot; &quot;08:37:58&quot; &quot;08:16:30&quot; &quot;08:01:59&quot; &quot;08:02:58&quot;</code></pre>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
 </ul>

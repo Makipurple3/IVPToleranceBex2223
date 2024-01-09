@@ -996,16 +996,7 @@ kable(table(Bex$Dyad))
 
 
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
-    - Sirk Sey
-    - Ouli Xin
-    - Piep Xia 
-    - Oerw Nge 
-    - Oort Kom 
-    - Ginq Sho 
-    - Ndaw Buk 
-    - Xian Pom
-    - Guat Pom
-    
+
     Var1	Freq
 Buk Ginq	1
 Buk Ndaw	257
@@ -1024,7 +1015,7 @@ Xin Ouli	185
     -Buk Ginq - 6 occurences
     -Xin Oort - 4 occurences
   
-```{r Wrong Dyads, echo=FALSE}
+```{r Identify Wrong Dyads, echo=FALSE}
 
 # Part 1: Identify rows with wrong dyads
 wrong_dyads <- c("Buk Ginq", "Xin Oort")
@@ -1036,16 +1027,37 @@ wrong_rows <- which(Bex$Dyad %in% wrong_dyads)
 print(wrong_rows)
 print(wrong_dyads)
 
+
+
+```
+* 
+
+  * I will change the occurences of **Buk Ginq** to **Sho Ginq** for **row 605 to 609** and **row 921**. I know these triasl are with SHo Ginq because the comments metionned Sho in them while Male(ID) gave Buk
+  * For the **rows from 2692 to 2695** since, Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli**. Also I think they are little chances that the names of both individuals     were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
+  
+  * I thus want **Buk** to be replaced in male ID in rows 605 to 609 and row 921 with **Sho** and, **Xin** to be replaced by **Kom** in rows 2692 to 2695 in Male ID before updating Dyad
+  
+  
+```{r Correct Wrong Dyads, echo=FALSE}
+
+# Check if corrections have already been made for "Sho"
+if (!all(Bex$MaleID[605:609] == "Sho")) {
+  # Correct "Buk" with "Sho" in row 921
+  Bex$MaleID[605:609] <- "Sho"
+}
+
 # Check if corrections have already been made for "Sho"
 if (!all(Bex$MaleID[921] == "Sho")) {
   # Correct "Buk" with "Sho" in row 921
   Bex$MaleID[921] <- "Sho"
 }
 
+
+
 # Check if corrections have already been made for "Kom"
-if (!all(Bex$MaleID[2536:2539] == "Kom")) {
+if (!all(Bex$MaleID[2692:2695] == "Kom")) {
   # Correct "Xin" with "Kom" in rows 2536 to 2539
-  Bex$MaleID[2536:2539] <- "Kom"
+  Bex$MaleID[2692:2695] <- "Kom"
 }
 
 
@@ -1075,73 +1087,59 @@ kable(table(Bex$Dyad))
 
 
 
-
 ```
 
-  * The rows 1 to 6 are not all in the same row of trials. While I found out using comments that Sho was in the first 5 trials, I will change the occurences of **Buk Ginq** to **Sho Ginq** for row 1,2,3,4,5, and delete row 6
-  
-  * Since Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli** in the rows 2536,2537,2538,2539. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
-  
-  * I thus want **Buk** to be replaced in male ID in rows 1,2,3,4,5 with **Sho** and **Xin** to be replaced by **Kom** in rows 2536,2537,2538,2539 in Male ID before updating Dyad
   
 
-  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Session** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
-  Now, let's proceed with creating the Dyad variable, Trial, and Session:
+  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Day** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  Now, let's proceed with creating the Dyad variable, Trial, and Day:
+  
+  
 
-```{r Dyad and Session, echo=FALSE}
-# Create a unique identifier for each row
-Bex <- Bex %>% mutate(RowID = row_number())
-
+```{r Dyad and Day, include=FALSE}
 # Create Trial variable
 Bex <- Bex %>%
-  arrange(RowID) %>%
+  arrange(Date, Dyad) %>%
   group_by(Dyad) %>%
   mutate(Trial = row_number())
 
-# Create Session variable
+# Create Day variable  # (Changed 'Session' to 'Day' for better clarity)
 Bex <- Bex %>%
-  arrange(RowID) %>%
+  arrange(Dyad, Date) %>%
   group_by(Dyad, Date) %>%
-  mutate(Session = cur_group_id())
+  mutate(Day = cur_group_id())
 
-# Remove the temporary identifier
-Bex$RowID <- NULL
-
-# Summary of Trial and Session
+```
+4. Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals
+```{r Dyad and Day Summary, echo=FALSE}
+# Summary of Trial and Day
 summary_trial <- Bex %>%
   group_by(Dyad) %>%
   summarise(Num_Trials = max(Trial))
 
-summary_session <- Bex %>%
+summary_Day <- Bex %>%
   group_by(Dyad) %>%
-  summarise(Num_Sessions = max(Session))
+  summarise(Num_y = max(Day))
 
 cat("Trial Summary:\n")
 print(summary_trial)
 
-cat("\nSession Summary:\n")
-print(summary_session)
+cat("\nDay Summary:\n")
+print(summary_Day)
 
 kable(table(Bex$Dyad))
 
 ```
-* I added a new column RowID that assigns a unique identifier to each row.
-I replaced the arrange(Date, Dyad) and arrange(Dyad, Date) with arrange(RowID) to use the unique identifier for ordering.
-I removed the RowID column after creating the trial and session variables.
-These changes ensure that the code produces consistent results regardless of the order of rows in the dataset.
 
 
 
 
-
-
-  * Looking at the summary of the Dyad column, I saw that some 
-  
-  5. Make a summary   of trial and session so I can see see how many trials and sessions have been done with the individuals
   
 
+#### Female Corn and Male Corn 
 
-* Female Corn and Male Corn - 
+* The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
+
 * DyadDistance - Creation of proximity
 * Dyad Response - Detailed cleaning
 * Other Reponse - DEtailed cleaning to delete the column
