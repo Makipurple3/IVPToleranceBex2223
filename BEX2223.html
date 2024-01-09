@@ -1462,87 +1462,85 @@ if (&quot;DyadDistance&quot; %in% names(Bex)) {
 <li><p>Unique Combinations and Counts:</p></li>
 <li><p>Distracted &amp; Intrusion 2 - Intrusion &gt; Distracted: Remove distracted if there is instrusion</p></li>
 <li><p>Female aggress male &amp; Intrusion 2 - Female aggress male &gt; Intrusion: Remove intrusion if there is Female aggress male</p></li>
-<li><p>Looks at partner &amp; Other 1 - Display line for detailed check</p></li>
+<li><p>Looks at partner &amp; Other 1 - <strong>Display line for detailed check</strong></p></li>
 <li><p>Losing interest &amp; Intrusion 1 - Intrusion &gt; Losing interest</p></li>
 <li><p>Losing interest &amp; Looks at partner 1 - Losing interest &gt; Looks at partner ! I have to remove the column <strong>looks at partner</strong> since it was not present in my whole dataset</p></li>
 <li><p>Male aggress female &amp; Female aggress male 2 - Male aggress female = Female aggress male &gt; keep 2 occurences</p></li>
 <li><p>Male aggress female &amp; Looks at partner 1 - Male agress female &gt; Looks at partner ! I have to remove the column <strong>looks at partner</strong> since it was not present in my whole dataset</p></li>
 <li><p>Not approaching &amp; Intrusion 1 - Intrusion &gt; Not approaching: Remove not approaching if there is intrusion</p></li>
-<li><p>Not approaching &amp; Losing interest 1 - Not approaching &gt; Losing interest: Remove Losing interest if there is Not approaching</p></li>
+<li><p>Not approaching &amp; Losing interest 1 - <strong>Keep both</strong></p></li>
 <li><p>Female aggress male &amp; Intrusion 1 - Female aggress male &gt; Intrusion: Remove Intrusion if there is Female aggress male</p></li>
 <li><p>Female aggress male &amp; Not approaching 3 - Female aggress male &gt; Not approaching : Remove Not approaching if there is Female aggress male</p></li>
 <li><p>Male aggress female &amp; Intrusion 1 - Male agress female &gt; Intrusion: Remove Intrusion if there is Male agress female</p></li>
 <li><p>Male aggress female &amp; Looks at partner 1 - Male agress female &gt; Looks at partner: ! I have to remove the column <strong>looks at partner</strong> since it was not present in my whole dataset</p></li>
 <li><p>Male aggress female &amp; Not approaching 2 - Male agress female &gt; Not approaching : Remove Not approaching if there is Male aggress female</p></li>
-<li><p>Not approaching &amp; Distracted 7 - Display line for detailed check</p></li>
-<li><p>Not approaching &amp; Intrusion 21 - Keep both</p></li>
+<li><p>Not approaching &amp; Distracted 7 - <strong>Display line for detailed check</strong></p></li>
+<li><p>Not approaching &amp; Intrusion 21 - <strong>Keep both</strong></p></li>
 <li><p>Not approaching &amp; Looks at partner 9 - Not approaching &gt; Looks at partner: ! I have to remove the column <strong>looks at partner</strong> since it was not present in my whole dataset</p></li>
-<li><p>Not approaching &amp; Losing interest 46 - Keep both, I will consider doing a detailled check</p></li>
-<li><p>Not approaching &amp; Other 1 - Display line for detailed check</p></li>
+<li><p>Not approaching &amp; Losing interest 46 - <strong>Keep both, I will consider doing a detailled check</strong></p></li>
+<li><p>Not approaching &amp; Other 1 - <strong>Display line for detailed check</strong></p></li>
 <li><p>Tolerance &amp; Distracted 3 - Tolerance &gt; Distracted: Remove Distracted if there is tolerance</p></li>
 <li><p>Tolerance &amp; Female aggress male 23 - Female agress male &gt; Tolerance: Remove Tolerance if there is Female agress male (I will use these tolerance information since it means the individuals got corn in most cases the check in more detail in the data since sometimes they did not get both the corn)</p></li>
-<li><p>Tolerance &amp; Intrusion 41 - Keep both</p></li>
+<li><p>Tolerance &amp; Intrusion 41 - <strong>Keep both</strong></p></li>
 <li><p>Tolerance &amp; Looks at partner 25 - Tolerance &gt; Looks at partner :! I have to remove the column <strong>looks at partner</strong> since it was not present in my whole dataset</p></li>
 <li><p>Tolerance &amp; Losing interest 13 - Tolerance &gt; Loosing interest: Remove Losing interest if there is Tolerance</p></li>
 <li><p>Tolerance &amp; Male aggress female 31 - Male agress female &gt; Tolerance : Remove Tolerance if there is Male agress male (I will use these tolerance information since it means the individuals got corn in most cases the check in more detail in the data since sometimes they did not get both the corn)</p></li>
 <li><p>Tolerance &amp; Not approaching 6 - Tolerance &gt; Not approaching: Remove Not approaching if there is tolerance</p></li>
-<li><p>Tolerance &amp; Other 8 - Display line for detailed check</p></li>
+<li><p>Tolerance &amp; Other 8 - <strong>Display line for detailed check</strong></p></li>
 <li><p>Create a dichotomy variable called <strong>Got Corn</strong> that displays 1 if there is Tolerance and 0 if not. I decided to creat this variable before removing tolerance in double cases (Ex: Tolerance &amp; Female agrees male) since in most cases where there was toelrance the individuals Got Corn. I will alter check the remarks since we mentionned the cases where individuals did not get corn</p></li>
 <li><p>I also want to remove <strong>Looks at partner</strong> from DyadResponse and Bex</p></li>
 </ul>
 <div id="detailed-conditional-treatment-of-dyadresponse" class="section level5">
 <h5>Detailed conditional treatment of DyadResponse</h5>
+<ul>
+<li>Before making the changes here is a save of Bex</li>
+</ul>
 <p>In DyadResponse</p>
 <p>1.Intrusion &gt; Distracted: Remove distracted if there is intrusion in the same cell(x2)</p>
-<pre><code>## Change in Occurrences for 1st Chunk (Intrusion &gt; Distracted):  -2</code></pre>
+<pre><code>## Change in Occurrences for the Chunk (Intrusion &gt; Distracted):  -2</code></pre>
 <p>2.Female aggress male &gt; Intrusion: Remove intrusion if there is Female aggress male in the same cell(x2)</p>
-<pre class="r"><code>  #2.Remove rows with &#39;Intrusion&#39; if &#39;Female aggress male&#39; and Intrusion
-Bex &lt;- Bex[!(grepl(&quot;Intrusion&quot;, Bex$DyadResponse) &amp; grepl(&quot;Female aggress male&quot;, Bex$DyadResponse)), ]</code></pre>
+<pre><code>## Change in Occurrences for the Chunk (Female aggress male &gt; Intrusion):  -3</code></pre>
 <p>3.Intrusion &gt; Losing interest: Remove Losing interest if there is Intrusion in the same cell(1x)</p>
-<ol start="4" style="list-style-type: decimal">
-<li>Intrusion &gt; Not approaching: Remove not approaching if there is intrusion in the same cell(1x)</li>
+<pre><code>## Change in Occurrences for the Chunk (Intrusion &gt; Losing interest):  -1</code></pre>
+<p>4.Female aggress male &gt; Not approaching:Remove Not approaching if there is Female aggress male in the same cell (3x)</p>
+<pre><code>## Change in Occurrences for the Chunk (Female aggress male &gt; Not approaching):  -3</code></pre>
+<ol start="6" style="list-style-type: decimal">
+<li>Male agress female &gt; Not approaching : Remove Not approaching if there is Male aggress female (2x)</li>
 </ol>
+<pre><code>## Change in Occurrences for the Chunk (Male aggress female &gt; Not approaching):  -2</code></pre>
+<ol start="7" style="list-style-type: decimal">
+<li>Tolerance &gt; Distracted: Remove Distracted if there is tolerance (3x)</li>
+</ol>
+<pre><code>## Change in Occurrences for the Chunk Tolerance &gt; Distracted:  -2</code></pre>
+<p>8.Female agress male &gt; Tolerance: Remove Tolerance if there is Female agress male (23x)</p>
+<pre><code>## Change in Occurrences for the Chunk (Tolerance &amp; Female aggress male):  -21</code></pre>
+<p>9.Tolerance &gt; Loosing interest: Remove Losing interest if there is Tolerance (13x)</p>
+<pre><code>## Change in Occurrences for the Chunk (Tolerance &amp; Losing interest):  -13</code></pre>
+<p>10.Male agress female &gt; Tolerance : Remove Tolerance if there is Male agress male (31)</p>
+<pre><code>## Change in Occurrences for the Chunk (Tolerance &amp; Male aggress female):  -28</code></pre>
+<p>11.Tolerance &gt; Not approaching: Remove Not approaching if there is tolerance (6x)</p>
+<pre><code>## Change in Occurrences for teh Chunk (Tolerance &amp; Not approaching):  -5</code></pre>
 <ul>
-<li><p>Not approaching &amp; Losing interest 1 - Not approaching &gt; Losing interest: Remove Losing interest if there is Not approaching</p></li>
-<li><p>Female aggress male &amp; Intrusion 1 - Female aggress male &gt; Intrusion: Remove Intrusion if there is Female aggress male</p></li>
-<li><p>Female aggress male &amp; Not approaching 3 - Female aggress male &gt; Not approaching : Remove Not approaching if there is Female aggress male</p></li>
-<li><p>Male aggress female &amp; Intrusion 1 - Male agress female &gt; Intrusion: Remove Intrusion if there is Male agress female</p></li>
-<li><p>Male aggress female &amp; Not approaching 2 - Male agress female &gt; Not approaching : Remove Not approaching if there is Male aggress female</p></li>
-<li><p>Tolerance &amp; Distracted 3 - Tolerance &gt; Distracted: Remove Distracted if there is tolerance</p></li>
-<li><p>Tolerance &amp; Female aggress male 23 - Female agress male &gt; Tolerance: Remove Tolerance if there is Female agress male (I will use these tolerance information since it means the individuals got corn in most cases the check in more detail in the data since sometimes they did not get both the corn)</p></li>
-<li><p>Tolerance &amp; Losing interest 13 - Tolerance &gt; Loosing interest: Remove Losing interest if there is Tolerance</p></li>
-<li><p>Tolerance &amp; Male aggress female 31 - Male agress female &gt; Tolerance : Remove Tolerance if there is Male agress male (I will use these tolerance information since it means the individuals got corn in most cases the check in more detail in the data since sometimes they did not get both the corn)</p></li>
-<li><p>Tolerance &amp; Not approaching 6 - Tolerance &gt; Not approaching: Remove Not approaching if there is tolerance</p></li>
-<li><p>Tolerance &amp; Other 8 - Display line for detailed check</p></li>
 <li><p>Looks at partner &amp; Other 1 - Display line for detailed check (1x)</p></li>
 <li><p>Not approaching &amp; Losing interest 46 - Keep both, I will consider doing a detailled check</p></li>
 <li><p>Not approaching &amp; Distracted 7 - Display line for detailed check</p></li>
 <li><p>Not approaching &amp; Other 1 - Display line for detailed check</p></li>
+<li><p>Tolerance &amp; Other 8 - Display line for detailed check</p></li>
 <li><p>Code to display rows numbers and the response in DyadResponse that have mroe than one entry</p></li>
-</ul>
-<p>{r DyadResposneMore1 Disaply, echo=FALSE}</p>
-</div>
-</div>
-</div>
-</div>
-<div id="step-2-display-unique-combinations-before-split" class="section level1">
-<h1>Step 2: Display Unique Combinations Before Split</h1>
-<p>cat(“Unique Combinations Before Split:”) for (i in seq_along(rows_with_multiple_entries)) { row &lt;- rows_with_multiple_entries[i] unique_chars &lt;- unique(strsplit(as.character(Bex$DyadResponse[row]), “;”)[[1]]) unique_combinations &lt;- combn(unique_chars, 2, FUN = function(x) paste(x, collapse = ” &amp; “)) cat(”Row number: “, row,”“) cat(”Combinations: “, toString(unique_combinations),”“) }</p>
-<ul>
-<li>Other Reponse - DEtailed cleaning to delete the column</li>
-<li>Audience - Creation of Amount Audience and Density</li>
-<li>ID Individua1 - Not sure yet</li>
-<li>Intruder ID</li>
-<li>Remarks - Detailed Cleaning</li>
-<li>Intrusion</li>
-<li>Not Approaching</li>
-<li>Lossing Interest</li>
-<li>Distracted</li>
-<li>MultipleResponse</li>
-<li>Amount Audience</li>
-<li>DyadDistance</li>
-<li>Distance</li>
-<li>No trial</li>
+<li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
+<li><p>Audience - Creation of Amount Audience and Density</p></li>
+<li><p>ID Individua1 - Not sure yet</p></li>
+<li><p>Intruder ID</p></li>
+<li><p>Remarks - Detailed Cleaning</p></li>
+<li><p>Intrusion</p></li>
+<li><p>Not Approaching</p></li>
+<li><p>Lossing Interest</p></li>
+<li><p>Distracted</p></li>
+<li><p>MultipleResponse</p></li>
+<li><p>Amount Audience</p></li>
+<li><p>DyadDistance</p></li>
+<li><p>Distance</p></li>
+<li><p>No trial</p></li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
 <pre><code>## [1] &quot;08:18:23&quot; &quot;08:37:12&quot; &quot;08:37:58&quot; &quot;08:16:30&quot; &quot;08:01:59&quot; &quot;08:02:58&quot;</code></pre>
@@ -1555,6 +1553,9 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 <li>But before I may want to make a few changes already by merging <strong>Male corn</strong> and <strong>Male placement corn</strong> into ” Male corn” and maybe replacing all of the NA’s in “Other response” by response</li>
 </ul>
 <p>#Lines to check unique values in MaleFemaleID to see if they are any problems with it # Unique values in MaleID unique_male_ids &lt;- unique(Bex$MaleID)</p>
+</div>
+</div>
+</div>
 </div>
 <div id="unique-values-in-femaleid" class="section level1">
 <h1>Unique values in FemaleID</h1>
