@@ -1238,7 +1238,7 @@ View(Bex)
   * First I want to see how many rows in DyadResponse have more than one entry per cell
   
 ```{r DyadResponse MultipleResponse, echo=FALSE}
-  # Assuming 'DyadResponse' is the name of your variable
+#Rows with more than1 character
 rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Display the rows with multiple entries in DyadResponse
@@ -1251,41 +1251,73 @@ cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_m
 
 
 * Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split. 
-* I will make an intermediary graph and a summary to see that state of DyadResponse at the moment
+* I will make an intermediary summary to see that state of DyadResponse at the moment
 
-```{r DyadResposne Detailed Multiple Response, echo=FALSE}
+* A. Summary od DyadResponse
 
-# Assuming 'DyadResponse' is the name of your variable
+* B.Idnetify Rows with more than 1 entry
 
-# Step 1: Identify Rows with Multiple Entries
-rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+# Step 1: Identify Rows with More than 1 Entry
+rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-# Step 2: Extract Unique Combinations After Split
-all_combinations <- unlist(lapply(rows_with_multiple_entries, function(row) {
-  unique_chars <- unique(strsplit(as.character(Bex$DyadResponse[row]), ";")[[1]])
+# Display the rows with more than 1 entry in DyadResponse
+knitr::kable(Bex[rows_with_multiple_entries_1, ])
+
+# Print the amount of cells with more than 1 entry and the total number of rows
+cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
+
+
+
+* C. Identify Rows with more than 2 entry
+```{r DyadResponse > 2 entry, echo=FALSE}
+# Step 1: Identify Rows with More than 1 Entry
+rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Display the rows with more than 1 entry in DyadResponse
+knitr::kable(Bex[rows_with_multiple_entries_1, ])
+
+# Print the amount of cells with more than 1 entry and the total number of rows
+cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
+
+```
+* D. 
+```{r ,echo=FALSE}
+# Step 3: Extract Unique Combinations for More than 1 Entry
+all_combinations_1 <- unlist(lapply(rows_with_multiple_entries_1, function(row) {
+  unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
   combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
 }))
 
-# Step 3: Count Occurrences of Unique Combinations
-combination_counts <- table(all_combinations)
+# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
+combination_counts_1 <- table(all_combinations_1)
 
-# Display Unique Combinations and Counts
-cat("Unique Combinations and Counts:\n")
-for (entry in names(combination_counts)) {
-  cat(sprintf("%-25s %d\n", entry, combination_counts[[entry]]))
+# Display Unique Combinations and Counts for More than 1 Entry
+cat("Unique Combinations and Counts for More than 1 Entry:\n")
+for (entry in names(combination_counts_1)) {
+  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
 }
 
 
-# Step 4: Summary of the Data
-dyad_response_summary <- table(unlist(strsplit(as.character(Bex$DyadResponse), ";")))
+```
 
-# Display a more organized summary
-cat("\nSingleResponse Summary of Dyad Response:\n")
-for (entry in names(dyad_response_summary)) {
-  cat(sprintf("%-25s %d\n", entry, dyad_response_summary[[entry]]))
+```{r ,echo=FALSE}
+# Step 3: Extract Unique Combinations for More than 1 Entry
+all_combinations_1 <- unlist(lapply(rows_with_multiple_entries_1, function(row) {
+  unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
+  combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
+}))
+
+# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
+combination_counts_1 <- table(all_combinations_1)
+
+# Display Unique Combinations and Counts for More than 1 Entry
+cat("Unique Combinations and Counts for More than 1 Entry:\n")
+for (entry in names(combination_counts_1)) {
+  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
 }
 
 ```
+
 
 * Unique Combinations and Counts:
  - Distracted &  Intrusion  2                   - Intrusion > Distracted: Remove distracted if there is instrusion
