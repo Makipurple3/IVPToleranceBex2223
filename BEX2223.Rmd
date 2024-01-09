@@ -1316,12 +1316,92 @@ for (entry in names(dyad_response_summary)) {
  - Tolerance &  Not approaching 6               - Tolerance > Not approaching: Remove Not approaching if there is tolerance
  - Tolerance &  Other        8                  - Display line for detailed check
 
-* Create a go corn variable before removing tolerance in double cases (Ex: Tolerance & Female agrees male)
-* Remove Looks at partner from DyadResponse
-* Conditional treatment
+* Create a dichotomy variable called **Got Corn** that displays 1 if there is Tolerance and 0 if not. I decided to creat this variable before removing tolerance in double cases (Ex: Tolerance & Female agrees male) since in most cases where there was toelrance the individuals Got Corn. I will alter check the remarks since we mentionned the cases where individuals did not get corn
+
+```{r GotCorn, echo=FALSE}
+# Assuming 'DyadResponse' is the name of your variable
+Bex$GotCorn <- as.integer(grepl("Tolerance", Bex$DyadResponse))
+
+```
+* I also want to remove **Looks at partner** from DyadResponse and Bex
+
+```{r Remove Looks at partner, include=FALSE}
+# Remove rows where DyadResponse contains "Looks at partner"
+Bex <- Bex[!grepl("Looks at partner", Bex$DyadResponse), ]
+
+# Remove "Looks at partner" from DyadResponse
+Bex$DyadResponse <- gsub("Looks at partner", "", Bex$DyadResponse)
+
+# Assuming 'DyadResponse' is the name of your variable
+Bex$GotCorn <- as.integer(grepl("Tolerance", Bex$DyadResponse))
+```
+
+##### Detailed conditional treatment of DyadResponse
+
+In DyadResponse
+
+  1.Intrusion > Distracted: Remove distracted if there is intrusion in the same cell(x2)
+```{r intrusion > Distracted, echo=FALSE}
+# Count occurrences before modifications
+before_summary <- nrow(Bex)
+
+# 1. Intrusion > Distracted: Remove distracted if there is intrusion and distracted (x2)
+Bex1 <- Bex[!(grepl("Distracted", Bex$DyadResponse) & grepl("Intrusion", Bex$DyadResponse)), ]
+
+# Count occurrences after modification
+after_summary1 <- nrow(Bex1)
+
+# Display the change in occurrences
+cat("Change in Occurrences for 1st Chunk (Intrusion > Distracted): ", after_summary1 - before_summary, "\n")
+
+```
+
+2.Female aggress male > Intrusion: Remove intrusion if there is Female aggress male in the same cell(x2)
+```{r Female agress male > Intrusion, echoFALSE}
+
+  #2.Remove rows with 'Intrusion' if 'Female aggress male' and Intrusion
+Bex <- Bex[!(grepl("Intrusion", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
+```
+
+  
+3.Intrusion > Losing interest: Remove Losing interest if there is Intrusion in the same cell(1x)
+```{r Intrusion > Loosing interest, echo= FALSE}
+# Remove rows with 'Losing interest' if 'Intrusion'and Loosing interest
+Bex <- Bex[!(grepl("Losing interest", Bex$DyadResponse) & grepl("Intrusion", Bex$DyadResponse)), ]
+
+```
+4. Intrusion > Not approaching: Remove not approaching if there is intrusion in the same cell(1x)
+```{r Intrusion > Not approaching, echo=FALSE}
+
+```
+ - Not approaching &  Losing interest 1         - Not approaching > Losing interest: Remove Losing interest if there is Not approaching
+ - Female aggress male &  Intrusion 1           - Female aggress male > Intrusion: Remove Intrusion if there is Female aggress male
+ - Female aggress male &  Not approaching 3     - Female aggress male > Not approaching : Remove Not approaching if there is Female aggress male
+ - Male aggress female &  Intrusion 1           - Male agress female > Intrusion: Remove Intrusion if there is Male agress female
+
+ - Male aggress female &  Not approaching 2     - Male agress female > Not approaching : Remove Not approaching if there is Male aggress female
+
+ - Tolerance &  Distracted   3                  - Tolerance > Distracted: Remove Distracted if there is tolerance
+ - Tolerance &  Female aggress male 23          - Female agress male > Tolerance: Remove Tolerance if there is Female agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
+
+ - Tolerance &  Losing interest 13              - Tolerance > Loosing interest: Remove Losing interest if there is Tolerance
+ - Tolerance &  Male aggress female 31          - Male agress female > Tolerance : Remove Tolerance if there is Male agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
+ - Tolerance &  Not approaching 6               - Tolerance > Not approaching: Remove Not approaching if there is tolerance
+ - Tolerance &  Other        8                  - Display line for detailed check
+ 
+ 
+
+ * Looks at partner &  Other 1                  - Display line for detailed check (1x)
+ * Not approaching &  Losing interest 46        - Keep both, I will consider doing a detailled check
+ * Not approaching &  Distracted 7              - Display line for detailed check
+ * Not approaching &  Other  1                  - Display line for detailed check
+
+
 
 * Code to display rows numbers and the response in DyadResponse that have mroe than one entry
-```{r DyadResposneMore1 Disaply, echo=FALSE}
+
+
+{r DyadResposneMore1 Disaply, echo=FALSE}
 
 # Step 2: Display Unique Combinations Before Split
 cat("Unique Combinations Before Split:\n")
@@ -1332,7 +1412,7 @@ for (i in seq_along(rows_with_multiple_entries)) {
   cat("Row number: ", row, "\n")
   cat("Combinations: ", toString(unique_combinations), "\n\n")
 }
-```
+
 
 * Other Reponse - DEtailed cleaning to delete the column
 * Audience - Creation of Amount Audience and Density
