@@ -1250,37 +1250,88 @@ cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_m
 ```
 
 
-* Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print. 
+* Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split. 
 * I will make an intermediary graph and a summary to see that state of DyadResponse at the moment
 
-```{r DyadResponse Sumamry, echo=FALSE}
+```{r DyadResposne Detailed Multiple Response, echo=FALSE}
+
 # Assuming 'DyadResponse' is the name of your variable
-rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ","))) > 1))
 
-# Display unique combinations of entries for rows with multiple entries in DyadResponse
-unique_combinations <- lapply(rows_with_multiple_entries, function(row) unique(unlist(strsplit(as.character(Bex$DyadResponse[row]), ","))))
+# Step 1: Identify Rows with Multiple Entries
+rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-# Display every combination of entries
-for (i in seq_along(rows_with_multiple_entries)) {
-  row <- rows_with_multiple_entries[i]
-  entries <- unique_combinations[[i]]
-  cat("Row number: ", row, "\n")
-  cat("Entries: ", toString(entries), "\n\n")
+# Step 2: Extract Unique Combinations After Split
+all_combinations <- unlist(lapply(rows_with_multiple_entries, function(row) {
+  unique_chars <- unique(strsplit(as.character(Bex$DyadResponse[row]), ";")[[1]])
+  combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
+}))
+
+# Step 3: Count Occurrences of Unique Combinations
+combination_counts <- table(all_combinations)
+
+# Display Unique Combinations and Counts
+cat("Unique Combinations and Counts:\n")
+for (entry in names(combination_counts)) {
+  cat(sprintf("%-25s %d\n", entry, combination_counts[[entry]]))
 }
 
-# Summary of the data
-summary_DyadResponse <- summary(Bex$DyadResponse)
-cat("Summary Dyad Response:\n")
-print(summary_DyadResponse)
 
-# Graph of DyadResponse and the amount of each output
-library(ggplot2)
+# Step 4: Summary of the Data
+dyad_response_summary <- table(unlist(strsplit(as.character(Bex$DyadResponse), ";")))
 
-ggplot(Bex, aes(x = DyadResponse)) +
-  geom_bar() +
-  labs(title = "Distribution of DyadResponse")
+# Display a more organized summary
+cat("\nSingleResponse Summary of Dyad Response:\n")
+for (entry in names(dyad_response_summary)) {
+  cat(sprintf("%-25s %d\n", entry, dyad_response_summary[[entry]]))
+}
 
+```
 
+* Unique Combinations and Counts:
+ - Distracted &  Intrusion  2                   - Intrusion > Distracted: Remove distracted if there is instrusion
+ - Female aggress male &  Intrusion 2           - Female aggress male > Intrusion: Remove intrusion if there is Female aggress male
+ - Looks at partner &  Other 1                  - Display line for detailed check
+ - Losing interest &  Intrusion 1               - Intrusion > Losing interest
+ - Losing interest &  Looks at partner 1        - Losing interest > Looks at partner ! I have to remove the column **looks at partner** since it was not present in my whole dataset
+ - Male aggress female &  Female aggress male 2 - Male aggress female = Female aggress male > keep 2 occurences
+ - Male aggress female &  Looks at partner 1    - Male agress female > Looks at partner ! I have to remove the column **looks at partner** since it was not present in my whole dataset
+ - Not approaching &  Intrusion 1               - Intrusion > Not approaching: Remove not approaching if there is intrusion
+ - Not approaching &  Losing interest 1         - Not approaching > Losing interest: Remove Losing interest if there is Not approaching
+ - Female aggress male &  Intrusion 1           - Female aggress male > Intrusion: Remove Intrusion if there is Female aggress male
+ - Female aggress male &  Not approaching 3     - Female aggress male > Not approaching : Remove Not approaching if there is Female aggress male
+ - Male aggress female &  Intrusion 1           - Male agress female > Intrusion: Remove Intrusion if there is Male agress female
+ - Male aggress female &  Looks at partner 1    - Male agress female > Looks at partner: ! I have to remove the column **looks at partner** since it was not present in my whole dataset
+ - Male aggress female &  Not approaching 2     - Male agress female > Not approaching : Remove Not approaching if there is Male aggress female
+ - Not approaching &  Distracted 7              - Display line for detailed check
+ - Not approaching &  Intrusion 21              - Keep both
+ - Not approaching &  Looks at partner 9        - Not approaching > Looks at partner: ! I have to remove the column **looks at partner** since it was not present in my whole dataset
+ - Not approaching &  Losing interest 46        - Keep both, I will consider doing a detailled check
+ - Not approaching &  Other  1                  - Display line for detailed check
+ - Tolerance &  Distracted   3                  - Tolerance > Distracted: Remove Distracted if there is tolerance
+ - Tolerance &  Female aggress male 23          - Female agress male > Tolerance: Remove Tolerance if there is Female agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
+ - Tolerance &  Intrusion    41                 - Keep both
+ - Tolerance &  Looks at partner 25             - Tolerance > Looks at partner :! I have to remove the column **looks at partner** since it was not present in my whole dataset
+ - Tolerance &  Losing interest 13              - Tolerance > Loosing interest: Remove Losing interest if there is Tolerance
+ - Tolerance &  Male aggress female 31          - Male agress female > Tolerance : Remove Tolerance if there is Male agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
+ - Tolerance &  Not approaching 6               - Tolerance > Not approaching: Remove Not approaching if there is tolerance
+ - Tolerance &  Other        8                  - Display line for detailed check
+
+* Create a go corn variable before removing tolerance in double cases (Ex: Tolerance & Female agrees male)
+* Remove Looks at partner from DyadResponse
+* Conditional treatment
+
+* Code to display rows numbers and the response in DyadResponse that have mroe than one entry
+```{r DyadResposneMore1 Disaply, echo=FALSE}
+
+# Step 2: Display Unique Combinations Before Split
+cat("Unique Combinations Before Split:\n")
+for (i in seq_along(rows_with_multiple_entries)) {
+  row <- rows_with_multiple_entries[i]
+  unique_chars <- unique(strsplit(as.character(Bex$DyadResponse[row]), ";")[[1]])
+  unique_combinations <- combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
+  cat("Row number: ", row, "\n")
+  cat("Combinations: ", toString(unique_combinations), "\n\n")
+}
 ```
 
 * Other Reponse - DEtailed cleaning to delete the column
