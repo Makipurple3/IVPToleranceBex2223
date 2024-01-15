@@ -248,6 +248,8 @@ View(Bex)
 ```
 
 
+
+
 #### 2.0.1 Merging Male placement corn and MaleCorn
 * I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
@@ -318,7 +320,18 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 * After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
 
-###2.1 Replacing and removing NA’S
+#### 2.0.2 Cleaning FemaleCorn
+
+```{r FemaleCorn, echo=FALSE}
+# Replace NA values in "FemaleCorn" with 0
+Bex$FemaleCorn <- ifelse(is.na(Bex$FemaleCorn), 0, Bex$FemaleCorn)
+
+# Check how many NA values are left in "FemaleCorn"
+remaining_na <- sum(is.na(Bex$FemaleCorn))
+cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
+```
+
+### 2.1 Replacing and removing NA’S
 
 #### 2.1.2 Identifying variables with missing data
 
@@ -836,19 +849,6 @@ cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 * Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 
 Number of missing values in MaleID:  18 
 
-
-
-
-#### 2.11 Cleaning FemaleCorn
-
-```{r FemaleCorn, echo=FALSE}
-# Replace NA values in "FemaleCorn" with 0
-Bex$FemaleCorn <- ifelse(is.na(Bex$FemaleCorn), 0, Bex$FemaleCorn)
-
-# Check how many NA values are left in "FemaleCorn"
-remaining_na <- sum(is.na(Bex$FemaleCorn))
-cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
-```
 
 
 

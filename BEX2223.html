@@ -418,8 +418,14 @@ pre code {
 <li><p>In this way, I should not loose any data, minimize the mistakes and already transform the NA’s of this variable into a number which will remove the remaining NA’s which are meant to be 0</p></li>
 <li><p>After the merge I found that there were <strong>no NA’s remaining</strong> in the <strong>“New” Male Corn</strong> and that <strong>1499 0’s</strong> where found in the column which <strong>corresponds to the amount of common NA’s found previously</strong> between the <strong>“Old” Male Corn</strong> and <strong>male placement corn</strong></p></li>
 </ul>
-<p>###2.1 Replacing and removing NA’S</p>
 </div>
+<div id="cleaning-femalecorn" class="section level4">
+<h4>2.0.2 Cleaning FemaleCorn</h4>
+<pre><code>## Number of remaining NA values in FemaleCorn: 0</code></pre>
+</div>
+</div>
+<div id="replacing-and-removing-nas" class="section level3">
+<h3>2.1 Replacing and removing NA’S</h3>
 <div id="identifying-variables-with-missing-data" class="section level4">
 <h4>2.1.2 Identifying variables with missing data</h4>
 <ul>
@@ -444,34 +450,30 @@ pre code {
 <td align="right">60</td>
 </tr>
 <tr class="odd">
-<td align="left">FemaleCorn</td>
-<td align="right">1617</td>
-</tr>
-<tr class="even">
 <td align="left">DyadDistance</td>
 <td align="right">33</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">DyadResponse</td>
 <td align="right">47</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">OtherResponse</td>
 <td align="right">2758</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Audience</td>
 <td align="right">924</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">IDIndividual1</td>
 <td align="right">2143</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">IntruderID</td>
 <td align="right">2737</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">Remarks</td>
 <td align="right">2181</td>
 </tr>
@@ -499,6 +501,10 @@ pre code {
 <td align="right">0</td>
 </tr>
 <tr class="even">
+<td align="left">FemaleCorn</td>
+<td align="right">0</td>
+</tr>
+<tr class="odd">
 <td align="left">MaleCorn</td>
 <td align="right">0</td>
 </tr>
@@ -720,10 +726,6 @@ pre code {
 <li><p>Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</p></li>
 <li><p>Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 Number of missing values in MaleID: 18</p></li>
 </ul>
-</div>
-<div id="cleaning-femalecorn" class="section level4">
-<h4>2.11 Cleaning FemaleCorn</h4>
-<pre><code>## Number of remaining NA values in FemaleCorn: 0</code></pre>
 </div>
 <div id="final-check-remaing-nas-in-bex" class="section level4">
 <h4>2.12 Final check: remaing NA’s in Bex?</h4>
