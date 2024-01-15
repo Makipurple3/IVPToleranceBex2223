@@ -571,7 +571,7 @@ if ("DyadDistance" %in% names(Bex)) {
 * Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called **Distance**. I will also to create a new variable called **No trial**.
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
  
-```{r Distance, echo=TRUE}
+```{r Distance, echo=FALSE}
 # Check if the dataset has the necessary columns before proceeding 
 if ("DyadDistance" %in% names(Bex)) {
 
@@ -948,12 +948,12 @@ table(Bex$MaleID)
 
 
 before_summary <- table(Bex$FemaleID, Bex$MaleID)
-kable(print(before_summary))
+print(before_summary)
 
 ```
 1. Create a variable called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
 
-```{r Female Male ID correction, echo=FALSE}
+```{r Female Male ID correction, echo=FALSE}                                                                                                    
 
 # Check and remove existing columns
 if ("Male" %in% names(Bex)) {
@@ -989,31 +989,23 @@ kable(table(Bex$Dyad))
 
 
 ```
-  
-  # Correct from here, mistake were inserted in dyad by changin wrong lines 
-
-
-
 
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
 
     Var1	Freq
-Buk Ginq	1
+Buk Ginq	6
 Buk Ndaw	257
 Kom Oort	366
 Nge Oerw	181
 Pom Guat	5
 Pom Xian	257
 Sey Sirk	584
-Sho Ginq	278
+Sho Ginq	273
 Xia Piep	606
 Xin Oort	4
 Xin Ouli	185
 
 
-  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
-    -Buk Ginq - 6 occurences
-    -Xin Oort - 4 occurences
   
 ```{r Identify Wrong Dyads, echo=FALSE}
 
@@ -1030,7 +1022,10 @@ print(wrong_dyads)
 
 
 ```
-* 
+  
+  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
+    -Buk Ginq - 6 occurences
+    -Xin Oort - 4 occurences
 
   * I will change the occurences of **Buk Ginq** to **Sho Ginq** for **row 605 to 609** and **row 921**. I know these triasl are with SHo Ginq because the comments metionned Sho in them while Male(ID) gave Buk
   * For the **rows from 2692 to 2695** since, Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli**. Also I think they are little chances that the names of both individuals     were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
@@ -1075,13 +1070,9 @@ Bex <- Bex %>%
   )
 
 # Check and summarize unique MaleIDs and Dyads after correction
-unique_male <- unique(Bex$MaleID)
-cat("Unique Male after correction", unique_male, "\n")
 
 unique_dyad <- unique(Bex$Dyad)
 cat("Unique Dyad after correction", unique_dyad, "\n")
-
-kable(table(Bex$MaleID))
 kable(table(Bex$Dyad))
 
 
@@ -1132,7 +1123,23 @@ kable(table(Bex$Dyad))
 ```
 
 
+5. After relfection I decided to **remove every column** that is with PomGuat since they are not enough trials for this Dyad and since we then changed PomGuat for PomXian. I have 5 occurnces to change. For easier manipulation I will remove every row where there is **Guat**
 
+```{r Remove PomGuat, echo=FALSE}
+
+# Count the rows before modifications
+before_rows <- nrow(Bex)
+
+# Remove rows where "Guat" is present in FemaleID
+Bex <- Bex %>% filter(!grepl("Guat", FemaleID, ignore.case = TRUE))
+
+# Count the rows after modifications
+after_rows <- nrow(Bex)
+
+# Display the change in rows
+cat("Change in Rows: ", after_rows - before_rows, "\n")
+
+```
 
   
 
@@ -1196,10 +1203,6 @@ Bex <- Bex %>%
     )
   )
 
-# Print the first few rows of the updated dataset
-View(Bex)
-
-  
 ```
 
 * Dyad Response - Detailed cleaning
@@ -1213,26 +1216,26 @@ View(Bex)
       3. get a better view and understanding of the data and the most common behaviours produced by each dyad
       4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
       
-    * Projection of the hierarchy (changes will be made)
+
       - Create a table with each combination existing
       
       - Decide what is more important
-      - Ex:
-        - Aggression > Tolerance
-        - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
-        - Tolerance > Loosing interest
-        - Tolerance > Intrusion
-        - Not approaching = looking box but not coming while Loosing interest           = not paying attention to the box
-        - Intrusion > Loosing interest
-        - Intrusion > Not approaching
-        - Not approaching > Looks at partner
-        - We can code every look at partner as no approaching and keep the             count of looks at partner as additional information
-        - Not approaching >?> Loosing interest ? !!
-        - Define distracted
-        - Not approaching > Distracted
-        - Aggression > Not approaching
-        - Other > Look case by case and categorize depending of behavior
-        - Remarks may be used for the same reason
+* **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
+      - Aggression > Tolerance
+      - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
+      - Tolerance > Loosing interest
+      - Tolerance > Intrusion      
+      - Not approaching = looking box but not coming while Loosing interest           = not paying attention to the box
+       - Intrusion > Loosing interest
+      - Intrusion > Not approaching
+      - Not approaching > Looks at partner
+      - We can code every look at partner as no approaching and keep the             count of looks at partner as additional information       
+      - Not approaching >?> Loosing interest ? !!
+       - Define distracted
+      - Not approaching > Distracted
+      - Aggression > Not approaching
+      - Other > Look case by case and categorize depending of behavior     
+      - Remarks may be used for the same reason
         
 
   * First I want to see how many rows in DyadResponse have more than one entry per cell
@@ -1257,13 +1260,13 @@ cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_m
 
 * B.Idnetify Rows with more than 1 entry
 
-# Step 1: Identify Rows with More than 1 Entry
+*  Step 1: Identify Rows with More than 1 Entry
 rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-# Display the rows with more than 1 entry in DyadResponse
+* Display the rows with more than 1 entry in DyadResponse
 knitr::kable(Bex[rows_with_multiple_entries_1, ])
 
-# Print the amount of cells with more than 1 entry and the total number of rows
+* Print the amount of cells with more than 1 entry and the total number of rows
 cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
 
 
@@ -1272,9 +1275,6 @@ cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_
 ```{r DyadResponse > 2 entry, echo=FALSE}
 # Step 1: Identify Rows with More than 1 Entry
 rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-# Display the rows with more than 1 entry in DyadResponse
-knitr::kable(Bex[rows_with_multiple_entries_1, ])
 
 # Print the amount of cells with more than 1 entry and the total number of rows
 cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
@@ -1297,24 +1297,6 @@ for (entry in names(combination_counts_1)) {
   cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
 }
 
-
-```
-
-```{r ,echo=FALSE}
-# Step 3: Extract Unique Combinations for More than 1 Entry
-all_combinations_1 <- unlist(lapply(rows_with_multiple_entries_1, function(row) {
-  unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
-  combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
-}))
-
-# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
-combination_counts_1 <- table(all_combinations_1)
-
-# Display Unique Combinations and Counts for More than 1 Entry
-cat("Unique Combinations and Counts for More than 1 Entry:\n")
-for (entry in names(combination_counts_1)) {
-  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
-}
 
 ```
 
