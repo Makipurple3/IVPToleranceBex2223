@@ -384,7 +384,7 @@ pre code {
 <div id="cleaning-the-data" class="section level2">
 <h2>2. Cleaning the data</h2>
 <div id="creating-a-new-dataframe---bex" class="section level3">
-<h3>Creating a new dataframe - Bex</h3>
+<h3>2.1. Creating a new dataframe - Bex</h3>
 <ul>
 <li><p>Since I do not want to work with the whole dataset, I’m going to select the variables of interest using the function <strong>select</strong></p></li>
 <li><p>I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</p></li>
@@ -407,7 +407,7 @@ pre code {
 ## $ IntruderID            &lt;chr&gt; NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, &quot;Sey…
 ## $ Remarks               &lt;chr&gt; NA, NA, &quot;Nge box did not open because of the bat…</code></pre>
 <div id="merging-male-placement-corn-and-malecorn" class="section level4">
-<h4>2.0.1 Merging Male placement corn and MaleCorn</h4>
+<h4>2.1.1 Merging Male placement corn and MaleCorn</h4>
 <ul>
 <li><p>I want to process all the missing data in Bex. But before I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
 <li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
@@ -420,14 +420,12 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-femalecorn" class="section level4">
-<h4>2.0.2 Cleaning FemaleCorn</h4>
+<h4>2.1.2 Cleaning FemaleCorn</h4>
 <pre><code>## Number of remaining NA values in FemaleCorn: 0</code></pre>
 </div>
 </div>
-<div id="replacing-and-removing-nas" class="section level3">
-<h3>2.1 Replacing and removing NA’S</h3>
-<div id="identifying-variables-with-missing-data" class="section level4">
-<h4>2.1.2 Identifying variables with missing data</h4>
+<div id="identifying-variables-with-missing-data" class="section level3">
+<h3>2.2 Identifying variables with missing data</h3>
 <ul>
 <li><p>Now in order to see where are located the missing points in the data, I’m going to <strong>print</strong> the variables <strong>with and without NA’s</strong></p></li>
 <li><p>The function <strong>sapply</strong> is used to apply the function <strong>sum</strong> for NA’s to each column of the data frame, so each variable</p></li>
@@ -512,31 +510,34 @@ pre code {
 </table>
 <ul>
 <li><p>We can see that out of the 13 variables we have in <strong>Bex</strong> we have <strong>9 variables with missing data</strong> which are <strong>Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</strong></p></li>
-<li><p>I will proceeed to clean these variables one by one</p></li>
+<li><p>MaleID 19 FemaleID 60 DyadDistance 33 DyadResponse 47 OtherResponse 2758 Audience 924</p></li>
+<li><p>I will proceed to clean these variables one by one</p></li>
 </ul>
 </div>
-<div id="cleaning-remarks" class="section level4">
-<h4>2.3 Cleaning “Remarks”</h4>
+<div id="treating-variables-with-missing-data" class="section level3">
+<h3>2.3 Treating variables with missing data</h3>
+<div id="cleaning-remarks---2181-nas" class="section level4">
+<h4>2.3.1 Cleaning “Remarks” - (2181 NA’s)</h4>
 <ul>
 <li>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</li>
 <li>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found are the same as the amount of NA’s previously found</li>
 <li>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> in this column</li>
 </ul>
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
-<pre><code>## [1] &quot;No Remarks&quot;                                                                                         
-## [2] &quot;No Remarks&quot;                                                                                         
-## [3] &quot;Nge box did not open because of the battery. Oerw vocalized to MA when he ap to the box to open it.&quot;
-## [4] &quot;Sey came to the boxes once they were open&quot;                                                          
-## [5] &quot;No Remarks&quot;                                                                                         
-## [6] &quot;No Remarks&quot;</code></pre>
 <pre><code>## 
 ## No Remarks    Remarks 
 ##       2181        614</code></pre>
-</div>
-<div id="cleaning-intruder-id" class="section level4">
-<h4>2.4 Cleaning “Intruder ID”</h4>
 <ul>
-<li>Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column</li>
+<li>I will also create a variable called No Remarks to see how many lines with remarks I will have to treat</li>
+</ul>
+<pre><code>## Number of &#39;No Remarks&#39; (1&#39;s) in the &#39;NoRemarks&#39; column: 2181 
+## Number of &#39;Remarks&#39; (0&#39;s) in the &#39;NoRemarks&#39; column: 614</code></pre>
+</div>
+<div id="cleaning-intruder-id---2737-nas" class="section level4">
+<h4>2.3.2 Cleaning “Intruder ID” - (2737 NA’s)</h4>
+<ul>
+<li><strong>Intruder ID</strong> is a variable that contains the <strong>name of the individuals that made and intrusion during a trial</strong>.</li>
+<li>If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column</li>
 <li>Because nothing was entered when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong></li>
 <li>Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</li>
 </ul>
@@ -545,12 +546,12 @@ pre code {
 <li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended</li>
 </ul>
 </div>
-<div id="cleaning-idindividual1" class="section level4">
-<h4>2.5 Cleaning “IdIndividual1”</h4>
+<div id="cleaning-idindividual1---2143-nas" class="section level4">
+<h4>2.3.3 Cleaning “IdIndividual1” - (2143 NA’s)</h4>
 <ul>
 <li>IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
-<li>I will now replace every NA in this column by No individual</li>
-<li>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion” (Used for double check), “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a value different than “No individual” 2.If the value ≠“No individual” then I want it to take the response found in “DyadResposne” and if there are more than one value, report it in a new column called “&gt;1 Response”</li>
+<li>I will now replace every NA in this column by <strong>No individual</strong></li>
+<li>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong> 3.And <strong>if there are more than one value per cell</strong>, report it in a new column called “&gt;1 Response”</li>
 </ul>
 </div>
 <div id="cleaning-audience" class="section level4">
@@ -661,9 +662,7 @@ pre code {
 <li><p>Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called <strong>Distance</strong>. I will also to create a new variable called <strong>No trial</strong>.</p></li>
 <li><p>For the variable <strong>Distance</strong> I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done</p></li>
 </ul>
-<pre><code>## Duplicate column names found:  NoRemarks 
-## Renamed column &#39; NoRemarks &#39; to &#39; NoRemarks_duplicate &#39;
-## [1] &quot;Number of NA&#39;s in NewDistance:  46&quot;
+<pre><code>## [1] &quot;Number of NA&#39;s in NewDistance:  46&quot;
 ## [1] &quot;Number of NA&#39;s in NewDistance after removing NA&#39;s:  0&quot;</code></pre>
 <p>*In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don’t exist, it proceeds with the modifications. This way, running the code multiple times won’t cause redundant changes.</p>
 <ul>
@@ -1246,7 +1245,27 @@ pre code {
 <li><p>Distance</p></li>
 <li><p>No trial</p></li>
 </ul>
-<pre class="r"><code>head(Bex$Time)</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div id="code-to-settle" class="section level1">
+<h1>Code to settle</h1>
+<p>```{ Create dichotomous variables} # Check if the “MultipleResponses” column already exists if (!“MultipleResponses” %in% names(Bex)) { # Replace NA in IDindividual1 by “No individual” Bex<span class="math inline">\(IDIndividual1[is.na(Bex\)</span>IDIndividual1)] &lt;- “No individual”</p>
+<p># Check for multiple responses Bex<span class="math inline">\(MultipleResponses &lt;- ifelse(  Bex\)</span>IDIndividual1 != “No individual” &amp; grepl(“;”, Bex<span class="math inline">\(DyadResponse),  &quot;&gt;1 Response&quot;,  ifelse(Bex\)</span>IDIndividual1 != “No individual” &amp; grepl(“,”, Bex$DyadResponse), “&gt;1 Response”, “Single Response”) )</p>
+<p>View(Bex) } else { cat(“The ‘MultipleResponses’ column already exists. No changes made.”) }</p>
+<p>{r Check Responses in DyadResponse for Id1, echo=FALSE} # Count occurrences of each behavior in DyadResponse count_NotApproaching &lt;- sum(grepl(“Not approaching”, Bex<span class="math inline">\(DyadResponse)) count_Intrusion &lt;- sum(grepl(&quot;Intrusion&quot;, Bex\)</span>DyadResponse)) count_LosingInterest &lt;- sum(grepl(“Losing interest”, Bex<span class="math inline">\(DyadResponse)) count_Distracted &lt;- sum(grepl(&quot;Distracted&quot;, Bex\)</span>DyadResponse))</p>
+<p>cat(“Occurrences of ‘Not approaching’ in DyadResponse:”, count_NotApproaching, “”) cat(“Occurrences of ‘Intrusion’ in DyadResponse:”, count_Intrusion, “”) cat(“Occurrences of ‘Losing interest’ in DyadResponse:”, count_LosingInterest, “”) cat(“Occurrences of ‘Distracted’ in DyadResponse:”, count_Distracted, “”)</p>
+<p>{r Check changes of dichotomic variables}</p>
+</div>
+<div id="count-the-number-of-1s-in-the-new-variables" class="section level1">
+<h1>Count the number of ’1’s in the new variables</h1>
+<p>count_NotApproaching_1 &lt;- sum(Bex<span class="math inline">\(NotApproaching == 1) count_Intrusion_1 &lt;- sum(Bex\)</span>Intrusion == 1) count_LosingInterest_1 &lt;- sum(Bex<span class="math inline">\(LosingInterest == 1) count_Distracted_1 &lt;- sum(Bex\)</span>Distracted == 1)</p>
+<p>cat(“Occurrences of ‘1’ in ‘NotApproaching’:”, count_NotApproaching_1, “”) cat(“Occurrences of ‘1’ in ‘Intrusion’:”, count_Intrusion_1, “”) cat(“Occurrences of ‘1’ in ‘LosingInterest’:”, count_LosingInterest_1, “”) cat(“Occurrences of ‘1’ in ‘Distracted’:”, count_Distracted_1, “”)</p>
+<pre><code>
+
+```r
+head(Bex$Time)</code></pre>
 <pre><code>## [1] &quot;07:52:59&quot; &quot;07:54:33&quot; &quot;07:57:35&quot; &quot;08:05:31&quot; &quot;08:09:47&quot; &quot;11:42:49&quot;</code></pre>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
@@ -1257,9 +1276,6 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 <li>But before I may want to make a few changes already by merging <strong>Male corn</strong> and <strong>Male placement corn</strong> into ” Male corn” and maybe replacing all of the NA’s in “Other response” by response</li>
 </ul>
 <p>#Lines to check unique values in MaleFemaleID to see if they are any problems with it # Unique values in MaleID unique_male_ids &lt;- unique(Bex$MaleID)</p>
-</div>
-</div>
-</div>
 </div>
 <div id="unique-values-in-femaleid" class="section level1">
 <h1>Unique values in FemaleID</h1>
