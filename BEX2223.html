@@ -383,10 +383,10 @@ pre code {
 </div>
 <div id="cleaning-the-data" class="section level2">
 <h2>2. Cleaning the data</h2>
-<div id="creating-a-new-dataframe" class="section level3">
-<h3>Creating a new dataframe</h3>
+<div id="creating-a-new-dataframe---bex" class="section level3">
+<h3>Creating a new dataframe - Bex</h3>
 <ul>
-<li><p>Since I do not want to work with the whole dataset, I’m gonna select the variables of interest using the function <strong>select</strong></p></li>
+<li><p>Since I do not want to work with the whole dataset, I’m going to select the variables of interest using the function <strong>select</strong></p></li>
 <li><p>I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</p></li>
 </ul>
 <pre><code>## Rows: 2,795
@@ -517,6 +517,15 @@ pre code {
 <li>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> in this column</li>
 </ul>
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
+<pre><code>## [1] &quot;No Remarks&quot;                                                                                         
+## [2] &quot;No Remarks&quot;                                                                                         
+## [3] &quot;Nge box did not open because of the battery. Oerw vocalized to MA when he ap to the box to open it.&quot;
+## [4] &quot;Sey came to the boxes once they were open&quot;                                                          
+## [5] &quot;No Remarks&quot;                                                                                         
+## [6] &quot;No Remarks&quot;</code></pre>
+<pre><code>## 
+## No Remarks    Remarks 
+##       2181        614</code></pre>
 </div>
 <div id="cleaning-intruder-id" class="section level4">
 <h4>2.4 Cleaning “Intruder ID”</h4>
@@ -646,8 +655,10 @@ pre code {
 <li><p>Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called <strong>Distance</strong>. I will also to create a new variable called <strong>No trial</strong>.</p></li>
 <li><p>For the variable <strong>Distance</strong> I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done</p></li>
 </ul>
-<pre><code>## [1] &quot;Number of NA&#39;s in Distance:  69&quot;
-## [1] &quot;Number of NA&#39;s in Distance:  0&quot;</code></pre>
+<pre><code>## Duplicate column names found:  NoRemarks 
+## Renamed column &#39; NoRemarks &#39; to &#39; NoRemarks_duplicate &#39;
+## [1] &quot;Number of NA&#39;s in NewDistance:  46&quot;
+## [1] &quot;Number of NA&#39;s in NewDistance after removing NA&#39;s:  0&quot;</code></pre>
 <p>*In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don’t exist, it proceeds with the modifications. This way, running the code multiple times won’t cause redundant changes.</p>
 <ul>
 <li><p><strong>23 values</strong> were inserted in <strong>Distance</strong> to replace the NA’s where the distance could be found by looking at the previous rows. The <strong>46 remaining NA’s</strong> were then <strong>removed</strong> from Distance <strong>leaving 0 NA in Distance</strong></p></li>
@@ -676,16 +687,16 @@ pre code {
 </ol></li>
 <li>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad, trating these two columns together makes more sense.</li>
 </ul>
-<pre><code>## Number of missing values in FemaleID:  58</code></pre>
+<pre><code>## Number of missing values in FemaleID:  59</code></pre>
 <pre><code>## Number of missing values in MaleID:  18</code></pre>
-<pre><code>## Row numbers with missing values in FemaleID:  860 861 862 863 864 865 866 867 868 869 870 871 872 873 874 1683 1684 1685 1686 1687 1688 1689 1690 1691 1692 1693 1694 1695 1696 1697 1698 1699 1700 1796 1797 1798 1799 1800 1801 1802 1803 1804 1805 1806 1807 1808 1872 1873 2600 2601 2602 2603 2604 2605 2606 2607 2608 2609</code></pre>
-<pre><code>## Number of missing values in FemaleID:  58</code></pre>
-<pre><code>## Row numbers with missing values in MaleID:  1683 1684 1685 1686 1687 1688 1689 1690 1691 1692 1693 1694 1695 1696 1697 1698 1699 1700</code></pre>
+<pre><code>## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</code></pre>
+<pre><code>## Number of missing values in FemaleID:  59</code></pre>
+<pre><code>## Row numbers with missing values in MaleID:  1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710</code></pre>
 <pre><code>## Number of missing values in MaleID:  18</code></pre>
 <pre><code>## Number of rows with missing values in both FemaleID and MaleID:  18</code></pre>
-<pre><code>## Row numbers with missing values in both FemaleID and MaleID:  1683, 1684, 1685, 1686, 1687, 1688, 1689, 1690, 1691, 1692, 1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700</code></pre>
-<pre><code>## Number of missing values in FemaleID not in MaleID:  40</code></pre>
-<pre><code>## Row numbers with missing values in FemaleID not in MaleID:  860, 861, 862, 863, 864, 865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 1796, 1797, 1798, 1799, 1800, 1801, 1802, 1803, 1804, 1805, 1806, 1807, 1808, 1872, 1873, 2600, 2601, 2602, 2603, 2604, 2605, 2606, 2607, 2608, 2609</code></pre>
+<pre><code>## Row numbers with missing values in both FemaleID and MaleID:  1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704, 1705, 1706, 1707, 1708, 1709, 1710</code></pre>
+<pre><code>## Number of missing values in FemaleID not in MaleID:  41</code></pre>
+<pre><code>## Row numbers with missing values in FemaleID not in MaleID:  865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1886, 1887, 2620, 2621, 2622, 2623, 2624, 2625, 2626, 2627, 2628, 2629, 2630</code></pre>
 <ul>
 <li><p><strong>FemaleID</strong> has <strong>44 NA’s</strong> while they are <strong>18 NA’s</strong> in <strong>Male ID</strong></p></li>
 <li><p>In these missing data, we have <strong>18 NA’s</strong> that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID</p></li>
@@ -716,8 +727,9 @@ pre code {
 </div>
 <div id="final-check-remaing-nas-in-bex" class="section level4">
 <h4>2.12 Final check: remaing NA’s in Bex?</h4>
-<pre><code>## Columns with NA values: DyadResponse</code></pre>
-<pre><code>## Number of NA values in DyadResponse : 2</code></pre>
+<pre><code>## Columns with NA values: DyadDistance, DyadResponse</code></pre>
+<pre><code>## Number of NA values in DyadDistance : 23 
+## Number of NA values in DyadResponse : 9</code></pre>
 <ul>
 <li><p>The remaining rows with NA’s are the row <strong>866</strong> that I will delete since no information at all is available for the DyadResponse. Concerning the row <strong>1211</strong> we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to “Other”</p></li>
 <li><p>It seems now that no NA’s are remaining in the dataset, we can thus continue with the process of cleaning the dataset</p></li>
@@ -761,37 +773,37 @@ pre code {
 <li>While checking if there are still any mistakes in <strong>FemaleID and MaleID</strong> using <strong>unique</strong>, I saw that some of the names are in the wrong rows. I want the <strong>3 letter male codes</strong> whether they are in the column FemaleID or MaleID to be in the <strong>new column Male</strong> while I want the <strong>4 letter female codes</strong> whether they are in FemaleID or MaleID to be in the <strong>new column Female</strong> before checking again with unique that the transformation worked. I will use mutate</li>
 </ol></li>
 </ul>
-<pre><code>## Unique Female IDs: Sirk Piep Oerw Xin Ginq Ndaw Xia Sey Ouli Nge Oort Xian Guat Kom</code></pre>
+<pre><code>## Unique Female IDs: Sirk Ginq Piep Oerw Xin Ndaw Xia Sey Ouli Nge Oort Xian Guat Kom</code></pre>
 <pre><code>## 
 ## Ginq Guat  Kom Ndaw  Nge Oerw Oort Ouli Piep  Sey Sirk  Xia Xian  Xin 
-##  279    5   29  257   19  162  341  158  571   17  567   35  257   27</code></pre>
-<pre><code>## Unique Male IDs: Sey Xia Nge Ouli Sho Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
+##  282    5   29  258   19  164  341  159  575   17  570   35  259   27</code></pre>
+<pre><code>## Unique Male IDs: Sey Sho Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort</code></pre>
 <pre><code>## 
 ##  Buk  Kom  Nge Oerw Oort Ouli Piep  Pom  Sey  Sho Sirk  Xia  Xin 
-##  263  337  162   19   29   27   35  262  567  273   17  571  162</code></pre>
+##  264  337  164   19   29   27   35  264  570  276   17  575  163</code></pre>
 <pre><code>##       
 ##        Buk Kom Nge Oerw Oort Ouli Piep Pom Sey Sho Sirk Xia Xin
-##   Ginq   6   0   0    0    0    0    0   0   0 273    0   0   0
+##   Ginq   6   0   0    0    0    0    0   0   0 276    0   0   0
 ##   Guat   0   0   0    0    0    0    0   5   0   0    0   0   0
 ##   Kom    0   0   0    0   29    0    0   0   0   0    0   0   0
-##   Ndaw 257   0   0    0    0    0    0   0   0   0    0   0   0
+##   Ndaw 258   0   0    0    0    0    0   0   0   0    0   0   0
 ##   Nge    0   0   0   19    0    0    0   0   0   0    0   0   0
-##   Oerw   0   0 162    0    0    0    0   0   0   0    0   0   0
+##   Oerw   0   0 164    0    0    0    0   0   0   0    0   0   0
 ##   Oort   0 337   0    0    0    0    0   0   0   0    0   0   4
-##   Ouli   0   0   0    0    0    0    0   0   0   0    0   0 158
-##   Piep   0   0   0    0    0    0    0   0   0   0    0 571   0
+##   Ouli   0   0   0    0    0    0    0   0   0   0    0   0 159
+##   Piep   0   0   0    0    0    0    0   0   0   0    0 575   0
 ##   Sey    0   0   0    0    0    0    0   0   0   0   17   0   0
-##   Sirk   0   0   0    0    0    0    0   0 567   0    0   0   0
+##   Sirk   0   0   0    0    0    0    0   0 570   0    0   0   0
 ##   Xia    0   0   0    0    0    0   35   0   0   0    0   0   0
-##   Xian   0   0   0    0    0    0    0 257   0   0    0   0   0
+##   Xian   0   0   0    0    0    0    0 259   0   0    0   0   0
 ##   Xin    0   0   0    0    0   27    0   0   0   0    0   0   0</code></pre>
 <ol style="list-style-type: decimal">
 <li>Create a variable called Male that in each row will take the name of the <strong>3 letter code</strong> that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the <strong>4 letter code</strong> that is either in MaleID or FemaleID</li>
 </ol>
 <pre><code>## 
-## Unique Female: Sirk Piep Oerw Ouli Ginq Ndaw Oort Xian Guat</code></pre>
-<pre><code>## Unique Male: Sey Xia Nge Xin Sho Buk Kom Pom</code></pre>
-<pre><code>## Unique Dyad Sey Sirk Xia Piep Nge Oerw Xin Ouli Sho Ginq Buk Ndaw Buk Ginq Kom Oort Pom Xian Pom Guat Xin Oort</code></pre>
+## Unique Female: Sirk Ginq Piep Oerw Ouli Ndaw Oort Xian Guat</code></pre>
+<pre><code>## Unique Male: Sey Sho Xia Nge Xin Buk Kom Pom</code></pre>
+<pre><code>## Unique Dyad Sey Sirk Sho Ginq Xia Piep Nge Oerw Xin Ouli Buk Ndaw Buk Ginq Kom Oort Pom Xian Pom Guat Xin Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -806,7 +818,7 @@ pre code {
 </tr>
 <tr class="even">
 <td align="left">Buk Ndaw</td>
-<td align="right">257</td>
+<td align="right">258</td>
 </tr>
 <tr class="odd">
 <td align="left">Kom Oort</td>
@@ -814,7 +826,7 @@ pre code {
 </tr>
 <tr class="even">
 <td align="left">Nge Oerw</td>
-<td align="right">181</td>
+<td align="right">183</td>
 </tr>
 <tr class="odd">
 <td align="left">Pom Guat</td>
@@ -822,19 +834,19 @@ pre code {
 </tr>
 <tr class="even">
 <td align="left">Pom Xian</td>
-<td align="right">257</td>
+<td align="right">259</td>
 </tr>
 <tr class="odd">
 <td align="left">Sey Sirk</td>
-<td align="right">584</td>
+<td align="right">587</td>
 </tr>
 <tr class="even">
 <td align="left">Sho Ginq</td>
-<td align="right">273</td>
+<td align="right">276</td>
 </tr>
 <tr class="odd">
 <td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="right">610</td>
 </tr>
 <tr class="even">
 <td align="left">Xin Oort</td>
@@ -842,7 +854,7 @@ pre code {
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">186</td>
 </tr>
 </tbody>
 </table>
@@ -851,7 +863,7 @@ pre code {
 </ol>
 <pre><code>Var1    Freq</code></pre>
 <p>Buk Ginq 6 Buk Ndaw 257 Kom Oort 366 Nge Oerw 181 Pom Guat 5 Pom Xian 257 Sey Sirk 584 Sho Ginq 273 Xia Piep 606 Xin Oort 4 Xin Ouli 185</p>
-<pre><code>##  [1]  605  606  607  608  609  921 2692 2693 2694 2695</code></pre>
+<pre><code>##  [1]  613  614  615  616  617  931 2708 2709 2710 2711</code></pre>
 <pre><code>## [1] &quot;Buk Ginq&quot; &quot;Xin Oort&quot;</code></pre>
 <ul>
 <li><p>They are a few <strong>wrong dyads</strong> that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences</p></li>
@@ -859,7 +871,7 @@ pre code {
 <li><p>For the <strong>rows from 2692 to 2695</strong> since, Ouli is in the audience it is unlikely that we had trials with the dyad <strong>Xin Ouli</strong>. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had <strong>Xin Oort</strong> by <strong>Kom Oort</strong></p></li>
 <li><p>I thus want <strong>Buk</strong> to be replaced in male ID in rows 605 to 609 and row 921 with <strong>Sho</strong> and, <strong>Xin</strong> to be replaced by <strong>Kom</strong> in rows 2692 to 2695 in Male ID before updating Dyad</p></li>
 </ul>
-<pre><code>## Unique Dyad after correction Sey   Sirk Xia   Piep Nge   Oerw Xin   Ouli Sho   Ginq Buk   Ndaw Kom   Oort Pom   Xian Pom   Guat</code></pre>
+<pre><code>## Unique Dyad after correction Sey   Sirk Sho   Ginq Xia   Piep Nge   Oerw Xin   Ouli Buk   Ndaw Sho   Ndaw Buk   Ginq Kom   Oort Sho   Oerw Pom   Xian Pom   Guat Kom   Ginq Kom   Ouli Xin   Oort</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -869,40 +881,64 @@ pre code {
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Buk Ginq</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
 <td align="left">Buk Ndaw</td>
-<td align="right">257</td>
+<td align="right">256</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Ginq</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">Kom Oort</td>
-<td align="right">370</td>
+<td align="right">366</td>
 </tr>
 <tr class="odd">
-<td align="left">Nge Oerw</td>
-<td align="right">181</td>
+<td align="left">Kom Ouli</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
+<td align="left">Nge Oerw</td>
+<td align="right">182</td>
+</tr>
+<tr class="odd">
 <td align="left">Pom Guat</td>
 <td align="right">5</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pom Xian</td>
-<td align="right">257</td>
-</tr>
-<tr class="even">
-<td align="left">Sey Sirk</td>
-<td align="right">584</td>
+<td align="right">259</td>
 </tr>
 <tr class="odd">
-<td align="left">Sho Ginq</td>
-<td align="right">279</td>
+<td align="left">Sey Sirk</td>
+<td align="right">587</td>
 </tr>
 <tr class="even">
+<td align="left">Sho Ginq</td>
+<td align="right">275</td>
+</tr>
+<tr class="odd">
+<td align="left">Sho Ndaw</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Sho Oerw</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
 <td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="right">610</td>
+</tr>
+<tr class="even">
+<td align="left">Xin Oort</td>
+<td align="right">4</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">183</td>
 </tr>
 </tbody>
 </table>
@@ -911,32 +947,44 @@ pre code {
 <li><p>Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals</p></li>
 </ol>
 <pre><code>## Trial Summary:</code></pre>
-<pre><code>## # A tibble: 9 × 2
-##   Dyad       Num_Trials
-##   &lt;chr&gt;           &lt;int&gt;
-## 1 Buk   Ndaw        257
-## 2 Kom   Oort        370
-## 3 Nge   Oerw        181
-## 4 Pom   Guat          5
-## 5 Pom   Xian        257
-## 6 Sey   Sirk        584
-## 7 Sho   Ginq        279
-## 8 Xia   Piep        606
-## 9 Xin   Ouli        185</code></pre>
+<pre><code>## # A tibble: 15 × 2
+##    Dyad       Num_Trials
+##    &lt;chr&gt;           &lt;int&gt;
+##  1 Buk   Ginq          6
+##  2 Buk   Ndaw        256
+##  3 Kom   Ginq          1
+##  4 Kom   Oort        366
+##  5 Kom   Ouli          3
+##  6 Nge   Oerw        182
+##  7 Pom   Guat          5
+##  8 Pom   Xian        259
+##  9 Sey   Sirk        587
+## 10 Sho   Ginq        275
+## 11 Sho   Ndaw          2
+## 12 Sho   Oerw          1
+## 13 Xia   Piep        610
+## 14 Xin   Oort          4
+## 15 Xin   Ouli        183</code></pre>
 <pre><code>## 
 ## Day Summary:</code></pre>
-<pre><code>## # A tibble: 9 × 2
-##   Dyad       Num_y
-##   &lt;chr&gt;      &lt;int&gt;
-## 1 Buk   Ndaw    39
-## 2 Kom   Oort    70
-## 3 Nge   Oerw    92
-## 4 Pom   Guat    93
-## 5 Pom   Xian   112
-## 6 Sey   Sirk   165
-## 7 Sho   Ginq   199
-## 8 Xia   Piep   248
-## 9 Xin   Ouli   275</code></pre>
+<pre><code>## # A tibble: 15 × 2
+##    Dyad       Num_y
+##    &lt;chr&gt;      &lt;int&gt;
+##  1 Buk   Ginq     2
+##  2 Buk   Ndaw    41
+##  3 Kom   Ginq    42
+##  4 Kom   Oort    73
+##  5 Kom   Ouli    74
+##  6 Nge   Oerw    96
+##  7 Pom   Guat    97
+##  8 Pom   Xian   116
+##  9 Sey   Sirk   169
+## 10 Sho   Ginq   204
+## 11 Sho   Ndaw   205
+## 12 Sho   Oerw   206
+## 13 Xia   Piep   255
+## 14 Xin   Oort   256
+## 15 Xin   Ouli   283</code></pre>
 <table>
 <thead>
 <tr class="header">
@@ -946,40 +994,64 @@ pre code {
 </thead>
 <tbody>
 <tr class="odd">
+<td align="left">Buk Ginq</td>
+<td align="right">6</td>
+</tr>
+<tr class="even">
 <td align="left">Buk Ndaw</td>
-<td align="right">257</td>
+<td align="right">256</td>
+</tr>
+<tr class="odd">
+<td align="left">Kom Ginq</td>
+<td align="right">1</td>
 </tr>
 <tr class="even">
 <td align="left">Kom Oort</td>
-<td align="right">370</td>
+<td align="right">366</td>
 </tr>
 <tr class="odd">
-<td align="left">Nge Oerw</td>
-<td align="right">181</td>
+<td align="left">Kom Ouli</td>
+<td align="right">3</td>
 </tr>
 <tr class="even">
+<td align="left">Nge Oerw</td>
+<td align="right">182</td>
+</tr>
+<tr class="odd">
 <td align="left">Pom Guat</td>
 <td align="right">5</td>
 </tr>
-<tr class="odd">
+<tr class="even">
 <td align="left">Pom Xian</td>
-<td align="right">257</td>
-</tr>
-<tr class="even">
-<td align="left">Sey Sirk</td>
-<td align="right">584</td>
+<td align="right">259</td>
 </tr>
 <tr class="odd">
-<td align="left">Sho Ginq</td>
-<td align="right">279</td>
+<td align="left">Sey Sirk</td>
+<td align="right">587</td>
 </tr>
 <tr class="even">
+<td align="left">Sho Ginq</td>
+<td align="right">275</td>
+</tr>
+<tr class="odd">
+<td align="left">Sho Ndaw</td>
+<td align="right">2</td>
+</tr>
+<tr class="even">
+<td align="left">Sho Oerw</td>
+<td align="right">1</td>
+</tr>
+<tr class="odd">
 <td align="left">Xia Piep</td>
-<td align="right">606</td>
+<td align="right">610</td>
+</tr>
+<tr class="even">
+<td align="left">Xin Oort</td>
+<td align="right">4</td>
 </tr>
 <tr class="odd">
 <td align="left">Xin Ouli</td>
-<td align="right">185</td>
+<td align="right">183</td>
 </tr>
 </tbody>
 </table>
@@ -1042,7 +1114,7 @@ pre code {
 <li>First I want to see how many rows in DyadResponse have more than one entry per cell</li>
 </ul></li>
 </ul>
-<pre><code>## Number of rows with multiple entries in DyadResponse:  230</code></pre>
+<pre><code>## Number of rows with multiple entries in DyadResponse:  233</code></pre>
 <ul>
 <li><p>Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split.</p></li>
 <li><p>I will make an intermediary summary to see that state of DyadResponse at the moment</p></li>
@@ -1053,7 +1125,7 @@ pre code {
 <li><p>Print the amount of cells with more than 1 entry and the total number of rows cat(“Number of rows with more than 1 entry in DyadResponse:”, length(rows_with_multiple_entries_1), “”)</p></li>
 <li><p>C. Identify Rows with more than 2 entry</p></li>
 </ul>
-<pre><code>## Number of rows with more than 1 entry in DyadResponse:  230</code></pre>
+<pre><code>## Number of rows with more than 1 entry in DyadResponse:  233</code></pre>
 <ul>
 <li><ol start="4" style="list-style-type: upper-alpha">
 <li></li>
@@ -1069,6 +1141,7 @@ pre code {
 ##  Male aggress female &amp;  Looks at partner 1
 ##  Not approaching &amp;  Intrusion 1
 ##  Not approaching &amp;  Losing interest 1
+## Distracted &amp;  Losing interest 1
 ## Female aggress male &amp;  Intrusion 1
 ## Female aggress male &amp;  Not approaching 3
 ## Male aggress female &amp;  Intrusion 1
@@ -1076,40 +1149,12 @@ pre code {
 ## Male aggress female &amp;  Not approaching 2
 ## Not approaching &amp;  Distracted 7
 ## Not approaching &amp;  Intrusion 21
-## Not approaching &amp;  Looks at partner 9
+## Not approaching &amp;  Looks at partner 10
 ## Not approaching &amp;  Losing interest 46
 ## Not approaching &amp;  Other  1
 ## Tolerance &amp;  Distracted   3
 ## Tolerance &amp;  Female aggress male 23
-## Tolerance &amp;  Intrusion    41
-## Tolerance &amp;  Looks at partner 25
-## Tolerance &amp;  Losing interest 13
-## Tolerance &amp;  Male aggress female 31
-## Tolerance &amp;  Not approaching 6
-## Tolerance &amp;  Other        8</code></pre>
-<pre><code>## Unique Combinations and Counts for More than 1 Entry:</code></pre>
-<pre><code>##  Distracted &amp;  Intrusion  2
-##  Female aggress male &amp;  Intrusion 2
-##  Looks at partner &amp;  Other 1
-##  Losing interest &amp;  Intrusion 1
-##  Losing interest &amp;  Looks at partner 1
-##  Male aggress female &amp;  Female aggress male 2
-##  Male aggress female &amp;  Looks at partner 1
-##  Not approaching &amp;  Intrusion 1
-##  Not approaching &amp;  Losing interest 1
-## Female aggress male &amp;  Intrusion 1
-## Female aggress male &amp;  Not approaching 3
-## Male aggress female &amp;  Intrusion 1
-## Male aggress female &amp;  Looks at partner 1
-## Male aggress female &amp;  Not approaching 2
-## Not approaching &amp;  Distracted 7
-## Not approaching &amp;  Intrusion 21
-## Not approaching &amp;  Looks at partner 9
-## Not approaching &amp;  Losing interest 46
-## Not approaching &amp;  Other  1
-## Tolerance &amp;  Distracted   3
-## Tolerance &amp;  Female aggress male 23
-## Tolerance &amp;  Intrusion    41
+## Tolerance &amp;  Intrusion    42
 ## Tolerance &amp;  Looks at partner 25
 ## Tolerance &amp;  Losing interest 13
 ## Tolerance &amp;  Male aggress female 31
@@ -1200,7 +1245,7 @@ pre code {
 <li><p>No trial</p></li>
 </ul>
 <pre class="r"><code>head(Bex$Time)</code></pre>
-<pre><code>## [1] &quot;08:18:23&quot; &quot;08:37:12&quot; &quot;08:37:58&quot; &quot;08:16:30&quot; &quot;08:01:59&quot; &quot;08:02:58&quot;</code></pre>
+<pre><code>## [1] &quot;07:52:59&quot; &quot;07:54:33&quot; &quot;07:57:35&quot; &quot;08:05:31&quot; &quot;08:09:47&quot; &quot;11:42:49&quot;</code></pre>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment. * I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong> * The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong> * I will also create a variable called <strong>Trial</strong> to know how many trials have been done with each dyad where <strong>1 row = 1 trial</strong></li>
 </ul>
