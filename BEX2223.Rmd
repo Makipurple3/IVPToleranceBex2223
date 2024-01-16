@@ -5,6 +5,8 @@ output:
     df_print: paged
 ---
 
+
+
 ```{r setup, include=FALSE}
 # Set global knitr options
 knitr::opts_chunk$set(echo = TRUE)
@@ -232,25 +234,20 @@ glimpse(Boxex)
 
 ## 2. Cleaning the data
 
-
-### 2.1. Creating a new dataframe - Bex
-* Since I do not want to work with the whole dataset, I'm going to select the variables of interest using the function **select**
+### Creating a new dataframe
+* Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
 
 * I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
 
 ```{r Bex Df, echo=FALSE} 
 Bex<-Boxex%>%
   select(Time,Date,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks )
-
 glimpse(Bex)
 
 View(Bex)
 ```
 
-
-
-
-#### 2.1.1 Merging Male placement corn and MaleCorn
+#### 2.0.1 Merging Male placement corn and MaleCorn
 * I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
 * Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
@@ -273,6 +270,7 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 
   # Check the intersection of rows with NA in MaleCornOld and Male placement corn
   Cross_NA <- Bex[is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`), ]
+  View(Cross_NA)
 
   # Count the number of rows where both MaleCornOld and 'Male placement corn' have NA values
   common_na_count <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`) & !is.na(Bex$MaleCornOld) & !is.na(Bex$`Male placement corn`))
@@ -300,7 +298,6 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
   NA_MaleCorn <- Bex[is.na(Bex$MaleCorn), ]
   print(NA_MaleCorn)
 
-  
 } else {
   # Display a message or take alternative actions if columns are missing
   cat("Error: Required columns not found in the dataset.\n")
@@ -320,18 +317,9 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 * After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
 
-#### 2.1.2 Cleaning FemaleCorn
+###2.1 Replacing and removing NA’S
 
-```{r FemaleCorn, echo=FALSE}
-# Replace NA values in "FemaleCorn" with 0
-Bex$FemaleCorn <- ifelse(is.na(Bex$FemaleCorn), 0, Bex$FemaleCorn)
-
-# Check how many NA values are left in "FemaleCorn"
-remaining_na <- sum(is.na(Bex$FemaleCorn))
-cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
-```
-
-### 2.2 Identifying variables with missing data
+#### 2.1.2 Identifying variables with missing data
 
 * Now in order to see where are located the missing points in the data, I'm going to **print** the variables **with and without NA's**
 
@@ -352,122 +340,68 @@ kable(missing_data[missing_data == 0])
 
 * We can see that out of the 13 variables we have in **Bex** we have **9 variables with missing data** which are **Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks**
 
-* MaleID	19
-FemaleID	60
-DyadDistance	33
-DyadResponse	47
-OtherResponse	2758
-Audience	924
+* I will proceeed to clean these variables one by one 
 
-
-
-* I will proceed to clean these variables one by one 
-
-### 2.3 Treating variables with missing data
-
-#### 2.3.1 Cleaning "Remarks" - (2181 NA's)
+#### 2.3 Cleaning "Remarks"
 * Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA's out of 2795 rows
 * I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found are the same as the amount of NA's previously found
 * After the changes we can effectively see that we have **2181 "No Remarks"** in this column
 
 ```{r Remarks NA, echo=FALSE}
 
-# Check if the 'No Remarks' column already exists
-if (!"NoRemarks" %in% names(Bex)) {
-  # Replace NA's with "No Remarks" in the "Remarks" column
-  Bex$Remarks[is.na(Bex$Remarks)] <- "No Remarks"
+# Replace NA's with "No Remarks" in the "Remarks" column
+Bex$Remarks[is.na(Bex$Remarks)] <- "No Remarks"
 
-  # Check how many times "No Remarks" appears in the "Remarks" column
-  no_remarks_count <- sum(Bex$Remarks == "No Remarks")
-  cat("Number of 'No Remarks' in the 'Remarks' column:", no_remarks_count, "\n")
-
-  # Check if changes had been made for Remarks
-  head(Bex$Remarks)
-
-  # Count "No Remarks" and "Remarks"
-  table_remarks <- table(ifelse(Bex$Remarks == "No Remarks", "No Remarks", "Remarks"))
-  table_remarks
-} else {
-  cat("The 'NoRemarks' column already exists. No changes made.\n")
-}
-
-```
-* I will also create a variable called No Remarks to see how many lines with remarks I will have to treat
-
-```{r Creation of NoRemarks, echo=FALSE}
-
-# Check if the 'NoRemarks' column already exists
-if (!"NoRemarks" %in% names(Bex)) {
-  # Creation of a New dichotomous variable "No Remarks"
-  Bex$NoRemarks <- ifelse(Bex$Remarks == "No Remarks", 1, 0)
-
-  # Count the number of 1's (No Remarks) and 0's (Remarks) in the "NoRemarks" column
-  no_remarks_1_count <- sum(Bex$NoRemarks == 1)
-  no_remarks_0_count <- sum(Bex$NoRemarks == 0)
-
-  cat("Number of 'No Remarks' (1's) in the 'NoRemarks' column:", no_remarks_1_count, "\n")
-  cat("Number of 'Remarks' (0's) in the 'NoRemarks' column:", no_remarks_0_count, "\n")
-} else {
-  cat("The 'NoRemarks' column already exists. No changes made.\n")
-}
-
+# Check how many times "No Remarks" appears in the "Remarks" column
+no_remarks_count <- sum(Bex$Remarks == "No Remarks")
+cat("Number of 'No Remarks' in the 'Remarks' column:", no_remarks_count, "\n")
 
 ```
 
-#### 2.3.2 Cleaning "Intruder ID" - (2737 NA's)
-* **Intruder ID** is a variable that contains the **name of the individuals that made and intrusion during a trial**.
-* If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column
+#### 2.4 Cleaning "Intruder ID"
+* Intruder ID is a variable that contains the name of the individuals that made and intrusion. If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column
 * Because nothing was entered when there was no intrusion, I will replace every NA's by **No Intrusion**
 * Also, I will use a function to create a new dichotomic variable called **Intrusion**. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)
 
 
 ```{r IntruderID NA, echo=FALSE}
 
-# Check if the 'Intrusion' column already exists
-if (!"Intrusion" %in% names(Bex)) {
-  # Replace NA's with "No Intrusion" in the "Intruder ID" column
-  Bex$IntruderID[is.na(Bex$IntruderID)] <- "No Intrusion"
+# Replace NA's with "No Intrusion" in the "Intruder ID" column
+Bex$IntruderID[is.na(Bex$IntruderID)] <- "No Intrusion"
 
-  # Create a new dichotomic variable called "Intrusion"
-  Bex$Intrusion <- ifelse(Bex$IntruderID == "No Intrusion", 0, 1)
+# Create a new dichotomic variable called "Intrusion"
+Bex$Intrusion <- ifelse(Bex$IntruderID == "No Intrusion", 0, 1)
 
-  # Check how many times "No Intrusion" appears in the "Intruder ID" column after replacement
-  no_intrusion_count <- sum(Bex$IntruderID == "No Intrusion")
-  cat("Number of 'No Intrusion' in the 'Intruder ID' column after replacement:", no_intrusion_count, "\n")
-} else {
-  cat("The 'Intrusion' column already exists. No changes made.\n")
-}
+# Check how many times "No Intrusion" appears in the "Intruder ID" column after replacement
+no_intrusion_count <- sum(Bex$IntruderID == "No Intrusion")
+cat("Number of 'No Intrusion' in the 'Intruder ID' column after replacement:", no_intrusion_count, "\n")
 
 ```
 * We previously had 2737 NA's in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended
 
-#### 2.3.3 Cleaning "IdIndividual1" - (2143 NA's)
+#### 2.5 Cleaning "IdIndividual1"
 
 * IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial
-* I will now replace every NA in this column by **No individual**
-* And **if there are more than one value per cell**, report it in a new column called ">1 Response"
+* I will now replace every NA in this column by No individual
+* I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion" (Used for double check), "Losing interest", "Distracted", for this I would like the function to
+  1.Check if there is a value different than "No individual"
+  2.If the value ≠"No individual" then I want it to take the response found in "DyadResposne" and if there are more than one value, report it in a new column called ">1 Response"
   
   
 ```{r IdIndividual1 NA, echo=FALSE}
-# Check if the "MultipleResponses" column already exists
-if (!"MultipleResponses" %in% names(Bex)) {
-  # Replace NA in IDindividual1 by "No individual"
+  #Replace NA in IDindividual1 by No individual
   Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
 
-# Check for multiple responses
-  Bex$MultipleResponses <- ifelse(
-    Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse),
-    ">1 Response",
-    ifelse(Bex$IDIndividual1 != "No individual" & grepl(", ", Bex$DyadResponse), ">1 Response", "Single Response")
-  )
+# Create dichotomic variables
+Bex$NotApproaching <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Not approaching", Bex$DyadResponse), 1, 0)
+Bex$Intrusion <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Intrusion", Bex$DyadResponse), 1, 0)
+Bex$LosingInterest <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Losing interest", Bex$DyadResponse), 1, 0)
+Bex$Distracted <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("Distracted", Bex$DyadResponse), 1, 0)
 
-  View(Bex)
-} else {
-  cat("The 'MultipleResponses' column already exists. No changes made.\n")
-}
+# Check for multiple responses
+Bex$MultipleResponses <- ifelse(Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse), ">1 Response", "Single Response")
 
 ```
-
   
 
 #### 2.6 Cleaning "Audience"
@@ -520,9 +454,9 @@ Bex$Time <- format(Bex$Time, "%H:%M:%S")
 if ("DyadDistance" %in% names(Bex)) {
 
   # Check if modifications are needed (avoiding unnecessary changes on multiple runs)
-  if (!is.numeric(Bex$DyadDistance)) {
+  if (!all(grepl("^\\d+$", as.character(Bex$DyadDistance)))) {
     
-    # Remove "m" and convert to numeric
+    # Remove "m" from DyadDistance and convert to numeric
     Bex$DyadDistance <- as.numeric(gsub("m", "", Bex$DyadDistance), errors = "coerce")
     
     # Identify NA values in DyadDistance
@@ -551,7 +485,6 @@ if ("DyadDistance" %in% names(Bex)) {
   # Display a message or take alternative actions if columns are missing
   cat("Error: Required columns not found in the dataset.\n")
 }
-
 
 ```
 
@@ -640,58 +573,39 @@ if ("DyadDistance" %in% names(Bex)) {
 * Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called **Distance**. I will also to create a new variable called **No trial**.
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
  
-```{r Distance, echo=FALSE}
+```{r Distance, echo=TRUE}
 # Check if the dataset has the necessary columns before proceeding 
 if ("DyadDistance" %in% names(Bex)) {
 
   # Check if the modification has already been applied
   if (!all(c("Dyadistance", "Distance") %in% names(Bex))) {
-
+    
     # Define replacement values
     replacement_values <- c(
       `24` = 1, `27` = 2, `95` = 4, `492` = 0, `744` = 4, `971` = 0, `1113` = 0, `1164` = 4,
       `1341` = 0, `1583` = 3, `1779` = 5, `1792` = 4, `1840` = 0, `1868` = 0, `1918` = 4,
       `2000` = 4, `2191` = 3, `2233` = 5, `2569` = 0, `2579` = 1, `2676` = 0, `2709` = 1, `2729` = 2
     )
-
-    # Check if the "NewDistance" column already exists
-    if (!"NewDistance" %in% names(Bex)) {
-
-      # Check if there are duplicate column names and handle them
-      if (any(duplicated(names(Bex)))) {
-        duplicate_names <- names(Bex)[duplicated(names(Bex))]
-        cat("Duplicate column names found: ", paste(duplicate_names, collapse = ", "), "\n")
-        for (col_name in duplicate_names) {
-          new_col_name <- paste0(col_name, "_duplicate")
-          Bex <- Bex %>% rename(!!new_col_name := !!col_name)
-          cat("Renamed column '", col_name, "' to '", new_col_name, "'\n")
-        }
-      }
-
-      # Applying rules to update DyadDistance
-      Bex <- Bex %>%
-        mutate(
-          Dyadistance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], DyadDistance)
-        )
-
-      # Create a new column NewDistance with values from DyadDistance
-      Bex <- Bex %>% mutate(NewDistance = Dyadistance)
-
-      # Count NA's in NewDistance
-      na_count <- sum(is.na(Bex$NewDistance))
-      print(paste("Number of NA's in NewDistance: ", na_count))
-
-      # Remove rows with NA in NewDistance after replacing values
-      Bex <- Bex %>% filter(!is.na(NewDistance))
-
-      # Count NA's in NewDistance after removing NA's
-      na_count <- sum(is.na(Bex$NewDistance))
-      print(paste("Number of NA's in NewDistance after removing NA's: ", na_count))
-      
-    } else {
-      # Display a message if the modifications have already been applied
-      cat("Modification already applied. No changes made.\n")
-    }
+    
+    # Applying rules to update DyadDistance
+    Bex <- Bex %>%
+      mutate(
+        Dyadistance = ifelse(row_number() %in% names(replacement_values), replacement_values[as.character(row_number())], DyadDistance)
+      )
+    
+    # Create a new variable Distance with values from DyadDistance
+    Bex <- Bex %>% mutate(Distance = DyadDistance)
+    
+    # Count NA's in Distance
+    na_count <- sum(is.na(Bex$Distance))
+    print(paste("Number of NA's in Distance: ", na_count))
+    
+    # Remove rows with NA in Distance after replacing values 
+    Bex <- Bex %>% filter(!is.na(Distance))
+    
+    # Count NA's in Distance after removing NA's
+    na_count <- sum(is.na(Bex$Distance))
+    print(paste("Number of NA's in Distance: ", na_count))
     
   } else {
     # Display a message if the modifications have already been applied
@@ -702,7 +616,6 @@ if ("DyadDistance" %in% names(Bex)) {
   # Display a message or take alternative actions if columns are missing
   cat("Error: Required columns not found in the dataset.\n")
 }
-
 
 ```
 *In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don't exist, it proceeds with the modifications. This way, running the code multiple times won't cause redundant changes.
@@ -724,8 +637,7 @@ rows_to_delete <- c(24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 139
                     2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729)
 
 # Create NoTrial variable
-Bex$NoTrial <- ifelse(seq_along(Bex$NewDistance) %in% rows_to_delete, 1, 0)
-
+Bex$NoTrial <- ifelse(seq_along(Bex$Distance) %in% rows_to_delete, 1, 0)
 
 ```
 
@@ -886,6 +798,19 @@ Number of missing values in MaleID:  18
 
 
 
+#### 2.11 Cleaning FemaleCorn
+
+```{r FemaleCorn, echo=FALSE}
+# Replace NA values in "FemaleCorn" with 0
+Bex$FemaleCorn <- ifelse(is.na(Bex$FemaleCorn), 0, Bex$FemaleCorn)
+
+# Check how many NA values are left in "FemaleCorn"
+remaining_na <- sum(is.na(Bex$FemaleCorn))
+cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
+```
+
+
+
 #### 2.12 Final check: remaing NA's in Bex?
 
 ```{r Check if Remaing NA, echo=FALSE}
@@ -1025,12 +950,12 @@ table(Bex$MaleID)
 
 
 before_summary <- table(Bex$FemaleID, Bex$MaleID)
-print(before_summary)
+kable(print(before_summary))
 
 ```
 1. Create a variable called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
 
-```{r Female Male ID correction, echo=FALSE}                                                                                                    
+```{r Female Male ID correction, echo=FALSE}
 
 # Check and remove existing columns
 if ("Male" %in% names(Bex)) {
@@ -1066,23 +991,31 @@ kable(table(Bex$Dyad))
 
 
 ```
+  
+  # Correct from here, mistake were inserted in dyad by changin wrong lines 
+
+
+
 
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
 
     Var1	Freq
-Buk Ginq	6
+Buk Ginq	1
 Buk Ndaw	257
 Kom Oort	366
 Nge Oerw	181
 Pom Guat	5
 Pom Xian	257
 Sey Sirk	584
-Sho Ginq	273
+Sho Ginq	278
 Xia Piep	606
 Xin Oort	4
 Xin Ouli	185
 
 
+  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
+    -Buk Ginq - 6 occurences
+    -Xin Oort - 4 occurences
   
 ```{r Identify Wrong Dyads, echo=FALSE}
 
@@ -1099,10 +1032,7 @@ print(wrong_dyads)
 
 
 ```
-  
-  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
-    -Buk Ginq - 6 occurences
-    -Xin Oort - 4 occurences
+* 
 
   * I will change the occurences of **Buk Ginq** to **Sho Ginq** for **row 605 to 609** and **row 921**. I know these triasl are with SHo Ginq because the comments metionned Sho in them while Male(ID) gave Buk
   * For the **rows from 2692 to 2695** since, Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli**. Also I think they are little chances that the names of both individuals     were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
@@ -1147,9 +1077,13 @@ Bex <- Bex %>%
   )
 
 # Check and summarize unique MaleIDs and Dyads after correction
+unique_male <- unique(Bex$MaleID)
+cat("Unique Male after correction", unique_male, "\n")
 
 unique_dyad <- unique(Bex$Dyad)
 cat("Unique Dyad after correction", unique_dyad, "\n")
+
+kable(table(Bex$MaleID))
 kable(table(Bex$Dyad))
 
 
@@ -1200,429 +1134,16 @@ kable(table(Bex$Dyad))
 ```
 
 
-5. After relfection I decided to **remove every column** that is with PomGuat since they are not enough trials for this Dyad and since we then changed PomGuat for PomXian. I have 5 occurnces to change. For easier manipulation I will remove every row where there is **Guat**
 
-```{r Remove PomGuat, echo=FALSE}
-
-# Count the rows before modifications
-before_rows <- nrow(Bex)
-
-# Remove rows where "Guat" is present in FemaleID
-Bex <- Bex %>% filter(!grepl("Guat", FemaleID, ignore.case = TRUE))
-
-# Count the rows after modifications
-after_rows <- nrow(Bex)
-
-# Display the change in rows
-cat("Change in Rows: ", after_rows - before_rows, "\n")
-
-```
 
   
 
 #### Female Corn and Male Corn 
 
-* The idea is that for each Dyad, we gave an amount of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day. 
-* I decided to create **two variables**, that are called **PlacementMale** and **PlacementFemale** that will only keep the final amount of corn given to each individual within a day of experiment
+* The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
 
-```{r FemaleMale Corn, echo=FALSE}
-
-
-
-Bex <- Bex %>%
-  arrange(Dyad, Date) %>%
-  group_by(Dyad, Day) %>%
-  mutate(
-    PlacementMale = last(MaleCorn),
-    PlacementFemale = last(FemaleCorn)
-  )
-
-```
-
-#### DyadDistance - Creation of proximity
-* I would like to create a variable called proximity to have another measure of the proximity of the individuals. 
-* First lets look at the maximum and minimum distance found in Dyad Distance
-```{r DyadDistance Max & Min, echo=FALSE}
-# Find maximum distance
-max_distance <- max(Bex$DyadDistance, na.rm = TRUE)
-
-# Find minimum distance
-min_distance <- min(Bex$DyadDistance, na.rm = TRUE)
-
-# Print the results
-cat("Maximum Distance:", max_distance, "\n")
-cat("Minimum Distance:", min_distance, "\n")
-
-```
-* The **minumum Distance** is **0m** while the **maximum Distance** is **10m**
-* Now lets create a new variable called **Proximity** using the distances found in **DyadDistance** on the following model:
-  a. 0 = Contact
-  b. 1 - 2 = Very close
-  c. 2 - 3 = Close
-  d. 4 - 5 = Distant
-  e. 5 - 6 = Far
-  d. 7 - 8 = Very Far
-  f. 9 - 10 = Maximum Distance
-  
-```{r Proximity, echo=FALSE}
-  # Assuming 'DyadDistance' is the name of your distance variable
-Bex <- Bex %>%
-  mutate(
-    Proximity = case_when(
-      DyadDistance == 0 ~ "Contact",
-      between(DyadDistance, 1, 2) ~ "Very Close",
-      between(DyadDistance, 2, 3) ~ "Close",
-      between(DyadDistance, 4, 5) ~ "Distant",
-      between(DyadDistance, 5, 6) ~ "Far",
-      between(DyadDistance, 7, 8) ~ "Very Far",
-      between(DyadDistance, 9, 10) ~ "Maximum Distance",
-      TRUE ~ NA_character_
-    )
-  )
-
-```
-
+* DyadDistance - Creation of proximity
 * Dyad Response - Detailed cleaning
-
-  * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
-    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**    into dichotomic variables in order to see the frequency of each behaviour
-    * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
-    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
-      1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
-      2. assign as few labels per trial 
-      3. get a better view and understanding of the data and the most common behaviours produced by each dyad
-      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
-      
-
-      - Create a table with each combination existing
-      
-      - Decide what is more important
-* **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
-      - Aggression > Tolerance
-      - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
-      - Tolerance > Loosing interest
-      - Tolerance > Intrusion      
-      - Not approaching = looking box but not coming while Loosing interest           = not paying attention to the box
-       - Intrusion > Loosing interest
-      - Intrusion > Not approaching
-      - Not approaching > Looks at partner
-      - We can code every look at partner as no approaching and keep the             count of looks at partner as additional information       
-      - Not approaching >?> Loosing interest ? !!
-       - Define distracted
-      - Not approaching > Distracted
-      - Aggression > Not approaching
-      - Other > Look case by case and categorize depending of behavior     
-      - Remarks may be used for the same reason
-        
-
-  * First I want to see how many rows in DyadResponse have more than one entry per cell
-  
-```{r DyadResponse MultipleResponse, echo=FALSE}
-#Rows with more than1 character
-rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-# Display the rows with multiple entries in DyadResponse
-View(Bex[rows_with_multiple_entries, ])
-
-# Print the amount of cells with multiple entries and the total number of rows
-cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_multiple_entries), "\n")
-
-```
-
-
-* Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split. 
-* I will make an intermediary summary to see that state of DyadResponse at the moment
-
-* A. Summary od DyadResponse
-
-* B.Idnetify Rows with more than 1 entry
-
-*  Step 1: Identify Rows with More than 1 Entry
-rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-* Display the rows with more than 1 entry in DyadResponse
-knitr::kable(Bex[rows_with_multiple_entries_1, ])
-
-* Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
-
-
-
-* C. Identify Rows with more than 2 entry
-```{r DyadResponse > 2 entry, echo=FALSE}
-# Step 1: Identify Rows with More than 1 Entry
-rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-# Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
-
-```
-* D. 
-```{r ,echo=FALSE}
-# Step 3: Extract Unique Combinations for More than 1 Entry
-all_combinations_1 <- unlist(lapply(rows_with_multiple_entries_1, function(row) {
-  unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
-  combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
-}))
-
-# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
-combination_counts_1 <- table(all_combinations_1)
-
-# Display Unique Combinations and Counts for More than 1 Entry
-cat("Unique Combinations and Counts for More than 1 Entry:\n")
-for (entry in names(combination_counts_1)) {
-  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
-}
-
-
-```
-
-
-* Unique Combinations and Counts:
- - Distracted &  Intrusion  2                   - Intrusion > Distracted: Remove distracted if there is instrusion
- - Female aggress male &  Intrusion 2           - Female aggress male > Intrusion: Remove intrusion if there is Female aggress male
- - Looks at partner &  Other 1                  - **Display line for detailed check**
- - Losing interest &  Intrusion 1               - Intrusion > Losing interest
- - Losing interest &  Looks at partner 1        - Losing interest > Looks at partner ! I have to remove the column **looks at partner** since it was not present in my whole dataset
- - Male aggress female &  Female aggress male 2 - Male aggress female = Female aggress male > keep 2 occurences
- - Male aggress female &  Looks at partner 1    - Male agress female > Looks at partner ! I have to remove the column **looks at partner** since it was not present in my whole dataset
- - Not approaching &  Intrusion 1               - Intrusion > Not approaching: Remove not approaching if there is intrusion
- - Not approaching &  Losing interest 1         - **Keep both**
- - Female aggress male &  Intrusion 1           - Female aggress male > Intrusion: Remove Intrusion if there is Female aggress male
- - Female aggress male &  Not approaching 3     - Female aggress male > Not approaching : Remove Not approaching if there is Female aggress male
- - Male aggress female &  Intrusion 1           - Male agress female > Intrusion: Remove Intrusion if there is Male agress female
- - Male aggress female &  Looks at partner 1    - Male agress female > Looks at partner: ! I have to remove the column **looks at partner** since it was not present in my whole dataset
- - Male aggress female &  Not approaching 2     - Male agress female > Not approaching : Remove Not approaching if there is Male aggress female
- - Not approaching &  Distracted 7              - **Display line for detailed check**
- - Not approaching &  Intrusion 21              - **Keep both**
- - Not approaching &  Looks at partner 9        - Not approaching > Looks at partner: ! I have to remove the column **looks at partner** since it was not present in my whole dataset
- - Not approaching &  Losing interest 46        - **Keep both, I will consider doing a detailled check**
- - Not approaching &  Other  1                  - **Display line for detailed check**
- - Tolerance &  Distracted   3                  - Tolerance > Distracted: Remove Distracted if there is tolerance
- - Tolerance &  Female aggress male 23          - Female agress male > Tolerance: Remove Tolerance if there is Female agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
- - Tolerance &  Intrusion    41                 - **Keep both**
- - Tolerance &  Looks at partner 25             - Tolerance > Looks at partner :! I have to remove the column **looks at partner** since it was not present in my whole dataset
- - Tolerance &  Losing interest 13              - Tolerance > Loosing interest: Remove Losing interest if there is Tolerance
- - Tolerance &  Male aggress female 31          - Male agress female > Tolerance : Remove Tolerance if there is Male agress male (I will use these tolerance information since it means the individuals got                                                    corn in most cases the check in more detail in the data since sometimes they did not get both the corn)
- - Tolerance &  Not approaching 6               - Tolerance > Not approaching: Remove Not approaching if there is tolerance
- - Tolerance &  Other        8                  - **Display line for detailed check**
-
-* Create a dichotomy variable called **Got Corn** that displays 1 if there is Tolerance and 0 if not. I decided to creat this variable before removing tolerance in double cases (Ex: Tolerance & Female agrees male) since in most cases where there was toelrance the individuals Got Corn. I will alter check the remarks since we mentionned the cases where individuals did not get corn
-
-```{r GotCorn, echo=FALSE}
-# Assuming 'DyadResponse' is the name of your variable
-Bex$GotCorn <- as.integer(grepl("Tolerance", Bex$DyadResponse))
-
-```
-* I also want to remove **Looks at partner** from DyadResponse and Bex
-
-```{r Remove Looks at partner, include=FALSE}
-# Remove rows where DyadResponse contains "Looks at partner"
-Bex <- Bex[!grepl("Looks at partner", Bex$DyadResponse), ]
-
-# Remove "Looks at partner" from DyadResponse
-Bex$DyadResponse <- gsub("Looks at partner", "", Bex$DyadResponse)
-
-# Assuming 'DyadResponse' is the name of your variable
-Bex$GotCorn <- as.integer(grepl("Tolerance", Bex$DyadResponse))
-```
-
-
-
-
-
-##### Detailed conditional treatment of DyadResponse
-
-* Before making the changes here is a save of Bex
-```{r SaveBex2, include=FALSE}
-# Save the original dataframe
-saveRDS(Bex, "Bex_original.rds")
-```
-
-
-
-
-In DyadResponse
-
-  1.Intrusion > Distracted: Remove distracted if there is intrusion in the same cell(x2)
-```{r intrusion > Distracted, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 1. Intrusion > Distracted: Remove distracted if there is intrusion and distracted (x2)
-Bex <- Bex[!(grepl("Distracted", Bex$DyadResponse) & grepl("Intrusion", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary1 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Intrusion > Distracted): ", after_summary1 - before_summary, "\n")
-
-```
-
-  2.Female aggress male > Intrusion: Remove intrusion if there is Female aggress male in the same cell(x2)
-```{r Female agress male > Intrusion, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 2. Remove rows with 'Intrusion' if 'Female aggress male' and Intrusion
-Bex <- Bex[!(grepl("Intrusion", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary2 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Female aggress male > Intrusion): ", after_summary2 - before_summary, "\n")
-```
-
-  
-  3.Intrusion > Losing interest: Remove Losing interest if there is Intrusion in the same cell(1x)
-```{r Intrusion > Loosing interest, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 3. Remove rows with 'Losing interest' if 'Intrusion' and Loosing interest
-Bex <- Bex[!(grepl("Losing interest", Bex$DyadResponse) & grepl("Intrusion", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary3 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Intrusion > Losing interest): ", after_summary3 - before_summary, "\n")
-
-
-```
-
-
-  4.Female aggress male > Not approaching:Remove Not approaching if there is Female aggress male in the same cell (3x)
-```{r Female aggress male > Not approaching, echo=FALSE} 
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 4.. Remove rows with 'Not approaching' if 'Female aggress male' is present
-Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary4 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - before_summary, "\n")
-```
-
-
- 6. Male agress female > Not approaching : Remove Not approaching if there is Male aggress female (2x)
-```{r Male agress female > Intrusion, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-# 6. Remove rows with 'Not approaching' if 'Male aggress female' is present
-Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary6 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching): ", after_summary6 - before_summary, "\n")
-```
-
- 7. Tolerance > Distracted: Remove Distracted if there is tolerance (3x)
-
-```{r Tolerance > Distracted, echo=FALSE}
-
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# Tolerance & Distracted: 7.Remove Distracted if there is tolerance
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Distracted", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary7 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summary7 - before_summary, "\n")
-
-
-```
-
- 8.Female agress male > Tolerance: Remove Tolerance if there is Female agress male (23x)
- 
-```{r Female agress male > Tolerance, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 8. Remove rows with 'Tolerance' if 'Female aggress male' is present
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary8 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", after_summary8 - before_summary, "\n")
-
-```
-
- 9.Tolerance > Loosing interest: Remove Losing interest if there is Tolerance (13x)
-```{r Tolerance > Loosing interest, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 9. Remove rows with 'Losing interest' if 'Tolerance' is present
-Bex <- Bex[!(grepl("Losing interest", Bex$DyadResponse) & grepl("Tolerance", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary9 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after_summary9 - before_summary, "\n")
-```
-
- 10.Male agress female > Tolerance : Remove Tolerance if there is Male agress male (31)
-```{r Male agress female > Tolerance, echo=FALSE}
- # Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 10. Remove rows with 'Tolerance' if 'Male aggress female' is present
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary10 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", after_summary10 - before_summary, "\n")
-
-```
- 11.Tolerance > Not approaching: Remove Not approaching if there is tolerance (6x)
-```{r Tolerance > Not approaching, echo=FALSE}
-# Count occurrences before modifications
-before_summary <- nrow(Bex)
-
-# 11. Remove rows with 'Not approaching' if 'Tolerance' is present
-Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Tolerance", Bex$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary11 <- nrow(Bex)
-
-# Display the change in occurrences
-cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after_summary11 - before_summary, "\n")
-
-```
- 
- 
- 
- 
- 
-
- * Looks at partner &  Other 1                  - Display line for detailed check (1x)
- * Not approaching &  Losing interest 46        - Keep both, I will consider doing a detailled check
- * Not approaching &  Distracted 7              - Display line for detailed check
- * Not approaching &  Other  1                  - Display line for detailed check
- * Tolerance &  Other        8                  - Display line for detailed check
-
-
-
-* Code to display rows numbers and the response in DyadResponse that have mroe than one entry
-
-
-
 * Other Reponse - DEtailed cleaning to delete the column
 * Audience - Creation of Amount Audience and Density
 * ID Individua1 - Not sure yet
@@ -1639,68 +1160,197 @@ cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after
 * No trial
 
 
-# Code to settle 
 
-I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion", "Losing interest", "Distracted", for this I would like the function to
-  1.Check if there is a **value different than "No individual"**
-  2.**If the value ≠"No individual"** then I want it to **take the response found in "DyadResposne"** 
+### Exploratory Graph (To organise)
 
-```{ Create dichotomous variables} 
-# Check if the "MultipleResponses" column already exists
-if (!"MultipleResponses" %in% names(Bex)) {
-  # Replace NA in IDindividual1 by "No individual"
-  Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
+####Dyad, Distance & Date
 
-  # Check for multiple responses
-  Bex$MultipleResponses <- ifelse(
-    Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse),
-    ">1 Response",
-    ifelse(Bex$IDIndividual1 != "No individual" & grepl(", ", Bex$DyadResponse), ">1 Response", "Single Response")
-  )
+* Trials of grpahs, I will have to check all of them
 
-  View(Bex)
+* My goal here is too see if each dyad have an general evolution of their dyad distance trough time and how many varaition do they have
+
+```{r Dyad Distance & Date, echo=FALSE}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Check if the DyadDistance column exists
+if("DyadDistance" %in% colnames(Bex)) {
+    # Convert Date column to Date format if it's not already
+    Bex$Date <- as.Date(Bex$Date)
+
+    # Plot using Date
+    plot <- ggplot(data = Bex, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
+      geom_smooth(se = FALSE, method = "loess") +
+      theme_minimal() +
+      labs(x = "Date", y = "Dyad Distance", title = "Dyad Distance Over Time", color = "Dyad")
+
+    # Print the plot
+    print(plot)
 } else {
-  cat("The 'MultipleResponses' column already exists. No changes made.\n")
+    print("DyadDistance column not found in Bex dataframe")
 }
 
 
-{r Check Responses in DyadResponse for Id1, echo=FALSE}
-# Count occurrences of each behavior in DyadResponse
-count_NotApproaching <- sum(grepl("Not approaching", Bex$DyadResponse))
-count_Intrusion <- sum(grepl("Intrusion", Bex$DyadResponse))
-count_LosingInterest <- sum(grepl("Losing interest", Bex$DyadResponse))
-count_Distracted <- sum(grepl("Distracted", Bex$DyadResponse))
-
-cat("Occurrences of 'Not approaching' in DyadResponse:", count_NotApproaching, "\n")
-cat("Occurrences of 'Intrusion' in DyadResponse:", count_Intrusion, "\n")
-cat("Occurrences of 'Losing interest' in DyadResponse:", count_LosingInterest, "\n")
-cat("Occurrences of 'Distracted' in DyadResponse:", count_Distracted, "\n")
-
-
-
-{r Check changes of dichotomic variables}
-
-# Count the number of '1's in the new variables
-count_NotApproaching_1 <- sum(Bex$NotApproaching == 1)
-count_Intrusion_1 <- sum(Bex$Intrusion == 1)
-count_LosingInterest_1 <- sum(Bex$LosingInterest == 1)
-count_Distracted_1 <- sum(Bex$Distracted == 1)
-
-cat("Occurrences of '1' in 'NotApproaching':", count_NotApproaching_1, "\n")
-cat("Occurrences of '1' in 'Intrusion':", count_Intrusion_1, "\n")
-cat("Occurrences of '1' in 'LosingInterest':", count_LosingInterest_1, "\n")
-cat("Occurrences of '1' in 'Distracted':", count_Distracted_1, "\n")
-
-```
-
-```{r temporary section}
-head(Bex$Time)
-
 ```
 
 
+```{r Other graphs}
 
 
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+
+# Ensure Date is in the correct format
+Bex$Date <- as.Date(Bex$Date)
+
+# Plot with smoothed lines and confidence intervals with improved readability
+daily_plot <- ggplot(data = Bex, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
+  geom_smooth(method = "loess", se = TRUE, alpha = 0.2, size = 1) + # Adjusted alpha and line size
+  theme_minimal() +
+  theme(legend.position = "right") + # Adjust legend position
+  labs(x = "Date", y = "Dyad Distance", title = "Dyad Distance Over Time with Confidence Interval", color = "Dyad") +
+  expand_limits(y = c(0, NA)) # Expand y-axis limits if needed
+
+# Print the daily plot
+print(daily_plot)
+
+                    
+```
+
+```{r daily graph, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Ensure Date is in the correct format
+Bex$Date <- as.Date(Bex$Date)
+
+# Aggregate data by month and calculate mean and SD
+monthly_stats <- Bex %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Dyad, Month) %>%
+  summarise(
+    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
+    SD_DyadDistance = sd(DyadDistance, na.rm = TRUE)
+  )
+
+# Faceted plot with Mean Points and Error Bars for each month
+faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
+  geom_point(size = 2) +
+  geom_errorbar(aes(y))
+```
+
+```{r Monthly graph, echo=FALSE}
+# Load required libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Ensure Date is in the correct format
+Bex$Date <- as.Date(Bex$Date)
+
+# Aggregate data by month and calculate mean and SD
+monthly_stats <- Bex %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Dyad, Month) %>%
+  summarise(
+    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
+    SD_DyadDistance = sd(DyadDistance, na.rm = TRUE),
+    .groups = 'drop' # This will remove the grouping after summarisation
+  )
+
+# Faceted plot with Mean Points and Error Bars for each month
+faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
+  geom_point(size = 2) +
+  geom_errorbar(aes(ymin = Mean_DyadDistance - SD_DyadDistance, ymax = Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
+  facet_wrap(~ Dyad, scales = 'free_y') + # Faceting by Dyad, with free y scales for each facet
+  theme_minimal() +
+  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance with SD by Dyad", color = "Dyad")
+
+# Print the faceted monthly plot
+print(faceted_monthly_plot)
+```
+
+```{r last test before sleep, echo=FALSE}
+
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Ensure Date is in the correct format
+Bex$Date <- as.Date(Bex$Date)
+
+# Aggregate data by month and calculate mean and SD
+monthly_stats <- Bex %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Dyad, Month) %>%
+  summarise(
+    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
+    SD_DyadDistance = sd(DyadDistance, na.rm = TRUE),
+    .groups = 'drop'
+  )
+
+# Calculate the grand mean DyadDistance for each Dyad
+grand_means <- monthly_stats %>%
+  group_by(Dyad) %>%
+  summarise(Grand_Mean_DyadDistance = mean(Mean_DyadDistance, na.rm = TRUE))
+
+# Faceted plot with Mean Points, Error Bars, Lines for each month, and Grand Mean Line
+faceted_monthly_plot_with_lines <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad, group = Dyad)) +
+  geom_line() +
+  geom_point(size = 2) +
+  geom_errorbar(aes(ymin = Mean_DyadDistance - SD_DyadDistance, ymax = Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
+  geom_hline(data = grand_means, aes(yintercept = Grand_Mean_DyadDistance, color = Dyad), linetype = "dashed") +
+  facet_wrap(~ Dyad) + # Removed scales = 'free_y' for a uniform scale
+  theme_minimal() +
+  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance with SD by Dyad", color = "Dyad")
+
+# Print the faceted monthly plot with lines and grand mean
+print(faceted_monthly_plot_with_lines)
+
+```
+
+```{r Still not asleep?, echo=FALSE}
+```{r daily graph2, echo=FALSE}
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Ensure Date is in the correct format
+Bex$Date <- as.Date(Bex$Date)
+
+# Aggregate data by month and calculate mean and SD
+monthly_stats <- Bex %>%
+  mutate(Month = floor_date(Date, "month")) %>%
+  group_by(Dyad, Month) %>%
+  summarise(
+    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
+    SD_DyadDistance = sd(DyadDistance, na.rm = TRUE),
+    .groups = 'drop' # Avoid regrouping after summarise
+  )
+
+# Calculate overall mean and standard deviation for reference
+overall_mean <- mean(Bex$DyadDistance, na.rm = TRUE)
+overall_sd <- sd(Bex$DyadDistance, na.rm = TRUE)
+
+# Faceted plot with Mean Points and Error Bars for each month
+faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
+  geom_point(size = 3) + # Slightly larger points for visibility
+  geom_errorbar(aes(ymin = Mean_DyadDistance - SD_DyadDistance, ymax = Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
+  geom_hline(yintercept = overall_mean, linetype = "dashed", color = "red") + # Line for overall mean
+  geom_ribbon(aes(ymin = overall_mean - overall_sd, ymax = overall_mean + overall_sd), fill = "red", alpha = 0.2) + # Shaded area for overall SD
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) + # Rotate x labels for better readability
+  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance by Dyad", color = "Dyad")
+
+# Print the faceted monthly plot
+print(faceted_monthly_plot)
+
+```
+  
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
