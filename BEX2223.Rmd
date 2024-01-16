@@ -445,10 +445,7 @@ if (!"Intrusion" %in% names(Bex)) {
 
 * IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial
 * I will now replace every NA in this column by **No individual**
-* I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion", "Losing interest", "Distracted", for this I would like the function to
-  1.Check if there is a **value different than "No individual"**
-  2.**If the value ≠"No individual"** then I want it to **take the response found in "DyadResposne"** 
-  3.And **if there are more than one value per cell**, report it in a new column called ">1 Response"
+* And **if there are more than one value per cell**, report it in a new column called ">1 Response"
   
   
 ```{r IdIndividual1 NA, echo=FALSE}
@@ -1643,6 +1640,10 @@ cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after
 
 
 # Code to settle 
+
+I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion", "Losing interest", "Distracted", for this I would like the function to
+  1.Check if there is a **value different than "No individual"**
+  2.**If the value ≠"No individual"** then I want it to **take the response found in "DyadResposne"** 
 
 ```{ Create dichotomous variables} 
 # Check if the "MultipleResponses" column already exists

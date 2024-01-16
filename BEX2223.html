@@ -551,7 +551,7 @@ pre code {
 <ul>
 <li>IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
 <li>I will now replace every NA in this column by <strong>No individual</strong></li>
-<li>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong> 3.And <strong>if there are more than one value per cell</strong>, report it in a new column called “&gt;1 Response”</li>
+<li>And <strong>if there are more than one value per cell</strong>, report it in a new column called “&gt;1 Response”</li>
 </ul>
 </div>
 <div id="cleaning-audience" class="section level4">
@@ -1251,6 +1251,7 @@ pre code {
 </div>
 <div id="code-to-settle" class="section level1">
 <h1>Code to settle</h1>
+<p>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong></p>
 <p>```{ Create dichotomous variables} # Check if the “MultipleResponses” column already exists if (!“MultipleResponses” %in% names(Bex)) { # Replace NA in IDindividual1 by “No individual” Bex<span class="math inline">\(IDIndividual1[is.na(Bex\)</span>IDIndividual1)] &lt;- “No individual”</p>
 <p># Check for multiple responses Bex<span class="math inline">\(MultipleResponses &lt;- ifelse(  Bex\)</span>IDIndividual1 != “No individual” &amp; grepl(“;”, Bex<span class="math inline">\(DyadResponse),  &quot;&gt;1 Response&quot;,  ifelse(Bex\)</span>IDIndividual1 != “No individual” &amp; grepl(“,”, Bex$DyadResponse), “&gt;1 Response”, “Single Response”) )</p>
 <p>View(Bex) } else { cat(“The ‘MultipleResponses’ column already exists. No changes made.”) }</p>
