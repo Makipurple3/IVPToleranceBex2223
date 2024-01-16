@@ -1,5 +1,5 @@
 ---
-title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2223" 
+title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023" 
 output:
   html_document:
     df_print: paged
@@ -391,25 +391,149 @@ if (!"NoRemarks" %in% names(Bex)) {
   cat("The 'NoRemarks' column already exists. No changes made.\n")
 }
 
-View(Bex)
+
 
 ```
 
 * Since **Remarks contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now
 
-* I will now create a variable called **NoRemarks** that will put 1 where there is a remark and 0 where there is nothing
-
 
 ```{r Remarks Exploration, echo=FALSE}
 
-head(Bex$Remarks)
+unique_remarks <- unique(Bex$Remarks)
+head(unique_remarks)
+
+library(dplyr)
+library(stringr)
+```
+
+* After help and use of an AI to analyze the **508 unique outputs of Remarks**, here are is the result:
+Analyzing the 508 unique remarks from your dataset, I can categorize them into several key themes based on recurring keywords and phrases. These themes will be useful in structuring the data cleaning process for the Remarks column. Here's a breakdown:
+
+1. Equipment and Procedure Related
+    - Keywords: "did not open", "opened early", "did not work", "first trial"
+    - Examples: "Nge box did not open because of the battery", "opened seychelles box early by accident"
+    - Action: Log these as procedural notes; consider creating a flag for equipment or procedural issues.
+2. Animal Behavior Observations
+    - Keywords: "approached", "did not approach", "scared", "intruded", "stole", "aggression", "tolerance"
+    - Examples: "Sey came to the boxes once they were open", "Sirk was scared by Oerw", "oerw intruded"
+    - Action: These could be detailed in a behavioral observations column or further categorized based on the behavior type.
+3. Spatial Measurements and Corrections
+    - Keywords: Measurements (e.g., "6m", "7m"), "distance"
+    - Examples: "6m", "should have been 1m"
+    - Action: Use to correct or supplement DyadDistance data; possibly flag discrepancies.
+4. Specific Individual Actions or Reactions
+    - Keywords: Names of individuals (e.g., "Sey", "Nge"), specific actions (e.g., "ate", "moved", "looked at")
+    - Examples: "Nge and Oerw vo to MA", "Xia looked at piep"
+    - Action: These could be valuable for individual-level behavioral analysis.
+5. Audience or Other Individual Involvement
+    - Keywords: "audience", names of other individuals not part of the primary observation, "present"
+    - Examples: "unknown audience", "Buk stole corn from Ndaw", "Juvenile also present"
+    - Action: Consider creating an additional column for audience or secondary individuals involved, which could be useful for social dynamics studies.
+6. Timing and Sequence of Events
+    - Keywords: "before", "after", "when", "then"
+    - Examples: "before aggression", "after 30 sec", "when he left she came"
+    - Action: These remarks can be used to adjust timing-related variables or to create a sequence of events log.
+7. Specific Observational Details or Corrections
+    - Keywords: Specific observations (e.g., "ate all the corn"), corrections or clarifications
+    - Examples: "Piep not approaching", "Piep box didn't open so they shared the corn in Xia box"
+    - Action: Use these remarks for data verification or to provide context to other observations.
+8. Miscellaneous or Unclear Remarks
+    - Keywords: Ambiguous terms, unclear references
+    - Examples: "na", "unknown audience", "contact calling in the background"
+    - Action: These may require further clarification from the research team or might be categorized as 'miscellaneous' if they do not fit into other themes.
+9. Technical or Environmental Notes
+    - Keywords: "alarm", "left boxes on the ground", "foraging"
+    - Examples: "There was an alarm and we left the boxes on the ground"
+    - Action: Log these as environmental or technical notes that may have influenced the experiment.
+    
+* From this output I decided to explore the 508 unique outputs of Remarks by identify the **amount of lines and the rows where there are the key words**: 
+1. "open", "work", "trial"
+2."approach", "scare", "intrude", "stole", "steal", "corn", "ate"
+3. "numerical value", "m", "distance"
+4. "3 code letter", "four code letter"
+5. "audience", "present" 
+6. "sec", "before", "after", "left", 
+7. "na", 
+8. "foraging"
+9. "alarm"
 
 
+```{r Checking for keywords in Remarks, include=FALSE}
+# Ensure the stringr package is installed and loaded
+if (!require(stringr)) {
+  install.packages("stringr")
+  library(stringr)
+}
+
+# Ensure 'Remarks' is treated as a character column
+Bex$Remarks <- as.character(Bex$Remarks)
+
+# Define individual keywords as separate categories
+keywords <- list(
+  open = "open",
+  work = "work",
+  trial = "trial",
+  approach = "approach",
+  scare = "scare",
+  intrude = "intrude",
+  stole = "stole",
+  steal = "steal",
+  corn = "corn",
+  ate = "ate",
+  numerical_value_m = "\\b\\d+m\\b",  # Regex pattern for numerical value followed by 'm' (e.g., "6m")
+  code_3_letters = "\\b[a-zA-Z]{3}\\b",  # Regex for 3 letter words (code)
+  code_4_letters = "\\b[a-zA-Z]{4}\\b",  # Regex for 4 letter words (code)
+  audience = "audience",
+  present = "present",
+  sec = "sec",
+  before = "before",
+  after = "after",
+  left = "left",
+  na = "na",
+  foraging = "foraging",
+  alarm = "alarm"
+)
+
+# Function to find rows with keywords
+find_keyword_rows <- function(df, keyword) {
+  rows <- which(str_detect(tolower(df$Remarks), keyword))
+  return(rows)
+}
+
+# Applying the function to each category
+results <- lapply(keywords, function(kw, df) {
+  if (is.character(kw)) {
+    # For single keywords
+    rows <- find_keyword_rows(df, kw)
+  } else {
+    # For regex patterns
+    rows <- find_keyword_rows(df, kw)
+  }
+  return(unique(sort(rows)))
+}, df = Bex)
+
+# Adding category names and counting the number of lines for each category
+line_counts <- sapply(results, length)
+
+# Detailed Results
+results
+```
+
+```{r Display amount key words, echo=FALSE}
+
+# Output the results
+
+line_counts
 
 
 ```
 
 
+
+
+
+* I will now create a variable called **NoRemarks** that will put 1 where there is a remark and 0 where there is nothing
 
 
 
