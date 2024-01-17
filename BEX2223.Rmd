@@ -459,9 +459,10 @@ Analyzing the 508 unique remarks from your dataset, I can categorize them into s
 9. "alarm"
 
 
-```{r Checking for keywords in Remarks, include=FALSE}
+```{r Checking for keywords in Remarks, echo=FALSE}
+# Checking for keywords in Remarks
 # Ensure the stringr package is installed and loaded
-if (!require(stringr)) {
+if (!require("stringr")) {
   install.packages("stringr")
   library(stringr)
 }
@@ -482,8 +483,6 @@ keywords <- list(
   corn = "corn",
   ate = "ate",
   numerical_value_m = "\\b\\d+m\\b",  # Regex pattern for numerical value followed by 'm' (e.g., "6m")
-  code_3_letters = "\\b[a-zA-Z]{3}\\b",  # Regex for 3 letter words (code)
-  code_4_letters = "\\b[a-zA-Z]{4}\\b",  # Regex for 4 letter words (code)
   audience = "audience",
   present = "present",
   sec = "sec",
@@ -495,39 +494,288 @@ keywords <- list(
   alarm = "alarm"
 )
 
-# Function to find rows with keywords
+# Modified function to find rows with keywords and print details
 find_keyword_rows <- function(df, keyword) {
   rows <- which(str_detect(tolower(df$Remarks), keyword))
+  if (length(rows) > 0) {
+    for (row in rows) {
+      print(paste("Keyword:", keyword, "- Row", row, ":", df$Remarks[row]))
+    }
+  }
   return(rows)
 }
 
-# Applying the function to each category
-results <- lapply(keywords, function(kw, df) {
-  if (is.character(kw)) {
-    # For single keywords
-    rows <- find_keyword_rows(df, kw)
-  } else {
-    # For regex patterns
-    rows <- find_keyword_rows(df, kw)
-  }
+# Applying the modified function to each category
+results <- lapply(keywords, function(kw) {
+  rows <- find_keyword_rows(Bex, kw)
   return(unique(sort(rows)))
-}, df = Bex)
+})
 
-# Adding category names and counting the number of lines for each category
+# Counting the number of lines for each category
 line_counts <- sapply(results, length)
 
-# Detailed Results
-results
+# Print detailed results for each keyword
+print(results)
+
 ```
 
 ```{r Display amount key words, echo=FALSE}
 
-# Output the results
 
-line_counts
+# Ensure the knitr package is loaded for kable
+library(knitr)
+
+# Sort line_counts in descending order
+sorted_line_counts <- sort(line_counts, decreasing = TRUE)
+
+# Display the ordered results using kable
+kable(sorted_line_counts, caption = "Counts of Keywords in Remarks (Ordered by Count)")
+
+```
+
+
+###### 2.3.1.2 Temporary section for detailed cleaning of Remarks
+
+
+Counts of Keywords in Remarks (Ordered by Count)
+x
+code_3_letters	454
+code_4_letters	450
+corn	146
+after	84
+approach	74
+stole	69
+left	68
+open	45
+audience	44
+sec	34
+before	31
+ate	28
+intrude	27
+numerical_value_m	15
+trial	8
+steal	8
+work	2
+scare	2
+present	1
+foraging	0
+alarm	0
+
+
+
+* **Remarks - alarm (x1)**
+ Row: **1816**
+ 
+ -Here is the content of the column Remarks for row 1816: There was an alarm and we left the boxes on the ground. Kom came to the box and then left. Oort came and Kom came back immediately. No camera footage.
+
+1. I want to create a column **Context** where every cell will be filled with "No Context"; this column will be used to insert any **information related to context as BGE, Agression, Affiliative interation and so on** when the context could be relevant
+1.1 I want the line 1816 of "Context" to display "Alarm Event"
+2. I want to create a column "Special behaviour" where every cell says "No"; this column will be used to insert any particular behaviour noted during the experiment as **Coming back to the box, getting robbed** and so on
+2.1 I want the line 1816 of "Special behaviour" to says "Back to box; Kom"
+3. I want to replace the line 1816 of "Remarks" with "Treated"
+ 
+```{r Remarks - alarm, echo=FALSE}
+# Display the row with index 1816 from the Bex dataframe
+
+# Check if "Context" and "SpecialBehaviour" columns exist, create if not
+if (!"Context" %in% names(Bex)) {
+  Bex$Context <- rep("No Context", nrow(Bex))
+}
+
+if (!"SpecialBehaviour" %in% names(Bex)) {
+  Bex$SpecialBehaviour <- rep("No", nrow(Bex))
+}
+
+# Update row 1816 only if it hasn't been treated before
+if (Bex$Remarks[1816] != "Treated") {
+  Bex$Context[1816] <- "Alarm Event"
+  Bex$SpecialBehaviour[1816] <- "Back to box; Kom"
+  Bex$Remarks[1816] <- "Treated"
+}
+
+# Optional: View the modified rows (especially row 1816) to confirm the changes
+print(Bex[1816, c("Remarks", "Context", "SpecialBehaviour")])
+
+Bex_row_1816 <- Bex[1816, ]
+print(Bex_row_1816)
 
 
 ```
+
+* **Remarks - foraging (1x)**
+  Row: 1892
+  -Here is the content of the column Remarks for row 1892:Monkeys are all actively foraging
+  1. I want to put "Foraging" in the line 1892 of the column "Context"
+  2. I want to put "No Remarks" in the column "Remarks" in line 1892
+  3. I want to be sure the code is safe for multiple run
+```{r Remarks - foraging,echo=FALSE}
+# Ensure "Context" column exists, create if not
+if (!"Context" %in% names(Bex)) {
+  Bex$Context <- rep("No Context", nrow(Bex))
+}
+
+# Update row 1892 only if it hasn't been treated before
+if (Bex$Remarks[1892] != "Treated") {
+  Bex$Context[1892] <- "Foraging"
+  Bex$Remarks[1892] <- "Treated"
+}
+
+# Optional: View the modified row (especially row 1892) to confirm the changes
+print(Bex[1892, c("Remarks", "Context")])
+
+
+Bex_row_1892 <- Bex[1892, ]
+print(Bex_row_1892)
+
+```
+
+ * **Remarks - work (2x)**
+   Rows: 95 2105
+   -Content of the column Remarks for rows concerned (2x): The box did not work
+   1. I want to remove the rows 95 and 2105 of Bex and make the code safe for multiple run
+
+```{r Remarks - work, echo=FALSE}
+# Ensure the stringr package is installed and loaded
+if (!require(stringr)) {
+  install.packages("stringr")
+  library(stringr)
+}
+
+# Define the keyword to search for in the Remarks column
+keyword_to_remove <- "work"
+
+# Find rows where the Remarks column contains the keyword
+rows_to_remove <- which(str_detect(tolower(Bex$Remarks), keyword_to_remove))
+
+# Store the number of rows to be removed for reporting
+num_rows_to_remove <- length(rows_to_remove)
+
+# Remove these rows if they exist
+if(num_rows_to_remove > 0) {
+  Bex <- Bex[-rows_to_remove, ]
+}
+
+# Reset row names to maintain sequential order
+rownames(Bex) <- NULL
+
+# Report how many rows have been removed
+cat("Number of rows removed:", num_rows_to_remove, "\n")
+
+
+```
+
+
+
+* **Remarks - open (45x)**
+  Rows: 3 4 12  247  280  406  419  490  600  768  798  924  938  991 1076 1114 1127 1211 1330 1331 1432 1452 1466 1472 1523 1526 1585 1595 1624 1710 1785 1796 1827 1972 2038 2039 2108   2179 2193 2349 2371 2385 2473 2492 2677
+
+```{r Remarks - open, echo=FALSE}
+
+
+# Rows to be displayed
+rows_to_display <- c(3, 4, 12, 247, 280, 406, 419, 490, 600, 768, 798, 924, 938, 991, 1076, 1114, 1127, 1211, 1330, 1331, 1432, 1452, 1466, 1472, 1523, 1526, 1585, 1595, 1624, 1710, 1785, 1796, 1827, 1972, 2038, 2039, 2108, 2179, 2193, 2349, 2371, 2385, 2473, 2492, 2677)
+
+# Loop through each row and print the corresponding 'Remarks' content
+for (row in rows_to_display) {
+  Bex_row <- Bex[row, ]
+  print(paste("Row", row, ": ", Bex_row$Remarks))
+}
+
+```
+
+
+
+$trial
+[1]   98  660  860  962 1080 1082 1919 2773
+
+$approach
+ [1]   49   88   89  159  327  350  522  789  794  804  851  869  873  894  924  962  988 1024 1082 1137 1260 1262 1270 1382 1406 1408 1410 1432 1471 1473 1522 1523 1526 1527
+[35] 1577 1585 1619 1635 1636 1643 1700 1703 1756 1796 1880 1884 1901 1908 1910 1958 1990 2102 2141 2147 2148 2150 2178 2179 2205 2219 2237 2267 2284 2334 2383 2385 2446 2472
+[69] 2600 2690 2695 2717 2726 2764
+
+$scare
+[1]   52 2251
+
+$intrude
+ [1]  136  142  600  618  804  860  936 1011 1012 1069 1113 1174 1257 1258 1271 1272 1299 1370 1486 1533 1880 1921 2222 2373 2377 2688 2770
+
+$stole
+ [1]  138  139  158  427  493  519  543  613  637  796  797  800  869  903  914  921  926  931  967  969  970  973  975  981  982 1012 1014 1017 1042 1043 1044 1045 1048 1083
+[35] 1084 1091 1118 1120 1220 1232 1234 1269 1339 1341 1343 1347 1354 1356 1357 1358 1442 1518 1555 1595 1623 1645 1646 1648 1701 1703 1900 2042 2389 2467 2486 2491 2497 2608
+[69] 2616
+
+$steal
+[1] 1124 1176 1194 1318 1426 1553 2611 2793
+
+$corn
+  [1]   12   28  158  225  427  485  493  519  533  543  613  618  637  772  796  797  800  815  816  817  869  903  914  920  921  922  926  931  967  969  971  972  973  975
+ [35]  981  982 1011 1012 1014 1017 1037 1042 1043 1044 1045 1048 1061 1076 1077 1083 1084 1091 1113 1118 1120 1124 1138 1176 1208 1211 1249 1269 1271 1293 1338 1339 1341 1343
+ [69] 1347 1354 1356 1357 1358 1361 1432 1442 1463 1515 1518 1522 1529 1540 1541 1554 1555 1573 1595 1623 1645 1646 1648 1701 1703 1747 1756 1783 1784 1796 1891 1900 2038 2039
+[103] 2041 2042 2059 2096 2097 2130 2142 2251 2252 2260 2261 2271 2320 2323 2348 2353 2371 2385 2389 2393 2398 2443 2449 2473 2478 2486 2491 2497 2522 2555 2556 2566 2592 2608
+[137] 2616 2628 2633 2677 2682 2688 2729 2745 2748 2755
+
+$ate
+ [1]   12   70  406  920  922 1061 1113 1293 1361 1380 1454 1463 1477 1479 1529 1541 1595 1816 1967 2038 2039 2251 2353 2438 2478 2493 2633 2745
+
+$numerical_value_m
+ [1]   32   33   34   35   36   37   38   39   40   89  389  392 1090 1178 2040
+
+$code_3_letters
+  [1]    3    4    7   12   28   49   52   70   88   89   98  142  158  191  225  247  280  327  350  374  379  380  381  386  387  406  419  427  466  485  488  490  493  519
+ [35]  521  522  533  543  600  613  618  660  768  770  771  772  774  783  789  794  796  797  798  800  804  815  816  817  851  860  869  873  886  894  903  914  916  920
+ [69]  921  922  923  926  928  933  935  936  938  943  945  946  947  956  962  967  969  970  971  972  973  975  977  978  981  982  991  992  995 1009 1011 1012 1014 1017
+[103] 1037 1044 1045 1048 1061 1069 1071 1073 1076 1077 1078 1080 1082 1083 1084 1090 1091 1113 1114 1118 1120 1127 1137 1138 1176 1180 1194 1208 1211 1220 1232 1234 1239 1240
+[137] 1244 1246 1249 1257 1258 1259 1260 1262 1268 1269 1270 1271 1273 1274 1275 1277 1290 1293 1318 1330 1331 1338 1339 1341 1343 1347 1354 1356 1357 1358 1361 1370 1376 1378
+[171] 1380 1382 1393 1396 1406 1407 1408 1410 1411 1420 1426 1427 1432 1442 1443 1452 1453 1454 1458 1463 1466 1471 1472 1473 1477 1479 1481 1486 1487 1492 1499 1501 1503 1504
+[205] 1515 1522 1523 1526 1527 1529 1533 1540 1541 1545 1547 1550 1553 1554 1555 1560 1561 1563 1568 1573 1575 1577 1579 1580 1581 1585 1587 1595 1619 1623 1624 1633 1635 1636
+[239] 1637 1639 1643 1645 1646 1648 1651 1668 1670 1676 1681 1683 1703 1705 1710 1713 1721 1747 1756 1775 1783 1784 1785 1788 1792 1794 1795 1796 1802 1803 1807 1808 1815 1816
+[273] 1828 1837 1851 1858 1859 1860 1861 1866 1867 1870 1872 1874 1877 1880 1884 1891 1892 1894 1899 1901 1902 1903 1904 1905 1906 1908 1910 1914 1915 1919 1937 1958 1962 1972
+[307] 1985 1990 1992 1995 2023 2035 2038 2039 2040 2041 2042 2054 2059 2060 2063 2067 2068 2096 2097 2099 2102 2105 2108 2109 2123 2128 2130 2136 2138 2141 2142 2146 2147 2148
+[341] 2149 2150 2151 2163 2167 2178 2179 2193 2194 2195 2202 2205 2206 2209 2219 2221 2237 2251 2252 2256 2259 2260 2261 2262 2267 2271 2273 2284 2291 2313 2320 2323 2324 2334
+[375] 2344 2348 2349 2352 2353 2366 2371 2373 2377 2383 2385 2389 2393 2398 2418 2428 2430 2434 2438 2443 2446 2449 2465 2467 2472 2473 2478 2481 2482 2483 2486 2491 2492 2493
+[409] 2497 2522 2547 2548 2549 2555 2556 2566 2579 2592 2600 2603 2604 2608 2611 2616 2628 2632 2633 2641 2644 2676 2677 2682 2688 2690 2693 2694 2695 2696 2700 2703 2708 2709
+[443] 2717 2726 2729 2736 2745 2746 2748 2755 2764 2767 2770 2787 2793 2795
+
+$code_4_letters
+  [1]    3    4    7   12   28   49   52   70   88   89   95  136  138  139  142  158  159  191  223  225  280  389  392  406  419  427  485  490  493  519  521  522  533  543
+ [35]  600  613  618  637  660  693  768  772  789  794  796  797  798  800  804  815  816  817  819  851  869  873  894  903  914  920  921  922  924  926  928  931  933  936
+ [69]  938  943  945  947  956  962  967  969  970  971  972  973  975  977  978  981  982  988  991  992  995 1008 1009 1011 1012 1014 1017 1019 1024 1032 1037 1042 1043 1044
+[103] 1045 1048 1061 1069 1071 1076 1077 1080 1082 1083 1084 1090 1091 1113 1114 1118 1120 1124 1127 1137 1138 1172 1174 1176 1179 1180 1194 1208 1211 1220 1232 1234 1239 1240
+[137] 1244 1246 1249 1257 1258 1259 1260 1262 1268 1269 1270 1271 1272 1273 1274 1293 1306 1330 1331 1337 1338 1339 1341 1343 1347 1349 1354 1356 1357 1358 1361 1370 1380 1382
+[171] 1385 1393 1406 1407 1408 1410 1414 1420 1421 1426 1427 1429 1432 1442 1443 1452 1453 1454 1458 1463 1466 1471 1473 1477 1479 1487 1492 1515 1518 1519 1522 1523 1526 1527
+[205] 1529 1540 1541 1545 1547 1550 1553 1554 1555 1563 1568 1573 1575 1577 1579 1580 1585 1587 1595 1619 1623 1624 1633 1635 1636 1637 1639 1643 1645 1646 1648 1651 1661 1668
+[239] 1681 1686 1692 1700 1701 1703 1705 1706 1715 1720 1721 1734 1747 1756 1775 1783 1784 1785 1788 1792 1794 1795 1796 1802 1803 1807 1808 1815 1816 1828 1837 1851 1860 1861
+[273] 1866 1867 1870 1874 1877 1880 1882 1891 1894 1899 1900 1901 1902 1903 1904 1905 1906 1908 1910 1914 1921 1937 1956 1958 1960 1962 1967 1972 1985 1990 1992 1995 2035 2038
+[307] 2039 2040 2041 2042 2054 2059 2060 2063 2067 2096 2097 2105 2108 2109 2123 2128 2130 2136 2141 2142 2146 2148 2149 2150 2151 2160 2163 2167 2178 2179 2193 2195 2202 2205
+[341] 2206 2209 2217 2218 2221 2222 2224 2225 2237 2243 2251 2252 2256 2259 2260 2261 2262 2267 2271 2284 2291 2297 2313 2320 2323 2324 2332 2334 2344 2348 2349 2352 2353 2355
+[375] 2366 2371 2377 2383 2385 2389 2393 2398 2420 2428 2430 2431 2434 2438 2443 2446 2449 2465 2467 2472 2473 2478 2481 2482 2486 2491 2492 2493 2497 2522 2529 2530 2547 2548
+[409] 2549 2555 2556 2566 2579 2592 2600 2603 2604 2608 2611 2616 2628 2632 2633 2644 2676 2677 2682 2688 2690 2693 2694 2695 2696 2700 2703 2708 2709 2717 2726 2729 2736 2745
+[443] 2746 2748 2755 2764 2767 2770 2773 2787 2795
+
+$audience
+ [1]   72   73   74   75   76   77   78   79   80   81   82   83   84   85  103  104  105  106  107  108  109  110  789  962 1883 2774 2775 2778 2779 2780 2781 2782 2783 2784
+[35] 2785 2786 2787 2788 2789 2790 2791 2792 2793 2794
+
+$present
+[1] 2770
+
+$sec
+ [1]   49  159  851 1082 1277 1545 1575 1595 1692 1700 1706 1807 1815 1866 1870 1874 1882 2040 2060 2063 2067 2099 2128 2149 2163 2167 2313 2349 2398 2446 2472 2492 2549 2746
+
+$before
+ [1]  151  176  178  179  182  388  391  418  466  646  660  733  755  758  787  804  848  899  932  945 1011 1054 1080 1172 1331 1361 1904 1905 1906 2348 2353
+
+$after
+ [1]   12   49  158  159  163  172  238  280  336  350  371  509  618  653  700  789  794  804  851  860  873  953  978  988  991 1012 1019 1024 1037 1137 1277 1361 1382 1393
+[35] 1427 1432 1522 1540 1545 1547 1575 1577 1587 1595 1624 1692 1700 1706 1807 1815 1827 1866 1870 1874 1877 1882 1990 2060 2063 2067 2099 2128 2141 2149 2163 2167 2179 2217
+[69] 2252 2261 2349 2398 2434 2472 2478 2483 2499 2549 2555 2579 2726 2729 2746 2773
+
+$left
+ [1]  789  794  804  873  933  988 1024 1137 1262 1293 1382 1393 1420 1427 1432 1545 1547 1563 1575 1577 1587 1624 1636 1651 1785 1794 1795 1807 1816 1828 1867 1891 1906 1985
+[35] 1990 2035 2041 2060 2063 2067 2128 2150 2151 2179 2217 2218 2224 2252 2261 2262 2267 2334 2366 2385 2431 2449 2473 2481 2482 2529 2530 2548 2549 2579 2676 2717 2726 2746
+[69] 2773
+
+
 
 
 
