@@ -459,7 +459,7 @@ Analyzing the 508 unique remarks from your dataset, I can categorize them into s
 9. "alarm"
 
 
-```{r Checking for keywords in Remarks, echo=FALSE}
+```{r Checking for keywords in Remarks, include=FALSE}
 # Checking for keywords in Remarks
 # Ensure the stringr package is installed and loaded
 if (!require("stringr")) {
@@ -513,8 +513,6 @@ results <- lapply(keywords, function(kw) {
 # Counting the number of lines for each category
 line_counts <- sapply(results, length)
 
-# Print detailed results for each keyword
-print(results)
 
 ```
 
@@ -729,15 +727,15 @@ if (!all(is.na(Bex$Remarks[rows_to_remove]))) {
    1.(Audience)The remarks of the Row 321 indicated that some udience arrived:I       want to replace the values in the column **Audience** of the row **320** and       **321** with **Sey;Piep;Sirk;Oup;Ome**
 
    2.(Got Corn) We will update the row called **Got corn** with new values:
-   -Row **320**: put **No;Unk** in "Got Corn"
-   -Row **377**: put **No;Kom** in "Got Corn"
-   -Row **632**: put **No;Nge** in "Got Corn"
-   -Row **780**: put **No;Oerw** in "Got Corn"
-   -Row **899**: put **No;Xian** in "Got Corn"
-   -Row **1360**: put **No;Xian** in "Got Corn"
-   -Row **1445**: put **No;Sey** in "Got Corn"
-   -Row **1652**: put **No;Sho** in "Got Corn"
-   -Row **2209**: put **No;Piep** in "Got Corn"
+   - Row **320**: put **No;Unk** in "Got Corn"
+   - Row **377**: put **No;Kom** in "Got Corn"
+   - Row **632**: put **No;Nge** in "Got Corn"
+   - Row **780**: put **No;Oerw** in "Got Corn"
+   - Row **899**: put **No;Xian** in "Got Corn"
+   - Row **1360**: put **No;Xian** in "Got Corn"
+   - Row **1445**: put **No;Sey** in "Got Corn"
+   - Row **1652**: put **No;Sho** in "Got Corn"
+   - Row **2209**: put **No;Piep** in "Got Corn"
    
    3.(Context) We will also update the column **Context** for the row **2209** by     replacing the value by **Intrusion;Obse**
    
@@ -807,33 +805,29 @@ if (!("Bex" %in% ls())) {
 ```
 
 
-* **Remarks - steal(7)**
-  Rows: 417, 893, 909, 1070, 1344, 1393, 1947
+* **Remarks - steal(8)**
+  Rows: 130, 417, 893, 909, 1070, 1344, 1393, 1947
 
   -Content: Attempts or success in stealing food
   
   1. I want to update the column **SpecialBehaviour** for the following columns
-  -Row **417**: put **ASF;Buk** in "SpecialBehaviour"
-  -Row **893**: put **SF;Xian** in "SpecialBehaviour"
-  -Row **909**: put **SF;Pom** in "SpecialBehaviour"
-  -Row **1070**: put **ASF;Sey** in "SpecialBehaviour"
-  -Row **1344**: put **ASF;Sey** in "SpecialBehaviour"
-  -Row **1393**: put **ASF;Sey** in "SpecialBehaviour"
-  -Row **1947**: put **ASF;Xia** in "Special Behaviour"
+  - Row **130**: put **ASF;Buk** in "SpecialBehaviour"
+  - Row **417**: put **ASF;Buk** in "SpecialBehaviour"
+  - Row **893**: put **SF;Xian** in "SpecialBehaviour"
+  - Row **909**: put **SF;Pom** in "SpecialBehaviour"
+  - Row **1070**: put **ASF;Sey** in "SpecialBehaviour"
+  - Row **1344**: put **ASF;Sey** in "SpecialBehaviour"
+  - Row **1393**: put **ASF;Sey** in "SpecialBehaviour"
+  - Row **1947**: put **ASF;Xia** in "Special Behaviour"
   
   2. I want to update the column **Got Corn** for the following columns
-  -Row **417**; put **No;Kom** in "Got Corn"
-  -Row **893**: put **No;Pom** in "Got Corn"
-  -Row **909**: put **No;Xian** in "Got Corn"
+  - Row **417**; put **No;Kom** in "Got Corn"
+  - Row **893**: put **No;Pom** in "Got Corn"
+  - Row **909**: put **No;Xian** in "Got Corn"
   
   3. Replace the values that have been treated with **Treated** in the column "Remarks"
   
-
-
-
-
-
-```{r Remarls - steal, echo=FALSE}
+```{r Remarks - steal, echo=FALSE}
 
 # Ensure the stringr package is installed and loaded
 if (!require(stringr)) {
@@ -872,6 +866,7 @@ if (!("Bex" %in% ls())) {
 } else {
   # Update 'SpecialBehaviour'
   special_behaviour_updates <- list(
+    `130` = "ASF;Buk",
     `417` = "ASF;Buk",
     `893` = "SF;Xian",
     `909` = "SF;Pom",
@@ -901,7 +896,7 @@ if (!("Bex" %in% ls())) {
   }
 
   # Replace 'Remarks' with 'Treated'
-  rows_to_treat <- c(417, 893, 909, 1070, 1344, 1393, 1947)
+  rows_to_treat <- c(130, 417, 893, 909, 1070, 1344, 1393, 1947)
   for (row in rows_to_treat) {
     if (Bex$Remarks[row] != "Treated") {
       Bex$Remarks[row] <- "Treated"
@@ -918,18 +913,42 @@ if (!("Bex" %in% ls())) {
 ```
 
 
-```{r Remarks - steal cleaning, echo=FALSE}
+
+* **Remarks - trial ( )**
+  Rows:
+  
+  -
+  1.
+  
+  
+```{r Remarks - trial, echo=FALSE}
 
 
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Define the keyword to search for in the Remarks column
+  keyword <- "trial"
 
+  # Find rows where the Remarks column contains the keyword (case-insensitive)
+  rows_with_keyword <- which(str_detect(tolower(Bex$Remarks), tolower(keyword)))
+
+  # Check if any rows were found
+  if (length(rows_with_keyword) == 0) {
+    cat("No occurrences of the keyword '", keyword, "' found in the Remarks column.\n")
+  } else {
+    # Print the rows that contain the keyword along with the row numbers
+    for (row in rows_with_keyword) {
+      print(paste("Row", row, ": ", Bex$Remarks[row]))
+    }
+
+    # Print the count of rows
+    cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
+  }
+}
 ```
 
-
-[1] 1124 1176 1194 1318 1426 1553 2611 2793
-
-
-
-* trial
 [1]   98  660  860  962 1080 1082 1919 2773
 
 $numerical_value_m
@@ -953,8 +972,8 @@ ate	28
 intrude	27
 numerical_value_m	15
 trial	8
-steal	8
 
+steal	8
 work	2
 scare	2
 foraging	0
