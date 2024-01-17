@@ -554,9 +554,9 @@ intrude	27
 numerical_value_m	15
 trial	8
 steal	8
+
 work	2
 scare	2
-
 foraging	0
 alarm	0
 
@@ -574,7 +574,6 @@ alarm	0
 3. I want to replace the line 1816 of "Remarks" with "Treated"
  
 ```{r Remarks - alarm, echo=FALSE}
-# Display the row with index 1816 from the Bex dataframe
 
 # Check if "Context" and "SpecialBehaviour" columns exist, create if not
 if (!"Context" %in% names(Bex)) {
@@ -702,77 +701,283 @@ if (!("Bex" %in% ls())) {
    1. I want to remove the rows 95 and 2105 of Bex and make the code safe for multiple run
 
 ```{r Remarks - work, echo=FALSE}
+# Define the keyword for removal
+keyword_to_remove <- "work"
+
+# Find rows where the Remarks column contains the keyword
+rows_to_remove <- which(str_detect(tolower(Bex$Remarks), keyword_to_remove))
+
+# Check if the rows have already been removed
+if (!all(is.na(Bex$Remarks[rows_to_remove]))) {
+  # Remove rows where 'Remarks' contain 'work' and are not already NA
+  Bex$Remarks[rows_to_remove] <- NA
+
+  # Reporting
+  num_rows_modified <- sum(!is.na(rows_to_remove))
+  cat("Number of rows modified:", num_rows_modified, "\n")
+} else {
+  cat("No rows need modification.\n")
+}
+
+```
+
+* **Remarks - not open (9x)**
+
+  -Content of the column Remarks for rows concerned (9x): The box did not open 
+  Rows: 320, 377, 632, 780, 899, 1360, 1445, 1652, 2209 
+  
+   1.(Audience)The remarks of the Row 321 indicated that some udience arrived:I       want to replace the values in the column **Audience** of the row **320** and       **321** with **Sey;Piep;Sirk;Oup;Ome**
+
+   2.(Got Corn) We will update the row called **Got corn** with new values:
+   -Row **320**: put **No;Unk** in "Got Corn"
+   -Row **377**: put **No;Kom** in "Got Corn"
+   -Row **632**: put **No;Nge** in "Got Corn"
+   -Row **780**: put **No;Oerw** in "Got Corn"
+   -Row **899**: put **No;Xian** in "Got Corn"
+   -Row **1360**: put **No;Xian** in "Got Corn"
+   -Row **1445**: put **No;Sey** in "Got Corn"
+   -Row **1652**: put **No;Sho** in "Got Corn"
+   -Row **2209**: put **No;Piep** in "Got Corn"
+   
+   3.(Context) We will also update the column **Context** for the row **2209** by     replacing the value by **Intrusion;Obse**
+   
+
+
+
+```{r Remarks - not open, echo=FALSE}
+find_specific_phrase_in_remarks <- function(dataframe, phrase) {
+    # Convert Remarks to lowercase for case-insensitive search and trim spaces
+    dataframe$Remarks_lower <- tolower(trimws(dataframe$Remarks))
+    
+    # Pattern to match the specific phrase
+    pattern <- paste0("\\b", phrase, "\\b")
+
+    # Find rows where the Remarks column contains the phrase
+    rows_with_phrase <- which(str_detect(dataframe$Remarks_lower, pattern))
+    
+    # Count the number of occurrences
+    num_occurrences <- length(rows_with_phrase)
+    
+    # Return both the count and the rows
+    return(list(count = num_occurrences, rows = rows_with_phrase))
+}
+
+# Search for the phrase "not open" in Remarks
+results <- find_specific_phrase_in_remarks(Bex, "not open")
+
+# Display the count of occurrences and the rows where "not open" is found
+cat("Number of occurrences of 'not open':", results$count, "\n")
+cat("Rows with 'not open':", toString(results$rows), "\n")
+
+# Ensure Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Update 'Audience' values for rows 320 and 321 if they are not already updated
+  # and if they are not NA
+  if (!is.na(Bex$Audience[320]) && Bex$Audience[320] != "Sey;Piep;Sirk;Oup;Ome") {
+    Bex$Audience[320] <- "Sey;Piep;Sirk;Oup;Ome"
+  }
+  if (!is.na(Bex$Audience[321]) && Bex$Audience[321] != "Sey;Piep;Sirk;Oup;Ome") {
+    Bex$Audience[321] <- "Sey;Piep;Sirk;Oup;Ome"
+  }
+
+  # Update 'Got Corn' values for specific rows if they are not already updated
+  got_corn_updates <- c("No;Unk", "No;Kom", "No;Nge", "No;Oerw", "No;Xian", 
+                        "No;Xian", "No;Sey", "No;Sho", "No;Piep")
+  rows_to_update_got_corn <- c(320, 377, 632, 780, 899, 1360, 1445, 1652, 2209)
+  
+  for (i in 1:length(rows_to_update_got_corn)) {
+    row <- rows_to_update_got_corn[i]
+    update <- got_corn_updates[i]
+    if (Bex$`Got Corn`[row] != update) {
+      Bex$`Got Corn`[row] <- update
+    }
+  }
+
+  # Update 'Context' value for row 2209 if it is not already updated
+  if (Bex$Context[2209] != "Intrusion;Obse") {
+    Bex$Context[2209] <- "Intrusion;Obse"
+  }
+
+  # Optional: View the modified rows to confirm the changes
+  print(Bex[c(320, 321, 377, 632, 780, 899, 1360, 1445, 1652, 2209), c("Audience", "Got Corn", "Context")])
+}
+
+```
+
+
+* **Remarks - steal(7)**
+  Rows: 417, 893, 909, 1070, 1344, 1393, 1947
+
+  -Content: Attempts or success in stealing food
+  
+  1. I want to update the column **SpecialBehaviour** for the following columns
+  -Row **417**: put **ASF;Buk** in "SpecialBehaviour"
+  -Row **893**: put **SF;Xian** in "SpecialBehaviour"
+  -Row **909**: put **SF;Pom** in "SpecialBehaviour"
+  -Row **1070**: put **ASF;Sey** in "SpecialBehaviour"
+  -Row **1344**: put **ASF;Sey** in "SpecialBehaviour"
+  -Row **1393**: put **ASF;Sey** in "SpecialBehaviour"
+  -Row **1947**: put **ASF;Xia** in "Special Behaviour"
+  
+  2. I want to update the column **Got Corn** for the following columns
+  -Row **417**; put **No;Kom** in "Got Corn"
+  -Row **893**: put **No;Pom** in "Got Corn"
+  -Row **909**: put **No;Xian** in "Got Corn"
+  
+  3. Replace the values that have been treated with **Treated** in the column "Remarks"
+  
+
+
+
+
+
+```{r Remarls - steal, echo=FALSE}
+
 # Ensure the stringr package is installed and loaded
 if (!require(stringr)) {
   install.packages("stringr")
   library(stringr)
 }
 
-# Define the keyword to search for in the Remarks column
-keyword_to_remove <- "work"
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Define the keyword to search for in the Remarks column
+  keyword <- "steal"
 
-# Find rows where the Remarks column contains the keyword
-rows_to_remove <- which(str_detect(tolower(Bex$Remarks), keyword_to_remove))
+  # Find rows where the Remarks column contains the keyword (case-insensitive)
+  rows_with_keyword <- which(str_detect(tolower(Bex$Remarks), tolower(keyword)))
 
-# Store the number of rows to be removed for reporting
-num_rows_to_remove <- length(rows_to_remove)
+  # Check if any rows were found
+  if (length(rows_with_keyword) == 0) {
+    cat("No occurrences of the keyword '", keyword, "' found in the Remarks column.\n")
+  } else {
+    # Print the rows that contain the keyword along with the row numbers
+    for (row in rows_with_keyword) {
+      print(paste("Row", row, ": ", Bex$Remarks[row]))
+    }
 
-# Remove these rows if they exist
-if(num_rows_to_remove > 0) {
-  Bex <- Bex[-rows_to_remove, ]
+    # Print the count of rows
+    cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
+  }
 }
 
-# Reset row names to maintain sequential order
-rownames(Bex) <- NULL
 
-# Report how many rows have been removed
-cat("Number of rows removed:", num_rows_to_remove, "\n")
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Update 'SpecialBehaviour'
+  special_behaviour_updates <- list(
+    `417` = "ASF;Buk",
+    `893` = "SF;Xian",
+    `909` = "SF;Pom",
+    `1070` = "ASF;Sey",
+    `1344` = "ASF;Sey",
+    `1393` = "ASF;Sey",
+    `1947` = "ASF;Xia"
+  )
+  
+  for (row in names(special_behaviour_updates)) {
+    if (Bex$SpecialBehaviour[as.numeric(row)] != special_behaviour_updates[[row]]) {
+      Bex$SpecialBehaviour[as.numeric(row)] <- special_behaviour_updates[[row]]
+    }
+  }
+
+  # Update 'Got Corn'
+  got_corn_updates <- list(
+    `417` = "No;Kom",
+    `893` = "No;Pom",
+    `909` = "No;Xian"
+  )
+  
+  for (row in names(got_corn_updates)) {
+    if (Bex$`Got Corn`[as.numeric(row)] != got_corn_updates[[row]]) {
+      Bex$`Got Corn`[as.numeric(row)] <- got_corn_updates[[row]]
+    }
+  }
+
+  # Replace 'Remarks' with 'Treated'
+  rows_to_treat <- c(417, 893, 909, 1070, 1344, 1393, 1947)
+  for (row in rows_to_treat) {
+    if (Bex$Remarks[row] != "Treated") {
+      Bex$Remarks[row] <- "Treated"
+    }
+  }
+
+  # Print the modified rows
+  modified_rows <- unique(c(names(special_behaviour_updates), names(got_corn_updates), rows_to_treat))
+  print(Bex[as.numeric(modified_rows), c("Remarks", "SpecialBehaviour", "Got Corn")])
+}
+
 
 
 ```
 
 
-
-* **Remarks - open (45x)**
-  Rows: 3 4 12  247  280  406  419  490  600  768  798  924  938  991 1076 1114 1127 1211 1330 1331 1432 1452 1466 1472 1523 1526 1585 1595 1624 1710 1785 1796 1827 1972 2038 2039 2108   2179 2193 2349 2371 2385 2473 2492 2677
-
-```{r Remarks - open, echo=FALSE}
+```{r Remarks - steal cleaning, echo=FALSE}
 
 
-# Rows to be displayed
-rows_to_display <- c(3, 4, 12, 247, 280, 406, 419, 490, 600, 768, 798, 924, 938, 991, 1076, 1114, 1127, 1211, 1330, 1331, 1432, 1452, 1466, 1472, 1523, 1526, 1585, 1595, 1624, 1710, 1785, 1796, 1827, 1972, 2038, 2039, 2108, 2179, 2193, 2349, 2371, 2385, 2473, 2492, 2677)
-
-# Loop through each row and print the corresponding 'Remarks' content
-for (row in rows_to_display) {
-  Bex_row <- Bex[row, ]
-  print(paste("Row", row, ": ", Bex_row$Remarks))
-}
 
 ```
 
 
+[1] 1124 1176 1194 1318 1426 1553 2611 2793
 
-$trial
+
+
+* trial
 [1]   98  660  860  962 1080 1082 1919 2773
+
+$numerical_value_m
+ [1]   32   33   34   35   36   37   38   39   40   89  389  392 1090 1178 2040
+ 
+$intrude
+ [1]  136  142  600  618  804  860  936 1011 1012 1069 1113 1174 1257 1258 1271 1272 1299 1370 1486 1533 1880 1921 2222 2373 2377 2688 2770
+
+code_3_letters	454
+code_4_letters	450
+corn	146
+after	84
+approach	74
+stole	69
+left	68
+open	45
+audience	44
+sec	34
+before	31
+ate	28
+intrude	27
+numerical_value_m	15
+trial	8
+steal	8
+
+work	2
+scare	2
+foraging	0
+alarm	0
+
+
+
 
 $approach
  [1]   49   88   89  159  327  350  522  789  794  804  851  869  873  894  924  962  988 1024 1082 1137 1260 1262 1270 1382 1406 1408 1410 1432 1471 1473 1522 1523 1526 1527
 [35] 1577 1585 1619 1635 1636 1643 1700 1703 1756 1796 1880 1884 1901 1908 1910 1958 1990 2102 2141 2147 2148 2150 2178 2179 2205 2219 2237 2267 2284 2334 2383 2385 2446 2472
 [69] 2600 2690 2695 2717 2726 2764
 
-$scare
-[1]   52 2251
 
-$intrude
- [1]  136  142  600  618  804  860  936 1011 1012 1069 1113 1174 1257 1258 1271 1272 1299 1370 1486 1533 1880 1921 2222 2373 2377 2688 2770
+
+
 
 $stole
  [1]  138  139  158  427  493  519  543  613  637  796  797  800  869  903  914  921  926  931  967  969  970  973  975  981  982 1012 1014 1017 1042 1043 1044 1045 1048 1083
 [35] 1084 1091 1118 1120 1220 1232 1234 1269 1339 1341 1343 1347 1354 1356 1357 1358 1442 1518 1555 1595 1623 1645 1646 1648 1701 1703 1900 2042 2389 2467 2486 2491 2497 2608
 [69] 2616
 
-$steal
-[1] 1124 1176 1194 1318 1426 1553 2611 2793
+
 
 $corn
   [1]   12   28  158  225  427  485  493  519  533  543  613  618  637  772  796  797  800  815  816  817  869  903  914  920  921  922  926  931  967  969  971  972  973  975
