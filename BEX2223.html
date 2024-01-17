@@ -607,7 +607,7 @@ pre code {
 <li>“open”, “work”, “trial” 2.”approach”, “scare”, “intrude”, “stole”, “steal”, “corn”, “ate”</li>
 <li>“numerical value”, “m”, “distance”</li>
 <li>“3 code letter”, “four code letter”</li>
-<li>“audience”, “present”</li>
+<li>“audience”,</li>
 <li>“sec”, “before”, “after”, “left”,</li>
 <li>“na”,</li>
 <li>“foraging”</li>
@@ -1081,7 +1081,6 @@ pre code {
 ## [1] &quot;Keyword: audience - Row 2792 : unknown audience&quot;
 ## [1] &quot;Keyword: audience - Row 2793 : unknown audience. sey attempt to steal&quot;
 ## [1] &quot;Keyword: audience - Row 2794 : unknown audience&quot;
-## [1] &quot;Keyword: present - Row 2770 : Juvenile also present, st Pripra, and Seychelle intrude&quot;
 ## [1] &quot;Keyword: sec - Row 49 : Sirk did not approach and after 30 sec Sey moved aside and Sirk approached&quot;
 ## [1] &quot;Keyword: sec - Row 159 : komi approached after 30 seconds.&quot;
 ## [1] &quot;Keyword: sec - Row 851 : Both Ginq and Sho approached ~3 mins after the 30 sec mark&quot;
@@ -1369,9 +1368,6 @@ pre code {
 ## [16]  104  105  106  107  108  109  110  789  962 1883 2774 2775 2778 2779 2780
 ## [31] 2781 2782 2783 2784 2785 2786 2787 2788 2789 2790 2791 2792 2793 2794
 ## 
-## $present
-## [1] 2770
-## 
 ## $sec
 ##  [1]   49  159  851 1082 1277 1545 1575 1595 1692 1700 1706 1807 1815 1866 1870
 ## [16] 1874 1882 2040 2060 2063 2067 2099 2128 2149 2163 2167 2313 2349 2398 2446
@@ -1483,14 +1479,10 @@ pre code {
 <td align="right">2</td>
 </tr>
 <tr class="even">
-<td align="left">present</td>
-<td align="right">1</td>
-</tr>
-<tr class="odd">
 <td align="left">foraging</td>
 <td align="right">1</td>
 </tr>
-<tr class="even">
+<tr class="odd">
 <td align="left">alarm</td>
 <td align="right">1</td>
 </tr>
@@ -1498,7 +1490,8 @@ pre code {
 </table>
 <div id="temporary-section-for-detailed-cleaning-of-remarks" class="section level6">
 <h6>2.3.1.2 Temporary section for detailed cleaning of Remarks</h6>
-<p>Counts of Keywords in Remarks (Ordered by Count) x code_3_letters 454 code_4_letters 450 corn 146 after 84 approach 74 stole 69 left 68 open 45 audience 44 sec 34 before 31 ate 28 intrude 27 numerical_value_m 15 trial 8 steal 8 work 2 scare 2 present 1 foraging 0 alarm 0</p>
+<p>Counts of Keywords in Remarks (Ordered by Count) x code_3_letters 454 code_4_letters 450 corn 146 after 84 approach 74 stole 69 left 68 open 45 audience 44 sec 34 before 31 ate 28 intrude 27 numerical_value_m 15 trial 8 steal 8 work 2 scare 2</p>
+<p>foraging 0 alarm 0</p>
 <ul>
 <li><strong>Remarks - alarm (x1)</strong> Row: <strong>1816</strong></li>
 </ul>
@@ -1511,7 +1504,7 @@ pre code {
 <pre><code>## # A tibble: 1 × 3
 ##   Remarks Context     SpecialBehaviour
 ##   &lt;chr&gt;   &lt;chr&gt;       &lt;chr&gt;           
-## 1 Treated Alarm Event Back to box; Kom</code></pre>
+## 1 Treated Alarm Event Back to box;Kom</code></pre>
 <pre><code>## # A tibble: 1 × 16
 ##   Time                Date                Group       MaleID FemaleID FemaleCorn
 ##   &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;       &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
@@ -1520,7 +1513,8 @@ pre code {
 ## #   OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;, IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;,
 ## #   Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;, Context &lt;chr&gt;, SpecialBehaviour &lt;chr&gt;</code></pre>
 <ul>
-<li><strong>Remarks - foraging (1x)</strong> Row: 1892 -Here is the content of the column Remarks for row 1892:Monkeys are all actively foraging
+<li><p><strong>Remarks - foraging (1x)</strong> Row: <strong>1892</strong></p>
+<p>-Here is the content of the column Remarks for row 1892:Monkeys are all actively foraging</p>
 <ol style="list-style-type: decimal">
 <li>I want to put “Foraging” in the line 1892 of the column “Context”</li>
 <li>I want to put “No Remarks” in the column “Remarks” in line 1892</li>
@@ -1539,7 +1533,24 @@ pre code {
 ## #   OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;, IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;,
 ## #   Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;, Context &lt;chr&gt;, SpecialBehaviour &lt;chr&gt;</code></pre>
 <ul>
-<li><strong>Remarks - work (2x)</strong> Rows: 95 2105 -Content of the column Remarks for rows concerned (2x): The box did not work
+<li><p><strong>Remarks - scare (2x)</strong> Row:<strong>52 2249</strong></p>
+<p>-Here is the content of the column Remarks for row 52 and 2249: Sirk was scared by Oerw &amp; oerw was scared to take the corn and nge ate her corn</p>
+<ol style="list-style-type: decimal">
+<li>I want to put “Scared;Sirky by Oerw” in the line 52 of the column “SpecialBehaviour” and “Scared;Oerw by Nge” in the line 2249 of the same column</li>
+<li>I want to put “Intrusion” in the line 52 of the column “Context”</li>
+<li>I want to create a column called “Got Corn” that will display “Yes” in every row and replace the row 2249 by “No;Oerw”</li>
+<li>I want to put “Treated” in the column “Remarks” in line 52 and 2249 once the changes have been done</li>
+<li>I want to be sure the code is safe for multiple run even when using the row number</li>
+</ol></li>
+</ul>
+<div data-pagedtable="false">
+<script data-pagedtable-source type="application/json">
+{"columns":[{"label":["Time"],"name":[1],"type":["dttm"],"align":["right"]},{"label":["Date"],"name":[2],"type":["dttm"],"align":["right"]},{"label":["Group"],"name":[3],"type":["chr"],"align":["left"]},{"label":["MaleID"],"name":[4],"type":["chr"],"align":["left"]},{"label":["FemaleID"],"name":[5],"type":["chr"],"align":["left"]},{"label":["FemaleCorn"],"name":[6],"type":["dbl"],"align":["right"]},{"label":["DyadDistance"],"name":[7],"type":["chr"],"align":["left"]},{"label":["DyadResponse"],"name":[8],"type":["chr"],"align":["left"]},{"label":["OtherResponse"],"name":[9],"type":["chr"],"align":["left"]},{"label":["Audience"],"name":[10],"type":["chr"],"align":["left"]},{"label":["IDIndividual1"],"name":[11],"type":["chr"],"align":["left"]},{"label":["IntruderID"],"name":[12],"type":["chr"],"align":["left"]},{"label":["Remarks"],"name":[13],"type":["chr"],"align":["left"]},{"label":["MaleCorn"],"name":[14],"type":["dbl"],"align":["right"]},{"label":["Context"],"name":[15],"type":["chr"],"align":["left"]},{"label":["SpecialBehaviour"],"name":[16],"type":["chr"],"align":["left"]},{"label":["Got Corn"],"name":[17],"type":["chr"],"align":["left"]}],"data":[{"1":"1899-12-31 09:16:36","2":"2022-09-27","3":"Baie Dankie","4":"Sey","5":"Sirk","6":"11","7":"1m","8":"Intrusion","9":"NA","10":"Obse; Ome; Oup; Piep; Pix; Pom","11":"NA","12":"Oerw","13":"Treated","14":"6","15":"Intrusion","16":"Scared;Sirky by Oerw","17":"Yes"},{"1":"1899-12-31 11:23:24","2":"2022-11-16","3":"Baie Dankie","4":"Nge","5":"Oerw","6":"2","7":"1m","8":"Tolerance","9":"NA","10":"NA","11":"NA","12":"NA","13":"Treated","14":"3","15":"No Context","16":"Scared;Oerw by Nge","17":"No;Oerw"}],"options":{"columns":{"min":{},"max":[10]},"rows":{"min":[10],"max":[10]},"pages":{}}}
+  </script>
+</div>
+<ul>
+<li><p><strong>Remarks - work (2x)</strong> Rows: <strong>95 2105</strong></p>
+<p>-Content of the column Remarks for rows concerned (2x): The box did not work</p>
 <ol style="list-style-type: decimal">
 <li>I want to remove the rows 95 and 2105 of Bex and make the code safe for multiple run</li>
 </ol></li>
@@ -1613,8 +1624,8 @@ pre code {
 <ul>
 <li>I will now create a variable called <strong>NoRemarks</strong> that will put 1 where there is a remark and 0 where there is nothing</li>
 </ul>
-<pre><code>## Number of &#39;No Remarks&#39; (1&#39;s) in the &#39;NoRemarks&#39; column: 2181 
-## Number of &#39;Remarks&#39; (0&#39;s) in the &#39;NoRemarks&#39; column: 612</code></pre>
+<pre><code>## Number of &#39;No Remarks&#39; (1&#39;s) in the &#39;NoRemarks&#39; column: 2180 
+## Number of &#39;Remarks&#39; (0&#39;s) in the &#39;NoRemarks&#39; column: 613</code></pre>
 </div>
 </div>
 <div id="cleaning-intruder-id---2737-nas" class="section level4">

@@ -452,7 +452,7 @@ Analyzing the 508 unique remarks from your dataset, I can categorize them into s
 2."approach", "scare", "intrude", "stole", "steal", "corn", "ate"
 3. "numerical value", "m", "distance"
 4. "3 code letter", "four code letter"
-5. "audience", "present" 
+5. "audience", 
 6. "sec", "before", "after", "left", 
 7. "na", 
 8. "foraging"
@@ -484,7 +484,6 @@ keywords <- list(
   ate = "ate",
   numerical_value_m = "\\b\\d+m\\b",  # Regex pattern for numerical value followed by 'm' (e.g., "6m")
   audience = "audience",
-  present = "present",
   sec = "sec",
   before = "before",
   after = "after",
@@ -557,7 +556,7 @@ trial	8
 steal	8
 work	2
 scare	2
-present	1
+
 foraging	0
 alarm	0
 
@@ -589,7 +588,7 @@ if (!"SpecialBehaviour" %in% names(Bex)) {
 # Update row 1816 only if it hasn't been treated before
 if (Bex$Remarks[1816] != "Treated") {
   Bex$Context[1816] <- "Alarm Event"
-  Bex$SpecialBehaviour[1816] <- "Back to box; Kom"
+  Bex$SpecialBehaviour[1816] <- "Back to box;Kom"
   Bex$Remarks[1816] <- "Treated"
 }
 
@@ -603,7 +602,8 @@ print(Bex_row_1816)
 ```
 
 * **Remarks - foraging (1x)**
-  Row: 1892
+  Row: **1892**
+  
   -Here is the content of the column Remarks for row 1892:Monkeys are all actively foraging
   1. I want to put "Foraging" in the line 1892 of the column "Context"
   2. I want to put "No Remarks" in the column "Remarks" in line 1892
@@ -629,8 +629,75 @@ print(Bex_row_1892)
 
 ```
 
+
+
+* **Remarks - scare (2x)**
+  Row:**52 2249**
+  
+  -Here is the content of the column Remarks for row 52 and 2249: Sirk was scared by Oerw & oerw     was scared to take the corn and nge ate her corn
+   
+  1. I want to put "Scared;Sirky by Oerw" in the line 52 of the column "SpecialBehaviour" and        "Scared;Oerw by Nge" in the line 2249 of the same column
+  2. I want to put "Intrusion" in the line 52 of the column "Context"
+  3. I want to create a column called "Got Corn" that will display "Yes" in every row and replace    the row 2249 by "No;Oerw"
+  4. I want to put "Treated" in the column "Remarks" in line 52 and 2249 once the changes have been   done
+  5. I want to be sure the code is safe for multiple run even when using the row number
+  
+```{r Remarks - scare, echo=FALSE}
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Create 'SpecialBehaviour' column if it doesn't exist
+  if (!"SpecialBehaviour" %in% colnames(Bex)) {
+    Bex$SpecialBehaviour <- rep("No", nrow(Bex))
+  }
+  
+  # Create 'Context' column if it doesn't exist
+  if (!"Context" %in% colnames(Bex)) {
+    Bex$Context <- rep("No Context", nrow(Bex))
+  }
+
+  # Create 'Got Corn' column if it doesn't exist
+  if (!"Got Corn" %in% colnames(Bex)) {
+    Bex$`Got Corn` <- rep("Yes", nrow(Bex))
+  }
+
+  # Update 'SpecialBehaviour' only if it is "No"
+  if (Bex$SpecialBehaviour[52] == "No") {
+    Bex$SpecialBehaviour[52] <- "Scared;Sirky by Oerw"
+  }
+  if (Bex$SpecialBehaviour[2249] == "No") {
+    Bex$SpecialBehaviour[2249] <- "Scared;Oerw by Nge"
+  }
+
+  # Update 'Context' only if it is "No Context"
+  if (Bex$Context[52] == "No Context") {
+    Bex$Context[52] <- "Intrusion"
+  }
+
+  # Update 'Got Corn' only if it is "Yes"
+  if (Bex$`Got Corn`[2249] == "Yes") {
+    Bex$`Got Corn`[2249] <- "No;Oerw"
+  }
+
+  # Update 'Remarks' only if it is not already "Treated"
+  if (Bex$Remarks[52] != "Treated") {
+    Bex$Remarks[52] <- "Treated"
+  }
+  if (Bex$Remarks[2249] != "Treated") {
+    Bex$Remarks[2249] <- "Treated"
+  }
+
+  # View the modified rows
+  Bex[c(52, 2249), ]
+}
+
+```
+
+
  * **Remarks - work (2x)**
-   Rows: 95 2105
+   Rows: **95 2105**
+   
    -Content of the column Remarks for rows concerned (2x): The box did not work
    1. I want to remove the rows 95 and 2105 of Bex and make the code safe for multiple run
 
