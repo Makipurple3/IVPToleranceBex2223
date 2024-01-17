@@ -947,6 +947,8 @@ if (!("Bex" %in% ls())) {
     cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
   }
 }
+
+View(Bex)
 ```
 
 [1]   98  660  860  962 1080 1082 1919 2773
