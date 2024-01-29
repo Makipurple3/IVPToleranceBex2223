@@ -1000,12 +1000,53 @@ pre code {
 ## #   Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;, Context &lt;chr&gt;, SpecialBehaviour &lt;chr&gt;,
 ## #   `Got Corn` &lt;chr&gt;</code></pre>
 <ul>
-<li>They are a certain amount of comments indicating than an individual came after 30 seconds, I decided for now to not treat them as I already have a lot of variables and this information even if important is not very consistent in the way it got reported</li>
-<li>I decided to keep row 1481 as it is to see how to treat it later</li>
+<li><p>They are a certain amount of comments indicating than an individual came after 30 seconds, I decided for now to not treat them as I already have a lot of variables and this information even if important is not very consistent in the way it got reported</p></li>
+<li><p>I decided to keep row 1481 as it is to see how to treat it later</p></li>
+<li><p><strong>Remarks - intrude (26x)</strong> Rows: 136, 142, 600, 618, 804, 936, 1011, 1012, 1069, 1113, 1174, 1257, 1258, 1271, 1272, 1299, 1370, 1486, 1533, 1880, 1920, 2221, 2372, 2376, 2687, 2769</p>
+<p>-Content: Rows where an individual intruded or attempted to make an intrusion during a trial</p></li>
 </ul>
+<pre><code>## Rows with the keyword &#39; intrude &#39;: 136, 142, 600, 618, 804, 936, 1011, 1012, 1069, 1113, 1174, 1257, 1258, 1271, 1272, 1299, 1370, 1486, 1533, 1880, 1920, 2221, 2372, 2376, 2687, 2769 
+## [1] &quot;Row 136 :  oerw intruded&quot;
+## [1] &quot;Row 142 :  kom attempted to intrude but got sprayed away&quot;
+## [1] &quot;Row 600 :  box was opened when Obse intruded&quot;
+## [1] &quot;Row 618 :  Kom intruded after Sirk got a piece of corn&quot;
+## [1] &quot;Row 804 :  Sho intruded before and Ndaw did not approach. She approached after Sho left&quot;
+## [1] &quot;Row 936 :  Oerw and Oupa intruded; were chaaed by researchers; than tolerqnce between diad&quot;
+## [1] &quot;Row 1011 :  obse intruded and made piep leave before she eats akl the corn&quot;
+## [1] &quot;Row 1012 :  xia stole the corn and obse intruded but after the corn was consumed&quot;
+## [1] &quot;Row 1069 :  Oort intruded and was sprayed away&quot;
+## [1] &quot;Row 1113 :  Oort was the intruder. She stared at Sirk and Sirk jumped aside and Sey ate all the corn&quot;
+## [1] &quot;Row 1174 :  attempt to intrude by gaya&quot;
+## [1] &quot;Row 1257 :  Obse was the intruder&quot;
+## [1] &quot;Row 1258 :  intruders are Sey and Obse&quot;
+## [1] &quot;Row 1271 :  piep intruded but did not get any corn&quot;
+## [1] &quot;Row 1272 :  intruded by piep&quot;
+## [1] &quot;Row 1299 :  intruder Id: griffin&quot;
+## [1] &quot;Row 1370 :  oort was the intruder&quot;
+## [1] &quot;Row 1486 :  Sey intruded&quot;
+## [1] &quot;Row 1533 :  Attempt to intrude Xia; conflict&quot;
+## [1] &quot;Row 1880 :  ghida intruded sho and ginq not approaching&quot;
+## [1] &quot;Row 1920 :  intruded by Oerw&quot;
+## [1] &quot;Row 2221 :  oerw intruded&quot;
+## [1] &quot;Row 2372 :  buk intruded&quot;
+## [1] &quot;Row 2376 :  buk intruded but then sho touched his box&quot;
+## [1] &quot;Row 2687 :  Oerw intruded but Sirk still got the corn&quot;
+## [1] &quot;Row 2769 :  Juvenile also present, st Pripra, and Seychelle intrude&quot;
+## Total number of occurrences of the keyword &#39; intrude &#39;:  26</code></pre>
+<ol style="list-style-type: decimal">
+<li>Row <strong>136</strong>: Put “Oerw” in <strong>IntruderID</strong> and “Intrusion;Oerw” in <strong>Context</strong></li>
+<li>Row <strong>142</strong>: Put “AttemptIntrusion;Kom” in <strong>Context</strong></li>
+<li>Row <strong>600</strong>: Put “Intrusion;Obse” in <strong>Context</strong></li>
+<li>Row <strong>618</strong>: Put “Kom” in <strong>IntruderID</strong> and “Intrusion;Kom” in <strong>Context</strong></li>
+<li>Row <strong>618</strong>: Put “Yes;Sirk;1” in the column <strong>GotCorn</strong></li>
+<li>Row <strong>804</strong>: Put “Sho” in the column <strong>IntruderID</strong> and “Intrusion;Sho” in <strong>Context</strong></li>
+<li>Row <strong>936</strong>: Put “Oerw;Oupa” in the column <strong>IntruderID</strong> and “Intrusion;Oerw;Oupa” in <strong>Context</strong></li>
+<li>Row <strong>1011</strong>: Put “Obse” in the column <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong></li>
+<li>Row <strong>1011</strong>: Put “No;Piep” in the column <strong>GotCorn</strong> 10.Row <strong>1012</strong>: Put “Obse” in the column <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong> 11.Row <strong>1012</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 12.Row <strong>1069</strong>: Put “Oort” in <strong>IntruderID</strong> and “Intrusion;Oort” in <strong>Context</strong> 13.Row <strong>1113</strong>: Put “Oort” in <strong>IntruderID</strong> and “ST;Oort;Sirk” in <strong>Context</strong> 14.Row <strong>1174</strong>: Put “AttemptIntrusion;Gaya” in <strong>Context</strong> 15.Row <strong>1257</strong>: Put “Obse” in <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong> 16.Row <strong>1258</strong>: Put “Obse;Sey” in <strong>IntruderID</strong> and “Intrusion;Obse;Sey” in <strong>Context</strong> 17.Row <strong>1271</strong>: Put “Piep” in <strong>IntruderID</strong> and “Intrusion;Piep” in <strong>Context</strong> 18.Row <strong>1272</strong>: Put “Piep” in <strong>IntruderID</strong> and “Intrusion;Piep” in <strong>Context</strong> 19.Row <strong>1299</strong>: Put “Gri” in <strong>IntruderID</strong> and “Intrusion;Gri” in <strong>Context</strong> 20.Row <strong>1370</strong>: Put “Oort” in <strong>IntruderID</strong> and “Intrusion;Oort” in <strong>Context</strong> 21.Row <strong>1486</strong>: Put “Sey” in <strong>IntruderID</strong> and “Intrusion;Sey” in <strong>Context</strong> 22.Row <strong>1533</strong>:</li>
+</ol>
 <p>$intrude [1] 136 142 600 618 804 860 936 1011 1012 1069 1113 1174 1257 1258 1271 1272 1299 1370 1486 1533 1880 1921 2222 2373 2377 2688 2770</p>
-<p>code_3_letters 454 code_4_letters 450 corn 146 after 84 approach 74 stole 69 left 68 open 45 audience 44 sec 34 before 31 ate 28 intrude 27 numerical_value_m 15</p>
-<p>trial 8 steal 8 work 2 scare 2 foraging 0 alarm 0</p>
+<p>corn 146 after 84 approach 74 stole 69 left 68 open 45 audience 44 sec 34 before 31 ate 28</p>
+<p>intrude 27 numerical_value_m 68 trial 8 steal 8 work 2 scare 2 foraging 0 alarm 0</p>
 <p>$approach [1] 49 88 89 159 327 350 522 789 794 804 851 869 873 894 924 962 988 1024 1082 1137 1260 1262 1270 1382 1406 1408 1410 1432 1471 1473 1522 1523 1526 1527 [35] 1577 1585 1619 1635 1636 1643 1700 1703 1756 1796 1880 1884 1901 1908 1910 1958 1990 2102 2141 2147 2148 2150 2178 2179 2205 2219 2237 2267 2284 2334 2383 2385 2446 2472 [69] 2600 2690 2695 2717 2726 2764</p>
 <p>$stole [1] 138 139 158 427 493 519 543 613 637 796 797 800 869 903 914 921 926 931 967 969 970 973 975 981 982 1012 1014 1017 1042 1043 1044 1045 1048 1083 [35] 1084 1091 1118 1120 1220 1232 1234 1269 1339 1341 1343 1347 1354 1356 1357 1358 1442 1518 1555 1595 1623 1645 1646 1648 1701 1703 1900 2042 2389 2467 2486 2491 2497 2608 [69] 2616</p>
 <p>$corn [1] 12 28 158 225 427 485 493 519 533 543 613 618 637 772 796 797 800 815 816 817 869 903 914 920 921 922 926 931 967 969 971 972 973 975 [35] 981 982 1011 1012 1014 1017 1037 1042 1043 1044 1045 1048 1061 1076 1077 1083 1084 1091 1113 1118 1120 1124 1138 1176 1208 1211 1249 1269 1271 1293 1338 1339 1341 1343 [69] 1347 1354 1356 1357 1358 1361 1432 1442 1463 1515 1518 1522 1529 1540 1541 1554 1555 1573 1595 1623 1645 1646 1648 1701 1703 1747 1756 1783 1784 1796 1891 1900 2038 2039 [103] 2041 2042 2059 2096 2097 2130 2142 2251 2252 2260 2261 2271 2320 2323 2348 2353 2371 2385 2389 2393 2398 2443 2449 2473 2478 2486 2491 2497 2522 2555 2556 2566 2592 2608 [137] 2616 2628 2633 2677 2682 2688 2729 2745 2748 2755</p>

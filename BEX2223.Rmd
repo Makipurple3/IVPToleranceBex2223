@@ -1008,7 +1008,7 @@ if (!("Bex" %in% ls())) {
 * **Remarks - numerical value (68x)**
   Rows:32, 33, 34, 35, 36, 37, 38, 39, 40, 49, 88, 89, 138, 159, 389, 392, 613, 851, 1090, 1176, 1178, 1180, 1277, 1338, 1473, 1481, 1545, 1575, 1595, 1624, 1692, 1700, 1701, 1706,      1796, 1807, 1815, 1866, 1870, 1874, 1882, 1915, 1925, 2038, 2039, 2059, 2062, 2066, 2098, 2127, 2140, 2148, 2162, 2166, 2194, 2220, 2270, 2312, 2348, 2382, 2397, 2445, 2471, 2491,     2548, 2591, 2631, 2745
 
-```{r Remarks - Numercial value, echo=FALSE}
+```{r Remarks - Numerical value, echo=FALSE}
 
 # Check if Bex dataframe is available
 if (!("Bex" %in% ls())) {
@@ -1038,7 +1038,6 @@ if (!("Bex" %in% ls())) {
   }
 }
 
-View(Bex)
 ```
 
 
@@ -1147,15 +1146,70 @@ if (!("Bex" %in% ls())) {
 * I decided to keep row 1481 as it is to see how to treat it later
 
 
+* **Remarks - intrude (26x)**
+  Rows: 136, 142, 600, 618, 804, 936, 1011, 1012, 1069, 1113, 1174, 1257, 1258, 1271, 1272, 1299, 1370, 1486, 1533, 1880, 1920, 2221, 2372, 2376, 2687, 2769 
+  
+  -Content: Rows where an individual intruded or attempted to make an intrusion during a trial
+  
+```{r Remarks - intrude, echo=FALSE}
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Define the keyword to search for in the Remarks column
+  keyword <- "intrude"
+
+  # Find rows where the Remarks column contains the keyword (case-insensitive)
+  rows_with_keyword <- which(str_detect(tolower(Bex$Remarks), tolower(keyword)))
+
+  # Check if any rows were found
+  if (length(rows_with_keyword) == 0) {
+    cat("No occurrences of the keyword '", keyword, "' found in the Remarks column.\n")
+  } else {
+    # Print all the row numbers that contain the keyword
+    cat("Rows with the keyword '", keyword, "':", toString(rows_with_keyword), "\n")
+
+    # Print the content of each row that contains the keyword
+    for (row in rows_with_keyword) {
+      print(paste("Row", row, ": ", Bex$Remarks[row]))
+    }
+
+    # Print the count of rows
+    cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
+  }
+}
+
+View(Bex)
+```
 
 
-
+ 1. Row **136**: Put "Oerw" in **IntruderID** and "Intrusion;Oerw" in **Context**
+ 2. Row **142**: Put "AttemptIntrusion;Kom" in **Context**
+ 3. Row **600**: Put "Intrusion;Obse" in **Context**
+ 4. Row **618**: Put "Kom" in **IntruderID** and "Intrusion;Kom" in **Context**
+ 5. Row **618**: Put "Yes;Sirk;1" in the column **GotCorn**
+ 6. Row **804**: Put "Sho" in the column **IntruderID** and "Intrusion;Sho" in **Context**
+ 7. Row **936**: Put "Oerw;Oupa" in the column **IntruderID** and "Intrusion;Oerw;Oupa" in **Context**
+ 8. Row **1011**: Put "Obse" in the column **IntruderID** and "Intrusion;Obse" in **Context**
+ 9. Row **1011**: Put "No;Piep" in the column **GotCorn**
+ 10.Row **1012**: Put "Obse" in the column **IntruderID** and "Intrusion;Obse" in **Context**
+ 11.Row **1012**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+ 12.Row **1069**: Put "Oort" in **IntruderID** and "Intrusion;Oort" in **Context**
+ 13.Row **1113**: Put "Oort" in **IntruderID** and "ST;Oort;Sirk" in **Context**
+ 14.Row **1174**: Put "AttemptIntrusion;Gaya" in **Context**
+ 15.Row **1257**: Put "Obse" in **IntruderID** and "Intrusion;Obse" in **Context**
+ 16.Row **1258**: Put "Obse;Sey" in **IntruderID** and "Intrusion;Obse;Sey" in **Context**
+ 17.Row **1271**: Put "Piep" in **IntruderID** and "Intrusion;Piep" in **Context**
+ 18.Row **1272**: Put "Piep" in **IntruderID** and "Intrusion;Piep" in **Context**
+ 19.Row **1299**: Put "Gri" in **IntruderID** and "Intrusion;Gri" in **Context**
+ 20.Row **1370**: Put "Oort" in **IntruderID** and "Intrusion;Oort" in **Context**
+ 21.Row **1486**: Put "Sey" in **IntruderID** and "Intrusion;Sey" in **Context**
+ 22.Row **1533**: 
+ 
  
 $intrude
  [1]  136  142  600  618  804  860  936 1011 1012 1069 1113 1174 1257 1258 1271 1272 1299 1370 1486 1533 1880 1921 2222 2373 2377 2688 2770
 
-code_3_letters	454
-code_4_letters	450
 corn	146
 after	84
 approach	74
@@ -1166,9 +1220,9 @@ audience	44
 sec	34
 before	31
 ate	28
-intrude	27
-numerical_value_m	15
 
+intrude	27
+numerical_value_m	68
 trial	8
 steal	8
 work	2
