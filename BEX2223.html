@@ -514,7 +514,7 @@ pre code {
 <ul>
 <li>We can see that out of the 13 variables we have in <strong>Bex</strong> we have <strong>9 variables with missing data</strong> which are <strong>Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</strong></li>
 </ul>
-<p>MaleID 19 FemaleID 60 DyadDistance 33 DyadResponse 47 OtherResponse 2758 Audience 924</p>
+<p>MaleID 19 FemaleID 60 DyadDistance 33 DyadResponse 47 OtherResponse 2758 Audience 924 ID Individual1 2143 IntruderID 2737 Remarks 2181</p>
 <ul>
 <li>I will proceed to clean these variables one by one</li>
 </ul>
@@ -526,14 +526,15 @@ pre code {
 <ul>
 <li>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</li>
 <li>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found are the same as the amount of NA’s previously found</li>
-<li>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> confirming that the change effectively workedin this column</li>
+<li>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> confirming that the change effectively worked in this column</li>
 </ul>
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
 <pre><code>## 
 ## No Remarks    Remarks 
 ##       2181        614</code></pre>
 <ul>
-<li>Since **Remarks contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now</li>
+<li>Since <strong>Remarks</strong> contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now</li>
+<li>Now that I have replaced the NA’s in Remarks with <strong>No Remarks</strong>, I found out that we have <strong>614 rows with Remarks</strong></li>
 </ul>
 <pre><code>## [1] &quot;No Remarks&quot;                                                                                                 
 ## [2] &quot;Nge box did not open because of the battery. Oerw vocalized to MA when he ap to the box to open it.&quot;        

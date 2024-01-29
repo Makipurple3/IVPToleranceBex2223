@@ -38,8 +38,11 @@ library(dplyr)
 # Load readxl package to import the data
 library("readxl")
 
-# Load Lubridate fort better date and time manipulation
+# Load Lubridate for better date and time manipulation
 library(lubridate)
+
+# Load Stringr for easier data manipulation and cleaning
+library(stringr)
 
 # Read xlsx files
 Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
@@ -361,6 +364,9 @@ DyadDistance	33
 DyadResponse	47
 OtherResponse	2758
 Audience	924
+ID Individual1 2143
+IntruderID 2737
+Remarks 2181
 
 * I will proceed to clean these variables one by one 
 
@@ -369,7 +375,7 @@ Audience	924
 #### 2.3.1 Cleaning "Remarks" - (2181 NA's)
 * Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA's out of 2795 rows
 * I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found are the same as the amount of NA's previously found
-* After the changes we can effectively see that we have **2181 "No Remarks"** confirming that the change effectively workedin this column
+* After the changes we can effectively see that we have **2181 "No Remarks"** confirming that the change effectively worked in this column
 
 ```{r Remarks NA, echo=FALSE}
 
@@ -395,7 +401,8 @@ if (!"NoRemarks" %in% names(Bex)) {
 
 ```
 
-* Since **Remarks contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now
+* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now
+* Now that I have replaced the NA's in Remarks with **No Remarks**, I found out that we have **614 rows with Remarks**
 
 
 ```{r Remarks Exploration, echo=FALSE}
