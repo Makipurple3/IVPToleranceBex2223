@@ -1495,8 +1495,47 @@ if (!("Bex" %in% ls())) {
 
 ```
 
+* **Remarks - approach (58x)**
+  Rows: 325, 348, 520, 792, 865, 869, 890, 920, 984, 1020, 1133, 1256, 1258, 1266, 1378, 1402, 1404, 1406, 1428, 1467, 1518, 1519, 1522, 1573, 1613, 1629, 1630, 1637, 1697, 1750,        1878,1895, 1902, 1904, 1951, 1983, 2095, 2140, 2141, 2143, 2171, 2172, 2198, 2212, 2230, 2260, 2277, 2327, 2378, 2593, 2683, 2688, 2710, 2719, 2757 
+  
+  -Content: Mostly cases where individuals did not approach or approached to late
 
+```{r Remarks - approach, echo=FALSE}
 
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Define the keyword to search for in the Remarks column
+  keyword <- "approach"
+
+  # Find rows where the Remarks column contains the keyword (case-insensitive)
+  rows_with_keyword <- which(str_detect(tolower(Bex$Remarks), tolower(keyword)))
+
+  # Check if any rows were found
+  if (length(rows_with_keyword) == 0) {
+    cat("No occurrences of the keyword '", keyword, "' found in the Remarks column.\n")
+  } else {
+    # Print all the row numbers that contain the keyword
+    cat("Rows with the keyword '", keyword, "':", toString(rows_with_keyword), "\n")
+
+    # Print the content of each row that contains the keyword
+    for (row in rows_with_keyword) {
+      print(paste("Row", row, ": ", Bex$Remarks[row]))
+    }
+
+    # Print the count of rows
+    cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
+  }
+}
+
+View(Bex)
+```
+
+1.Row **520**: Replace NA by "Piep" in **IDIndividual1**
+2.Row **865**: Put "SF;Buk;SC;Ndaw" in **SpecialBehaviour**
+3.Row
+Replace remarks by treated  in the rows: 325, 348, 520, 792, 865, 869, 890, 
 
 corn	146
 after	84
