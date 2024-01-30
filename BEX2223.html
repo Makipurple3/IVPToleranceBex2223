@@ -1259,10 +1259,169 @@ pre code {
 ## [1] &quot;Row 2722 :  approached after Sey left the boxes&quot;
 ## [1] &quot;Row 2760 :  also Buk wasnt really approaching&quot;
 ## Total number of occurrences of the keyword &#39; approach &#39;:  58</code></pre>
-<p>1.Row <strong>520</strong>: Replace NA by “Piep” in <strong>IDIndividual1</strong> 2.Row <strong>865</strong>: Put “SF;Buk;SC;Ndaw” in <strong>SpecialBehaviour</strong> 3.Row Replace remarks by treated in the rows: 325, 348, 520, 792, 865, 869, 890,</p>
+<p>1.Row <strong>520</strong>: Replace NA by “Piep” in <strong>IDIndividual1</strong> 2.Row <strong>865</strong>: Put “SF;Buk;SC;Ndaw” in <strong>SpecialBehaviour</strong> 3.Row <strong>1428</strong>: Put “No;Kom” in <strong>GotCorn</strong> 4.Row <strong>1522</strong>: Put “No;Pom;Xian” in <strong>GotCorn</strong> 5.Row <strong>1522</strong>: Put “AP;Pom;FL;Xian” in <strong>SpecialBehaviour</strong> 6.Row <strong>1637</strong>: Put “Obse” in <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong> 7.Row <strong>1697</strong>: Put “Gris” in <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong> 8.Row <strong>1697</strong>: Put “No;Pom;Xian” in <strong>GotCorn</strong> 9.Row <strong>1750</strong>: Put “No;Xian” in <strong>GotCorn</strong> 10.Row <strong>1951</strong>: Put “AT;Sho;Ghid” in <strong>SpecialBehaviour</strong> 11.Row <strong>2141</strong>: Put “Buk;Ndaw” in <strong>IDIndividual1</strong> 12.Row <strong>2141</strong>: Put “Resting” in <strong>Context</strong> 13.Row <strong>2171</strong>: Put “Buk;Ndaw” in <strong>IDIndividual1</strong> 13.Row <strong>2172</strong>: Put “Buk;Ndaw” in <strong>IDIndividual1</strong> 14. Row <strong>2593</strong>: Put “AP;Sey;JA;Sirk” in <strong>SpecialBehaviour</strong> 15. Row <strong>2683</strong>: Put “Intrusion” in <strong>DyadResponse</strong> and “Obse” in <strong>IntruderID</strong> and “Intrusion;Obse” in <strong>Context</strong> 16. Row <strong>2688</strong>: Put “AP;Sey;JA;Sirk” in <strong>SpecialBehaviour</strong> 17. Replace the Remarks by “Treated” in the rows: 325, 348, 520, 792, 865, 869, 890, 920, 984, 1020, 1133, 1256, 1258, 1266, 1378, 1402, 1404, 1406, 1428, 1467, 1518, 1519, 1522, 1573, 1613, 1629, 1630, 1637, 1697, 1750, 1878, 1895, 1902, 1904, 1951, 1983, 2095, 2140, 2141, 2143, 2171, 2172, 2198, 2212, 2230, 2260, 2277, 2327, 2378, 2593, 2683, 2688, 2710, 2719, 2757 18. Make sure the code is safe for multiple run and display the rows where changes where made</p>
+<pre><code>## # A tibble: 55 × 17
+##    Time                Date                Group      MaleID FemaleID FemaleCorn
+##    &lt;dttm&gt;              &lt;dttm&gt;              &lt;chr&gt;      &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;
+##  1 1899-12-31 10:27:43 2023-08-10 00:00:00 Baie Dank… Xia    Piep              0
+##  2 1899-12-31 08:43:30 2022-11-22 00:00:00 Ankhase    Sho    Ginq              6
+##  3 1899-12-31 12:34:16 2022-11-22 00:00:00 Baie Dank… Xia    Piep              1
+##  4 1899-12-31 12:35:03 2022-11-22 00:00:00 Baie Dank… Xia    Piep              1
+##  5 1899-12-31 09:34:07 2023-07-22 00:00:00 Ankhase    Buk    &lt;NA&gt;              7
+##  6 1899-12-31 07:14:25 2023-05-06 00:00:00 Noha       Pom    Xian              1
+##  7 1899-12-31 11:43:16 2022-12-20 00:00:00 Ankhase    Sho    Ginq              6
+##  8 1899-12-31 13:30:20 2022-10-11 00:00:00 Baie Dank… Sey    Sirk              3
+##  9 1899-12-31 13:12:43 2022-10-04 00:00:00 Baie Dank… Sirk   Sey               0
+## 10 1899-12-31 10:44:27 2023-05-26 00:00:00 Baie Dank… Kom    Oort              0
+## # ℹ 45 more rows
+## # ℹ 11 more variables: DyadDistance &lt;chr&gt;, DyadResponse &lt;chr&gt;,
+## #   OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;, IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;,
+## #   Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;, Context &lt;chr&gt;, SpecialBehaviour &lt;chr&gt;,
+## #   `Got Corn` &lt;chr&gt;</code></pre>
+<ul>
+<li><p><strong>Remarks - corn (119x)</strong> Rows:28, 158, 225, 425, 483, 491, 517, 531, 541, 635, 770, 794, 795, 811, 812, 813, 899, 910, 916, 917, 918, 927, 963, 965, 967, 968, 969, 971, 977, 978, 1010, 1013, 1033, 1038, 1039, 1040, 1041, 1044, 1057, 1072, 1073, 1079, 1080, 1087, 1116, 1120, 1134, 1204, 1207, 1245, 1265, 1289, 1335, 1337, 1339, 1343, 1350, 1352, 1353, 1354, 1357, 1438, 1459, 1511, 1514, 1525, 1536, 1537, 1550, 1551, 1569, 1617, 1639, 1640, 1642, 1741, 1777, 1778, 1885, 1894, 2031, 2035, 2052, 2089, 2090, 2123, 2135, 2244, 2245, 2253, 2254, 2313, 2316, 2341, 2346, 2364, 2382, 2386, 2436, 2442, 2466, 2471, 2479, 2484, 2490, 2515, 2548, 2549, 2559, 2601, 2609, 2621, 2626, 2670, 2675, 2722, 2738, 2741, 2748</p>
+<p>-<a href="Content:Cases" class="uri">Content:Cases</a> where one invidual got the corn stolen or did not get it</p></li>
+</ul>
+<pre><code>## Rows with the keyword &#39; corn &#39;: 28, 158, 225, 426, 484, 492, 518, 532, 542, 617, 636, 771, 795, 796, 798, 813, 814, 815, 867, 901, 912, 918, 919, 924, 929, 965, 967, 969, 970, 971, 973, 979, 980, 1009, 1010, 1012, 1015, 1035, 1040, 1041, 1042, 1043, 1046, 1059, 1074, 1075, 1081, 1082, 1089, 1111, 1116, 1118, 1122, 1136, 1206, 1209, 1247, 1267, 1269, 1291, 1337, 1339, 1341, 1345, 1352, 1354, 1355, 1356, 1359, 1430, 1440, 1461, 1513, 1516, 1520, 1527, 1538, 1539, 1552, 1553, 1571, 1620, 1642, 1643, 1645, 1700, 1744, 1753, 1780, 1781, 1888, 1897, 2034, 2038, 2055, 2092, 2093, 2126, 2138, 2247, 2248, 2256, 2257, 2316, 2319, 2344, 2349, 2367, 2381, 2385, 2389, 2439, 2445, 2469, 2474, 2482, 2487, 2493, 2518, 2551, 2552, 2562, 2604, 2612, 2624, 2629, 2673, 2678, 2684, 2725, 2741, 2744, 2751 
+## [1] &quot;Row 28 :  unsure if Piep got corn&quot;
+## [1] &quot;Row 158 :  after. oort aggressed kom when sey arrived and stole some of her corn.&quot;
+## [1] &quot;Row 225 :  xian did not get corn&quot;
+## [1] &quot;Row 426 :  pom stole all corn&quot;
+## [1] &quot;Row 484 :  Xia sf one corn&quot;
+## [1] &quot;Row 492 :  kom stole corn from Oort box&quot;
+## [1] &quot;Row 518 :  Xia stole all piep corn&quot;
+## [1] &quot;Row 532 :  Piep did not get corn&quot;
+## [1] &quot;Row 542 :  Sey stole all pieces of corn from the other box&quot;
+## [1] &quot;Row 617 :  Kom intruded after Sirk got a piece of corn&quot;
+## [1] &quot;Row 636 :  they stole corn from each other&quot;
+## [1] &quot;Row 771 :  xia sf all corn&quot;
+## [1] &quot;Row 795 :  buk stole corn from Ndaw&quot;
+## [1] &quot;Row 796 :  buk stole corn&quot;
+## [1] &quot;Row 798 :  Buk stole corn&quot;
+## [1] &quot;Row 813 :  Xia sf all corn&quot;
+## [1] &quot;Row 814 :  Xia sf all corn&quot;
+## [1] &quot;Row 815 :  Xia sf some corn&quot;
+## [1] &quot;Row 867 :  both approached the boxes and then scream from Ndaw and he stole her corn&quot;
+## [1] &quot;Row 901 :  oort stole one piece of corn&quot;
+## [1] &quot;Row 912 :  Xia stole some pieces of corn from Piep&quot;
+## [1] &quot;Row 918 :  Xia ate all corn&quot;
+## [1] &quot;Row 919 :  Xia stole one corn&quot;
+## [1] &quot;Row 924 :  Xia stole two corns from piep&quot;
+## [1] &quot;Row 929 :  Oort stole corn&quot;
+## [1] &quot;Row 965 :  Xia stole corn from piep&quot;
+## [1] &quot;Row 967 :  Xia stole one corn from piep&quot;
+## [1] &quot;Row 969 :  Xia got all the corn&quot;
+## [1] &quot;Row 970 :  Xia got all the corn&quot;
+## [1] &quot;Row 971 :  Xia stole one corn&quot;
+## [1] &quot;Row 973 :  Xia stole all corn&quot;
+## [1] &quot;Row 979 :  oort stole one corn&quot;
+## [1] &quot;Row 980 :  oort stole two corn&quot;
+## [1] &quot;Row 1009 :  obse intruded and made piep leave before she eats akl the corn&quot;
+## [1] &quot;Row 1010 :  xia stole the corn and obse intruded but after the corn was consumed&quot;
+## [1] &quot;Row 1012 :  piep stole the corn&quot;
+## [1] &quot;Row 1015 :  xia stole corn on her box&quot;
+## [1] &quot;Row 1035 :  corn was after aggression&quot;
+## [1] &quot;Row 1040 :  oort stole corn&quot;
+## [1] &quot;Row 1041 :  oort stole corn&quot;
+## [1] &quot;Row 1042 :  she stole corn again&quot;
+## [1] &quot;Row 1043 :  she stole his corn&quot;
+## [1] &quot;Row 1046 :  she stole one corn in his box&quot;
+## [1] &quot;Row 1059 :  corn leaking from researcher; both ate what fell&quot;
+## [1] &quot;Row 1074 :  Piep box didn&#39;t open so they shared the corn in Xia box&quot;
+## [1] &quot;Row 1075 :  Xia sf all corn&quot;
+## [1] &quot;Row 1081 :  Xia stole corn from Piep&#39;s box&quot;
+## [1] &quot;Row 1082 :  Oort stole corn from Kom&quot;
+## [1] &quot;Row 1089 :  Oort stole corn from Kom&quot;
+## [1] &quot;Row 1111 :  Oort was the intruder. She stared at Sirk and Sirk jumped aside and Sey ate all the corn&quot;
+## [1] &quot;Row 1116 :  pom stole one corn&quot;
+## [1] &quot;Row 1118 :  pom stole the corn&quot;
+## [1] &quot;Row 1122 :  male steal corn&quot;
+## [1] &quot;Row 1136 :  Buk didn&#39;t manage to get the corn from the box&quot;
+## [1] &quot;Row 1206 :  piep did not get the corn&quot;
+## [1] &quot;Row 1209 :  one box opened earlier than the other one. piep did not get any corn&quot;
+## [1] &quot;Row 1247 :  Piep did not get any corn&quot;
+## [1] &quot;Row 1267 :  Buk stole two pieces of corn&quot;
+## [1] &quot;Row 1269 :  piep intruded but did not get any corn&quot;
+## [1] &quot;Row 1291 :  Buk left without eating the corn and Gub ate the corn&quot;
+## [1] &quot;Row 1337 :  xia stole piep corn&quot;
+## [1] &quot;Row 1339 :  xia stole corn&quot;
+## [1] &quot;Row 1341 :  xia stole corn&quot;
+## [1] &quot;Row 1345 :  xia stole piep corn&quot;
+## [1] &quot;Row 1352 :  Xia stole some corn from Piep&quot;
+## [1] &quot;Row 1354 :  Xia stole corn from Piep&quot;
+## [1] &quot;Row 1355 :  Xia stole corn from Piep&quot;
+## [1] &quot;Row 1356 :  Xia stole corn from Piep&quot;
+## [1] &quot;Row 1359 :  Sirk ate corn before aggression and Sey ate corn after aggression&quot;
+## [1] &quot;Row 1430 :  Sey approached the box after it openned and Kom left without  eating the corn.&quot;
+## [1] &quot;Row 1440 :  oort stole a piece of corn from kom box&quot;
+## [1] &quot;Row 1461 :  Xia ate one corn from piep box&quot;
+## [1] &quot;Row 1513 :  Intrusion from Greenbay and Granada and Xian never got the corn&quot;
+## [1] &quot;Row 1516 :  Pomelo stole Xian&#39;s corn&quot;
+## [1] &quot;Row 1520 :  Pomelo approached Xian towards the end after eating his corn&quot;
+## [1] &quot;Row 1527 :  Piep came and ate some of Kom corn&quot;
+## [1] &quot;Row 1538 :  Sey ap her and she rt after the corn&quot;
+## [1] &quot;Row 1539 :  Sey ate all the corn&quot;
+## [1] &quot;Row 1552 :  Both came and there was tolerance but they didnt touch both boxes at the same time so no corn given&quot;
+## [1] &quot;Row 1553 :  Sey stole Sirk corn&quot;
+## [1] &quot;Row 1571 :  Sho did not take the corn&quot;
+## [1] &quot;Row 1620 :  they stole the corn from each other&quot;
+## [1] &quot;Row 1642 :  Piep stole corn from Xia&#39;s box; then Xia stole corn from pieps box&quot;
+## [1] &quot;Row 1643 :  xia stole corn from pieps box&quot;
+## [1] &quot;Row 1645 :  Xia stole corn from Piep&quot;
+## [1] &quot;Row 1700 :  Gri approached and stole the corn&quot;
+## [1] &quot;Row 1744 :  Oulik did not get corn&quot;
+## [1] &quot;Row 1753 :  Buk did not approach his box. Ndaw approached Buk&#39;s box but not hers; so did not get the corn.&quot;
+## [1] &quot;Row 1780 :  took the corn and got vocalized at&quot;
+## [1] &quot;Row 1781 :  pom did not get the corn&quot;
+## [1] &quot;Row 1888 :  Ouli took the corn and left;Oort was around. Xin did not come; Sey was around.&quot;
+## [1] &quot;Row 1897 :  Ghid stole Ndaw&#39;s corn&quot;
+## [1] &quot;Row 2034 :  xia ate all the corn because one of the boxes opened too soon&quot;
+## [1] &quot;Row 2038 :  xia stole all her corn&quot;
+## [1] &quot;Row 2055 :  Sey got all corn&quot;
+## [1] &quot;Row 2092 :  piep did not get corn&quot;
+## [1] &quot;Row 2093 :  piep did not get corn&quot;
+## [1] &quot;Row 2126 :  by oupa and she did get all the corn.&quot;
+## [1] &quot;Row 2138 :  he didn&#39;t get the corn&quot;
+## [1] &quot;Row 2247 :  oerw was scared to take the corn and nge ate her corn&quot;
+## [1] &quot;Row 2248 :  oerw after taking the corn left&quot;
+## [1] &quot;Row 2256 :  sey ap to sirk box and took some corn. she moved away&quot;
+## [1] &quot;Row 2257 :  sirk left after taking the corn&quot;
+## [1] &quot;Row 2316 :  xia took a piece of corn piep box&quot;
+## [1] &quot;Row 2319 :  pix  tried getting corn from piep box&quot;
+## [1] &quot;Row 2344 :  xia went to check piep&#39;s box before eating his own corn&quot;
+## [1] &quot;Row 2349 :  they both ate the corn before the agression&quot;
+## [1] &quot;Row 2367 :  Sho did not get the corn bc the box did not open&quot;
+## [1] &quot;Row 2381 :  first approached same box;then ginq left then they came back and Sho box opened accidentally ao they both got the corn&quot;
+## [1] &quot;Row 2385 :  xia stole piep corn&quot;
+## [1] &quot;Row 2389 :  Piep did not get the corn&quot;
+## [1] &quot;Row 2439 :  Piep did not get the corn&quot;
+## [1] &quot;Row 2445 :  Piep took the corn and left running to the group&quot;
+## [1] &quot;Row 2469 :  ginq left when her box open and did not eat the corn&quot;
+## [1] &quot;Row 2474 :  Oup ap the box after Oerw had eaten the corn&quot;
+## [1] &quot;Row 2482 :  Piep stole a piece of corn form Xia box but he didnt care&quot;
+## [1] &quot;Row 2487 :  Xia stole corn from Piep box&quot;
+## [1] &quot;Row 2493 :  Xia stole corn frim Piep&quot;
+## [1] &quot;Row 2518 :  Sey took Sirk corn&quot;
+## [1] &quot;Row 2551 :  after finishing the corn, Oerw ran away&quot;
+## [1] &quot;Row 2552 :  Sey got sirk corn&quot;
+## [1] &quot;Row 2562 :  sirk took sey corn&quot;
+## [1] &quot;Row 2604 :  xia stole one piece of corn from piep and she allowed it.&quot;
+## [1] &quot;Row 2612 :  xia stole two pieces of corn from piep and she allowed it&quot;
+## [1] &quot;Row 2624 :  oup came to the box but did not get any corn&quot;
+## [1] &quot;Row 2629 :  both ate corn from swab&quot;
+## [1] &quot;Row 2673 :  Piep box opened first and Xia got her corn&quot;
+## [1] &quot;Row 2678 :  Piep got a piece of corn from Xia box&quot;
+## [1] &quot;Row 2684 :  Oerw intruded but Sirk still got the corn&quot;
+## [1] &quot;Row 2725 :  after they both got the corn&quot;
+## [1] &quot;Row 2741 :  Xia ate all the corn from both boxes&quot;
+## [1] &quot;Row 2744 :  Piep did not get the corn&quot;
+## [1] &quot;Row 2751 :  nonaggression. they wemt to each other bkx to check. gubh is right at the box but sho got the corn&quot;
+## Total number of occurrences of the keyword &#39; corn &#39;:  133</code></pre>
+<p>1.Row <strong>228</strong>: Put “No;Piep” in <strong>GotCorn</strong> 2.Row <strong>158</strong>: Put “Female aggress male;Male aggress male” in <strong>DyadResponse</strong> 3.Row <strong>158</strong>: Put “No;Oort” in <strong>GotCorn</strong> and <strong>SF;Sey</strong> in <strong>Context</strong> 4.Row <strong>225</strong>: Put “No;Xian” in <strong>GotCorn</strong> 5.Row <strong>425</strong>: Put “No;Xian” in <strong>GotCorn</strong> 6.Row <strong>483</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 7.Row <strong>491</strong>: Put “SF;Kom” in <strong>SpecialBehaviour</strong> and “No;Oort” in <strong>GotCorn</strong> 8.Row <strong>517</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 9.Row <strong>531</strong>: Put “No;Piep” in <strong>GotCorn</strong> 10.Row <strong>541</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 11.Row <strong>770</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 12.Row <strong>794</strong>: Put “SF;Buk” in <strong>SpecialBehaviour</strong> and “No;Ndaw” in <strong>GotCorn</strong> 13.Row <strong>795</strong>: Put “SF;Buk” in <strong>SpecialBehaviour</strong> and “No;Ndaw” in <strong>GotCorn</strong> 14.Row <strong>811</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 15.Row <strong>812</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 16.Row <strong>813</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 17.Row <strong>899</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom;1” in <strong>GotCorn</strong> 18.Row <strong>910</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 19.Row <strong>916</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 20.Row <strong>917</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 21.Row <strong>918</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 22.Row <strong>927</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 23.Row <strong>963</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 24.Row <strong>965</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 25.Row <strong>967</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 26.Row <strong>968</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 27.Row <strong>969</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 28.Row <strong>971</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 29.Row <strong>977</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom;1” in <strong>GotCorn</strong> 30.Row <strong>978</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom;2” in <strong>GotCorn</strong> 31.Row <strong>1010</strong>: Put “SF;Piep” in <strong>SpecialBehaviour</strong> and “No;Xia” in <strong>GotCorn</strong> 32.Row <strong>1013</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 33.Row <strong>1038</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 34.Row <strong>1039</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 35.Row <strong>1040</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 36.Row <strong>1041</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 37.Row <strong>1044</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom;1” in <strong>GotCorn</strong> 38.Row <strong>1057</strong>: Put “Yes;CornFell” in <strong>GotCorn</strong> 39.Row <strong>1072</strong>: Put “EatSameBox” in <strong>SpecialBehaviour</strong> 40.Row <strong>1073</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 41.Row <strong>1079</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 42.Row <strong>1080</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 43.Row <strong>1079</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 44.Row <strong>1080</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 45.Row <strong>1087</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom” in <strong>GotCorn</strong> 46.Row <strong>1116</strong>: Put “SF;Pom” in <strong>SpecialBehaviour</strong> and “No;Xian” in <strong>GotCorn</strong> 47.Row <strong>1120</strong>: Put “SF;Pom” in <strong>SpecialBehaviour</strong> and “No;Xian” in <strong>GotCorn</strong> 48.Row <strong>1134</strong>: Put “No;Buk” in <strong>GotCorn</strong> 49.Row <strong>1204</strong>: Put “No;Piep” in <strong>GotCorn</strong> 50.Row <strong>1207</strong>: Put “No;Piep” in <strong>GotCorn</strong> 51.Row <strong>1245</strong>: Put “No;Piep” in <strong>GotCorn</strong> 52.Row <strong>1265</strong>: Put “SF;Buk” in <strong>SpecialBehaviour</strong> and “No;Ndaw;1” in <strong>GotCorn</strong> 53.Row <strong>1289</strong>: Put “No;Buk” in <strong>GotCorn</strong> 54.Row <strong>1335</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 55.Row <strong>1337</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 56.Row <strong>1339</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 57.Row <strong>1343</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 58.Row <strong>1350</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 59.Row <strong>1352</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;2” in <strong>GotCorn</strong> 60.Row <strong>1353</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;2” in <strong>GotCorn</strong> 61.Row <strong>1354</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;2” in <strong>GotCorn</strong> 62.Row <strong>1438</strong>: Put “SF;Oort” in <strong>SpecialBehaviour</strong> and “No;Kom;1” in <strong>GotCorn</strong> 63.Row <strong>1459</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 64.Row <strong>1511</strong>: Put “No;Xian” in <strong>GotCorn</strong> 65.Row <strong>1511</strong>: Put “Tolerance;Intrusion” in <strong>DyadResponse</strong> and “Gree;Gran” in <strong>IntruderID</strong> 66.Row <strong>1511</strong>: Put “Intrusion;Gree;Gran” in <strong>SpecialBehaviour</strong> 67.Row <strong>1514</strong>: Put “SF;Pom” in <strong>SpecialBehaviour</strong> and “No;Xian” in <strong>GotCorn</strong> 68.Row <strong>1525</strong>: Put “Tolerance;Intrusion” in <strong>DyadResponse</strong> and “SF;Piep” in <strong>Context</strong> and “No;Kom;1” in <strong>GotCorn</strong> 69.Row <strong>1536</strong>: Put “AP;Sey;RT;Sirk” in <strong>SpecialBehaviour</strong> 70.Row <strong>1537</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 71.Row <strong>1550</strong>: Put “No;Both” in <strong>GotCorn</strong> 72.Row <strong>1551</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 73.Row <strong>1569</strong>: Put “No;Sho” in <strong>GotCorn</strong> 74.Row <strong>1617</strong>: Put “SF;Both” in <strong>SpecialBehaviour</strong> 75.Row <strong>1639</strong>: Put “SF;Both” in <strong>SpecialBehaviour</strong> 76.Row <strong>1640</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;2” in <strong>GotCorn</strong> 77.Row <strong>1642</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;2” in <strong>GotCorn</strong> 78.Row <strong>1741</strong>: Put “No;Ouli” in <strong>GotCorn</strong> 79.Row <strong>1778</strong>: Put “No;Pom” in <strong>GotCorn</strong> 80.Row <strong>1885</strong>: Delete row 81.Row <strong>1894</strong>: Put “No;Ndaw” in <strong>GotCorn</strong> and “Ghid” in <strong>IntruderID</strong> 82.Row <strong>2031</strong>: Put “No;Piep” in <strong>GotCorn</strong> 83.Row <strong>2035</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 84.Row <strong>2052</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 85.Row <strong>2089</strong>: Put “No;Piep” in <strong>GotCorn</strong> 86.Row <strong>2090</strong>: Put “No;Piep” in <strong>GotCorn</strong> 87.Row <strong>2123</strong>: Put “Oupa” in <strong>IntruderID</strong> and “No;Both” in <strong>GotCorn</strong> 88.Row <strong>2135</strong>: Put “No;Sho” in <strong>GotCorn</strong> 89.Row <strong>2244</strong>: Put “Scared;Oerw” in <strong>SpecialBehaviour</strong> and “No;Oerw” in <strong>GotCorn</strong> 90.Row <strong>2245</strong>: Put “Oerw” in <strong>IDIdnvidual1</strong> 91.Row <strong>2253</strong>: Put “AP;Sey;RT;Sirk” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 92.Row <strong>2254</strong>: Put “Sirk” in <strong>IDIndividual1</strong> 93.Row <strong>2313</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep;1” in <strong>GotCorn</strong> 94.Row <strong>2316</strong>: Put “Pix” in <strong>IntruderID</strong> 95.Row <strong>2364</strong>: Put “No;Sho” in <strong>GotCorn</strong> 96.Row <strong>2382</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 97.Row <strong>2386</strong>: Put “No;Piep” in <strong>GotCorn</strong> 98.Row <strong>2436</strong>: Put “No;Piep” in <strong>GotCorn</strong> 99.Row <strong>2442</strong>: Put “FL;Piep” 100. Row <strong>2466</strong>: Put “No;Ginq” in <strong>GotCorn</strong> 101. Row <strong>2479</strong>: Put “SF;Piep” in <strong>SpecialBehaviour</strong> and “No;Xia;1” in <strong>GotCorn</strong> 102. Row <strong>2484</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 103. Row <strong>2490</strong>: Put “SF;Xia” in <strong>SpecialBehaviour</strong> and “No;Piep” in <strong>GotCorn</strong> 104. Row <strong>2515</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 105. Row <strong>2548</strong>: Put “FL;Oerw” in <strong>SpecialBehaviour</strong> 106. Row <strong>2549</strong>: Put “SF;Sey” in <strong>SpecialBehaviour</strong> and “No;Sirk” in <strong>GotCorn</strong> 107. Row <strong>2559</strong>: Put “SF;Sirk” in <strong>SpecialBehaviour</strong> and “No;Sey” in <strong>GotCorn</strong> 108. Row <strong>2601</strong>: 109. Row <strong>2609</strong>:</p>
+<p>ow 2601 : xia stole one piece of corn from piep and she allowed it.” [1] “Row 2609 : xia stole two pieces of corn from piep and she allowed it”</p>
 <p>corn 146 after 84 approach 74 stole 69 left 68</p>
 <p>ate 28</p>
-<p>audience 44 open 45 intrude 27 numerical_value_m 68 trial 8 steal 8 work 2 scare 2 foraging 0 alarm 0</p>
+<p>audience 44 open 45 intrude 27 numerical_value_m 68 trial 8 steal 8 work 2 scare 2 foraging 0, 1402 alarm 0</p>
 <p>$approach [1] 49 88 89 159 327 350 522 789 794 804 851 869 873 894 924 962 988 1024 1082 1137 1260 1262 1270 1382 1406 1408 1410 1432 1471 1473 1522 1523 1526 1527 [35] 1577 1585 1619 1635 1636 1643 1700 1703 1756 1796 1880 1884 1901 1908 1910 1958 1990 2102 2141 2147 2148 2150 2178 2179 2205 2219 2237 2267 2284 2334 2383 2385 2446 2472 [69] 2600 2690 2695 2717 2726 2764</p>
 <p>$stole [1] 138 139 158 427 493 519 543 613 637 796 797 800 869 903 914 921 926 931 967 969 970 973 975 981 982 1012 1014 1017 1042 1043 1044 1045 1048 1083 [35] 1084 1091 1118 1120 1220 1232 1234 1269 1339 1341 1343 1347 1354 1356 1357 1358 1442 1518 1555 1595 1623 1645 1646 1648 1701 1703 1900 2042 2389 2467 2486 2491 2497 2608 [69] 2616</p>
 <p>$corn [1] 12 28 158 225 427 485 493 519 533 543 613 618 637 772 796 797 800 815 816 817 869 903 914 920 921 922 926 931 967 969 971 972 973 975 [35] 981 982 1011 1012 1014 1017 1037 1042 1043 1044 1045 1048 1061 1076 1077 1083 1084 1091 1113 1118 1120 1124 1138 1176 1208 1211 1249 1269 1271 1293 1338 1339 1341 1343 [69] 1347 1354 1356 1357 1358 1361 1432 1442 1463 1515 1518 1522 1529 1540 1541 1554 1555 1573 1595 1623 1645 1646 1648 1701 1703 1747 1756 1783 1784 1796 1891 1900 2038 2039 [103] 2041 2042 2059 2096 2097 2130 2142 2251 2252 2260 2261 2271 2320 2323 2348 2353 2371 2385 2389 2393 2398 2443 2449 2473 2478 2486 2491 2497 2522 2555 2556 2566 2592 2608 [137] 2616 2628 2633 2677 2682 2688 2729 2745 2748 2755</p>
@@ -1291,7 +1450,7 @@ pre code {
 <li>Because nothing was entered when there was no intrusion, I will replace every NA’s by <strong>No Intrusion</strong></li>
 <li>Also, I will use a function to create a new dichotomic variable called <strong>Intrusion</strong>. Every time there is a value in IntruderID, it should display 1 (Yes), if not a 0 (No intrusion)</li>
 </ul>
-<pre><code>## Number of &#39;No Intrusion&#39; in the &#39;Intruder ID&#39; column after replacement: 2709</code></pre>
+<pre><code>## Number of &#39;No Intrusion&#39; in the &#39;Intruder ID&#39; column after replacement: 2706</code></pre>
 <ul>
 <li>We previously had 2737 NA’s in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended</li>
 </ul>
@@ -1481,7 +1640,7 @@ pre code {
 <pre><code>## Columns with NA values: DyadDistance, DyadResponse, IDIndividual1, Remarks, NoRemarks, MultipleResponses</code></pre>
 <pre><code>## Number of NA values in DyadDistance : 4 
 ## Number of NA values in DyadResponse : 3 
-## Number of NA values in IDIndividual1 : 2085 
+## Number of NA values in IDIndividual1 : 2083 
 ## Number of NA values in Remarks : 1 
 ## Number of NA values in NoRemarks : 1 
 ## Number of NA values in MultipleResponses : 149</code></pre>

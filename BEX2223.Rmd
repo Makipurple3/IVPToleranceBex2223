@@ -1529,13 +1529,244 @@ if (!("Bex" %in% ls())) {
   }
 }
 
-View(Bex)
+
 ```
 
 1.Row **520**: Replace NA by "Piep" in **IDIndividual1**
 2.Row **865**: Put "SF;Buk;SC;Ndaw" in **SpecialBehaviour**
-3.Row
-Replace remarks by treated  in the rows: 325, 348, 520, 792, 865, 869, 890, 
+3.Row **1428**: Put "No;Kom" in **GotCorn**
+4.Row **1522**: Put "No;Pom;Xian" in **GotCorn**
+5.Row **1522**: Put "AP;Pom;FL;Xian" in **SpecialBehaviour**
+6.Row **1637**: Put "Obse" in **IntruderID** and "Intrusion;Obse" in **Context**
+7.Row **1697**: Put "Gris" in **IntruderID** and "Intrusion;Obse" in **Context**
+8.Row **1697**: Put "No;Pom;Xian" in **GotCorn**
+9.Row **1750**: Put "No;Xian" in **GotCorn**
+10.Row **1951**: Put "AT;Sho;Ghid" in **SpecialBehaviour**
+11.Row **2141**: Put "Buk;Ndaw" in **IDIndividual1**
+12.Row **2141**: Put "Resting" in **Context**
+13.Row **2171**: Put "Buk;Ndaw" in **IDIndividual1**
+13.Row **2172**: Put "Buk;Ndaw" in **IDIndividual1**
+14. Row **2593**: Put "AP;Sey;JA;Sirk" in **SpecialBehaviour**
+15. Row **2683**: Put "Intrusion" in **DyadResponse** and "Obse" in **IntruderID** and "Intrusion;Obse" in **Context**
+16. Row **2688**: Put "AP;Sey;JA;Sirk" in **SpecialBehaviour**
+17. Replace the Remarks by "Treated" in the rows: 325, 348, 520, 792, 865, 869, 890, 920, 984, 1020, 1133, 1256, 1258, 1266, 1378, 1402, 1404, 1406, 1428, 1467, 1518, 1519, 1522, 1573, 1613, 1629, 1630, 1637, 1697, 1750, 1878, 1895, 1902, 1904, 1951, 1983, 2095, 2140, 2141, 2143, 2171, 2172, 2198, 2212, 2230, 2260, 2277, 2327, 2378, 2593, 2683, 2688, 2710, 2719, 2757 18. Make sure the code is safe for multiple run and display the rows where changes where made
+
+```{r Remarks - approach cleaning, echo=FALSE}
+
+# Check if Bex dataframe is available
+if (!("Bex" %in% ls())) {
+  cat("Error: Dataframe 'Bex' not found.\n")
+} else {
+  # Define updates for each column
+  id_ind1_updates <- c("520" = "Piep", "2141" = "Buk;Ndaw", "2171" = "Buk;Ndaw", "2172" = "Buk;Ndaw")
+  special_behaviour_updates <- c("865" = "SF;Buk;SC;Ndaw", "1522" = "AP;Pom;FL;Xian", "1951" = "AT;Sho;Ghid", "2593" = "AP;Sey;JA;Sirk", "2688" = "AP;Sey;JA;Sirk")
+  got_corn_updates <- c("1428" = "No;Kom", "1522" = "No;Pom;Xian", "1697" = "No;Pom;Xian", "1750" = "No;Xian")
+  intruder_id_updates <- c("1637" = "Obse", "1697" = "Gris", "2683" = "Obse")
+  context_updates <- c("1637" = "Intrusion;Obse", "1697" = "Intrusion;Obse", "2141" = "Resting", "2683" = "Intrusion;Obse")
+  dyad_response_updates <- c("2683" = "Intrusion")
+
+  # Apply updates to the Bex dataframe
+  for (row in names(id_ind1_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$IDIndividual1[row_num]) || Bex$IDIndividual1[row_num] != id_ind1_updates[[row]])) {
+      Bex$IDIndividual1[row_num] <- id_ind1_updates[[row]]
+    }
+  }
+
+  for (row in names(special_behaviour_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$SpecialBehaviour[row_num]) || Bex$SpecialBehaviour[row_num] != special_behaviour_updates[[row]])) {
+      Bex$SpecialBehaviour[row_num] <- special_behaviour_updates[[row]]
+    }
+  }
+
+  for (row in names(got_corn_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$`Got Corn`[row_num]) || Bex$`Got Corn`[row_num] != got_corn_updates[[row]])) {
+      Bex$`Got Corn`[row_num] <- got_corn_updates[[row]]
+    }
+  }
+
+  for (row in names(intruder_id_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$IntruderID[row_num]) || Bex$IntruderID[row_num] != intruder_id_updates[[row]])) {
+      Bex$IntruderID[row_num] <- intruder_id_updates[[row]]
+    }
+  }
+
+  for (row in names(context_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$Context[row_num]) || Bex$Context[row_num] != context_updates[[row]])) {
+      Bex$Context[row_num] <- context_updates[[row]]
+    }
+  }
+
+  for (row in names(dyad_response_updates)) {
+    row_num <- as.numeric(row)
+    if (row_num <= nrow(Bex) && (is.na(Bex$DyadResponse[row_num]) || Bex$DyadResponse[row_num] != dyad_response_updates[[row]])) {
+      Bex$DyadResponse[row_num] <- dyad_response_updates[[row]]
+    }
+  }
+
+  # Replace 'Remarks' values with 'Treated'
+  rows_for_remarks_update <- c(325, 348, 520, 792, 865, 869, 890, 920, 984, 1020, 1133, 1256, 1258, 1266, 1378, 1402, 1404, 1406, 1428, 1467, 1518, 1519, 1522, 1573, 1613, 1629, 1630, 1637, 1697, 1750, 1878, 1895, 1902, 1904, 1951, 1983, 2095, 2140, 2141, 2143, 2171, 2172, 2198, 2212, 2230, 2260, 2277, 2327, 2378, 2593, 2683, 2688, 2710, 2719, 2757)
+  for (row in rows_for_remarks_update) {
+    if (row <= nrow(Bex) && Bex$Remarks[row] != "Treated") {
+      Bex$Remarks[row] <- "Treated"
+    }
+  }
+
+  # Display modified rows
+  modified_rows <- unique(c(as.numeric(names(id_ind1_updates)), as.numeric(names(special_behaviour_updates)), as.numeric(names(got_corn_updates)), as.numeric(names(intruder_id_updates)), as.numeric(names(context_updates)), as.numeric(names(dyad_response_updates)), rows_for_remarks_update))
+  modified_rows <- modified_rows[modified_rows <= nrow(Bex)]
+  print(Bex[modified_rows, ])
+}
+
+
+```
+* **Remarks - corn (119x)**
+  Rows:28, 158, 225, 425, 483, 491, 517, 531, 541, 635, 770, 794, 795, 811, 812, 813, 899, 910, 916, 917, 918, 927, 963, 965, 967, 968, 969, 971, 977, 978, 1010, 1013, 1033, 1038,       1039, 1040, 1041, 1044, 1057, 1072, 1073, 1079, 1080, 1087, 1116, 1120, 1134, 1204, 1207, 1245, 1265, 1289, 1335, 1337, 1339, 1343, 1350, 1352, 1353, 1354, 1357, 1438, 1459, 1511,     1514, 1525, 1536, 1537, 1550, 1551, 1569, 1617, 1639, 1640, 1642, 1741, 1777, 1778, 1885, 1894, 2031, 2035, 2052, 2089, 2090, 2123, 2135, 2244, 2245, 2253, 2254, 2313, 2316, 2341,     2346, 2364, 2382, 2386, 2436, 2442, 2466, 2471, 2479, 2484, 2490, 2515, 2548, 2549, 2559, 2601, 2609, 2621, 2626, 2670, 2675, 2722, 2738, 2741, 2748 
+  
+  -Content:Cases where one invidual got the corn stolen or did not get it
+
+
+```{r Remarks - ate, echo=FALSE}
+
+# Define the keyword to search for in the Remarks column
+keyword <- "corn"
+
+# Find rows where the Remarks column contains the keyword (case-insensitive)
+rows_with_keyword <- which(str_detect(tolower(Bex$Remarks), tolower(keyword)))
+
+# Print all the row numbers that contain the keyword and their content
+if (length(rows_with_keyword) > 0) {
+  cat("Rows with the keyword '", keyword, "':", toString(rows_with_keyword), "\n")
+  for (row in rows_with_keyword) {
+    print(paste("Row", row, ": ", Bex$Remarks[row]))
+  }
+  cat("Total number of occurrences of the keyword '", keyword, "': ", length(rows_with_keyword), "\n")
+} else {
+  cat("No occurrences of the keyword '", keyword, "' found in the Remarks column.\n")
+}
+
+View(Bex)
+
+
+```
+
+1.Row **228**: Put "No;Piep" in **GotCorn**
+2.Row **158**: Put "Female aggress male;Male aggress male" in **DyadResponse**
+3.Row **158**: Put "No;Oort" in **GotCorn** and **SF;Sey** in **Context**
+4.Row **225**: Put "No;Xian" in **GotCorn**
+5.Row **425**: Put "No;Xian" in **GotCorn**
+6.Row **483**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+7.Row **491**: Put "SF;Kom" in **SpecialBehaviour** and "No;Oort" in **GotCorn** 
+8.Row **517**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+9.Row **531**: Put "No;Piep" in **GotCorn**
+10.Row **541**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+11.Row **770**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+12.Row **794**: Put "SF;Buk" in **SpecialBehaviour** and "No;Ndaw" in **GotCorn**
+13.Row **795**: Put "SF;Buk" in **SpecialBehaviour** and "No;Ndaw" in **GotCorn**
+14.Row **811**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+15.Row **812**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+16.Row **813**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+17.Row **899**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;1" in **GotCorn**
+18.Row **910**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+19.Row **916**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+20.Row **917**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+21.Row **918**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+22.Row **927**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+23.Row **963**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+24.Row **965**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+25.Row **967**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+26.Row **968**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+27.Row **969**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+28.Row **971**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+29.Row **977**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;1" in **GotCorn**
+30.Row **978**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;2" in **GotCorn**
+31.Row **1010**: Put "SF;Piep" in **SpecialBehaviour** and "No;Xia" in **GotCorn**
+32.Row **1013**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+33.Row **1038**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+34.Row **1039**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+35.Row **1040**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+36.Row **1041**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+37.Row **1044**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;1" in **GotCorn**
+38.Row **1057**: Put "Yes;CornFell" in **GotCorn**
+39.Row **1072**: Put "EatSameBox" in **SpecialBehaviour**
+40.Row **1073**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+41.Row **1079**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+42.Row **1080**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+43.Row **1079**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+44.Row **1080**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn** 
+45.Row **1087**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom" in **GotCorn**
+46.Row **1116**: Put "SF;Pom" in **SpecialBehaviour** and "No;Xian" in **GotCorn**
+47.Row **1120**: Put "SF;Pom" in **SpecialBehaviour** and "No;Xian" in **GotCorn**
+48.Row **1134**: Put "No;Buk" in **GotCorn**
+49.Row **1204**: Put "No;Piep" in **GotCorn**
+50.Row **1207**: Put "No;Piep" in **GotCorn**
+51.Row **1245**: Put "No;Piep" in **GotCorn**
+52.Row **1265**: Put "SF;Buk" in **SpecialBehaviour** and "No;Ndaw;1" in **GotCorn**
+53.Row **1289**: Put "No;Buk" in **GotCorn**
+54.Row **1335**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+55.Row **1337**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+56.Row **1339**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+57.Row **1343**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+58.Row **1350**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn** 
+59.Row **1352**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn** 
+60.Row **1353**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn** 
+61.Row **1354**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn** 
+62.Row **1438**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;1" in **GotCorn**
+63.Row **1459**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+64.Row **1511**: Put "No;Xian" in **GotCorn**
+65.Row **1511**: Put "Tolerance;Intrusion" in **DyadResponse** and "Gree;Gran" in **IntruderID**
+66.Row **1511**: Put "Intrusion;Gree;Gran" in **SpecialBehaviour**
+67.Row **1514**: Put "SF;Pom" in **SpecialBehaviour** and "No;Xian" in **GotCorn**
+68.Row **1525**: Put "Tolerance;Intrusion" in **DyadResponse** and "SF;Piep" in **Context** and "No;Kom;1" in **GotCorn**
+69.Row **1536**: Put "AP;Sey;RT;Sirk" in **SpecialBehaviour**
+70.Row **1537**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+71.Row **1550**: Put "No;Both" in **GotCorn**
+72.Row **1551**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+73.Row **1569**: Put "No;Sho" in **GotCorn**
+74.Row **1617**: Put "SF;Both" in **SpecialBehaviour**
+75.Row **1639**: Put "SF;Both" in **SpecialBehaviour**
+76.Row **1640**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn**
+77.Row **1642**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn**
+78.Row **1741**: Put "No;Ouli" in **GotCorn**
+79.Row **1778**: Put "No;Pom" in **GotCorn**
+80.Row **1885**: Delete row
+81.Row **1894**: Put "No;Ndaw" in **GotCorn** and "Ghid" in **IntruderID**
+82.Row **2031**: Put "No;Piep" in **GotCorn** 
+83.Row **2035**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+84.Row **2052**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+85.Row **2089**: Put "No;Piep" in **GotCorn**
+86.Row **2090**: Put "No;Piep" in **GotCorn**
+87.Row **2123**: Put "Oupa" in **IntruderID** and "No;Both" in **GotCorn**
+88.Row **2135**: Put "No;Sho" in **GotCorn**
+89.Row **2244**: Put "Scared;Oerw" in **SpecialBehaviour** and "No;Oerw" in **GotCorn**
+90.Row **2245**: Put "Oerw" in **IDIdnvidual1**
+91.Row **2253**: Put "AP;Sey;RT;Sirk" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+92.Row **2254**: Put "Sirk" in **IDIndividual1**
+93.Row **2313**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
+94.Row **2316**: Put "Pix" in **IntruderID**
+95.Row **2364**: Put "No;Sho" in **GotCorn**
+96.Row **2382**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+97.Row **2386**: Put "No;Piep" in **GotCorn** 
+98.Row **2436**: Put "No;Piep" in **GotCorn** 
+99.Row **2442**: Put "FL;Piep"
+100. Row **2466**: Put "No;Ginq" in **GotCorn**
+101. Row **2479**: Put "SF;Piep" in **SpecialBehaviour** and "No;Xia;1" in **GotCorn**
+102. Row **2484**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+103. Row **2490**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
+104. Row **2515**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+105. Row **2548**: Put "FL;Oerw" in **SpecialBehaviour**
+106. Row **2549**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
+107. Row **2559**: Put "SF;Sirk" in **SpecialBehaviour** and "No;Sey" in **GotCorn**
+108. Row **2601**:
+109. Row **2609**:
+
+
+ow 2601 :  xia stole one piece of corn from piep and she allowed it."
+[1] "Row 2609 :  xia stole two pieces of corn from piep and she allowed it"
 
 corn	146
 after	84
@@ -1555,7 +1786,7 @@ trial	8
 steal	8
 work	2
 scare	2
-foraging	0
+foraging	0, 1402
 alarm	0
 
 
