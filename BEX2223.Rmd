@@ -1761,12 +1761,26 @@ View(Bex)
 105. Row **2548**: Put "FL;Oerw" in **SpecialBehaviour**
 106. Row **2549**: Put "SF;Sey" in **SpecialBehaviour** and "No;Sirk" in **GotCorn**
 107. Row **2559**: Put "SF;Sirk" in **SpecialBehaviour** and "No;Sey" in **GotCorn**
-108. Row **2601**:
-109. Row **2609**:
+108. Row **2601**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn** and "SFTolerance;Piep" in **Context**
+109. Row **2609**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;2" in **GotCorn** and "SFTolerance;Piep" in **Context**
+110. Row **2621**: Put "Oup" in **IntruderID**
+111. Row **2670**: Put "No;Piep" in **GotCorn**
+112. Row **2675**: Put "SF;Piep" in **SpecialBehaviour** and **No;Xia;1** in **GotCorn**
+113. Row **2738**: Put "SF;Xia" in **SpecialBehaviour** and **No;Piep** in **GotCorn**
+114. Row **2741**: Put "No;Piep" in **GotCorn**
+115. Row **2748**: Put "CheckBox;Both" in **SpecialBehaviour**
+116. Make sure the code is safe for multiple run especially for the deleted rows
+117. Change the remarks into "Treated" for the following rows: **28, 158, 225, 425, 483, 491, 517, 531, 541, 635, 770, 794, 795, 811, 812, 813, 899, 910, 916, 917, 918, 927, 963, 965, 967, 968, 969, 971, 977, 978, 1010, 1013, 1033, 1038, 1039, 1040, 1041, 1044, 1057, 1072, 1073, 1079, 1080, 1087, 1116, 1120, 1134, 1204, 1207, 1245, 1265, 1289, 1335, 1337, 1339, 1343, 1350, 1352, 1353, 1354, 1357, 1438, 1459, 1511, 1514, 1525, 1536, 1537, 1550, 1551, 1569, 1617, 1639, 1640, 1642, 1741, 1777, 1778, 1885, 1894, 2031, 2035, 2052, 2089, 2090, 2123, 2135, 2244, 2245, 2253, 2254, 2313, 2316, 2341, 2346, 2364, 2382, 2386, 2436, 2442, 2466, 2471, 2479, 2484, 2490, 2515, 2548, 2549, 2559, 2601, 2609, 2621, 2626, 2670, 2675, 2722, 2738, 2741, 2748**
+118. Display the lines where changes were made for manual check
+
+```{r Remarks - ate cleaning, echo=FALSE}
 
 
-ow 2601 :  xia stole one piece of corn from piep and she allowed it."
-[1] "Row 2609 :  xia stole two pieces of corn from piep and she allowed it"
+```
+
+
+
+
 
 corn	146
 after	84
