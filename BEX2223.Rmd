@@ -1683,6 +1683,15 @@ View(Bex)
 27.Row **969**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep;1" in **GotCorn**
 28.Row **971**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
 29.Row **977**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;1" in **GotCorn**
+
+``` {r Remarks - ate 1-29, echo=FALSE}
+
+
+
+
+```
+
+
 30.Row **978**: Put "SF;Oort" in **SpecialBehaviour** and "No;Kom;2" in **GotCorn**
 31.Row **1010**: Put "SF;Piep" in **SpecialBehaviour** and "No;Xia" in **GotCorn**
 32.Row **1013**: Put "SF;Xia" in **SpecialBehaviour** and "No;Piep" in **GotCorn**
@@ -1704,6 +1713,8 @@ View(Bex)
 48.Row **1134**: Put "No;Buk" in **GotCorn**
 49.Row **1204**: Put "No;Piep" in **GotCorn**
 50.Row **1207**: Put "No;Piep" in **GotCorn**
+
+
 51.Row **1245**: Put "No;Piep" in **GotCorn**
 52.Row **1265**: Put "SF;Buk" in **SpecialBehaviour** and "No;Ndaw;1" in **GotCorn**
 53.Row **1289**: Put "No;Buk" in **GotCorn**
@@ -1770,6 +1781,8 @@ View(Bex)
 114. Row **2741**: Put "No;Piep" in **GotCorn**
 115. Row **2748**: Put "CheckBox;Both" in **SpecialBehaviour**
 116. Make sure the code is safe for multiple run especially for the deleted rows
+
+
 117. Change the remarks into "Treated" for the following rows: **28, 158, 225, 425, 483, 491, 517, 531, 541, 635, 770, 794, 795, 811, 812, 813, 899, 910, 916, 917, 918, 927, 963, 965, 967, 968, 969, 971, 977, 978, 1010, 1013, 1033, 1038, 1039, 1040, 1041, 1044, 1057, 1072, 1073, 1079, 1080, 1087, 1116, 1120, 1134, 1204, 1207, 1245, 1265, 1289, 1335, 1337, 1339, 1343, 1350, 1352, 1353, 1354, 1357, 1438, 1459, 1511, 1514, 1525, 1536, 1537, 1550, 1551, 1569, 1617, 1639, 1640, 1642, 1741, 1777, 1778, 1885, 1894, 2031, 2035, 2052, 2089, 2090, 2123, 2135, 2244, 2245, 2253, 2254, 2313, 2316, 2341, 2346, 2364, 2382, 2386, 2436, 2442, 2466, 2471, 2479, 2484, 2490, 2515, 2548, 2549, 2559, 2601, 2609, 2621, 2626, 2670, 2675, 2722, 2738, 2741, 2748**
 118. Display the lines where changes were made for manual check
 
