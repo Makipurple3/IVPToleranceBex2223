@@ -223,22 +223,22 @@ pre code {
 <li><p>I am now using the <strong>view</strong> function to have a sight on the entire dataset and <strong>glimpse</strong> to display a summary of my dataset</p></li>
 <li><p>I have <strong>20 variables</strong> (here columns) and <strong>2795 trials</strong> (here rows)</p></li>
 <li><p>I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call <strong>Bex</strong></p></li>
-<li><p>The highlighted variables are the ones I will use for <strong>Bex</strong>. I will then <strong>clean the data</strong> before heading to the <strong>statistical analysis</strong> and the **interpretation of the results*</p></li>
+<li><p>The highlighted variables are the ones I will use for <strong>Bex</strong>. I will then <strong>clean the data</strong> before heading to the <strong>statistical analysis</strong> and the <strong>interpretation of the results</strong></p></li>
 </ul>
 <div id="variables-of-boxex" class="section level4">
 <h4>Variables of Boxex</h4>
 <ul>
-<li><p><strong>Date</strong> : “Date” is in ac<strong>POSIXct</strong> format which is appropriate for the display of time</p>
+<li><p><strong>Date</strong> : “Date” is in a <strong>POSIXct</strong> format which is appropriate for the display of time</p>
 <ul>
 <li>I want to use the date to know <strong>how many sessions</strong> have been done with each dyads in my experiment.</li>
 <li>I will create a variable called <strong>Session</strong> where <strong>1 session = 1 day</strong></li>
 <li>The data has values from the <strong>14th of September 2022</strong> until the <strong>13th of September 2023</strong></li>
-<li>I may consider separating the <strong>12 months</strong> of data in <strong>4 seasons</strong> to make a preliminary check of a potential effect of seasonality. Nevertheless we did not use any tools to measure the weather, temperature, humidity or food availability (also related to seasonality and weather). Categorizing my data in 4 without having further data would then be quite arbitrary. If I end up doing it in my report, it will be done without any intention to include it in scientific analysis nor my scientific report .</li>
+<li>I may consider separating the <strong>12 months</strong> of data in <strong>4 seasons</strong> to make a preliminary check of a potential effect of seasonality. Nevertheless since we did not use any tools to measure the weather, temperature, humidity or food availability (also related to seasonality and weather). Categorizing my data in 4 without having further data would then be quite arbitrary. If I end up doing it in my report, it will be done without any intention to include it in my scientific analysis nor my scientific report .</li>
 </ul></li>
 <li><p><strong>Time</strong> : “Time is coded” in a <strong>POSIXct</strong> format</p>
 <ul>
 <li>I do not plan to use this variable but we can see that “Time” has hours displayed with a date which is incorrect.</li>
-<li>(In the case I wanted to observe <strong>when the trials occurred during the day</strong> as time may have an influence on their behavior) <strong>SOURCE</strong>I would need to correct the incorrect display of the date in the dataset.</li>
+<li>(In the case I wanted to observe <strong>when the trials occurred during the day</strong> as time may have an influence on their behavior) <strong>(Isbell &amp; Young 1993)</strong>I would need to correct the incorrect display of the date in the dataset.</li>
 <li>This variable could also be useful to see when the <strong>seasonal effect</strong> took place as we only went in the morning during summer because of the heat while we went later and for longer times in the field to do the box experiment in winter</li>
 <li>For now, the values in “Time” are all on the same (wrong) day which is the <strong>31st of December</strong></li>
 <li>Note: I first did not intend to keep <strong>Time</strong> in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.</li>

@@ -76,18 +76,18 @@ glimpse(Boxex)
 
 * I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call **Bex**
 
-* The highlighted variables are the ones I will use for **Bex**. I will then **clean the data**  before heading to the **statistical analysis** and the **interpretation of the results*
+* The highlighted variables are the ones I will use for **Bex**. I will then **clean the data**  before heading to the **statistical analysis** and the **interpretation of the results**
 
 
 #### Variables of Boxex
 
 * **Date**               :
-    "Date" is in ac**POSIXct** format which is appropriate for the display of time 
+    "Date" is in a **POSIXct** format which is appropriate for the display of time 
 
     * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
-    * I may consider separating the **12 months** of data in **4 seasons** to make a preliminary check of a potential effect of seasonality. Nevertheless we did not use any tools to measure the weather,         temperature, humidity or food availability (also related to seasonality and weather). Categorizing my data in 4 without having further data would then be quite arbitrary. If I end up doing it in my          report, it will be done without any intention to include it in scientific analysis nor my scientific report .
+    * I may consider separating the **12 months** of data in **4 seasons** to make a preliminary check of a potential effect of seasonality. Nevertheless since we did not use any tools to measure the weather,         temperature, humidity or food availability (also related to seasonality and weather). Categorizing my data in 4 without having further data would then be quite arbitrary. If I end up doing it in my          report, it will be done without any intention to include it in my scientific analysis nor my scientific report .
     
 
     
@@ -95,7 +95,7 @@ glimpse(Boxex)
      "Time is coded" in a **POSIXct** format 
      
     * I do not plan to use this variable but we can see that "Time" has hours displayed with a date which is incorrect. 
-    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **SOURCE**I would need to correct the incorrect display of the date in the dataset.
+    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **(Isbell & Young 1993)**I would need to correct the incorrect display of the date in the dataset.
     * This variable could also be useful to see when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
     * For now, the values in "Time" are all on the same (wrong) day which is the **31st  of December** 
     * Note: I first did not intend to keep **Time** in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.
