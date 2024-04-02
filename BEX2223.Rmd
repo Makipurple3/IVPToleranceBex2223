@@ -220,20 +220,20 @@ glimpse(Boxex)
     
 * **IntruderID**         : chr 
     "IndtruderID" is coded as **character**
-    * It gives the **name of the individual that did intruded the experiment during a trial**
+    * It gives the **name of the individual that intruded the experiment during a trial**
     * Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the dyad's individuals
     
 * **Remarks**            : chr 
     The data is coded in r as **character**
     * It gives either additional information concerning the experiment when unusual behaviors occurred , mistakes that needed to be corrected or details that we wanted to record in        case we would need them
     
-* Observers               .chr
+* Observers               :chr
     The data is coded in r as **character**
     * It gives the **names of the observers during the experiment**
     * We will not use this data as we do not look at the effect that an experimenter would have on the monkeys
     * (Should I still look at an effect of the amount of experimenter?...maybe better for detailled analysis of our study)
     
-* DeviceID             .chr
+* DeviceID             :chr
     "The data "DeviceID" is coded in r as **character**
     * It gives the **name of the device/tablet** used to record the data during the experiment
     * We will not use this data either
@@ -245,7 +245,7 @@ glimpse(Boxex)
 ### 2.1. Creating a new dataframe - Bex
 * Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
 
-* I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
+* I will keep Time, Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
 
 ```{r Bex Df, echo=FALSE} 
 Bex<-Boxex%>%
@@ -256,9 +256,9 @@ View(Bex)
 ```
 
 #### 2.1.1 Merging Male placement corn and MaleCorn
-* I want to process all the missing data in Bex. But before I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
+* I want to process all the missing data in Bex. But before, I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
-* Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
+* Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
 * I will first **rename MaleCorn to MaleCornOld**, then **check the amount of NA's** and then **merge "MaleCornOld" and "male placement corn"** into the **new variable "MaleCorn"**
 
 ```{r handling MaleCorn to MaleCornOld, include=FALSE}
@@ -319,8 +319,8 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 
 
 * For the **merge of MaleCornOld and Male placement corn**, I used different conditions:
-  1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn.
-  2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given
+1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn.
+2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given
 * In this way, I should not loose any data, minimize the mistakes and already transform the NA's of this variable into a number which will remove the remaining NA's which are meant to be 0
 * After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
@@ -355,26 +355,25 @@ kable(missing_data[missing_data == 0])
   
 ```
 
-* We can see that out of the 13 variables we have in **Bex** we have **9 variables with missing data** which are **Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks**
+* We can see that out of the 14 variables we have in **Bex** we have **9 variables with missing data** which are **Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks**:  I will proceed to clean these variables one by one 
 
-MaleID	19
-FemaleID	60
-DyadDistance	33
-DyadResponse	47
-OtherResponse	2758
-Audience	924
-ID Individual1 2143
-IntruderID 2737
-Remarks 2181
-
-* I will proceed to clean these variables one by one 
+* MaleID	19
+* FemaleID	60
+* DyadDistance	33
+* DyadResponse	47
+* OtherResponse	2758
+* Audience	924
+* ID Individual1 2143
+* IntruderID 2737
+* Remarks 2181
 
 ### 2.3 Treating variables with missing data
 
 #### 2.3.1 Cleaning "Remarks" - (2181 NA's)
 * Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA's out of 2795 rows
-* I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found are the same as the amount of NA's previously found
-* After the changes we can effectively see that we have **2181 "No Remarks"** confirming that the change effectively worked in this column
+* I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found 
+
+* After the changes we can effectively see that we have **2181 "No Remarks"** confirming that the change effectively worked in this column as we have no missing data left
 
 ```{r Remarks NA, echo=FALSE}
 
@@ -400,8 +399,8 @@ if (!"NoRemarks" %in% names(Bex)) {
 
 ```
 
-* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now
-* Now that I have replaced the NA's in Remarks with **No Remarks**, I found out that we have **614 rows with Remarks**
+* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail
+* Now that I have replaced the NA's in Remarks with **No Remarks**, I found out that we have **614 rows with Remarks** that need's to be treated
 
 
 ```{r Remarks Exploration, echo=FALSE}
@@ -413,36 +412,37 @@ library(dplyr)
 library(stringr)
 ```
 
-* In order to facilitate the identification of key words in the remarks, I used an AI to analyze the **614 unique outputs of Remarks**:
+* In order to ease the identification of key words in the remarks, I used an AI to analyze the **614 unique outputs of Remarks** to find some of the main keywords:
+
 
 1. Equipment and Procedure Related
     - Keywords: "did not open", "opened early", "did not work", "first trial"
     - Examples: "Nge box did not open because of the battery", "opened seychelles box early by accident"
-    - Action: Log these as procedural notes; consider creating a flag for equipment or procedural issues.
+   
 2. Animal Behavior Observations
     - Keywords: "approached", "did not approach", "scared", "intruded", "stole", "aggression", "tolerance"
     - Examples: "Sey came to the boxes once they were open", "Sirk was scared by Oerw", "oerw intruded"
-    - Action: These could be detailed in a behavioral observations column or further categorized based on the behavior type.
+  
 3. Spatial Measurements and Corrections
     - Keywords: Measurements (e.g., "6m", "7m"), "distance"
     - Examples: "6m", "should have been 1m"
-    - Action: Use to correct or supplement DyadDistance data; possibly flag discrepancies.
+  
 4. Specific Individual Actions or Reactions
     - Keywords: Names of individuals (e.g., "Sey", "Nge"), specific actions (e.g., "ate", "moved", "looked at")
     - Examples: "Nge and Oerw vo to MA", "Xia looked at piep"
-    - Action: These could be valuable for individual-level behavioral analysis.
+
 5. Audience or Other Individual Involvement
     - Keywords: "audience", names of other individuals not part of the primary observation, "present"
     - Examples: "unknown audience", "Buk stole corn from Ndaw", "Juvenile also present"
-    - Action: Consider creating an additional column for audience or secondary individuals involved, which could be useful for social dynamics studies.
+   
 6. Timing and Sequence of Events
     - Keywords: "before", "after", "when", "then"
     - Examples: "before aggression", "after 30 sec", "when he left she came"
-    - Action: These remarks can be used to adjust timing-related variables or to create a sequence of events log.
+
 7. Specific Observational Details or Corrections
     - Keywords: Specific observations (e.g., "ate all the corn"), corrections or clarifications
     - Examples: "Piep not approaching", "Piep box didn't open so they shared the corn in Xia box"
-    - Action: Use these remarks for data verification or to provide context to other observations.
+
 8. Miscellaneous or Unclear Remarks
     - Keywords: Ambiguous terms, unclear references
     - Examples: "na", "unknown audience", "contact calling in the background"
@@ -452,7 +452,7 @@ library(stringr)
     - Examples: "There was an alarm and we left the boxes on the ground"
     - Action: Log these as environmental or technical notes that may have influenced the experiment.
     
-* From this output I decided to explore the 508 unique outputs of Remarks by identify the **amount of lines and the rows where there are the key words**: 
+* From this output I decided to explore the 508 **WHY 508 IF BEFORE I SAID  614** unique outputs of Remarks by identifying the **amount of lines and the rows where there are the following key words**: 
 1. "open", "work", "trial"
 2."approach", "scare", "intrude", "stole", "steal", "corn", "ate"
 3. "numerical value", "m", "distance"

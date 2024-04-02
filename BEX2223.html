@@ -362,20 +362,20 @@ pre code {
 </ul></li>
 <li><p><strong>IntruderID</strong> : chr “IndtruderID” is coded as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>name of the individual that did intruded the experiment during a trial</strong></li>
+<li>It gives the <strong>name of the individual that intruded the experiment during a trial</strong></li>
 <li>Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the dyad’s individuals</li>
 </ul></li>
 <li><p><strong>Remarks</strong> : chr The data is coded in r as <strong>character</strong></p>
 <ul>
 <li>It gives either additional information concerning the experiment when unusual behaviors occurred , mistakes that needed to be corrected or details that we wanted to record in case we would need them</li>
 </ul></li>
-<li><p>Observers .chr The data is coded in r as <strong>character</strong></p>
+<li><p>Observers :chr The data is coded in r as <strong>character</strong></p>
 <ul>
 <li>It gives the <strong>names of the observers during the experiment</strong></li>
 <li>We will not use this data as we do not look at the effect that an experimenter would have on the monkeys</li>
 <li>(Should I still look at an effect of the amount of experimenter?…maybe better for detailled analysis of our study)</li>
 </ul></li>
-<li><p>DeviceID .chr “The data”DeviceID” is coded in r as <strong>character</strong></p>
+<li><p>DeviceID :chr “The data”DeviceID” is coded in r as <strong>character</strong></p>
 <ul>
 <li>It gives the <strong>name of the device/tablet</strong> used to record the data during the experiment</li>
 <li>We will not use this data either</li>
@@ -390,7 +390,7 @@ pre code {
 <h3>2.1. Creating a new dataframe - Bex</h3>
 <ul>
 <li><p>Since I do not want to work with the whole dataset, I’m gonna select the variables of interest using the function <strong>select</strong></p></li>
-<li><p>I will keep Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</p></li>
+<li><p>I will keep Time, Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</p></li>
 </ul>
 <pre><code>## Rows: 2,795
 ## Columns: 15
@@ -412,9 +412,9 @@ pre code {
 <div id="merging-male-placement-corn-and-malecorn" class="section level4">
 <h4>2.1.1 Merging Male placement corn and MaleCorn</h4>
 <ul>
-<li><p>I want to process all the missing data in Bex. But before I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
+<li><p>I want to process all the missing data in Bex. But before, I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
 <li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
-<li><p>Every time there is a missing value un Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</p></li>
+<li><p>Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</p></li>
 <li><p>I will first <strong>rename MaleCorn to MaleCornOld</strong>, then <strong>check the amount of NA’s</strong> and then <strong>merge “MaleCornOld” and “male placement corn”</strong> into the <strong>new variable “MaleCorn”</strong></p></li>
 <li><p>I have found <strong>1499 NA in common</strong> between MaleCornOld and ‘male placement corn’, <strong>1609 NA in Male placement corn</strong> and <strong>2685 in MaleCorn old</strong></p></li>
 <li><p>For the <strong>merge of MaleCornOld and Male placement corn</strong>, I used different conditions: 1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn. 2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
@@ -512,11 +512,16 @@ pre code {
 </tbody>
 </table>
 <ul>
-<li>We can see that out of the 13 variables we have in <strong>Bex</strong> we have <strong>9 variables with missing data</strong> which are <strong>Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</strong></li>
-</ul>
-<p>MaleID 19 FemaleID 60 DyadDistance 33 DyadResponse 47 OtherResponse 2758 Audience 924 ID Individual1 2143 IntruderID 2737 Remarks 2181</p>
-<ul>
-<li>I will proceed to clean these variables one by one</li>
+<li><p>We can see that out of the 14 variables we have in <strong>Bex</strong> we have <strong>9 variables with missing data</strong> which are <strong>Male ID, Female ID, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks</strong>: I will proceed to clean these variables one by one</p></li>
+<li><p>MaleID 19</p></li>
+<li><p>FemaleID 60</p></li>
+<li><p>DyadDistance 33</p></li>
+<li><p>DyadResponse 47</p></li>
+<li><p>OtherResponse 2758</p></li>
+<li><p>Audience 924</p></li>
+<li><p>ID Individual1 2143</p></li>
+<li><p>IntruderID 2737</p></li>
+<li><p>Remarks 2181</p></li>
 </ul>
 </div>
 <div id="treating-variables-with-missing-data" class="section level3">
@@ -524,17 +529,17 @@ pre code {
 <div id="cleaning-remarks---2181-nas" class="section level4">
 <h4>2.3.1 Cleaning “Remarks” - (2181 NA’s)</h4>
 <ul>
-<li>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</li>
-<li>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found are the same as the amount of NA’s previously found</li>
-<li>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> confirming that the change effectively worked in this column</li>
+<li><p>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</p></li>
+<li><p>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found</p></li>
+<li><p>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> confirming that the change effectively worked in this column as we have no missing data left</p></li>
 </ul>
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
 <pre><code>## 
 ## No Remarks    Remarks 
 ##       2181        614</code></pre>
 <ul>
-<li>Since <strong>Remarks</strong> contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail now</li>
-<li>Now that I have replaced the NA’s in Remarks with <strong>No Remarks</strong>, I found out that we have <strong>614 rows with Remarks</strong></li>
+<li>Since <strong>Remarks</strong> contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail</li>
+<li>Now that I have replaced the NA’s in Remarks with <strong>No Remarks</strong>, I found out that we have <strong>614 rows with Remarks</strong> that need’s to be treated</li>
 </ul>
 <pre><code>## [1] &quot;No Remarks&quot;                                                                                                 
 ## [2] &quot;Nge box did not open because of the battery. Oerw vocalized to MA when he ap to the box to open it.&quot;        
@@ -543,50 +548,43 @@ pre code {
 ## [5] &quot;Sey came to the boxes after they had opened and they had eaten the corn,  and Oerw rt and vo to Nge, who rt&quot;
 ## [6] &quot;Seychelles ap&quot;</code></pre>
 <ul>
-<li>In order to facilitate the identification of key words in the remarks, I used an AI to analyze the <strong>614 unique outputs of Remarks</strong>:</li>
+<li>In order to ease the identification of key words in the remarks, I used an AI to analyze the <strong>614 unique outputs of Remarks</strong> to find some of the main keywords:</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>Equipment and Procedure Related
 <ul>
 <li>Keywords: “did not open”, “opened early”, “did not work”, “first trial”</li>
 <li>Examples: “Nge box did not open because of the battery”, “opened seychelles box early by accident”</li>
-<li>Action: Log these as procedural notes; consider creating a flag for equipment or procedural issues.</li>
 </ul></li>
 <li>Animal Behavior Observations
 <ul>
 <li>Keywords: “approached”, “did not approach”, “scared”, “intruded”, “stole”, “aggression”, “tolerance”</li>
 <li>Examples: “Sey came to the boxes once they were open”, “Sirk was scared by Oerw”, “oerw intruded”</li>
-<li>Action: These could be detailed in a behavioral observations column or further categorized based on the behavior type.</li>
 </ul></li>
 <li>Spatial Measurements and Corrections
 <ul>
 <li>Keywords: Measurements (e.g., “6m”, “7m”), “distance”</li>
 <li>Examples: “6m”, “should have been 1m”</li>
-<li>Action: Use to correct or supplement DyadDistance data; possibly flag discrepancies.</li>
 </ul></li>
 <li>Specific Individual Actions or Reactions
 <ul>
 <li>Keywords: Names of individuals (e.g., “Sey”, “Nge”), specific actions (e.g., “ate”, “moved”, “looked at”)</li>
 <li>Examples: “Nge and Oerw vo to MA”, “Xia looked at piep”</li>
-<li>Action: These could be valuable for individual-level behavioral analysis.</li>
 </ul></li>
 <li>Audience or Other Individual Involvement
 <ul>
 <li>Keywords: “audience”, names of other individuals not part of the primary observation, “present”</li>
 <li>Examples: “unknown audience”, “Buk stole corn from Ndaw”, “Juvenile also present”</li>
-<li>Action: Consider creating an additional column for audience or secondary individuals involved, which could be useful for social dynamics studies.</li>
 </ul></li>
 <li>Timing and Sequence of Events
 <ul>
 <li>Keywords: “before”, “after”, “when”, “then”</li>
 <li>Examples: “before aggression”, “after 30 sec”, “when he left she came”</li>
-<li>Action: These remarks can be used to adjust timing-related variables or to create a sequence of events log.</li>
 </ul></li>
 <li>Specific Observational Details or Corrections
 <ul>
 <li>Keywords: Specific observations (e.g., “ate all the corn”), corrections or clarifications</li>
 <li>Examples: “Piep not approaching”, “Piep box didn’t open so they shared the corn in Xia box”</li>
-<li>Action: Use these remarks for data verification or to provide context to other observations.</li>
 </ul></li>
 <li>Miscellaneous or Unclear Remarks
 <ul>
@@ -602,7 +600,7 @@ pre code {
 </ul></li>
 </ol>
 <ul>
-<li>From this output I decided to explore the 508 unique outputs of Remarks by identify the <strong>amount of lines and the rows where there are the key words</strong>:</li>
+<li>From this output I decided to explore the 508 <strong>WHY 508 IF BEFORE I SAID 614</strong> unique outputs of Remarks by identifying the <strong>amount of lines and the rows where there are the following key words</strong>:</li>
 </ul>
 <ol style="list-style-type: decimal">
 <li>“open”, “work”, “trial” 2.”approach”, “scare”, “intrude”, “stole”, “steal”, “corn”, “ate”</li>
