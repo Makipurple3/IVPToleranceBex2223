@@ -373,7 +373,7 @@ kable(missing_data[missing_data == 0])
 * Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA's out of 2795 rows
 * I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found 
 
-* After the changes we can effectively see that we have **2181 "No Remarks"** confirming that the change effectively worked in this column as we have no missing data left
+* After the changes we can effectively see that we have **2181 "No Remarks"** and we have no missing data left
 
 ```{r Remarks NA, echo=FALSE}
 
@@ -399,8 +399,8 @@ if (!"NoRemarks" %in% names(Bex)) {
 
 ```
 
-* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore the variable in more detail
-* Now that I have replaced the NA's in Remarks with **No Remarks**, I found out that we have **614 rows with Remarks** that need's to be treated
+* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore and clean this variable now. 
+* After the replacement of the NA's in Remarks with **No Remarks**, I found out that we have **614 Remarks** that I need to treat
 
 
 ```{r Remarks Exploration, echo=FALSE}
@@ -410,6 +410,26 @@ head(unique_remarks)
 
 library(dplyr)
 library(stringr)
+library(ggplot2)
+
+# Define the keywords list properly before the loop
+keywords <- c("open", "work", "trial", "approach", "scare", "intrude", "stole", "steal", "corn", "ate", "audience", "sec", "before", "after", "left", "na", "foraging", "alarm")
+
+# Reinitialize to store updated counts
+keyword_counts <- data.frame(Keyword = character(), Counts = integer(), stringsAsFactors = FALSE)
+
+# Recalculate counts
+for (kw in keywords) {
+  count <- sum(str_detect(tolower(Bex$Remarks), kw))
+  keyword_counts <- rbind(keyword_counts, data.frame(Keyword = kw, Counts = count))
+}
+
+# Plot with counts on bars
+ggplot(keyword_counts, aes(x = reorder(Keyword, -Counts), y = Counts)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = Counts), hjust = -0.1, size = 3) +
+  coord_flip() +
+  labs(title = "Frequency of Keywords in Remarks (Excluding 'm', 'numerical value', '3 code letter', 'four code letter')", x = "Keyword", y = "Frequency") +theme_minimal()
 ```
 
 * In order to ease the identification of key words in the remarks, I used an AI to analyze the **614 unique outputs of Remarks** to find some of the main keywords:
@@ -462,6 +482,13 @@ library(stringr)
 7. "na", 
 8. "foraging"
 9. "alarm"
+
+
+##### Vizualization of the Remarks Keywords
+Before making any changes I will make a barplot of the main keywords in the column remarks to see what they are and in which proportion they are found. It has to be noted that some of the words are used in different contexts and have different meaning. This is why I will not create any rule from it
+
+
+
 
 
 ```{r Checking for keywords in Remarks, include=FALSE}
