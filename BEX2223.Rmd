@@ -49,7 +49,7 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 
 ``` 
 
-* First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file. I also loaded nd the **pander** package for better presentation
+* First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file. I also loaded the **pander** package for better presentation
 * The **dplyr** package was installed for better manipulation of the data as filtering or creating new variables and **lubridate** for a better manipulation of dates and time
 * Then, I installed the **readxl package** to import my dataset which is called **Box Experiments.xls**
 * This dataset contains information related to my master thesis project. I used cyber tracker in order to record the behaviors of dyads of Vervet monkeys in a box experiment on tolerance from September 2022 to September 2023
@@ -72,7 +72,7 @@ glimpse(Boxex)
 
 
 * I am now using the **view** function to have a sight on the entire dataset and **glimpse** to display a summary of my dataset
-* I have **20 columns** (here variables) and **2795 rows** (here trials)
+* I have **20 variables** (here columns) and **2795 trials** (here rows)
 
 * I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call **Bex**
 
