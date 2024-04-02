@@ -94,8 +94,8 @@ glimpse(Boxex)
 * **Time**                  : 
      "Time is coded" in a **POSIXct** format 
      
-    * I do not plan to use this variable but we can see that "Time" has hours displayed with a date which is incorrect. 
-    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior) **(Isbell & Young 1993)**I would need to correct the incorrect display of the date in the dataset.
+    * I do not plan to use this variable but we can see that "Time" has the correct hours displayed with a date which is incorrect. 
+    * (In the case I wanted to observe **when the trials occurred during the day** as time may have an influence on their behavior (**Isbell & Young 1993**)) I would need to correct the incorrect display of the date in the dataset.
     * This variable could also be useful to see when  the **seasonal effect** took place as we only went in the morning during summer because of the heat while we went later and for longer times in the          field to do the box experiment in winter 
     * For now, the values in "Time" are all on the same (wrong) day which is the **31st  of December** 
     * Note: I first did not intend to keep **Time** in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.
@@ -104,12 +104,12 @@ glimpse(Boxex)
     "Data" is coded as **character**
     * It describes **the type of data** being recorded in the software **cybertracker**. We installed the software on tablets to record the different behaviors of vervet monkeys in our research center
     * In our case, my data was recorded in cybertracker as **Box Experiment** as we created a form specifically for this experiment
-    * For this reason we can remove this column as the information is unecessary
+    * For this reason we can remove this column since the information it contains is unecessary and redundant
       
 * Group             : chr 
     The data is coded in r as a **character**
     * It describes the **group of monkey** in which we did the trial
-    * I will keep this column to see theamount of trials that we did in the 3 group of monkeys which are Baie-Dankie **(BD)**, Ankhase **(AK)**, and Noha **(NH)**
+    * I will keep this column to see the amount of trials that we did in the 3 group of monkeys which are Baie-Dankie **(BD)**, Ankhase **(AK)**, and Noha **(NH)**
       
 * GPSS                   : num 
     "GPSS" is coded as **numerical**
@@ -123,55 +123,55 @@ glimpse(Boxex)
   
 * **MaleID**             : chr 
     "MaleID" is coded as **character**
-    * It gives the **name of the male involved in the trial**
+    * It indicates the **name of the male involved in the trial**
     * I plan to use this to see how factors related to the individual may influence the            experiment (age, sex, rank)
     * It will also help me see which behaviour was displayed by each individuals (here males)
   
   
 * **FemaleID**           : chr
     "FemaleID" is coded as **character**
-    * It gives the **name of the female involved in the trial**
+    * It indicates the **name of the female involved in the trial**
     * I plan to use this variable in the same way as "Male ID"
     * It will also help me see which behaviour was displayed by each individuals (here females)
     
 * **Male placement corn**: dbl
     "Male placement corn is coded in r as **double**
-    * It gives the **amount of corn given to the monkey of the dyad before the trials**
+    * It gives the **amount of corn given to the male of the dyad before the trials**
     * Within a session it happened that we gave more placement corn to attract the monkeys again to the boxes. This lead to an update of the number in the same session. The number found at the end of the         session is the total placement corn an individual has received
-    * I will fuse this column with **male corn***as the data has been separated between these two variables. This is due to a mistake when creating the original box experiment form in cybertracker
+    * I will fuse this column with **male corn** as the data has been separated between these two variables. This is due to a mistake when creating the original box experiment form in cybertracker
     
     * This variable could be related to the level of motivation of a monkey but as it is not directly related to my hypothesis I may not use this column. I will re-consider the use of this column later on
     * In regards of this possibility I will change the format of the variable to numerical 
   
 * **MaleCorn**           : dbl
     "MaleCorn" is coded in r as **double**
-    * It gives the same information as in ***male placement corn***
+    * It gives the same information as in **male placement corn**
     * I will import the values from "male placement corn" into this one
     * I will change the format of the variable to numerical 
     
     
 * **FemaleCorn**         : dbl
     The data is coded in r as **double**
-    * It gives the **amount of corn given to the monkey before the trials**
+    * It gives the **amount of corn given to the female of the dyad before the trials**
     * It works in the same way as "male placement corn"/"MaleCORN"
-    * I will change the format of the varaible to numerical 
+    * I will change the format of the variable to numerical 
   
   
 * **DyadDistance**       : chr 
     The data is coded in r as **character**
-    * I gives the **distance for each trial** we have done with the dyads. 
+    * It gives the **distance for each trial** that we have done with the dyads. 
     * The trial number 1 for each dyad was at 5 meters. 
     * The maximum was around 10 m while the minimum is 0
-    * We will have to remove the "m" for meters in order to have a numerical variable insterad of character
-    
+    * We will have to remove the "m" for meters in order to have a numerical variable instead of character
+    * Also, since the very first trials per dyad can be considered as a kind of learning phase, i may remove the **15 first trials** that were made for each dyad
   
 * **DyadResponse**       : chr 
     The data is coded in r as **character**
-    * It gives the code of **the behaviour produced by each dyad per trial**
+    * It indicated which **behaviour was produced by the dyad's during each trial**
     * The different behaviours were: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
     * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**    into dichotomic variables in order to see the frequency of each behaviour
-    * This will allow me to see which behavior occured more than others, and what differences are between dydads 
-    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
+    * This will allow me to see which behavior occurred more ,and behavioural differences could be found between dyads 
+    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column **remarks**
       1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
       2. assign as few labels per trial 
       3. get a better view and understanding of the data and the most common behaviours produced by each dyad
@@ -201,32 +201,31 @@ glimpse(Boxex)
   
 * **OtherResponse**      : chr 
     "The data"OtherResponse" is coded as **character**
-    * It describes **Any behaviour that is not included in the  ones from Dyad Response**     (meaning ≠ tolerance, aggression, intrusion, loosing interest, not approaching, distracted)
-    * I will have to look at every **OtherResponse** and rename each entry in one of the response already if exstiting. I will proceed case by case.
-    * If I want to do an intermediate manipulation I may rename every NA in "OtherResponse" into **Response** to see the amount of case to treat and how many occurences seem to not fit in the categories of        "DyadResponse"
+    * It describes **any behaviour that is different from the ones found in Dyad Response**     (meaning ≠ tolerance, aggression, intrusion, loosing interest, not approaching, distracted, looks at partner that where categorized as **other**)
+    * I will have to look at every **OtherResponse** and rename each entry in one of the response already if existing. I will proceed case by case.
+    * If I want to do an intermediate manipulation I may rename every NA in "OtherResponse" into **Response** to see the amount of case to treat and how many occurrences seem to not fit in the categories of  "DyadResponse"
     
 * **Audience**      : chr 
-    "Audience" is r as **character**
+    "Audience" is in r as **character**
     * It gives the **names of the individuals in the audience**
-    * I would like to use it to see the **amount of audience (big vs small)**     and the **dominance level of the audience (high vs low)** 
+    * I would like to use it to see the **amount of audience (big vs small)** and the **dominance level of the audience (high vs low)** 
     * I will create a variable called **NAudience** to see hoy many individuals are in the audience for each trial
     * After calculating the elo ratings of the individuals using another dataset (Life history), I will create a dichotomic variable called **RankAudience** to see effects related to rank with the effect of audience
     
 * **IDIndividual1**      : chr 
     "IDIndividual1" is coded in r as **character**
-    * It gives the **names of the individuals that did not approach, showed aggression, distraction or lost interest** during a trial
+    * It gives the **names of the individuals that did not approach, showed aggression, got distracted or lost interest** during a trial
     * I will have to look at it to see how often these behaviors occurred
     * I will consider how to use this variable during the cleaning of the data
     
 * **IntruderID**         : chr 
     "IndtruderID" is coded as **character**
-    * It gives the **name of the individual that did an intrusion during a trial**
-    * Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the other individual
-    * I will have to check if there is a rule (ex. each intrsuion = no corn/tolerance, or if it depends from case to case)
+    * It gives the **name of the individual that did intruded the experiment during a trial**
+    * Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the dyad's individuals
     
 * **Remarks**            : chr 
     The data is coded in r as **character**
-    * It gives supplementary information concerning the experiment when unusual behaviors occurred or when we considered adding informations on the trial was necessary
+    * It gives either additional information concerning the experiment when unusual behaviors occurred , mistakes that needed to be corrected or details that we wanted to record in        case we would need them
     
 * Observers               .chr
     The data is coded in r as **character**

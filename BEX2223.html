@@ -237,8 +237,8 @@ pre code {
 </ul></li>
 <li><p><strong>Time</strong> : “Time is coded” in a <strong>POSIXct</strong> format</p>
 <ul>
-<li>I do not plan to use this variable but we can see that “Time” has hours displayed with a date which is incorrect.</li>
-<li>(In the case I wanted to observe <strong>when the trials occurred during the day</strong> as time may have an influence on their behavior) <strong>(Isbell &amp; Young 1993)</strong>I would need to correct the incorrect display of the date in the dataset.</li>
+<li>I do not plan to use this variable but we can see that “Time” has the correct hours displayed with a date which is incorrect.</li>
+<li>(In the case I wanted to observe <strong>when the trials occurred during the day</strong> as time may have an influence on their behavior (<strong>Isbell &amp; Young 1993</strong>)) I would need to correct the incorrect display of the date in the dataset.</li>
 <li>This variable could also be useful to see when the <strong>seasonal effect</strong> took place as we only went in the morning during summer because of the heat while we went later and for longer times in the field to do the box experiment in winter</li>
 <li>For now, the values in “Time” are all on the same (wrong) day which is the <strong>31st of December</strong></li>
 <li>Note: I first did not intend to keep <strong>Time</strong> in Bex but I needed this variable to see the order of the trails within a day. I finally decided to keep it.</li>
@@ -247,12 +247,12 @@ pre code {
 <ul>
 <li>It describes <strong>the type of data</strong> being recorded in the software <strong>cybertracker</strong>. We installed the software on tablets to record the different behaviors of vervet monkeys in our research center</li>
 <li>In our case, my data was recorded in cybertracker as <strong>Box Experiment</strong> as we created a form specifically for this experiment</li>
-<li>For this reason we can remove this column as the information is unecessary</li>
+<li>For this reason we can remove this column since the information it contains is unecessary and redundant</li>
 </ul></li>
 <li><p>Group : chr The data is coded in r as a <strong>character</strong></p>
 <ul>
 <li>It describes the <strong>group of monkey</strong> in which we did the trial</li>
-<li>I will keep this column to see theamount of trials that we did in the 3 group of monkeys which are Baie-Dankie <strong>(BD)</strong>, Ankhase <strong>(AK)</strong>, and Noha <strong>(NH)</strong></li>
+<li>I will keep this column to see the amount of trials that we did in the 3 group of monkeys which are Baie-Dankie <strong>(BD)</strong>, Ankhase <strong>(AK)</strong>, and Noha <strong>(NH)</strong></li>
 </ul></li>
 <li><p>GPSS : num “GPSS” is coded as <strong>numerical</strong></p>
 <ul>
@@ -266,50 +266,51 @@ pre code {
 </ul></li>
 <li><p><strong>MaleID</strong> : chr “MaleID” is coded as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>name of the male involved in the trial</strong></li>
+<li>It indicates the <strong>name of the male involved in the trial</strong></li>
 <li>I plan to use this to see how factors related to the individual may influence the experiment (age, sex, rank)</li>
 <li>It will also help me see which behaviour was displayed by each individuals (here males)</li>
 </ul></li>
 <li><p><strong>FemaleID</strong> : chr “FemaleID” is coded as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>name of the female involved in the trial</strong></li>
+<li>It indicates the <strong>name of the female involved in the trial</strong></li>
 <li>I plan to use this variable in the same way as “Male ID”</li>
 <li>It will also help me see which behaviour was displayed by each individuals (here females)</li>
 </ul></li>
 <li><p><strong>Male placement corn</strong>: dbl “Male placement corn is coded in r as <strong>double</strong></p>
 <ul>
-<li><p>It gives the <strong>amount of corn given to the monkey of the dyad before the trials</strong></p></li>
+<li><p>It gives the <strong>amount of corn given to the male of the dyad before the trials</strong></p></li>
 <li><p>Within a session it happened that we gave more placement corn to attract the monkeys again to the boxes. This lead to an update of the number in the same session. The number found at the end of the session is the total placement corn an individual has received</p></li>
-<li><p>I will fuse this column with <strong>male corn</strong>*as the data has been separated between these two variables. This is due to a mistake when creating the original box experiment form in cybertracker</p></li>
+<li><p>I will fuse this column with <strong>male corn</strong> as the data has been separated between these two variables. This is due to a mistake when creating the original box experiment form in cybertracker</p></li>
 <li><p>This variable could be related to the level of motivation of a monkey but as it is not directly related to my hypothesis I may not use this column. I will re-consider the use of this column later on</p></li>
 <li><p>In regards of this possibility I will change the format of the variable to numerical</p></li>
 </ul></li>
 <li><p><strong>MaleCorn</strong> : dbl “MaleCorn” is coded in r as <strong>double</strong></p>
 <ul>
-<li>It gives the same information as in <strong><em>male placement corn</em></strong></li>
+<li>It gives the same information as in <strong>male placement corn</strong></li>
 <li>I will import the values from “male placement corn” into this one</li>
 <li>I will change the format of the variable to numerical</li>
 </ul></li>
 <li><p><strong>FemaleCorn</strong> : dbl The data is coded in r as <strong>double</strong></p>
 <ul>
-<li>It gives the <strong>amount of corn given to the monkey before the trials</strong></li>
+<li>It gives the <strong>amount of corn given to the female of the dyad before the trials</strong></li>
 <li>It works in the same way as “male placement corn”/“MaleCORN”</li>
-<li>I will change the format of the varaible to numerical</li>
+<li>I will change the format of the variable to numerical</li>
 </ul></li>
 <li><p><strong>DyadDistance</strong> : chr The data is coded in r as <strong>character</strong></p>
 <ul>
-<li>I gives the <strong>distance for each trial</strong> we have done with the dyads.</li>
+<li>It gives the <strong>distance for each trial</strong> that we have done with the dyads.</li>
 <li>The trial number 1 for each dyad was at 5 meters.</li>
 <li>The maximum was around 10 m while the minimum is 0</li>
-<li>We will have to remove the “m” for meters in order to have a numerical variable insterad of character</li>
+<li>We will have to remove the “m” for meters in order to have a numerical variable instead of character</li>
+<li>Also, since the very first trials per dyad can be considered as a kind of learning phase, i may remove the <strong>15 first trials</strong> that were made for each dyad</li>
 </ul></li>
 <li><p><strong>DyadResponse</strong> : chr The data is coded in r as <strong>character</strong></p>
 <ul>
-<li>It gives the code of <strong>the behaviour produced by each dyad per trial</strong></li>
+<li>It indicated which <strong>behaviour was produced by the dyad’s during each trial</strong></li>
 <li>The different behaviours were: <strong>Distracted</strong>, <strong>Female aggress male</strong>, <strong>Male aggress female</strong>, <strong>Intrusion</strong>, <strong>Loosing interest</strong>, <strong>Not approaching</strong>, <strong>Tolerance</strong> and <strong>Other</strong></li>
 <li>I will change the columns associated to each behavior (i.e. Response) of <strong>DyadResponse</strong> into dichotomic variables in order to see the frequency of each behaviour</li>
-<li>This will allow me to see which behavior occured more than others, and what differences are between dydads</li>
-<li>As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a hierarchy to reduce the amount of behaviors assigned to each trial (if there is more than one). This will also be complemented with the information found in the column comments
+<li>This will allow me to see which behavior occurred more ,and behavioural differences could be found between dyads</li>
+<li>As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a hierarchy to reduce the amount of behaviors assigned to each trial (if there is more than one). This will also be complemented with the information found in the column <strong>remarks</strong>
 <ol style="list-style-type: decimal">
 <li>correct any mistakes (ex. if tolerance and aggression are together aggression&gt;tolerance)</li>
 <li>assign as few labels per trial</li>
@@ -342,11 +343,11 @@ pre code {
 </ul></li>
 <li><p><strong>OtherResponse</strong> : chr “The data”OtherResponse” is coded as <strong>character</strong></p>
 <ul>
-<li>It describes <strong>Any behaviour that is not included in the ones from Dyad Response</strong> (meaning ≠ tolerance, aggression, intrusion, loosing interest, not approaching, distracted)</li>
-<li>I will have to look at every <strong>OtherResponse</strong> and rename each entry in one of the response already if exstiting. I will proceed case by case.</li>
-<li>If I want to do an intermediate manipulation I may rename every NA in “OtherResponse” into <strong>Response</strong> to see the amount of case to treat and how many occurences seem to not fit in the categories of “DyadResponse”</li>
+<li>It describes <strong>any behaviour that is different from the ones found in Dyad Response</strong> (meaning ≠ tolerance, aggression, intrusion, loosing interest, not approaching, distracted, looks at partner that where categorized as <strong>other</strong>)</li>
+<li>I will have to look at every <strong>OtherResponse</strong> and rename each entry in one of the response already if existing. I will proceed case by case.</li>
+<li>If I want to do an intermediate manipulation I may rename every NA in “OtherResponse” into <strong>Response</strong> to see the amount of case to treat and how many occurrences seem to not fit in the categories of “DyadResponse”</li>
 </ul></li>
-<li><p><strong>Audience</strong> : chr “Audience” is r as <strong>character</strong></p>
+<li><p><strong>Audience</strong> : chr “Audience” is in r as <strong>character</strong></p>
 <ul>
 <li>It gives the <strong>names of the individuals in the audience</strong></li>
 <li>I would like to use it to see the <strong>amount of audience (big vs small)</strong> and the <strong>dominance level of the audience (high vs low)</strong></li>
@@ -355,19 +356,18 @@ pre code {
 </ul></li>
 <li><p><strong>IDIndividual1</strong> : chr “IDIndividual1” is coded in r as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>names of the individuals that did not approach, showed aggression, distraction or lost interest</strong> during a trial</li>
+<li>It gives the <strong>names of the individuals that did not approach, showed aggression, got distracted or lost interest</strong> during a trial</li>
 <li>I will have to look at it to see how often these behaviors occurred</li>
 <li>I will consider how to use this variable during the cleaning of the data</li>
 </ul></li>
 <li><p><strong>IntruderID</strong> : chr “IndtruderID” is coded as <strong>character</strong></p>
 <ul>
-<li>It gives the <strong>name of the individual that did an intrusion during a trial</strong></li>
-<li>Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the other individual</li>
-<li>I will have to check if there is a rule (ex. each intrsuion = no corn/tolerance, or if it depends from case to case)</li>
+<li>It gives the <strong>name of the individual that did intruded the experiment during a trial</strong></li>
+<li>Intrusion could mean, invade the space of the experiment and interact with one of our individual, steal the food, show agnostic behavior, stand in very close proximity of the dyad’s individuals</li>
 </ul></li>
 <li><p><strong>Remarks</strong> : chr The data is coded in r as <strong>character</strong></p>
 <ul>
-<li>It gives supplementary information concerning the experiment when unusual behaviors occurred or when we considered adding informations on the trial was necessary</li>
+<li>It gives either additional information concerning the experiment when unusual behaviors occurred , mistakes that needed to be corrected or details that we wanted to record in case we would need them</li>
 </ul></li>
 <li><p>Observers .chr The data is coded in r as <strong>character</strong></p>
 <ul>
