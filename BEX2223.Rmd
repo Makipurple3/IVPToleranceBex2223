@@ -336,7 +336,7 @@ remaining_na <- sum(is.na(Bex$FemaleCorn))
 cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
 ```
 
-### 2.2 Identifying variables with missing data
+### 2.2 Cleaning variables with missing data
 
 * Now in order to see where are located the missing points in the data, I'm going to **print** the variables **with and without NA's**
 
@@ -399,43 +399,26 @@ if (!"NoRemarks" %in% names(Bex)) {
 
 ```
 
-* Since **Remarks** contain information that could be distributed in other columns, corrections or additional information, I will explore and clean this variable now. 
+* Since the column **Remarks** contains information that could be distributed in other columns, corrections or additional information, I will explore and clean this variable now. 
 * After the replacement of the NA's in Remarks with **No Remarks**, I found out that we have **614 Remarks** that I need to treat
 
 
-```{r Remarks Exploration, echo=FALSE}
 
-unique_remarks <- unique(Bex$Remarks)
-head(unique_remarks)
+* In order to ease the identification of key words in the remarks, I used an AI to analyze the **614 unique outputs of Remarks** to find some of the main keywords:"open", "work", "trial", "approach", "scare", "intrude", "stole", "steal", "corn", "ate", "audience", "sec", "before", "after", "left", "na", "foraging", "alarm"
 
-library(dplyr)
-library(stringr)
-library(ggplot2)
+* From this output I decided to explore the  **614** unique outputs of Remarks by identifying the **amount of lines and the rows where there are the following key words**: 
+1. "open", "work", "trial"
+2."approach", "scare", "intrude", "stole", "steal", "corn", "ate"
+3. "numerical value", "m", "distance"
+4. "3 code letter", "four code letter"
+5. "audience", 
+6. "sec", "before", "after", "left", 
+7. "na", 
+8. "foraging"
+9. "alarm"
 
-# Define the keywords list properly before the loop
-keywords <- c("open", "work", "trial", "approach", "scare", "intrude", "stole", "steal", "corn", "ate", "audience", "sec", "before", "after", "left", "na", "foraging", "alarm")
-
-# Reinitialize to store updated counts
-keyword_counts <- data.frame(Keyword = character(), Counts = integer(), stringsAsFactors = FALSE)
-
-# Recalculate counts
-for (kw in keywords) {
-  count <- sum(str_detect(tolower(Bex$Remarks), kw))
-  keyword_counts <- rbind(keyword_counts, data.frame(Keyword = kw, Counts = count))
-}
-
-# Plot with counts on bars
-ggplot(keyword_counts, aes(x = reorder(Keyword, -Counts), y = Counts)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  geom_text(aes(label = Counts), hjust = -0.1, size = 3) +
-  coord_flip() +
-  labs(title = "Frequency of Keywords in Remarks (Excluding 'm', 'numerical value', '3 code letter', 'four code letter')", x = "Keyword", y = "Frequency") +theme_minimal()
-```
-
-* In order to ease the identification of key words in the remarks, I used an AI to analyze the **614 unique outputs of Remarks** to find some of the main keywords:
-
-
-1. Equipment and Procedure Related
+* We have;
+1. Equipment and Procedure Related words
     - Keywords: "did not open", "opened early", "did not work", "first trial"
     - Examples: "Nge box did not open because of the battery", "opened seychelles box early by accident"
    
@@ -472,23 +455,44 @@ ggplot(keyword_counts, aes(x = reorder(Keyword, -Counts), y = Counts)) +
     - Examples: "There was an alarm and we left the boxes on the ground"
     - Action: Log these as environmental or technical notes that may have influenced the experiment.
     
-* From this output I decided to explore the 508 **WHY 508 IF BEFORE I SAID  614** unique outputs of Remarks by identifying the **amount of lines and the rows where there are the following key words**: 
-1. "open", "work", "trial"
-2."approach", "scare", "intrude", "stole", "steal", "corn", "ate"
-3. "numerical value", "m", "distance"
-4. "3 code letter", "four code letter"
-5. "audience", 
-6. "sec", "before", "after", "left", 
-7. "na", 
-8. "foraging"
-9. "alarm"
 
 
 ##### Vizualization of the Remarks Keywords
 Before making any changes I will make a barplot of the main keywords in the column remarks to see what they are and in which proportion they are found. It has to be noted that some of the words are used in different contexts and have different meaning. This is why I will not create any rule from it
 
 
+```{r Remarks Exploration, echo=FALSE}
 
+unique_remarks <- unique(Bex$Remarks)
+head(unique_remarks)
+
+library(dplyr)
+library(stringr)
+library(ggplot2)
+
+# Define the keywords list properly before the loop
+keywords <- c("open", "work", "trial", "approach", "scare", "intrude", "stole", "steal", "corn", "ate", "audience", "sec", "before", "after", "left", "na", "foraging", "alarm")
+
+# Reinitialize to store updated counts
+keyword_counts <- data.frame(Keyword = character(), Counts = integer(), stringsAsFactors = FALSE)
+
+# Recalculate counts
+for (kw in keywords) {
+  count <- sum(str_detect(tolower(Bex$Remarks), kw))
+  keyword_counts <- rbind(keyword_counts, data.frame(Keyword = kw, Counts = count))
+}
+
+# Plot with counts on bars
+ggplot(keyword_counts, aes(x = reorder(Keyword, -Counts), y = Counts)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = Counts), hjust = -0.1, size = 3) +
+  coord_flip() +
+  labs(title = "Frequency of Main Keywords in Remarks", x = "Keyword", y = "Frequency") +theme_minimal()
+
+
+
+
+```
 
 
 ```{r Checking for keywords in Remarks, include=FALSE}
@@ -564,6 +568,32 @@ kable(sorted_line_counts, caption = "Counts of Keywords in Remarks (Ordered by C
 
 
 ###### 2.3.1.2 Detailed cleaning of Remarks
+
+* Before cleaning the column remarks I am going to make a backup of ma data
+
+```{r Backup before cleaning remarks, include=FALSE}
+# Save the current Bex dataframe to a file
+saveRDS(Bex, file = "Bex_backup_before_changes_in_remarks.rds")
+
+```
+
+* For easier manipulation and less coding I will transform my data into a data.table to make batch processing when redistributing the information found in the column remarks. once I an finished cleaning the remarks (or the dataset depending of the use) I will transform again the data table into a dataframe
+
+```{r Change dataframe in datatable, echo=FALSE}
+
+library(data.table)
+
+setDT(Bex)
+
+
+```
+
+
+
+
+
+
+
 
 
 * **Remarks - alarm (x1)**
