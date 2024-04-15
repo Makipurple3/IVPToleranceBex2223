@@ -577,23 +577,15 @@ saveRDS(Bex, file = "Bex_backup_before_changes_in_remarks.rds")
 
 ```
 
-* For easier manipulation and less coding I will transform my data into a data.table to make batch processing when redistributing the information found in the column remarks. once I an finished cleaning the remarks (or the dataset depending of the use) I will transform again the data table into a dataframe
+* For easier manipulation and less coding I will transform my data into a data.table to make batch processing when redistributing the information found in the column remarks. once I am finished cleaning the remarks (or the dataset depending of the use) I will transform again the data table into a data table
 
 ```{r Change dataframe in datatable, echo=FALSE}
-
+# Convert Bex to data.table if it's not already
 library(data.table)
-
-setDT(Bex)
-
-
+if (!is.data.table(Bex)) {
+  setDT(Bex) 
+}
 ```
-
-
-
-
-
-
-
 
 
 * **Remarks - alarm (x1)**
@@ -602,34 +594,35 @@ setDT(Bex)
  -Here is the content of the column Remarks for row 1816: There was an alarm and we left the boxes on the ground. Kom came to the box and then left. Oort came and Kom came back immediately. No camera footage.
 
 1. I want to create a column **Context** where every cell will be filled with "No Context"; this column will be used to insert any **information related to context as BGE, Aggression, Affiliative interaction and so on** when the context could be relevant
-1.1 I want the line 1816 of "Context" to display "Alarm Event"
-2. I want to create a column "Special behaviour" where every cell says "No"; this column will be used to insert any particular behaviour noted during the experiment as **Coming back to the box, getting robbed** and so on
-2.1 I want the line 1816 of "Special behaviour" to says "Back to box; Kom"
-3. I want to replace the line 1816 of "Remarks" with "Treated"
+1.1. I want the line 1816 of "Context" to display "Alarm Event"
+2. I want to create a column "Special behaviour" where every cell says "No" per default; this column will be used to insert any particular behaviour noted during the experiment as **Coming back to the box, getting robbed** and so on in order to keep track of these occurences
+2.1. In the case of the row with the keyword "alarm", I want the line 1816 of "Special behaviour" to display "Back to box; Kom"
+3.Once this is done, I want to replace the line 1816 of "Remarks" with "Treated"
  
 ```{r Remarks - alarm, echo=FALSE}
-
-# Check if "Context" and "SpecialBehaviour" columns exist, create if not
-if (!"Context" %in% names(Bex)) {
-  Bex$Context <- rep("No Context", nrow(Bex))
+# Ensure that Context and SpecialBehaviour columns exist
+if (!("Context" %in% names(Bex))) {
+    Bex[, Context := "No Context"]
+}
+if (!("SpecialBehaviour" %in% names(Bex))) {
+    Bex[, SpecialBehaviour := "No"]
 }
 
-if (!"SpecialBehaviour" %in% names(Bex)) {
-  Bex$SpecialBehaviour <- rep("No", nrow(Bex))
-}
 
-# Update row 1816 only if it hasn't been treated before
-if (Bex$Remarks[1816] != "Treated") {
-  Bex$Context[1816] <- "Alarm Event"
-  Bex$SpecialBehaviour[1816] <- "Back to box;Kom"
-  Bex$Remarks[1816] <- "Treated"
-}
+# Display all rows containing 'alarm' to understand the current data state, using a case-insensitive search
+print(Bex[grep("alarm", tolower(Remarks)), .(Remarks, Context, SpecialBehaviour)])
 
-# Optional: View the modified rows (especially row 1816) to confirm the changes
-print(Bex[1816, c("Remarks", "Context", "SpecialBehaviour")])
+# Apply changes for the "Alarm" event if it hasn't been treated yet
+Bex[tolower(Remarks) %like% "alarm" & Remarks != "Treated", 
+    `:=` (Context = "Alarm Event", 
+          SpecialBehaviour = "Back to box; Kom", 
+          Remarks = "Treated")]
 
-Bex_row_1816 <- Bex[1816, ]
-print(Bex_row_1816)
+# Confirm the changes by filtering for the updated "Context"
+print(Bex[Context == "Alarm Event", .(Remarks, Context, SpecialBehaviour)])
+
+# Additionally, verify changes by directly referencing the row if the index is known
+print(Bex[.I == 1816, .(Remarks, Context, SpecialBehaviour)])
 
 
 ```
@@ -642,23 +635,19 @@ print(Bex_row_1816)
   2. I want to put "Treated" in the column "Remarks" in line 1892
   3. I want to be sure the code is safe for multiple run
 ```{r Remarks - foraging,echo=FALSE}
-# Ensure "Context" column exists, create if not
-if (!"Context" %in% names(Bex)) {
-  Bex$Context <- rep("No Context", nrow(Bex))
-}
 
-# Update row 1892 only if it hasn't been treated before
-if (Bex$Remarks[1892] != "Treated") {
-  Bex$Context[1892] <- "Foraging"
-  Bex$Remarks[1892] <- "Treated"
-}
+# Display the row with keyword "foraging" before changes to ensure it exists
+print(Bex[Remarks %like% "foraging", .(Remarks, Context)])
 
-# Optional: View the modified row (especially row 1892) to confirm the changes
-print(Bex[1892, c("Remarks", "Context")])
+# Update safely for the "Foraging" event if it hasn't been treated yet
+Bex[Remarks %like% "foraging" & Remarks != "Treated", 
+    `:=` (Context = "Foraging", Remarks = "Treated")]
 
+# Confirm the changes by filtering with the updated content
+print(Bex[Context == "Foraging", .(Remarks, Context, SpecialBehaviour)])
 
-Bex_row_1892 <- Bex[1892, ]
-print(Bex_row_1892)
+# #Check the of the row from row number and not keyword 
+print(Bex[1892, .(Remarks, Context, SpecialBehaviour)])
 
 ```
 
@@ -669,62 +658,35 @@ print(Bex_row_1892)
   
   -Here is the content of the column Remarks for row 52 and 2249: Sirk was scared by Oerw & oerw was scared to take the corn and nge ate her corn
    
-  1. I want to put "Scared;Sirky by Oerw" in the line 52 of the column "SpecialBehaviour" and "Scared;Oerw by Nge" in the line 2249 of the same column
+  1. I want to put "Scared;Sirk by Oerw" in the line 52 of the column "SpecialBehaviour" and "Scared;Oerw by Nge" in the line 2249 of the same column
   2. I want to put "Intrusion" in the line 52 of the column "Context"
   3. I want to create a column called "Got Corn" that will display "Yes" in every row and replace the row 2249 by "No;Oerw"
   4. I want to put "Treated" in the column "Remarks" in line 52 and 2249 once the changes have been done
   5. I want to be sure the code is safe for multiple run even when using the row number
   
 ```{r Remarks - scare, echo=FALSE}
-# Check if Bex dataframe is available
-if (!("Bex" %in% ls())) {
-  cat("Error: Dataframe 'Bex' not found.\n")
-} else {
-  # Create 'SpecialBehaviour' column if it doesn't exist
-  if (!"SpecialBehaviour" %in% colnames(Bex)) {
-    Bex$SpecialBehaviour <- rep("No", nrow(Bex))
-  }
-  
-  # Create 'Context' column if it doesn't exist
-  if (!"Context" %in% colnames(Bex)) {
-    Bex$Context <- rep("No Context", nrow(Bex))
-  }
 
-  # Create 'Got Corn' column if it doesn't exist
-  if (!"Got Corn" %in% colnames(Bex)) {
-    Bex$`Got Corn` <- rep("Yes", nrow(Bex))
-  }
-
-  # Update 'SpecialBehaviour' only if it is "No"
-  if (Bex$SpecialBehaviour[52] == "No") {
-    Bex$SpecialBehaviour[52] <- "Scared;Sirky by Oerw"
-  }
-  if (Bex$SpecialBehaviour[2249] == "No") {
-    Bex$SpecialBehaviour[2249] <- "Scared;Oerw by Nge"
-  }
-
-  # Update 'Context' only if it is "No Context"
-  if (Bex$Context[52] == "No Context") {
-    Bex$Context[52] <- "Intrusion"
-  }
-
-  # Update 'Got Corn' only if it is "Yes"
-  if (Bex$`Got Corn`[2249] == "Yes") {
-    Bex$`Got Corn`[2249] <- "No;Oerw"
-  }
-
-  # Update 'Remarks' only if it is not already "Treated"
-  if (Bex$Remarks[52] != "Treated") {
-    Bex$Remarks[52] <- "Treated"
-  }
-  if (Bex$Remarks[2249] != "Treated") {
-    Bex$Remarks[2249] <- "Treated"
-  }
-
-  # View the modified rows
-  Bex[c(52, 2249), ]
+# Initialize 'Got Corn' if not present and apply changes
+if (!"Got Corn" %in% names(Bex)) {
+    Bex[, `Got Corn` := "Yes"]
 }
 
+# Display the rows before changes
+print(Bex[Remarks %in% c("Sirk was scared by Oerw", "oerw was scared to take the corn and nge ate her corn"), .(Remarks, Context, SpecialBehaviour, `Got Corn`)])
+
+
+# Batch update for "Scare" event safely, avoiding direct row references
+Bex[Remarks %in% c("Sirk was scared by Oerw", "oerw was scared to take the corn and nge ate her corn") & Remarks != "Treated", 
+    `:=` (SpecialBehaviour = fifelse(Remarks == "Sirk was scared by Oerw", "Scared; Sirky by Oerw", "Scared; Oerw by Nge"),
+          Context = fifelse(Remarks == "Sirk was scared by Oerw", "Intrusion", Context),
+          `Got Corn` = fifelse(Remarks == "oerw was scared to take the corn and nge ate her corn", "No; Oerw", `Got Corn`),
+          Remarks = "Treated")]
+
+# Verify the changes for the involved rows after update
+print(Bex[Remarks == "Treated" & (Context == "Intrusion" | `Got Corn` == "No; Oerw"), .(Remarks, Context, SpecialBehaviour, `Got Corn`)])
+
+# Check the row numbers 52 and 2249 after changes
+print(Bex[.I %in% c(52, 2249), .(Remarks, Context, SpecialBehaviour, `Got Corn`)])
 ```
 
 
