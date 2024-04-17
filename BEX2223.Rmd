@@ -697,20 +697,21 @@ print(Bex[c(52, 2249), .(Remarks, Context, SpecialBehaviour, `Got Corn`)])
 # Define the keyword for removal
 keyword_to_remove <- "work"
 
-# Find rows where the Remarks column contains the keyword
+# Display rows containing 'work' before changes
+print(Bex[str_detect(tolower(Bex$Remarks), keyword_to_remove), .(Remarks)])
+
+# Find and mark rows for removal based on the keyword
 rows_to_remove <- which(str_detect(tolower(Bex$Remarks), keyword_to_remove))
-
-# Check if the rows have already been removed
 if (!all(is.na(Bex$Remarks[rows_to_remove]))) {
-    # Remove rows where 'Remarks' contain 'work' and are not already NA
-    Bex$Remarks[rows_to_remove] <- NA
-
-    # Reporting
-    num_rows_modified <- sum(!is.na(Bex$Remarks[rows_to_remove]))
-    cat("Number of rows modified:", num_rows_modified, "\n")
+    Bex$Remarks[rows_to_remove] <- NA  # NA used to 'remove' the remark
+    cat("Number of rows modified:", length(rows_to_remove), "\n")
 } else {
     cat("No rows need modification.\n")
 }
+
+# Display rows after changes to verify
+print(Bex[str_detect(tolower(Bex$Remarks), keyword_to_remove), .(Remarks)])
+
 
 ```
 
