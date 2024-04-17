@@ -731,6 +731,66 @@ pre code {
 ## 1: No Context               No</code></pre>
 <pre><code>##    Remarks     Context SpecialBehaviour
 ## 1: Treated Alarm Event Back to box; Kom</code></pre>
+<pre><code>##                      Time       Date       Group MaleID FemaleID FemaleCorn
+##    1: 1899-12-31 09:47:50 2022-09-27 Baie Dankie    Nge     Oerw          0
+##    2: 1899-12-31 09:50:07 2022-09-27 Baie Dankie    Nge     Oerw          0
+##    3: 1899-12-31 09:53:11 2022-09-27 Baie Dankie    Nge     Oerw          0
+##    4: 1899-12-31 09:54:28 2022-09-27 Baie Dankie    Nge     Oerw          0
+##    5: 1899-12-31 09:55:19 2022-09-27 Baie Dankie    Nge     Oerw          0
+##   ---                                                                      
+## 2791: 1899-12-31 08:19:45 2022-09-16 Baie Dankie    Sey     Sirk          0
+## 2792: 1899-12-31 08:20:20 2022-09-16 Baie Dankie    Sey     Sirk          0
+## 2793: 1899-12-31 08:20:44 2022-09-16 Baie Dankie    Sey     Sirk          0
+## 2794: 1899-12-31 08:21:13 2022-09-16 Baie Dankie    Sey     Sirk          0
+## 2795: 1899-12-31 08:21:52 2022-09-16 Baie Dankie    Sey     Sirk          0
+##       DyadDistance        DyadResponse OtherResponse        Audience
+##    1:           2m           Tolerance          &lt;NA&gt; Obse; Oup; Sirk
+##    2:           2m           Tolerance          &lt;NA&gt; Obse; Oup; Sirk
+##    3:           1m           Tolerance          &lt;NA&gt;       Oup; Sirk
+##    4:           1m           Tolerance          &lt;NA&gt;            Sirk
+##    5:           0m           Tolerance          &lt;NA&gt;       Sey; Sirk
+##   ---                                                               
+## 2791:           1m           Tolerance          &lt;NA&gt;            &lt;NA&gt;
+## 2792:           1m           Tolerance          &lt;NA&gt;            &lt;NA&gt;
+## 2793:           0m           Tolerance          &lt;NA&gt;            &lt;NA&gt;
+## 2794:           0m Male aggress female          &lt;NA&gt;            &lt;NA&gt;
+## 2795:           1m           Tolerance          &lt;NA&gt;            &lt;NA&gt;
+##       IDIndividual1 IntruderID
+##    1:          &lt;NA&gt;       &lt;NA&gt;
+##    2:          &lt;NA&gt;       &lt;NA&gt;
+##    3:          &lt;NA&gt;       &lt;NA&gt;
+##    4:          &lt;NA&gt;       &lt;NA&gt;
+##    5:          &lt;NA&gt;       &lt;NA&gt;
+##   ---                         
+## 2791:          &lt;NA&gt;       &lt;NA&gt;
+## 2792:          &lt;NA&gt;       &lt;NA&gt;
+## 2793:          &lt;NA&gt;       &lt;NA&gt;
+## 2794:          &lt;NA&gt;       &lt;NA&gt;
+## 2795:          &lt;NA&gt;       &lt;NA&gt;
+##                                                                                                   Remarks
+##    1:                                                                                          No Remarks
+##    2:                                                                                          No Remarks
+##    3: Nge box did not open because of the battery. Oerw vocalized to MA when he ap to the box to open it.
+##    4:                                                           Sey came to the boxes once they were open
+##    5:                                                                                          No Remarks
+##   ---                                                                                                    
+## 2791:                                                                                    unknown audience
+## 2792:                                                                                    unknown audience
+## 2793:                                                              unknown audience. sey attempt to steal
+## 2794:                                                                                    unknown audience
+## 2795:                                                                                sey inspect sirk box
+##       MaleCorn    Context SpecialBehaviour
+##    1:        3 No Context               No
+##    2:        3 No Context               No
+##    3:        3 No Context               No
+##    4:        3 No Context               No
+##    5:        3 No Context               No
+##   ---                                     
+## 2791:        0 No Context               No
+## 2792:        0 No Context               No
+## 2793:        0 No Context               No
+## 2794:        0 No Context               No
+## 2795:        0 No Context               No</code></pre>
 <ul>
 <li><p><strong>Remarks - foraging (1x)</strong> Row: <strong>1892</strong></p>
 <p>-Here is the content of the column Remarks for row 1892:Monkeys are all actively foraging</p>
@@ -791,11 +851,20 @@ pre code {
 </ul>
 <p>3.(Context) We will also update the column <strong>Context</strong> for the row <strong>2209</strong> by replacing the value by <strong>Intrusion;Obse</strong></p></li>
 </ul>
-<pre><code>## Number of occurrences of &#39;not open&#39;: 11</code></pre>
-<pre><code>## Rows with &#39;not open&#39;: 3, 280, 991, 1114, 1330, 1452, 1466, 1526, 1585, 1972, 2371</code></pre>
 <pre><code>##                  Audience Got Corn        Context
 ##  1: Sey;Piep;Sirk;Oup;Ome   No;Unk     No Context
-##  2:                  &lt;NA&gt;      Yes     No Context
+##  2: Sey;Piep;Sirk;Oup;Ome      Yes     No Context
+##  3:             Dix; Sirk   No;Kom     No Context
+##  4:            Oort; Skem   No;Nge     No Context
+##  5:       Kom; Oort; Sirk  No;Oerw     No Context
+##  6:        Piep; Sey; Xia  No;Xian     No Context
+##  7:            Sari; Skem  No;Xian     No Context
+##  8:        Ome; Oup; Puol   No;Sey     No Context
+##  9:                  Sirk   No;Sho     No Context
+## 10:                  &lt;NA&gt;  No;Piep Intrusion;Obse</code></pre>
+<pre><code>##                  Audience Got Corn        Context
+##  1: Sey;Piep;Sirk;Oup;Ome   No;Unk     No Context
+##  2: Sey;Piep;Sirk;Oup;Ome      Yes     No Context
 ##  3:             Dix; Sirk   No;Kom     No Context
 ##  4:            Oort; Skem   No;Nge     No Context
 ##  5:       Kom; Oort; Sirk  No;Oerw     No Context
@@ -832,15 +901,15 @@ pre code {
 <li>Replace the values that have been treated with <strong>Treated</strong> in the column “Remarks”</li>
 </ol></li>
 </ul>
-<pre><code>## [1] &quot;Row 1124 :  male steal corn&quot;
-## [1] &quot;Row 1176 :  xian steal 1 corn from pom&quot;
-## [1] &quot;Row 1194 :  oort was stealing from kom&#39;s box&quot;
-## [1] &quot;Row 1318 :  Sey tried to steal but not successful&quot;
-## [1] &quot;Row 1426 :  Buk attempted to steal food&quot;
-## [1] &quot;Row 1553 :  Attempt to steal food but not sucessful&quot;
-## [1] &quot;Row 2611 :  xia tried to steal food from piep without success&quot;
-## [1] &quot;Row 2793 :  unknown audience. sey attempt to steal&quot;
-## Total number of occurrences of the keyword &#39; steal &#39;:  8</code></pre>
+<pre><code>##                                     Remarks SpecialBehaviour Got Corn
+## 1:                               No Remarks               No      Yes
+## 2:                               No Remarks               No      Yes
+## 3:                               No Remarks               No      Yes
+## 4:                               No Remarks               No      Yes
+## 5:                               No Remarks               No      Yes
+## 6:                               No Remarks               No      Yes
+## 7: Sf sirk ap after he left and he ap again               No      Yes
+## 8:                               No Remarks               No      Yes</code></pre>
 <pre><code>##    Remarks SpecialBehaviour Got Corn
 ## 1: Treated          ASF;Buk      Yes
 ## 2: Treated          ASF;Buk   No;Kom
