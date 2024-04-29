@@ -412,10 +412,15 @@ pre code {
 <div id="merging-male-placement-corn-and-malecorn" class="section level4">
 <h4>2.1.1 Merging Male placement corn and MaleCorn</h4>
 <ul>
-<li><p>I want to process all the missing data in Bex. But before, I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</p></li>
-<li><p>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></p></li>
-<li><p>Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</p></li>
-<li><p>I will first <strong>rename MaleCorn to MaleCornOld</strong>, then <strong>check the amount of NA’s</strong> and then <strong>merge “MaleCornOld” and “male placement corn”</strong> into the <strong>new variable “MaleCorn”</strong></p></li>
+<li>I want to process all the missing data in Bex. But before, I will merge the column <strong>MaleCorn</strong> and <strong>Male placement corn</strong> as the data of both columns is supposed to be together under “MaleCorn”</li>
+<li>Looking manually in the Bex table it seems that very few data is in <strong>MaleCorn</strong> while most of it seems to be in <strong>Male placement corn</strong></li>
+<li>Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´</li>
+<li>I will first <strong>rename MaleCorn to MaleCornOld</strong>, then <strong>check the amount of NA’s</strong> and then <strong>merge “MaleCornOld” and “male placement corn”</strong> into the <strong>new variable “MaleCorn”</strong></li>
+</ul>
+<pre><code>## Number of rows with common NAs in MaleCornOld and &#39;Male placement corn&#39;: 1499 
+## Number of occurrences of 0 in MaleCorn: 1499 
+## Number of remaining NA values in MaleCorn: 0</code></pre>
+<ul>
 <li><p>I have found <strong>1499 NA in common</strong> between MaleCornOld and ‘male placement corn’, <strong>1609 NA in Male placement corn</strong> and <strong>2685 in MaleCorn old</strong></p></li>
 <li><p>For the <strong>merge of MaleCornOld and Male placement corn</strong>, I used different conditions: 1.In this code, a new variable MaleCorn is created. If there is a missing value in Male placement corn, it takes the corresponding value from MaleCornOld; otherwise, it takes the value from Male placementcorn. 2.If there are no value in both MaleCornOld and Male placement corn (NA,NA) for a given row, I would like the code to display 0 as it means that no placement was given</p></li>
 <li><p>In this way, I should not loose any data, minimize the mistakes and already transform the NA’s of this variable into a number which will remove the remaining NA’s which are meant to be 0</p></li>
@@ -522,6 +527,7 @@ pre code {
 <li><p>ID Individual1 2143</p></li>
 <li><p>IntruderID 2737</p></li>
 <li><p>Remarks 2181</p></li>
+<li><p>Before making treating the NA’s in the dataset I will make a backup of the data at this point:</p></li>
 </ul>
 </div>
 <div id="treating-variables-with-missing-data" class="section level3">
@@ -531,7 +537,7 @@ pre code {
 <ul>
 <li><p>Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA’s out of 2795 rows</p></li>
 <li><p>I will first transform every missing data in the column Remark into <strong>No Remarks</strong> and then check that the amount of “No remarks” found</p></li>
-<li><p>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> and we have no missing data left in that column</p></li>
+<li><p>After the changes we can effectively see that we have <strong>2181 “No Remarks”</strong> and we have no missing data left in that column, I will treat this column by hand once all the NA’s have been removed from the dataset</p></li>
 </ul>
 <pre><code>## Number of &#39;No Remarks&#39; in the &#39;Remarks&#39; column: 2181</code></pre>
 <pre><code>## 
@@ -552,29 +558,38 @@ pre code {
 </ul>
 </div>
 <div id="cleaning-idindividual1---2143-nas" class="section level4">
-<h4>2.3.3 Cleaning “IdIndividual1” - (2143 NA’s)</h4>
+<h4>2.3.3 Cleaning “IDIndividual1” - (2143 NA’s)</h4>
 <ul>
-<li>IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
-<li>I will now replace every NA in this column by <strong>No individual</strong></li>
-<li>And <strong>if there are more than one value per cell</strong>, report it in a new column called “&gt;1 Response”</li>
+<li>IDIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial</li>
+<li>I will now replace every NA in this column by <strong>No individual</strong> and print the amount of NA’s left and the amount of changes made</li>
 </ul>
+<pre><code>## Number of NAs replaced in IDIndividual1: 2143 
+## Number of remaining NA values in IDIndividual1: 0</code></pre>
 </div>
-<div id="cleaning-audience" class="section level4">
-<h4>2.6 Cleaning “Audience”</h4>
+<div id="cleaning-audience---924-nas" class="section level4">
+<h4>2.6 Cleaning “Audience” - (924 NA’S)</h4>
 <ul>
 <li>Audience is made to report every name of individuals around our dyad during a given trial</li>
 <li>I will replace every NA by <strong>No audience</strong> as no entry means the absence of other individuals around</li>
 <li>I will also create a new variable called “Amount audience” that will have to tell me how many individuals are found in the column Audience</li>
 </ul>
+<pre><code>## Number of changes made in &#39;Audience&#39;: 924</code></pre>
+<pre><code>## Remaining NA values in &#39;Audience&#39;: 0</code></pre>
 </div>
-<div id="cleaning-otherresponse" class="section level4">
-<h4>2.7 Cleaning “OtherResponse”</h4>
+<div id="cleaning-otherresponse---2758-nas" class="section level4">
+<h4>2.7 Cleaning “OtherResponse” - (2758 NA’S)</h4>
+<pre><code>## Number of changes made in &#39;OtherResponse&#39;: 2758</code></pre>
+<pre><code>## Remaining NA values in &#39;OtherResponse&#39;: 0</code></pre>
 </div>
 <div id="cleaning-of-time" class="section level4">
 <h4>2.8 Cleaning of “Time”</h4>
 <ul>
-<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added <strong>Time</strong> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now</li>
+<li>Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added <strong>Time</strong> in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will now extract the time from the date. Even if the date is wrong as seen in the first output, the time is correct. As in the second output, only the time has been kept</li>
 </ul>
+<pre><code>## [1] &quot;1899-12-31 09:47:50 UTC&quot; &quot;1899-12-31 09:50:07 UTC&quot;
+## [3] &quot;1899-12-31 09:53:11 UTC&quot; &quot;1899-12-31 09:54:28 UTC&quot;
+## [5] &quot;1899-12-31 09:55:19 UTC&quot; &quot;1899-12-31 09:56:56 UTC&quot;</code></pre>
+<pre><code>## [1] &quot;09:47:50&quot; &quot;09:50:07&quot; &quot;09:53:11&quot; &quot;09:54:28&quot; &quot;09:55:19&quot; &quot;09:56:56&quot;</code></pre>
 </div>
 <div id="cleaning-dyaddistance" class="section level4">
 <h4>2.9 Cleaning DyadDistance</h4>
@@ -733,11 +748,9 @@ pre code {
 </div>
 <div id="final-check-remaing-nas-in-bex" class="section level4">
 <h4>2.12 Final check: remaing NA’s in Bex?</h4>
-<pre><code>## Columns with NA values: DyadDistance, DyadResponse, IDIndividual1, MultipleResponses</code></pre>
+<pre><code>## Columns with NA values: DyadDistance, DyadResponse</code></pre>
 <pre><code>## Number of NA values in DyadDistance : 1 
-## Number of NA values in DyadResponse : 6 
-## Number of NA values in IDIndividual1 : 2056 
-## Number of NA values in MultipleResponses : 148</code></pre>
+## Number of NA values in DyadResponse : 6</code></pre>
 <ul>
 <li><p>The remaining rows with NA’s are the row <strong>866</strong> that I will delete since no information at all is available for the DyadResponse. Concerning the row <strong>1211</strong> we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to “Other”</p></li>
 <li><p>It seems now that no NA’s are remaining in the dataset, we can thus continue with the process of cleaning the dataset</p></li>
@@ -1114,10 +1127,24 @@ pre code {
 <ol start="2" style="list-style-type: decimal">
 <li>Create the variable called <strong>Dyad</strong> created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here;</li>
 </ol>
-<pre><code>Var1    Freq</code></pre>
-<p>Buk Ginq 6 Buk Ndaw 257 vs 255! Kom Oort 366 vs 324! +26! Kom Ginq! 2! Nge Oerw 181 vs 163 + 18! Pom Guat 5 Pom Xian 257 vs 251! Sey Sirk 584 vs 544! vs 17! Sho Ginq 273 vs 272! Xia Piep 606 vs 35!+ 567! Xin Oort 4 Xin Ouli 185 vs 27!+ 157!</p>
+<p>New output! : 2673 trials Old output : 2724 trials</p>
+<p>–&gt;51 rows missing!</p>
+<ul>
+<li><p>Buk Ginq 6</p></li>
+<li><p>Buk Ndaw 257 vs 255!</p></li>
+<li><p>Kom Oort 366 vs 324! +26!</p></li>
+<li><p>Kom Ginq! 2!</p></li>
+<li><p>Nge Oerw 181 vs 163 + 18!</p></li>
+<li><p>Pom Guat 5</p></li>
+<li><p>Pom Xian 257 vs 251!</p></li>
+<li><p>Sey Sirk 584 vs 544! vs 17!</p></li>
+<li><p>Sho Ginq 273 vs 272!</p></li>
+<li><p>Xia Piep 606 vs 35!+ 567!</p></li>
+<li><p>Xin Oort 4</p></li>
+<li><p>Xin Ouli 185 vs 27!+ 157!</p>
 <ul>
 <li>They are a few <strong>wrong dyads</strong> that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences</li>
+</ul></li>
 </ul>
 <pre><code>##  [1]  601  602  603  604  605  903 2642 2643 2644 2645</code></pre>
 <pre><code>## [1] &quot;Buk Ginq&quot; &quot;Xin Oort&quot;</code></pre>
@@ -1411,7 +1438,10 @@ pre code {
 - Not approaching &gt;?&gt; Loosing interest ? !! - Define distracted - Not approaching &gt; Distracted - Aggression &gt; Not approaching - Other &gt; Look case by case and categorize depending of behavior<br />
 - Remarks may be used for the same reason</p>
 <ul>
-<li>First I want to see how many rows in DyadResponse have more than one entry per cell</li>
+<li><p>First I want to see how many rows in DyadResponse have more than one entry per cell</p>
+<ul>
+<li>And <strong>if there are more than one value per cell</strong>, report it in a new column called “MultipleResponses”</li>
+</ul></li>
 </ul></li>
 </ul>
 <pre><code>## Number of rows with multiple entries in DyadResponse:  223</code></pre>
@@ -1510,7 +1540,6 @@ pre code {
 <div id="code-to-settle" class="section level1">
 <h1>Code to settle</h1>
 <p>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong></p>
-<pre><code>## The &#39;MultipleResponses&#39; column already exists. No changes made.</code></pre>
 <p>{r Check changes of dichotomic variables}</p>
 <div id="exploratory-graph-to-organise" class="section level3">
 <h3>Exploratory Graph (To organise)</h3>
@@ -2078,6 +2107,7 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 </tr>
 </tbody>
 </table>
+<p>```beforeNA</p>
 </div>
 </div>
 

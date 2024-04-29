@@ -261,57 +261,38 @@ View(Bex)
 * Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
 * I will first **rename MaleCorn to MaleCornOld**, then **check the amount of NA's** and then **merge "MaleCornOld" and "male placement corn"** into the **new variable "MaleCorn"**
 
-```{r handling MaleCorn to MaleCornOld, include=FALSE}
+```{r handling MaleCorn to MaleCornOld, echo=FALSE}
 
 # Check if the dataset has the necessary columns before proceeding 
 if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
-
+  
   # Rename MaleCorn to MaleCornOld
   names(Bex)[names(Bex) == "MaleCorn"] <- "MaleCornOld"
 
-  # Check the structure of Bex to confirm the changes
-  str(Bex)
-
-  # Check for missing values in MaleCornOld
-  NA_MaleCornOld <- Bex[is.na(Bex$MaleCornOld) | is.na(Bex$`Male placement corn`), ]
-  print(NA_MaleCornOld)
-
-  # Check the intersection of rows with NA in MaleCornOld and Male placement corn
-  Cross_NA <- Bex[is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`), ]
-  head(Cross_NA)
-
-  # Count the number of rows where both MaleCornOld and 'Male placement corn' have NA values
-  common_na_count <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`) & !is.na(Bex$MaleCornOld) & !is.na(Bex$`Male placement corn`))
-  # Print the result
+  # Calculate and print the number of common NAs before any operations
+  common_na_count <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`))
   cat("Number of rows with common NAs in MaleCornOld and 'Male placement corn':", common_na_count, "\n")
 
-  # Check the amount of common NA between MaleCornOld and Male placement corn
-  common_nas <- sum(is.na(Bex$MaleCornOld) & is.na(Bex$`Male placement corn`))
-  print(common_nas)
+  # Create a new variable MaleCorn with no NAs, replacing NA with the first available value or 0
+  Bex$MaleCorn <- ifelse(is.na(Bex$`Male placement corn`), Bex$MaleCornOld, Bex$`Male placement corn`)
+  Bex$MaleCorn[is.na(Bex$MaleCorn)] <- 0
 
-  # Create a new variable MaleCorn
-  Bex$MaleCorn <- ifelse(!is.na(Bex$MaleCornOld) | !is.na(Bex$`Male placement corn`), coalesce(Bex$MaleCornOld, Bex$`Male placement corn`), 0)
-  
-   # Count occurrences of 0 in MaleCorn
+  # Count occurrences of 0 in MaleCorn and print the result
   zero_count <- sum(Bex$MaleCorn == 0)
   cat("Number of occurrences of 0 in MaleCorn:", zero_count, "\n")
 
-  # Check the structure of Bex to confirm the changes
-  str(Bex)
+  # Remove the original MaleCornOld and Male placement corn columns
+  Bex$MaleCornOld <- NULL
+  Bex$`Male placement corn` <- NULL
 
-  # Remove the original MaleCornOld and Male placement corn
-  Bex$MaleCornOld <- Bex$`Male placement corn` <- NULL
-
-  # Check for missing values in the new MaleCorn
-  NA_MaleCorn <- Bex[is.na(Bex$MaleCorn), ]
-  print(NA_MaleCorn)
+  # Check for remaining missing values in the new MaleCorn and print if any
+  remaining_na <- sum(is.na(Bex$MaleCorn))
+  cat("Number of remaining NA values in MaleCorn:", remaining_na, "\n")
 
 } else {
   # Display a message or take alternative actions if columns are missing
   cat("Error: Required columns not found in the dataset.\n")
 }
-
-
 
 ```
 
@@ -367,13 +348,19 @@ kable(missing_data[missing_data == 0])
 * IntruderID 2737
 * Remarks 2181
 
+* Before making treating the NA's in the dataset I will make a backup of the data at this point: 
+```{r backup berfore NA cleaning, echo=FALSE}
+# Create a backup of the Bex dataset
+Bex_beforeNA <- Bex
+```   
+
 ### 2.3 Treating variables with missing data
 
 #### 2.3.1 Cleaning "Remarks" - (2181 NA's)
 * Since most of the time we did not have any remarks it is understandable that this variable contains 2181 NA's out of 2795 rows
 * I will first transform every missing data in the column Remark into **No Remarks** and then check that the amount of "No remarks" found 
 
-* After the changes we can effectively see that we have **2181 "No Remarks"** and we have no missing data left in that column
+* After the changes we can effectively see that we have **2181 "No Remarks"** and we have no missing data left in that column, I will treat this column by hand once all the NA's have been removed from the dataset
 
 ```{r Remarks NA, echo=FALSE}
 
@@ -394,7 +381,6 @@ if (!"NoRemarks" %in% names(Bex)) {
 } else {
   cat("The 'NoRemarks' column already exists. No changes made.\n")
 }
-
 
 
 ```
@@ -426,68 +412,98 @@ Bex$Intrusion <- ifelse(Bex$IntruderID == "No Intrusion", 0, 1)
 ```
 * We previously had 2737 NA's in IntruderID while now we have the same amount of occurrences of IntruderID which shis that the transformation went as intended
 
-#### 2.3.3 Cleaning "IdIndividual1" - (2143 NA's)
+#### 2.3.3 Cleaning "IDIndividual1" - (2143 NA's)
 
-* IdIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial
-* I will now replace every NA in this column by **No individual**
-* And **if there are more than one value per cell**, report it in a new column called ">1 Response"
+* IDIndividual1 is meant to report the name of the individual that did a behavior such as not approach, show aggression or loose interest during a trial
+* I will now replace every NA in this column by **No individual** and print the amount of NA's left and the amount of changes made
+
   
   
-```{r IdIndividual1 NA, echo=FALSE}
-# Check if the "MultipleResponses" column already exists
-if (!"MultipleResponses" %in% names(Bex)) {
-  # Replace NA in IDindividual1 by "No individual"
+```{r IDIndividual1 NA, echo=FALSE}
+# Check if the "IDIndividual1" column exists in the dataset
+if ("IDIndividual1" %in% names(Bex)) {
+  # Count initial NA's for reference
+  initial_na_count <- sum(is.na(Bex$IDIndividual1))
 
-# Check for multiple responses
-  Bex$MultipleResponses <- ifelse(
-    Bex$IDIndividual1 != "No individual" & grepl("; ", Bex$DyadResponse),
-    ">1 Response",
-    ifelse(Bex$IDIndividual1 != "No individual" & grepl(", ", Bex$DyadResponse), ">1 Response", "Single Response")
-  )
+  # Replace NA in IDIndividual1 with "No individual"
+  Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
 
+  # Calculate the number of changes made (should be equal to initial_na_count if no other changes occurred)
+  changes_made <- initial_na_count
 
+  # Check for remaining NAs (there should be none left)
+  remaining_na <- sum(is.na(Bex$IDIndividual1))
+
+  # Print the results
+  cat("Number of NAs replaced in IDIndividual1:", changes_made, "\n")
+  cat("Number of remaining NA values in IDIndividual1:", remaining_na, "\n")
 } else {
-  cat("The 'MultipleResponses' column already exists. No changes made.\n")
+  # If the column does not exist, print a message
+  cat("Error: 'IDIndividual1' column not found in the dataset.\n")
 }
 
-```
-  
 
-#### 2.6 Cleaning "Audience"
+```
+
+
+
+#### 2.6 Cleaning "Audience" - (924 NA'S)
 * Audience is made to report every name of individuals around our dyad during a given trial
 * I will replace every NA by **No audience** as no entry means the absence of other individuals around
 * I will also create a new variable called "Amount audience" that will have to tell me how many individuals are found in the column Audience 
 
 ```{r Audience NA, echo=FALSE}
-#Creating amount of audience
+# Initial count of NA in Audience
+initial_na_audience <- sum(is.na(Bex$Audience))
+
+# Creating amount of audience
 Bex$AmountAudience <- ifelse(is.na(Bex$Audience), 0, lengths(strsplit(Bex$Audience, "; ")))
 
-#Changing NA's in No audience
+# Changing NA's in Audience to "No audience"
 Bex$Audience[is.na(Bex$Audience)] <- "No audience"
 
+# Calculate and print the number of changes made
+changes_made_audience <- initial_na_audience - sum(is.na(Bex$Audience))
+cat("Number of changes made in 'Audience':", changes_made_audience, "\n")
+
+# Remaining NA's in Audience
+remaining_na_audience <- sum(is.na(Bex$Audience))
+cat("Remaining NA values in 'Audience':", remaining_na_audience, "\n")
 ```
 
 
-#### 2.7 Cleaning "OtherResponse"
+#### 2.7 Cleaning "OtherResponse" - (2758 NA'S)
 ```{r OtherResposne NA, echo=FALSE}
+# Initial count of NA in OtherResponse
+initial_na_other_response <- sum(is.na(Bex$OtherResponse))
+
 # Replace NA in OtherResponse by "No Response"
 Bex$OtherResponse[is.na(Bex$OtherResponse)] <- "No Response"
 
+# Calculate and print the number of changes made
+changes_made_other_response <- initial_na_other_response - sum(is.na(Bex$OtherResponse))
+cat("Number of changes made in 'OtherResponse':", changes_made_other_response, "\n")
+
+# Remaining NA's in OtherResponse
+remaining_na_other_response <- sum(is.na(Bex$OtherResponse))
+cat("Remaining NA values in 'OtherResponse':", remaining_na_other_response, "\n")
 ```
 
 
 #### 2.8 Cleaning of "Time"
-* Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added **Time** in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will treat it now
+* Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added **Time** in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will now extract the time from the date. Even if the date is wrong as seen in the first output, the time is correct. As in the second output, only the time has been kept
 
-```{r Time, include=FALSE}
+```{r Time, echo=FALSE}
 
-# Assuming Bex is your dataframe
+head(Bex$Time)
+
 # Convert 'Time' to POSIXct format
 Bex$Time <- as.POSIXct(Bex$Time, format = "%Y-%m-%d %H:%M:%S")
 
 # Extract only the time from 'Time' and assign it update Time'
 Bex$Time <- format(Bex$Time, "%H:%M:%S")
 
+head(Bex$Time)
 
 ```
 
@@ -1038,19 +1054,23 @@ kable(table(Bex$Dyad))
 
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
 
-    Var1	Freq
-Buk Ginq	6
-Buk Ndaw	257 vs 255!
-Kom Oort	366 vs 324! +26!
-Kom Ginq! 2!
-Nge Oerw	181 vs 163 + 18!
-Pom Guat	5
-Pom Xian	257 vs 251!
-Sey Sirk	584 vs 544! vs 17!
-Sho Ginq	273 vs 272!
-Xia Piep	606 vs 35!+ 567!
-Xin Oort	4
-Xin Ouli	185 vs 27!+ 157!
+New output! : 2673 trials 
+Old output  : 2724 trials
+
+-->51 rows missing!
+
+* Buk Ginq	6
+* Buk Ndaw	257 vs 255!
+* Kom Oort	366 vs 324! +26!
+* Kom Ginq! 2!
+* Nge Oerw	181 vs 163 + 18!
+* Pom Guat	5
+* Pom Xian	257 vs 251!
+* Sey Sirk	584 vs 544! vs 17!
+* Sho Ginq	273 vs 272!
+* Xia Piep	606 vs 35!+ 567!
+* Xin Oort	4
+* Xin Ouli	185 vs 27!+ 157!
 
 
   * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
@@ -1281,6 +1301,12 @@ Bex <- Bex %>%
 
   * First I want to see how many rows in DyadResponse have more than one entry per cell
   
+    * And **if there are more than one value per cell**, report it in a new column called "MultipleResponses"
+
+
+  
+  
+  
 ```{r DyadResponse MultipleResponse, echo=FALSE}
 #Rows with more than1 character
 rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
@@ -1475,7 +1501,7 @@ I also chose to directly create new dichotomic variables for "Not approaching", 
 ```{r Create dichotomous variables, echo=FALSE}
 # Check if the "MultipleResponses" column already exists
 if (!"MultipleResponses" %in% names(Bex)) {
-  # Replace NA in IDindividual1 by "No individual"
+  # Replace NA in IDIndividual1 by "No individual"
   Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
 
   # Check for multiple responses
@@ -2043,3 +2069,4 @@ experiments made
 pander(head(Boxex), style = "rmarkdown", caption = "First Few Entries") 
 
 ```
+```beforeNA
