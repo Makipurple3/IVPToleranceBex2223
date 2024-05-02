@@ -508,7 +508,7 @@ head(Bex$Time)
 ```
 
 
-#### 2.9 Cleaning DyadDistance
+#### 2.9.1 Cleaning DyadDistance
 * Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to      have a numerical variable
 * Then I will look at the location of the NA's in the data to treat them case by case.
 
@@ -638,7 +638,13 @@ if ("DyadDistance" %in% names(Bex)) {
 * Now that I have looked at each missing line and saw which ones to keep, I decided to create a new variable called **Distance**. I will also to create a new variable called **No trial**.
 * For the variable **Distance** I will replace each row where there was missing data with a value and I will delete the ones where no values could be assigned. This will allow me to have no missing data and find a number to each trial that has been done
 
+* Before making the changes i'm gonna make a backup called **BackupbeforeDistanceNA**
 
+```{r BackupdistanceNA, echo=FALSE}
+# Create a backup of the dataset before making changes
+BackupbeforeDistanceNA <- Bex
+
+```
 
  
 ```{r Distance2, echo=FALSE}
@@ -681,10 +687,40 @@ if ("DyadDistance" %in% names(Bex)) {
 }
 
 
+
+# Find the row index where DyadDistance is NA
+na_row_index <- which(is.na(Bex$DyadDistance))
+
+# Print the row index
+cat("Row index with NA in DyadDistance:", na_row_index, "\n")
+
 ``` 
+*It seems that there is still the row 1925 with an NA in DyadDistance
+
+70. **1925** - In trial1923 (2m) there was distracted then at trial1924 (2m) there was tolerance. The 2725th trial is supposed to be at **2m**
+
+```{r LastNADyadDistance, echo = FALSE}
+# Adding the 1925th trial with the distance set to 2m
+Bex$DyadDistance[1925] <- 2
+
+# Find the row index where DyadDistance is NA
+na_row_index <- which(is.na(Bex$DyadDistance))
+
+# Print the row index
+cat("Row index with NA in DyadDistance:", na_row_index, "\n")
+
+# View the updated dataset
+View(Bex)
+
+```
+
+
+
 *In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don't exist, it proceeds with the modifications. This way, running the code multiple times won't cause redundant changes.
   
-* **23 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
+* **24 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
+
+#### 2.9.2 Creation of No Trial
 
 * Now I would like to create a dichotomic variable called **No trial** that will use the rows that I deleted in Distance. I would like this column to put 1 for every trial that was deleted from Distance. I will later on look again at this column. 
 * I decided to this since I remebered that the lines where we could not assign any distance happened when the monekys where
