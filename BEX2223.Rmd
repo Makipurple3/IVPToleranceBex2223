@@ -776,17 +776,44 @@ cat("Number of missing values in FemaleID not in MaleID: ", only_female_missing_
 cat("Row numbers with missing values in FemaleID not in MaleID: ", toString(only_female_missing_rows), "\n")
 
 
-
 ```
     
     
-* **FemaleID** has **44 NA's** while they are **18 NA's** in **Male ID**
+* **FemaleID** has **41 NA's** while they are **18 NA's** in **Male ID**
 * In these missing data, we have **18 NA's** that are in common between FemaleID and MaleID which represents the totality of the missing values in MaleID
-* Looking at he NA's in Male ID, we see that all the missing data except one entry, comes from the 19th of april 2023 in Noha. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trails made and the audience we can see that these NA's in female and male ID are in the rows 1699 to 1716 and should have been made with **Xian** for the female ID and **Pom** for the **MaleID**. I will thus replace these values using a condtion. These NA's in Noha (Trial 1699 to 1716) are the only NA's that MaleID has and are the only NA's of female ID in Noha. I will thus replace every NA of **MaleID NA in Noha** with **Pom** and every **Female ID NA in Noha** with **Xian**
 
+* All the missing data in MaleID are found in consecutive rows, from row **1693** to row **1710** and are from the group Noha (NH) on the 19th of april 2023. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trials made and the audience we can see that these NA's in female and male ID we can asses that the individuals involved were **Xian** for the female ID and **Pom** for the **MaleID**. I will thus replace these values using a condtion. These NA's in Noha (Trial 1693 to 1710) are the only NA's that MaleID has and are the only NA's of female ID in Noha. I will thus replace every NA of **MaleID NA in Noha** with **Pom** and every **Female ID NA in Noha** with **Xian**
+
+*UPDATES FROM HERE*
+
+
+```{r RemoveMaleIDNA, echo=FALSE}
+
+# Assuming Bex is your dataframe and you want to update it directly
+Bex <- Bex %>%
+  mutate(
+    MaleID = ifelse(is.na(MaleID) & Group == "Noha", "Pom", MaleID),
+    FemaleID = ifelse(is.na(FemaleID) & Group == "Noha", "Xian", FemaleID)
+  )
+
+# Checking and reporting the updated status of missing values
+# For MaleID
+male_missing_after <- sum(is.na(Bex$MaleID))
+cat("Number of remaining NA values in MaleID after replacement: ", male_missing_after, "\n")
+
+# For FemaleID
+female_missing_after <- sum(is.na(Bex$FemaleID))
+cat("Number of remaining NA values in FemaleID after replacement: ", female_missing_after, "\n")
+
+# For both MaleID and FemaleID
+both_missing_after <- sum(is.na(Bex$MaleID) & is.na(Bex$FemaleID))
+cat("Number of rows with missing values in both MaleID and FemaleID after replacement: ", both_missing_after, "\n")
+
+
+```
 
 ```{r Male ID NA, echo=FALSE}
-library(dplyr)
+View(Bex)
 
 # Update the dataset
 Bex <- Bex %>%
