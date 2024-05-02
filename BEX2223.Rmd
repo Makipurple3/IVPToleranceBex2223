@@ -1,15 +1,19 @@
 ---
-title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023" 
+title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023"
 output:
   html_document:
     df_print: paged
+    toc: true
+    toc_depth: 6
+    toc_float:
+      collapsed: false
+      smooth_scroll: true
 ---
-
-
 
 ```{r setup, include=FALSE}
 # Set global knitr options
 knitr::opts_chunk$set(echo = TRUE)
+
 ```
 
 <center>
@@ -18,10 +22,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 
-## Introduction
+# Introduction
 
 
-## 0.Opening the data
+# 0.Opening the data
 ### Loading data
 
 ```{r LoadData, include=FALSE}
@@ -54,7 +58,7 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 * Then, I installed the **readxl package** to import my dataset which is called **Box Experiments.xls**
 * This dataset contains information related to my master thesis project. I used cyber tracker in order to record the behaviors of dyads of Vervet monkeys in a box experiment on tolerance from September 2022 to September 2023
 
-## 1.Explore the data
+# 1.Explore the data
 
 ### Description of the initial datset - "Boxex"
 
@@ -240,9 +244,9 @@ glimpse(Boxex)
     
     
 
-## 2. Cleaning the data
+# 2. Cleaning the data
 
-### 2.1. Creating a new dataframe - Bex
+## 2.1. Creating a new dataframe - Bex
 * Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
 
 * I will keep Time, Date, Group, MaleID, FemaleID, MaleCorn, Male placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks
@@ -255,7 +259,7 @@ glimpse(Bex)
 View(Bex)
 ```
 
-#### 2.1.1 Merging Male placement corn and MaleCorn
+### 2.1.1 Merging Male placement corn and MaleCorn
 * I want to process all the missing data in Bex. But before, I will merge the column **MaleCorn** and **Male placement corn** as the data of both columns is supposed to be together under "MaleCorn"
 * Looking manually in the Bex table it seems that very few data is in **MaleCorn** while most of it seems to be in **Male placement corn**
 * Every time there is a missing value in Male placement corn we can see a value in Male Corn, I will then create a new variable MaleCorn where every time that there is NA in male placement corn the value will be taken in MaleCornOld (previous malecorn). If there is no NA it will take the value of ´Male placement corn´
@@ -306,7 +310,7 @@ if ("MaleCorn" %in% colnames(Bex) && "Male placement corn" %in% colnames(Bex)) {
 * After the merge I found that there were **no NA's remaining** in the **"New" Male Corn** and that **1499 0's** where found in the column which **corresponds to the amount of common NA's found previously** between the **"Old" Male Corn** and **male placement corn**
 
 
-#### 2.1.2 Cleaning FemaleCorn
+### 2.1.2 Cleaning FemaleCorn
 
 ```{r FemaleCorn, echo=FALSE}
 # Replace NA values in "FemaleCorn" with 0
@@ -386,7 +390,7 @@ if (!"NoRemarks" %in% names(Bex)) {
 ```
 
 
-#### 2.3.2 Cleaning "Intruder ID" - (2737 NA's)
+### 2.3.2 Cleaning "Intruder ID" - (2737 NA's)
 * **Intruder ID** is a variable that contains the **name of the individuals that made and intrusion during a trial**.
 * If more than one individual intruded, his name may be in the comments, which I will check when treating the data from this column
 * Because nothing was entered when there was no intrusion, I will replace every NA's by **No Intrusion**
@@ -447,7 +451,7 @@ if ("IDIndividual1" %in% names(Bex)) {
 
 
 
-#### 2.6 Cleaning "Audience" - (924 NA'S)
+### 2.6 Cleaning "Audience" - (924 NA'S)
 * Audience is made to report every name of individuals around our dyad during a given trial
 * I will replace every NA by **No audience** as no entry means the absence of other individuals around
 * I will also create a new variable called "Amount audience" that will have to tell me how many individuals are found in the column Audience 
@@ -472,7 +476,7 @@ cat("Remaining NA values in 'Audience':", remaining_na_audience, "\n")
 ```
 
 
-#### 2.7 Cleaning "OtherResponse" - (2758 NA'S)
+### 2.7 Cleaning "OtherResponse" - (2758 NA'S)
 ```{r OtherResposne NA, echo=FALSE}
 # Initial count of NA in OtherResponse
 initial_na_other_response <- sum(is.na(Bex$OtherResponse))
@@ -490,7 +494,7 @@ cat("Remaining NA values in 'OtherResponse':", remaining_na_other_response, "\n"
 ```
 
 
-#### 2.8 Cleaning of "Time"
+### 2.8 Cleaning of "Time"
 * Since the reading of the data is more complicated without the time, which was usefull to know which trial was before or after, I changed the code made for Bex and added **Time** in the dataframe. Since I will need it for the cleaning of Dyaddistance, I will now extract the time from the date. Even if the date is wrong as seen in the first output, the time is correct. As in the second output, only the time has been kept
 
 ```{r Time, echo=FALSE}
@@ -508,7 +512,7 @@ head(Bex$Time)
 ```
 
 
-#### 2.9 Cleaning DyadDistance
+### 2.9 Cleaning DyadDistance
 * Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to      have a numerical variable
 * Then I will look at the location of the NA's in the data to treat them case by case.
 
@@ -719,7 +723,7 @@ cat("Row index with NA in DyadDistance:", na_row_index, "\n")
 * **24 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
 
 
-#### 2.10 Cleaning Female and Male ID
+### 2.10 Cleaning Female and Male ID
 
 * Before cleaning Female and Male ID, here is a list of every dyad of the box experiment and their respective groups. This will help us find the missing names when only one individual is missing out of the duo (either male or female):
   a. Sirk & Sey - BD
@@ -784,7 +788,6 @@ cat("Row numbers with missing values in FemaleID not in MaleID: ", toString(only
 
 * All the missing data in MaleID are found in consecutive rows, from row **1693** to row **1710** and are from the group Noha (NH) on the 19th of april 2023. We can also see that trials had bee made in the same day, and looking at the time of the experiment, the previous trials made and the audience we can see that these NA's in female and male ID we can asses that the individuals involved were **Xian** for the female ID and **Pom** for the **MaleID**. I will thus replace these values using a condtion. These NA's in Noha (Trial 1693 to 1710) are the only NA's that MaleID has and are the only NA's of female ID in Noha. I will thus replace every NA of **MaleID NA in Noha** with **Pom** and every **Female ID NA in Noha** with **Xian**
 
-*UPDATES FROM HERE*
 
 
 ```{r RemoveMaleIDNA, echo=FALSE}
@@ -812,17 +815,9 @@ cat("Number of rows with missing values in both MaleID and FemaleID after replac
 
 ```
 
-```{r Male ID NA, echo=FALSE}
-View(Bex)
 
-# Update the dataset
-Bex <- Bex %>%
-  mutate(
-    MaleID = ifelse(Group == "Noha" & is.na(MaleID), "Pom", MaleID),
-    FemaleID = ifelse(Group == "Noha" & is.na(FemaleID), "Xian", FemaleID)
-  )
 
-```
+*UPDATES FROM HERE*
 
 
 * In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:
@@ -835,6 +830,22 @@ Bex <- Bex %>%
     - Oort if MaleID  is  Kom 
     - Ginq if MaleID  is  Sho 
     - Ndaw if MaleID  is  Buk 
+    
+    
+```{r FemaleMaleID Check}
+
+library(dplyr)
+
+# Using dplyr to summarize combinations of MaleID and FemaleID
+combinations_summary <- Bex %>%
+  group_by(MaleID, FemaleID) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  arrange(desc(Count))
+
+# View the results
+print(combinations_summary)
+
+```
 
 ```{r FemaleID, include=FALSE}
 
@@ -885,7 +896,7 @@ Number of missing values in MaleID:  18
 
 
 
-#### 2.12 Final check: remaing NA's in Bex?
+### 2.12 Final check: remaing NA's in Bex?
 
 ```{r Check if Remaing NA, echo=FALSE}
 # Find columns with NA values
@@ -949,7 +960,7 @@ print(variable_names)
 
 ```
 
-#### Time - Creation of Period nad Hour
+### Time - Creation of Period nad Hour
 * Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
 ```{r Time Periods, include=FALSE}
@@ -987,7 +998,7 @@ Bex <- Bex %>%
 
 ```
 
-#### Date - Creation of Month and Day
+### Date - Creation of Month and Day
 *  i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)
 ```{r Month and Day, include=FALSE}
 
@@ -1002,8 +1013,8 @@ Bex <- Bex %>%
 ```
 
 
-#### Group - Ok
-#### Male and Female ID - Creation of Dyad, Trial and Session
+### Group - Ok
+### Male and Female ID - Creation of Dyad, Trial and Session
 
 * I will use Female and Male ID to create different variables
   1. While checking if there are still any mistakes  in **FemaleID and MaleID** using **unique**, I saw that some of the names are in the wrong rows. I want the **3 letter male codes** whether they are in the column FemaleID or MaleID to be in the **new column Male** while I want the **4 letter female codes** whether they are in FemaleID or MaleID to be in the **new column Female** before checking again with unique that the transformation worked. I will use mutate
