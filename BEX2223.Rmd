@@ -508,7 +508,7 @@ head(Bex$Time)
 ```
 
 
-#### 2.9.1 Cleaning DyadDistance
+#### 2.9 Cleaning DyadDistance
 * Before looking at the NA's of Dyaddistance I will remove the "m" that is in front of every number to      have a numerical variable
 * Then I will look at the location of the NA's in the data to treat them case by case.
 
@@ -528,7 +528,7 @@ if ("DyadDistance" %in% names(Bex)) {
     NA_DyadDistance <- Bex[is.na(Bex$DyadDistance), ]
     
     # View the locations of NA values
-    View(NA_DyadDistance)
+    print(NA_DyadDistance)
     
     # Count the number of missing values in the DyadDistance column
     dyad_distance_missing_data <- Bex[is.na(Bex$DyadDistance), ]
@@ -709,8 +709,6 @@ na_row_index <- which(is.na(Bex$DyadDistance))
 # Print the row index
 cat("Row index with NA in DyadDistance:", na_row_index, "\n")
 
-# View the updated dataset
-View(Bex)
 
 ```
 
@@ -721,10 +719,9 @@ View(Bex)
 * **24 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
 
 
-
 #### 2.10 Cleaning Female and Male ID
 
-* Before cleaning Female and Male ID, here is a list of every dyad of the ebox experiment and their respective groups. This will help us find the missing names when only one individual is missing out of the duo (either male or female):
+* Before cleaning Female and Male ID, here is a list of every dyad of the box experiment and their respective groups. This will help us find the missing names when only one individual is missing out of the duo (either male or female):
   a. Sirk & Sey - BD
   b. Ouli & Xin - BD
   c. Piep & Xia - BD
@@ -737,30 +734,12 @@ View(Bex)
   h. Xian & Pom - AK
   i. Guat & Pom - Ak
   
-* First I have to check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. 
+* Note that the 4 letter codes correspond to the femalesID, the 3 letter codes to the males ID and the 2 letter codes to the group name
+
+* First I have to check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.
 
 
 ```{r FemaleMaleID NA, echo=FALSE}
-
-# Replace all NA values in MaleID and FemaleID with NA
-Bex <- Bex %>%
-  mutate(
-    MaleID = ifelse(is.na(MaleID), NA, MaleID),
-    FemaleID = ifelse(is.na(FemaleID), NA, FemaleID)
-  )
-
-# Checking for amount of  missing values in FemaleID and MaleID
-
-# Missing values in FemaleID
-female_missing_rows <- which(is.na(Bex$FemaleID))
-View(Bex[female_missing_rows, ])
-cat("Number of missing values in FemaleID: ", sum(is.na(Bex$FemaleID)), "\n")
-
-# Missing values in MaleID
-male_missing_rows <- which(is.na(Bex$MaleID))
-View(Bex[male_missing_rows, ])
-cat("Number of missing values in MaleID: ", sum(is.na(Bex$MaleID)), "\n")
-
    
 # Checking for location of missing values in FemaleID and MaleID
 

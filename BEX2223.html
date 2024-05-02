@@ -592,13 +592,30 @@ pre code {
 <pre><code>## [1] &quot;09:47:50&quot; &quot;09:50:07&quot; &quot;09:53:11&quot; &quot;09:54:28&quot; &quot;09:55:19&quot; &quot;09:56:56&quot;</code></pre>
 </div>
 <div id="cleaning-dyaddistance" class="section level4">
-<h4>2.9.1 Cleaning DyadDistance</h4>
+<h4>2.9 Cleaning DyadDistance</h4>
 <ul>
 <li>Before looking at the NA’s of Dyaddistance I will remove the “m” that is in front of every number to have a numerical variable</li>
 <li>Then I will look at the location of the NA’s in the data to treat them case by case.</li>
 </ul>
 <pre><code>## Warning: NAs introduits lors de la conversion automatique</code></pre>
-<pre><code>## Number of NA values in DyadDistance column (using second approach): 69 
+<pre><code>## # A tibble: 69 × 16
+##    Time     Date                Group    MaleID FemaleID FemaleCorn DyadDistance
+##    &lt;chr&gt;    &lt;dttm&gt;              &lt;chr&gt;    &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+##  1 12:09:34 2022-09-27 00:00:00 Baie Da… Xia    Piep              7           NA
+##  2 12:13:28 2022-09-27 00:00:00 Baie Da… Xia    Piep              7           NA
+##  3 16:02:32 2022-09-15 00:00:00 Ankhase  Sho    Ginq              6           NA
+##  4 10:46:33 2023-08-17 00:00:00 Baie Da… Xia    Piep              0           NA
+##  5 09:30:17 2023-07-29 00:00:00 Baie Da… Xin    Ouli              0           NA
+##  6 12:08:51 2023-07-11 00:00:00 Baie Da… Xia    Piep              0           NA
+##  7 13:30:07 2023-06-29 00:00:00 Baie Da… Sey    Sirk              0           NA
+##  8 09:54:24 2023-06-27 00:00:00 Ankhase  Sho    Ginq              0           NA
+##  9 10:13:56 2023-06-23 00:00:00 Ankhase  Sho    Ginq              0           NA
+## 10 09:39:04 2023-06-15 00:00:00 Ankhase  Sho    Ginq              2           NA
+## # ℹ 59 more rows
+## # ℹ 9 more variables: DyadResponse &lt;chr&gt;, OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;,
+## #   IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;, Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;,
+## #   Intrusion &lt;dbl&gt;, AmountAudience &lt;dbl&gt;
+## Number of NA values in DyadDistance column (using second approach): 69 
 ## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729</code></pre>
 <ul>
 <li><p>We have 69 missing values in DyadDistance. I will look at each row in it’s context as the actual distance of the box was always dependent of the previous trials. I will start with the bigger number as for now the oldest trial is at the last row while the closest one is in row 1.</p>
@@ -699,7 +716,7 @@ pre code {
 <div id="cleaning-female-and-male-id" class="section level4">
 <h4>2.10 Cleaning Female and Male ID</h4>
 <ul>
-<li>Before cleaning Female and Male ID, here is a list of every dyad of the ebox experiment and their respective groups. This will help us find the missing names when only one individual is missing out of the duo (either male or female):
+<li><p>Before cleaning Female and Male ID, here is a list of every dyad of the box experiment and their respective groups. This will help us find the missing names when only one individual is missing out of the duo (either male or female):</p>
 <ol style="list-style-type: lower-alpha">
 <li><p>Sirk &amp; Sey - BD</p></li>
 <li><p>Ouli &amp; Xin - BD</p></li>
@@ -711,10 +728,9 @@ pre code {
 <li><p>Xian &amp; Pom - AK</p></li>
 <li><p>Guat &amp; Pom - Ak</p></li>
 </ol></li>
-<li>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense.</li>
+<li><p>Note that the 4 letter codes correspond to the femalesID, the 3 letter codes to the males ID and the 2 letter codes to the group name</p></li>
+<li><p>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.</p></li>
 </ul>
-<pre><code>## Number of missing values in FemaleID:  59</code></pre>
-<pre><code>## Number of missing values in MaleID:  18</code></pre>
 <pre><code>## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1884 1885 2619 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629</code></pre>
 <pre><code>## Number of missing values in FemaleID:  59</code></pre>
 <pre><code>## Row numbers with missing values in MaleID:  1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710</code></pre>
