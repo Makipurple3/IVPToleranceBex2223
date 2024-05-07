@@ -792,7 +792,7 @@ div.tocify {
 <pre><code>## Row index with NA in DyadDistance:</code></pre>
 <p>*In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don’t exist, it proceeds with the modifications. This way, running the code multiple times won’t cause redundant changes.</p>
 <ul>
-<li><strong>24 values</strong> were inserted in <strong>Distance</strong> to replace the NA’s where the distance could be found by looking at the previous rows. The <strong>46 remaining NA’s</strong> were then <strong>removed</strong> from Distance <strong>leaving 0 NA in Distance</strong></li>
+<li><strong>24 values</strong> were inserted in <strong>Distance</strong> to replace the NA’s where the distance could be found by looking at the previous rows. The <strong>46 remaining NA’s</strong> were then <strong>removed</strong> from Distance <strong>leaving 0 remaining NA in the variable “Distance”</strong></li>
 </ul>
 </div>
 <div id="cleaning-female-and-male-id" class="section level3">
@@ -810,8 +810,12 @@ div.tocify {
 <li><p>Xian &amp; Pom - AK</p></li>
 <li><p>Guat &amp; Pom - Ak</p></li>
 </ol></li>
-<li><p>Note that the 4 letter codes correspond to the femalesID, the 3 letter codes to the males ID and the 2 letter codes to the group name</p></li>
-<li><p>First I have to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.</p></li>
+<li><p>Note that the 4 letter codes correspond to the femaleID, the 3 letter codes to the males ID and the 2 letter codes to the group name of the monkeys</p></li>
+<li><p>Since they are 3 letter codes in the femaleID column and 4 letter codes in the maleID column, I want to correct this before removing the NA’s</p></li>
+</ul>
+<p>#CHANGES FROM HERE,</p>
+<ul>
+<li>Then I will I check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.</li>
 </ul>
 <pre><code>## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1884 1885 2619 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629</code></pre>
 <pre><code>## Number of missing values in FemaleID:  59</code></pre>

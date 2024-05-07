@@ -720,7 +720,7 @@ cat("Row index with NA in DyadDistance:", na_row_index, "\n")
 
 *In this modification, I added a check to see if the columns Dyadistance and Distance already exist in your dataframe (Bex). If they do, it prints a message saying that the modification has already been applied, and no changes are made. If they don't exist, it proceeds with the modifications. This way, running the code multiple times won't cause redundant changes.
   
-* **24 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 NA in Distance**
+* **24 values** were inserted in **Distance** to replace the NA's where the distance could be found by looking at the previous rows. The **46 remaining NA's** were then **removed** from Distance **leaving 0 remaining NA in  the variable "Distance"**
 
 
 ### 2.10 Cleaning Female and Male ID
@@ -738,9 +738,17 @@ cat("Row index with NA in DyadDistance:", na_row_index, "\n")
   h. Xian & Pom - AK
   i. Guat & Pom - Ak
   
-* Note that the 4 letter codes correspond to the femalesID, the 3 letter codes to the males ID and the 2 letter codes to the group name
+* Note that the 4 letter codes correspond to the femaleID, the 3 letter codes to the males ID and the 2 letter codes to the group name of the monkeys
 
-* First I have to check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.
+* Since they are 3 letter codes in the femaleID column and 4 letter codes in the maleID column, I want to correct this before removing the NA's
+
+#CHANGES FROM HERE, 
+
+
+
+
+
+* Then I will I check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.
 
 
 ```{r FemaleMaleID NA, echo=FALSE}
