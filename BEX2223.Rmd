@@ -740,15 +740,9 @@ cat("Row index with NA in DyadDistance:", na_row_index, "\n")
   
 * Note that the 4 letter codes correspond to the femaleID, the 3 letter codes to the males ID and the 2 letter codes to the group name of the monkeys
 
-* Since they are 3 letter codes in the femaleID column and 4 letter codes in the maleID column, I want to correct this before removing the NA's
-
-#CHANGES FROM HERE, 
 
 
-
-
-
-* Then I will I check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.
+* I need to check where are the NA's in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.
 
 
 ```{r FemaleMaleID NA, echo=FALSE}
@@ -828,9 +822,22 @@ cat("Number of rows with missing values in both MaleID and FemaleID after replac
 *UPDATES FROM HERE*
 
 
-* In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:
+* In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID
 
-  If there is NA in female ID, we will replace the value with 
+
+* Before automating the process I will check manually the data to see if they are any exceptions or mistakes
+
+```{r CheckFemaleIDNA, echo=FALSE}
+
+
+# Print rows with missing values in FemaleID
+cat("Rows with missing values in FemaleID:\n")
+print(Bex[is.na(Bex$FemaleID), ])
+
+
+```
+
+  If there is NA in femaleID, we will replace the value with 
     - Sirk if MaleID is Sey
     - Ouli if MaleID  is Xin
     - Piep if MaleID  is  Xia 
@@ -855,7 +862,7 @@ print(combinations_summary)
 
 ```
 
-```{r FemaleID, include=FALSE}
+```{r FemaleID, echo=FALSE}
 
 library(dplyr)
 
@@ -883,28 +890,35 @@ cat("Number of NA values in MaleID: ", na_count_male, "\n")
 na_count_female <- sum(is.na(Bex$FemaleID))
 cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 
+
 ```
 
 
 * After the use of the conditions in FemaleID I could see the changes where successufly done and that 0 NA's are remaing in both FemaleID and MaleID
 
 
+### 2.12 Dyad Response (7)
 
-*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don't want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse
+```{r DyadResposneNA, echo=FALSE}
+
+# Find rows with NA values in DyadResponse
+na_dyadresponse_rows <- which(is.na(Bex$DyadResponse))
+cat("Rows with missing values in DyadResponse: ", toString(na_dyadresponse_rows), "\n")
+
+View(Bex)
+
+# Display the lines with NA values in DyadResponse along with their row numbers
+cat("Lines with missing values in DyadResponse:\n")
+print(Bex[na_dyadresponse_rows, ])
 
 
-* Row numbers of Female and Male ID to check if every line was correctly changed
-* Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630 
-
-* Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 
-Number of missing values in MaleID:  18 
-
+# Display the changes made in DyadResponse
+cat("Changes made in DyadResponse:\n")
+print(Bex[na_dyadresponse_rows, ])
+```
 
 
-
-
-
-### 2.12 Final check: remaing NA's in Bex?
+### 2.13 Final check: remaing NA's in Bex?
 
 ```{r Check if Remaing NA, echo=FALSE}
 # Find columns with NA values
@@ -921,6 +935,10 @@ for (col in columns_with_na) {
 
 ```
     
+    
+    
+
+
     
   * The remaining rows with NA's are the row **866** that I will delete since no information at all is available for the DyadResponse. Concerning the row **1211** we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to "Other"
   

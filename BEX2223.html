@@ -811,11 +811,7 @@ div.tocify {
 <li><p>Guat &amp; Pom - Ak</p></li>
 </ol></li>
 <li><p>Note that the 4 letter codes correspond to the femaleID, the 3 letter codes to the males ID and the 2 letter codes to the group name of the monkeys</p></li>
-<li><p>Since they are 3 letter codes in the femaleID column and 4 letter codes in the maleID column, I want to correct this before removing the NA’s</p></li>
-</ul>
-<p>#CHANGES FROM HERE,</p>
-<ul>
-<li>Then I will I check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.</li>
+<li><p>I need to check where are the NA’s in both FemaleID and Male ID by looking at the rows where data is missing. Since every trial was made with a Dyad and never with an single individual, treating these two columns together makes more sense. If both individuals are missing I may have to delete the row.</p></li>
 </ul>
 <pre><code>## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1884 1885 2619 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629</code></pre>
 <pre><code>## Number of missing values in FemaleID:  59</code></pre>
@@ -835,18 +831,28 @@ div.tocify {
 <pre><code>## Number of rows with missing values in both MaleID and FemaleID after replacement:  0</code></pre>
 <p><em>UPDATES FROM HERE</em></p>
 <ul>
-<li><p>In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID:</p>
-<p>If there is NA in female ID, we will replace the value with</p>
-<ul>
-<li>Sirk if MaleID is Sey</li>
-<li>Ouli if MaleID is Xin</li>
-<li>Piep if MaleID is Xia</li>
-<li>Oerw if MaleID is Nge</li>
-<li>Oort if MaleID is Kom</li>
-<li>Ginq if MaleID is Sho</li>
-<li>Ndaw if MaleID is Buk</li>
-</ul></li>
+<li><p>In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID</p></li>
+<li><p>Before automating the process I will check manually the data to see if they are any exceptions or mistakes</p></li>
 </ul>
+<pre><code>## Rows with missing values in FemaleID:</code></pre>
+<pre><code>## # A tibble: 41 × 16
+##    Time     Date                Group   MaleID FemaleID FemaleCorn DyadDistance
+##    &lt;chr&gt;    &lt;dttm&gt;              &lt;chr&gt;   &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+##  1 09:31:55 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            1
+##  2 09:33:14 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            1
+##  3 09:34:07 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            0
+##  4 09:34:51 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            0
+##  5 09:36:59 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            0
+##  6 09:38:13 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            1
+##  7 09:39:26 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              7            0
+##  8 09:41:11 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              0            0
+##  9 09:42:17 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              0            0
+## 10 09:44:06 2023-07-22 00:00:00 Ankhase Buk    &lt;NA&gt;              0            1
+## # ℹ 31 more rows
+## # ℹ 9 more variables: DyadResponse &lt;chr&gt;, OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;,
+## #   IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;, Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;,
+## #   Intrusion &lt;dbl&gt;, AmountAudience &lt;dbl&gt;</code></pre>
+<p>If there is NA in femaleID, we will replace the value with - Sirk if MaleID is Sey - Ouli if MaleID is Xin - Piep if MaleID is Xia - Oerw if MaleID is Nge - Oort if MaleID is Kom - Ginq if MaleID is Sho - Ndaw if MaleID is Buk</p>
 <pre class="r"><code>library(dplyr)
 
 # Using dplyr to summarize combinations of MaleID and FemaleID
@@ -880,18 +886,46 @@ print(combinations_summary)</code></pre>
 ## 18 Pom    Guat         5
 ## 19 Xin    Oort         4
 ## 20 Kom    &lt;NA&gt;         2</code></pre>
+<pre><code>## Number of NA values in MaleID:  0</code></pre>
+<pre><code>## Number of NA values in FemaleID:  0</code></pre>
 <ul>
 <li>After the use of the conditions in FemaleID I could see the changes where successufly done and that 0 NA’s are remaing in both FemaleID and MaleID</li>
 </ul>
-<p>*I HAVE TO CHECK IF THE ROW IS STILL HERE AND WHAT TO DO ABOUT IT The row 1915 explains to us that the experiment was not possible because we had a BGE and could not do the experiment. I would like to count this line by putting a 1 in No trial but I don’t want to keep this line in Male or Female ID. I will have to see how I treat this line since no trial was made, meaning I cannot put any value in DyadDistance, ID (Male and Female) nor DyadResponse</p>
-<ul>
-<li><p>Row numbers of Female and Male ID to check if every line was correctly changed</p></li>
-<li><p>Female ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1886 1887 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629 2630</p></li>
-<li><p>Male ID: 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 Number of missing values in MaleID: 18</p></li>
-</ul>
+</div>
+<div id="dyad-response-7" class="section level3">
+<h3>2.12 Dyad Response (7)</h3>
+<pre><code>## Rows with missing values in DyadResponse:  871, 1163, 1219, 1339, 1579, 1888, 1962</code></pre>
+<pre><code>## Lines with missing values in DyadResponse:</code></pre>
+<pre><code>## # A tibble: 7 × 16
+##   Time     Date                Group     MaleID FemaleID FemaleCorn DyadDistance
+##   &lt;chr&gt;    &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+## 1 09:39:26 2023-07-22 00:00:00 Ankhase   Buk    Ndaw              7            0
+## 2 10:13:56 2023-06-23 00:00:00 Ankhase   Sho    Ginq              0            4
+## 3 08:34:45 2023-06-17 00:00:00 Baie Dan… Kom    Oort              3            2
+## 4 08:54:12 2023-06-09 00:00:00 Baie Dan… Xia    Piep              1            0
+## 5 13:35:08 2023-05-03 00:00:00 Baie Dan… Kom    Oort              5            3
+## 6 13:27:30 2023-01-18 00:00:00 Ankhase   Buk    Ndaw              5            4
+## 7 08:36:49 2022-12-13 00:00:00 Baie Dan… Kom    Oort              8            4
+## # ℹ 9 more variables: DyadResponse &lt;chr&gt;, OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;,
+## #   IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;, Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;,
+## #   Intrusion &lt;dbl&gt;, AmountAudience &lt;dbl&gt;</code></pre>
+<pre><code>## Changes made in DyadResponse:</code></pre>
+<pre><code>## # A tibble: 7 × 16
+##   Time     Date                Group     MaleID FemaleID FemaleCorn DyadDistance
+##   &lt;chr&gt;    &lt;dttm&gt;              &lt;chr&gt;     &lt;chr&gt;  &lt;chr&gt;         &lt;dbl&gt;        &lt;dbl&gt;
+## 1 09:39:26 2023-07-22 00:00:00 Ankhase   Buk    Ndaw              7            0
+## 2 10:13:56 2023-06-23 00:00:00 Ankhase   Sho    Ginq              0            4
+## 3 08:34:45 2023-06-17 00:00:00 Baie Dan… Kom    Oort              3            2
+## 4 08:54:12 2023-06-09 00:00:00 Baie Dan… Xia    Piep              1            0
+## 5 13:35:08 2023-05-03 00:00:00 Baie Dan… Kom    Oort              5            3
+## 6 13:27:30 2023-01-18 00:00:00 Ankhase   Buk    Ndaw              5            4
+## 7 08:36:49 2022-12-13 00:00:00 Baie Dan… Kom    Oort              8            4
+## # ℹ 9 more variables: DyadResponse &lt;chr&gt;, OtherResponse &lt;chr&gt;, Audience &lt;chr&gt;,
+## #   IDIndividual1 &lt;chr&gt;, IntruderID &lt;chr&gt;, Remarks &lt;chr&gt;, MaleCorn &lt;dbl&gt;,
+## #   Intrusion &lt;dbl&gt;, AmountAudience &lt;dbl&gt;</code></pre>
 </div>
 <div id="final-check-remaing-nas-in-bex" class="section level3">
-<h3>2.12 Final check: remaing NA’s in Bex?</h3>
+<h3>2.13 Final check: remaing NA’s in Bex?</h3>
 <pre><code>## Columns with NA values: DyadResponse</code></pre>
 <pre><code>## Number of NA values in DyadResponse : 7</code></pre>
 <ul>
