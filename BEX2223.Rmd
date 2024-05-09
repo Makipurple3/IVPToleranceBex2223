@@ -1048,6 +1048,10 @@ glimpse(Bex)
 
 #Exporting Bex as speadsheet to clean manually the remarks
 write.csv(Bex, "Bex_for_manual_cleaning.csv", row.names = FALSE)
+
+#Using Getwd to find path of the BEx Excel sheet
+getwd()
+
 ```
 
 
