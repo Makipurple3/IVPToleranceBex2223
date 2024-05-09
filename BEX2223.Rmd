@@ -819,7 +819,6 @@ cat("Number of rows with missing values in both MaleID and FemaleID after replac
 
 
 
-*UPDATES FROM HERE*
 
 
 * In order to clean FemaleID, I will use the data from the now complete MaleID. I will use conditions stating that depending which name is found in MaleID when there is an NA in FemaleID, a certain name will have to replace the NA in female ID
@@ -894,10 +893,13 @@ cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 ```
 
 
-* After the use of the conditions in FemaleID I could see the changes where successufly done and that 0 NA's are remaing in both FemaleID and MaleID
+* After the use of the conditions in FemaleID I could see the changes where successfully done and that 0 NA's are remaining in both FemaleID and MaleID
 
 
 ### 2.12 Dyad Response (7)
+
+* The last variable I still have to treat for NA's is DyadResponse. Before treating the NA's we had 47 NA's we know that we treated most of them we have only 7 remaining. These NA's can be found at the rows **871, 1163, 1219, 1339, 1579,1888 and 1962** 
+
 
 ```{r DyadResposneNA, echo=FALSE}
 
@@ -905,16 +907,50 @@ cat("Number of NA values in FemaleID: ", na_count_female, "\n")
 na_dyadresponse_rows <- which(is.na(Bex$DyadResponse))
 cat("Rows with missing values in DyadResponse: ", toString(na_dyadresponse_rows), "\n")
 
-View(Bex)
 
 # Display the lines with NA values in DyadResponse along with their row numbers
 cat("Lines with missing values in DyadResponse:\n")
 print(Bex[na_dyadresponse_rows, ])
 
+View(Bex) 
+```
 
-# Display the changes made in DyadResponse
-cat("Changes made in DyadResponse:\n")
-print(Bex[na_dyadresponse_rows, ])
+
+* Row 871: The previous row was tolerance at 1m and the next tolerance at 0 which means that the row 871 should be **Tolerance** for DyadResponse
+
+* Row 1163: The value can not be found from the other rows so I will **delete** row 1163
+
+* Row 1219: The previous row was not approaching at 2m and the next is tolerance at 2m and tolerance at 1m, which means that the row 1219 should be **Tolerance** for DyadResponse
+
+* Row 1339: The previous row was tolerance at 0m while the next one was tolerance at 0m, which means that the tow 1339 should be **Tolerance** for DyadResponse
+
+* Row 1579: The value can not be found from the other rows so I will **delete** row 1579
+
+* Row 1888: The value can not be found from the other rows so I will **delete** row 1888
+
+* Row 1962: The value can not be found from the other rows so I will **delete** row 1962
+
+
+
+
+```{r DyadResposneNATreatment, echo=FALSE}
+# Load the data (assuming data is already loaded as Bex)
+
+# Deleting specific rows with unresolvable NA values
+Bex <- Bex[-c(1163, 1579, 1888, 1962), ]
+
+# Updating specific rows with resolved values
+Bex$DyadResponse[c(871, 1219, 1339)] <- "Tolerance"
+
+# Removing remaining NA values from the dataset
+Bex <- Bex[!is.na(Bex$DyadResponse), ]
+
+# Count the remaining NA values in DyadResponse
+remaining_na_count <- sum(is.na(Bex$DyadResponse))
+
+# Display the results
+cat("Number of remaining NA values in DyadResponse: ", remaining_na_count, "\n")
+
 ```
 
 
@@ -986,7 +1022,7 @@ print(variable_names)
 
 ```
 
-### Time - Creation of Period nad Hour
+### Time - Creation of Period and Hour
 * Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
 ```{r Time Periods, include=FALSE}
