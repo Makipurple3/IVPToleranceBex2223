@@ -48,6 +48,9 @@ library(lubridate)
 # Load Stringr for easier data manipulation and cleaning
 library(stringr)
 
+# Load GGPlot for graphics and representations of the dataset
+(library)(ggplot2)
+
 # Read xlsx files
 Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
 
@@ -244,7 +247,7 @@ glimpse(Boxex)
     
     
 
-# 2. Cleaning the data
+# 2. Treating missing data
 
 ## 2.1. Creating a new dataframe - Bex
 * Since I do not want to work with the whole dataset, I'm gonna select the variables of interest using the function **select**
@@ -956,49 +959,19 @@ cat("Number of remaining NA values in DyadResponse: ", remaining_na_count, "\n")
 
 ### 2.13 Final check: remaing NA's in Bex?
 
-```{r Check if Remaing NA, echo=FALSE}
-# Find columns with NA values
-columns_with_na <- colnames(Bex)[colSums(is.na(Bex)) > 0]
+```{r Check if Remaing NA in Bex, echo=FALSE}
+# Calculate the number of NA values in each column
+na_counts <- sapply(Bex, function(x) sum(is.na(x)))
 
-# Print the columns with NA values
-cat("Columns with NA values:", toString(columns_with_na), "\n")
-
-# Print the number of NA values in each column
-for (col in columns_with_na) {
-  cat("Number of NA values in", col, ":", sum(is.na(Bex[[col]])), "\n")
-}
-
-
-```
-    
-    
-    
-
-
-    
-  * The remaining rows with NA's are the row **866** that I will delete since no information at all is available for the DyadResponse. Concerning the row **1211** we can see that the corn was stolen by Oup and Oort. This means that tolerance way achieved and that an agonistic behaviour followed that is maybe not aggression. I will change the DyadResponse of this row to "Other"
-  
-```{r Cleaning remaining, include=FALSE}
-# Delete row where no information is available for DyadResponse
-Bex <- Bex[!is.na(Bex$DyadResponse), ]
-
-# Change DyadResponse where the corn was stolen to "Other"
-Bex$DyadResponse[Bex$DyadResponse == "Unknown" & Bex$FoodSource == "Stolen corn by Oup & Oort"] <- "Other"
-
-# Find rows with any NA values in the dataset
-rows_with_na_numbers <- which(rowSums(is.na(Bex)) > 0)
-
-# Print the number of rows with NA values and their row numbers
-cat("Number of rows with NA values in the dataset:", length(rows_with_na_numbers), "\n")
-cat("Row numbers with NA values:", toString(rows_with_na_numbers), "\n")
+# Print the number of NA values for each column
+cat("Final check of NA values in Bex:\n")
+print(na_counts)
 
 ```
 
-* It seems now that no NA's are remaining in the dataset, we can thus continue with the process of cleaning the dataset
+# 3. Correction and creation of New Variables 
 
-### 3. Creating New Variables and modifying the existing ones
-
-#### Making a backup of Bex
+#### 3.1 Making a backup of Bex
 * I will now continue making changes, in case they are any problems or comparason to be made I may use this function to look how Bex looked at that point
 
 ```{r Backup Bex 1, include=FALSE}
@@ -1007,6 +980,86 @@ backup_Bex <- Bex
 ```
 
 
+#### 3.2 Treating Remarks before processing with new modifications
+* Since I have removed all the missing data from the different columns, I now have to correct potential mistakes that can be found and create new variables to be able to manipulate better my data.
+Since the column remarks contains corrections and additional information, I would like to treat it now
+
+
+* Before that lets check how many remarks we have in our dataset, how many of the main keywords we can find and make a visual representation of it
+
+##### 3.2.2 Vizualization of the Remarks Keywords
+
+
+* Before making any changes I will make a count of the total amount of remarks and a count and barplot of the main keywords in the column to see in which proportion they are found. It has to be noted that some of the words are used in different contexts and have different meaning. This is why I will clean them manually
+
+```{r Remars Counts, echo=FALSE}
+# Calculate the count of "No Remarks"
+count_no_remarks <- sum(Bex$Remarks == "No Remarks")
+
+# Calculate the count of actual remarks (different than "No Remarks")
+count_actual_remarks <- sum(Bex$Remarks != "No Remarks")
+
+# Print the results
+cat("Number of 'No Remarks' entries: ", count_no_remarks, "\n")
+cat("Number of actual remarks entries: ", count_actual_remarks, "\n")
+
+```
+
+* There will be 599 entries I will have to treat manually in the Excel Spreadsheet for the Remarks
+
+```{r Remarks Exploration, echo=FALSE}
+
+
+
+# Define the keywords list properly before the loop
+keywords <- c("open", "work", "trial", "approach", "scare", "intrude", "stole", "steal", "corn", "ate", "audience", "sec", "before", "after", "left", "na", "alarm","box", "bge","alarm", "distracted")
+
+# Reinitialize to store updated counts
+keyword_counts <- data.frame(Keyword = character(), Counts = integer(), stringsAsFactors = FALSE)
+
+# Recalculate counts
+for (kw in keywords) {
+  count <- sum(str_detect(tolower(Bex$Remarks), kw))
+  keyword_counts <- rbind(keyword_counts, data.frame(Keyword = kw, Counts = count))
+}
+
+# Plot with counts on bars
+ggplot(keyword_counts, aes(x = reorder(Keyword, -Counts), y = Counts)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = Counts), hjust = -0.1, size = 3) +
+  coord_flip() +
+  labs(title = "Frequency of Main Keywords in Remarks", x = "Keyword", y = "Frequency") +theme_minimal()
+
+# Calculate and print the total number of keyword occurrences
+total_keyword_occurrences <- sum(keyword_counts$Counts)
+cat("Total number of keyword occurrences in the Barplot: ", total_keyword_occurrences, "\n")
+
+```
+
+# UPDATES FROM HERE
+
+* I will now export the dataset and treat manually treat the remarks in an Excel spreadsheet before uploading it again and creating a new dataframe. I will also print a Glimpse of Bex to have information before the manual changes
+
+```{r Exporting Bex For Remarks, echo=FALSE}
+#GLimpse function to see the summary and  the structure
+
+cat("Glimpse of the Bex Before treating Remarks:\n\n")
+glimpse(Bex)
+
+#Exporting Bex as speadsheet to clean manually the remarks
+write.csv(Bex, "Bex_for_manual_cleaning.csv", row.names = FALSE)
+```
+
+
+
+
+
+
+* Now that I have ... I will reimport the dataset and make a check of the data
+Bex_cleaned <- read.csv("Bex_cleaned.csv")
+>Stre
+
+## 3.3 Re Uploading the dataset after the treatment of the Remarks 
 * I will now treat the remaining variables, let's see which ones and why
 
 ```{r Bex Names, include=FALSE}
