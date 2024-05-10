@@ -42,6 +42,9 @@ library(dplyr)
 # Load readxl package to import the data
 library("readxl")
 
+# Load the openxlsx package to export data to xlsx file
+library(openxlsx)
+
 # Load Lubridate for better date and time manipulation
 library(lubridate)
 
@@ -1047,7 +1050,7 @@ cat("Glimpse of the Bex Before treating Remarks:\n\n")
 glimpse(Bex)
 
 #Exporting Bex as speadsheet to clean manually the remarks
-write.csv(Bex, "Bex_for_manual_cleaning.csv", row.names = FALSE)
+write.xlsx(Bex, "Bex_for_manual_cleaning.xlsx", rowNames = TRUE)
 
 #Using Getwd to find path of the BEx Excel sheet
 getwd()
@@ -1068,13 +1071,12 @@ Bex_cleaned <- read.csv("Bex_cleaned.csv")
 
 ```{r Bex Names, include=FALSE}
 
+# Install and load the openxlsx package if not already installed
+if (!require(openxlsx)) install.packages("openxlsx")
+library(openxlsx)
 
-# Get the names of variables in the dataframe
-variable_names <- names(Bex)
-
-# Print the list of variable names
-cat("Variable names: ", toString(variable_names), "\n")
-print(variable_names)
+# Export the data frame to an Excel file
+write.xlsx(Bex, "Bex_for_manual_cleaning.xlsx", rowNames = FALSE)
 
 
 ```
