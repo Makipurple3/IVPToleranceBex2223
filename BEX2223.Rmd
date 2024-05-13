@@ -1068,14 +1068,29 @@ getwd()
 
 
 * 1. Creation of the columns **Context**, **SpecialBehaviour** and **GotCorn**
-* 2.
+* 2. Default values for the new columns are
+**NoContext**, **NoSpecialBehaviour** & **Yes**
 
 
+* 3. Values that have been set for the new columns
 
+  a.Context: **BoxMalfunction**, **BoxOpenedBefore**, **NoExperiment**, **Agonistic**, **Guat;Ap;Xian**
+  
+  b.SpecialBehaviour **Oerw;Vo;Exp**, **Sey;Ap;AfterOpen**, **Oerw;Vo;Exp,Nge;Vo;Exp**, **Sirk;ApAfter30**, **Sirk;Av;Oerw**, **Oerw;Lo**,**Sey;Sf;Oort,Oort;At;Kom**, **Kom;Ap;AfterOpen**, **Sey;Ch,Sirk**, **Xin;Hesitation**. **Xia;Sf;Piep**, **Pom;Sf;Xian**,**Kom;Sf;Oort**, **Sey;Sf;Sirk**, **Xia;Sf;Piep,Piep;Sf,XIa**, **Oort;At;Kom**, **Sey;Rt;Sho;Ap**, **Sho;Rt;Ginq;Ap**, **Buk;Sf;Ndaw**, **Sho;Rt;Ndaw;Ap**, **Oort;Sf;Kom**, **Ginq;Sho;Ap;After30**, **Ndaw;Sc,Buk;Sf**, **Ndaw;Ap;After30**, **Kom;Ap;After30**, **Xia;Piep;Ap;After30**, **Pom;Bi;Xian**, **Sho;Ndaw;Av;Buk**, **Kom;Sf;Oort**, **Kom;St;Oort,Oort;St;Kom**, **Sey;Hi;Sirk**
 
+  c.GotCorn: **No;Nge**, **No;Piep**, **No;Xian**, **No;Oort**, **No;Sirk**, **No;Kom**, **No;Ndaw**, **No;Kom**, **No;Oort**
+  
+  d. Remarks: **Treated**, **TODelete**
 
+* 4. Values set for exsting columns
 
+  a. IntruderID: **Sey**, **Oerw**, **Guat**, **Kom**, **Gris**, **Sho**, **Oerw; Ouli**, **Guat; Gri**, **Xop**, **Obse**
 
+  b. DyadDistance: **6**, **7**, **8**, **9**
+  
+  c. Audience: **UnidentifiedAudience**, **Ouli; Riss**, **Gris**
+  
+  d. IDIndividual: **Piep**
 
 
 * Now that I have ... I will reimport the dataset and make a check of the data
