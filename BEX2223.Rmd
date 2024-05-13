@@ -1039,8 +1039,8 @@ cat("Total number of keyword occurrences in the Barplot: ", total_keyword_occurr
 
 ```
 
-# UPDATES FROM HERE
 
+##### 3.2.3 Exporting of Bex
 * I will now export the dataset and treat manually treat the remarks in an Excel spreadsheet before uploading it again and creating a new dataframe. I will also print a Glimpse of Bex to have information before the manual changes
 
 ```{r Exporting Bex For Remarks, echo=FALSE}
@@ -1056,6 +1056,22 @@ write.xlsx(Bex, "Bex_for_manual_cleaning.xlsx", rowNames = TRUE)
 getwd()
 
 ```
+
+##### 3.3.4 Journal of manual changes in Bex excel spreadsheet
+
+* Before treating all the data in the Remarks I will create a few columns to redistribute information
+  1. **Context**: To add contextual information 
+  2. **SpecialBehaviour** : To report any particular behaviour an individual could have done during a trial
+  3. **Got corn**, to see if the individual got the corn or not
+
+* Also whenever i will have treated a remark, i will replace it with "Treated". And if I have to delete the row I'll write "Delete". After re importing the data I will make a count of these changes to see if I still have the correct amount of cells and changes that have been done
+
+
+* 1. Creation of the columns **Context**, **SpecialBehaviour** and **GotCorn**
+* 2.
+
+
+
 
 
 
