@@ -1162,6 +1162,9 @@ cat("Number of NA entries in BexClean: ", bexclean_na_count, "\n")
 
 
 ###4.1 Creation of new dataframe?
+
+### Treatment and cleaning of last variables before stats!?
+
 ### 4.2 Time - Creation of Period and Hour
 * Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
