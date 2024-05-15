@@ -974,7 +974,7 @@ print(na_counts)
 
 # 3. Correction and creation of New Variables 
 
-#### 3.1 Making a backup of Bex
+### 3.1 Making a backup of Bex
 * I will now continue making changes, in case they are any problems or comparason to be made I may use this function to look how Bex looked at that point
 
 ```{r Backup Bex 1, include=FALSE}
@@ -983,14 +983,14 @@ backup_Bex <- Bex
 ```
 
 
-#### 3.2 Treating Remarks before processing with new modifications
+### 3.2 Treating Remarks before processing with new modifications
 * Since I have removed all the missing data from the different columns, I now have to correct potential mistakes that can be found and create new variables to be able to manipulate better my data.
-Since the column remarks contains corrections and additional information, I would like to treat it now
+Since the column remarks contains corrections and additional information, so i will treat it now
 
 
 * Before that lets check how many remarks we have in our dataset, how many of the main keywords we can find and make a visual representation of it
 
-##### 3.2.2 Vizualization of the Remarks Keywords
+#### 3.2.2 Vizualization of the Remarks Keywords
 
 
 * Before making any changes I will make a count of the total amount of remarks and a count and barplot of the main keywords in the column to see in which proportion they are found. It has to be noted that some of the words are used in different contexts and have different meaning. This is why I will clean them manually
@@ -1040,7 +1040,7 @@ cat("Total number of keyword occurrences in the Barplot: ", total_keyword_occurr
 ```
 
 
-##### 3.2.3 Exporting of Bex
+#### 3.2.3 Exporting of Bex
 * I will now export the dataset and treat manually treat the remarks in an Excel spreadsheet before uploading it again and creating a new dataframe. I will also print a Glimpse of Bex to have information before the manual changes
 
 ```{r Exporting Bex For Remarks, echo=FALSE}
@@ -1057,7 +1057,7 @@ getwd()
 
 ```
 
-##### 3.3.4 Journal of manual changes in Bex excel spreadsheet
+#### 3.2.4 Journal of manual changes in Bex excel spreadsheet
 
 * Before treating all the data in the Remarks I will create a few columns to redistribute information
   1. **Context**: To add contextual information 
@@ -1071,48 +1071,98 @@ getwd()
 * 2. Default values for the new columns are
 **NoContext**, **NoSpecialBehaviour** & **Yes**
 
-
-* 3. Values that have been set for the new columns
-
-  a.Context: **BoxMalfunction**, **BoxOpenedBefore**, **NoExperiment**, **Agonistic**, **Guat;Ap;Xian**
+  a.Context: **BoxMalfunction**, **BoxOpenedBefore**, **NoExperiment**, **Agonistic**, **Guat;Ap;Xian**, **CornLeak**, **BetweenGroupEncounter**, **ContactCalling**, 
   
-  b.SpecialBehaviour **Oerw;Vo;Exp**, **Sey;Ap;AfterOpen**, **Oerw;Vo;Exp,Nge;Vo;Exp**, **Sirk;ApAfter30**, **Sirk;Av;Oerw**, **Oerw;Lo**,**Sey;Sf;Oort,Oort;At;Kom**, **Kom;Ap;AfterOpen**, **Sey;Ch,Sirk**, **Xin;Hesitation**. **Xia;Sf;Piep**, **Pom;Sf;Xian**,**Kom;Sf;Oort**, **Sey;Sf;Sirk**, **Xia;Sf;Piep,Piep;Sf,XIa**, **Oort;At;Kom**, **Sey;Rt;Sho;Ap**, **Sho;Rt;Ginq;Ap**, **Buk;Sf;Ndaw**, **Sho;Rt;Ndaw;Ap**, **Oort;Sf;Kom**, **Ginq;Sho;Ap;After30**, **Ndaw;Sc,Buk;Sf**, **Ndaw;Ap;After30**, **Kom;Ap;After30**, **Xia;Piep;Ap;After30**, **Pom;Bi;Xian**, **Sho;Ndaw;Av;Buk**, **Kom;Sf;Oort**, **Kom;St;Oort,Oort;St;Kom**, **Sey;Hi;Sirk**
+  b.SpecialBehaviour **Oerw;Vo;Exp**, **Sey;Ap;AfterOpen**, **Oerw;Vo;Exp,Nge;Vo;Exp**, **Sirk;ApAfter30**, **Sirk;Av;Oerw**, **Oerw;Lo**,**Sey;Sf;Oort,Oort;At;Kom**, **Kom;Ap;AfterOpen**, **Sey;Ch,Sirk**, **Xin;Hesitation**. **Xia;Sf;Piep**, **Pom;Sf;Xian**,**Kom;Sf;Oort**, **Sey;Sf;Sirk**, **Xia;Sf;Piep,Piep;Sf,XIa**, **Oort;At;Kom**, **Sey;Rt;Sho;Ap**, **Sho;Rt;Ginq;Ap**, **Buk;Sf;Ndaw**, **Sho;Rt;Ndaw;Ap**, **Oort;Sf;Kom**, **Ginq;Sho;Ap;After30**, **Ndaw;Sc,Buk;Sf**, **Ndaw;Ap;After30**, **Kom;Ap;After30**, **Xia;Piep;Ap;After30**, **Pom;Bi;Xian**, **Sho;Ndaw;Av;Buk**, **Kom;Sf;Oort**, **Kom;St;Oort,Oort;St;Kom**, **Sey;Hi;Sirk**, **Obse;Ap;Piep;Av**,**Piep;Sf;Xia**, **Sirk;ApWhenPartnerLeft**, **Sey;Hh;Sirk**, **Xia;Sf;Piep;Sc**, **Xia;Piep;ShareFood**, **Piep;Ap;After30,Xia;Mu;Piep**, **Oort;St;Sirk;Ja,Sey;Sf**, **Pom;Sf;Xian**, **Ndaw;ApWhenPartnerLeft**, **Xian;At;Pom,Gaya;Su**, **Xian;Sf;Pom**, **Xian;Hesitation**, **Xia;ApWhenPartnerLeft**,**Sirk;Hesitation**, **Ginq;Hesitation**, **Sey;Ap;Kom;Av**, **Oort;Sc;Kom**, **Xian; Pom**, **Pom;Ap;Xian**, **Pom;Ap;Xian,Xian;Rt**, **Sey;Ap;Sirk;Rt**, **Sey;St;Sirk;Ig**, **Xia;Asf;Piep**, **Piep;ApWhenPartnerLeft**, **Sho;Ap;After30**, **Ginq;ApWhenPartnerLeft**, **Pom;Sf;Xian;Sf;Pom**, **Xian;ApWhenPartnerLeft**, **Piep;Ch;Sirk**, **Sey;St;Sirk**, **Ndaw;Ap;After30**, **Xian;Ap;After30**, **Xian;St;Prai**, **Pom;Sf;Xian;Vc**, **Kom;Ap;After30**, **Kom;ApproachWithPartner**, **Oort;ApWhenPartnerLeft**, **Sho;Ap;After30**,**Ginq;Ap;After30**, **Ginq;ApproachWithPartner**, **Ndaw;Hesitation**, **Oerw;Hesitation**, **Oerw;ApWhenPartnerLeft**. **Piep;Ap;After30**, **Sirk;Ap;After30**, **Xia;Ap;After30**, **Ouli;Gr;BBOuli**, **Oerw;Ap;After30**, **Sirk;Hesitation**, **Sey;Ap;Sirk;Av**, **Ouli;Ap;Xia;Av**, **Xin;Ap;After30**, **Sho;Sf;Ginq;Sc**, **Xia;ApWhenPartnerLeft**, **Sey;Ap;Sirk;Ja**, **Nge;Oerw;ShareFood**, **Nge;Ap;Oerw;Oerw;At,Obse;At;Nge**,
+  
+  
 
-  c.GotCorn: **No;Nge**, **No;Piep**, **No;Xian**, **No;Oort**, **No;Sirk**, **No;Kom**, **No;Ndaw**, **No;Kom**, **No;Oort**
+  c.GotCorn: **No;Nge**, **No;Piep**, **No;Xian**, **No;Oort**, **No;Sirk**, **No;Kom**, **No;Ndaw**, **No;Kom**, **No;Oort**, **No;Xia**, **No;Buk**, **No;Sho**, **No;Sey,No;Piep**, **No;Ginq**
   
   d. Remarks: **Treated**, **TODelete**
 
 * 4. Values set for exsting columns
 
-  a. IntruderID: **Sey**, **Oerw**, **Guat**, **Kom**, **Gris**, **Sho**, **Oerw; Ouli**, **Guat; Gri**, **Xop**, **Obse**
+  a. IntruderID: **Sey**, **Oerw**, **Guat**, **Kom**, **Gris**, **Sho**, **Oerw; Ouli**, **Guat; Gri**, **Xop**, **Obse**, **Oort**, **Obse; Sey**, **Ginq; Ghid**, **Xia**, **Grif**, **Sey**, **Gree; Gran**, **Godu; Gub**, **Gran**, **Oerw; Nak**, **Ghid**, **Buk**, **Oup**
 
-  b. DyadDistance: **6**, **7**, **8**, **9**
+  b. DyadDistance: **6**, **7**, **8**, **9** , **1**
   
-  c. Audience: **UnidentifiedAudience**, **Ouli; Riss**, **Gris**
+  c. Audience: **UnidentifiedAudience**, **Ouli; Riss**, **Gris**, **Sey**, **Sey; Piep; Sirk, Oup Ome**
   
-  d. IDIndividual: **Piep**
+  d. IDIndividual1: **Piep**, **Oort; Kom**, **Ndaw; Buk**, **Sho; Ginq**, **Ndaw, Buk**, **Xian, Pom**, **Oort; Kom**, **Buk; Ndaw**, **Sirk; Sey**, **Xin; Ouli**, **Oerw; Nge**
+  
+  e. DyadResponse: **Tolerance**, **Not approaching; Losing interest**, **Losing interest; Intrusion**
+  
+  
+  
+# UPDATES FROM HERE
+  
 
+  
+### 3.3 Re Uploading the dataset after the treatment of the Remarks 
 
 * Now that I have ... I will reimport the dataset and make a check of the data
-Bex_cleaned <- read.csv("Bex_cleaned.csv")
->Stre
+```{r BexImport After Manual Cleaning, echo=FALSE}
+# Import the Excel file
+BexClean<- read_excel("Bex_After_manual_cleaning.xlsx")
 
-## 3.3 Re Uploading the dataset after the treatment of the Remarks 
-* I will now treat the remaining variables, let's see which ones and why
+#Glimpse of Bex for comparaison
+glimpse(Bex)
 
-```{r Bex Names, include=FALSE}
-
-# Install and load the openxlsx package if not already installed
-if (!require(openxlsx)) install.packages("openxlsx")
-library(openxlsx)
-
-# Export the data frame to an Excel file
-write.xlsx(Bex, "Bex_for_manual_cleaning.xlsx", rowNames = FALSE)
+#GLimpse of Bex_Cleaned
+glimpse(BexClean)
 
 
 ```
 
-### Time - Creation of Period and Hour
+* I will now check the state fo remarks and of the data before and after to see if no major mistakes may have been done
+
+* First the amount of Remarks and No Remarks, before: Number of 'No Remarks' entries:  2119 
+Number of actual remarks entries:  599 
+
+```{r temporary check for remarks treatment,echo=FALSE}
+
+
+# Count the 'No Remarks' and actual remarks entries
+no_remarks_count <- sum(BexClean$Remarks == 'No Remarks', na.rm = TRUE)
+remarks_count <- sum(BexClean$Remarks != 'No Remarks' & !is.na(BexClean$Remarks), na.rm = TRUE)
+
+# Print the counts
+cat("Number of 'No Remarks' entries: ", no_remarks_count, "\n")
+cat("Number of actual remarks entries: ", remarks_count, "\n")
+
+# Count total keyword occurrences in the Remarks column
+# Replace 'keyword' with the actual keyword you are looking for
+# Example keyword, replace 'keyword' with your specific keyword
+keyword_occurrences <- sum(grepl("keyword", BexClean$Remarks, ignore.case = TRUE), na.rm = TRUE)
+
+# Print the keyword occurrences
+cat("Total number of keyword occurrences in the Remarks column: ", keyword_occurrences, "\n")
+```
+
+
+
+*NA Check in BexClean
+```{r NABexClean, echo=FALSE}
+# Check for NA values in specific columns
+context_na_count <- sum(is.na(BexClean$Context))
+special_behaviour_na_count <- sum(is.na(BexClean$SpecialBehaviour))
+got_corn_na_count <- sum(is.na(BexClean$GotCorn))
+
+# Check for NA values in BexClean
+bexclean_na_count <- sum(is.na(BexClean))
+
+# Print the counts of NAs
+cat("Number of NA entries in Context: ", context_na_count, "\n")
+cat("Number of NA entries in SpecialBehaviour: ", special_behaviour_na_count, "\n")
+cat("Number of NA entries in GotCorn: ", got_corn_na_count, "\n")
+cat("Number of NA entries in BexClean: ", bexclean_na_count, "\n")
+
+```
+
+
+###4.1 Creation of new dataframe?
+### 4.2 Time - Creation of Period and Hour
 * Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
 ```{r Time Periods, include=FALSE}
