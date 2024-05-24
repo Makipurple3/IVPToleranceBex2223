@@ -3,17 +3,16 @@ title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.Aun
 output:
   html_document:
     df_print: paged
-    toc: true
+    toc: yes
     toc_depth: 6
     toc_float:
-      collapsed: false
-      smooth_scroll: true
+      collapsed: no
+date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 ---
 
 ```{r setup, include=FALSE}
 # Set global knitr options
 knitr::opts_chunk$set(echo = TRUE)
-
 ```
 
 <center>
@@ -52,7 +51,10 @@ library(lubridate)
 library(stringr)
 
 # Load GGPlot for graphics and representations of the dataset
-(library)(ggplot2)
+library(ggplot2)
+
+# Load TidyR for better data handling
+library(tidyr)
 
 # Read xlsx files
 Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
@@ -70,7 +72,7 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 
 ```{r View and Glimpse of Boxex, echo=FALSE}
 
-# First view of my datset
+# First View of my datset
 View(Boxex)
 
 #GLimpse function to see the summary and  the structure
@@ -81,7 +83,7 @@ glimpse(Boxex)
 
 
 
-* I am now using the **view** function to have a sight on the entire dataset and **glimpse** to display a summary of my dataset
+* I am now using the **View** function to have a sight on the entire dataset and **glimpse** to display a summary of my dataset
 * I have **20 variables** (here columns) and **2795 trials** (here rows)
 
 * I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call **Bex**
@@ -184,7 +186,7 @@ glimpse(Boxex)
     * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column **remarks**
       1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
       2. assign as few labels per trial 
-      3. get a better view and understanding of the data and the most common behaviours produced by each dyad
+      3. get a better View and understanding of the data and the most common behaviours produced by each dyad
       4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
       
     * Projection of the hierarchy (changes will be made)
@@ -335,14 +337,14 @@ cat("Number of remaining NA values in FemaleCorn:", remaining_na, "\n")
 
 ```{r Find Missing data, echo=FALSE}
 # Check for missing data
-missing_data <- sapply(Bex, function(x) sum(is.na(x)))
+missingdata <- sapply(Bex, function(x) sum(is.na(x)))
 
 # Print missing data
 cat("Variables with Missing Data:\n")
-kable(missing_data[missing_data > 0])
+kable(missingdata[missingdata > 0])
 
 cat("Variables with No Missing Data:\n")
-kable(missing_data[missing_data == 0])
+kable(missingdata[missingdata == 0])
   
 ```
 
@@ -1142,7 +1144,8 @@ cat("Total number of keyword occurrences in the Remarks column: ", keyword_occur
 
 
 
-*NA Check in BexClean
+* NA Check in BexClean
+
 ```{r NABexClean, echo=FALSE}
 # Check for NA values in specific columns
 context_na_count <- sum(is.na(BexClean$Context))
@@ -1239,8 +1242,8 @@ cat("Unique Male IDs:", unique_male_ids, "\n")
 table(Bex$MaleID)
 
 
-before_summary <- table(Bex$FemaleID, Bex$MaleID)
-kable(print(before_summary))
+beforesummary <- table(Bex$FemaleID, Bex$MaleID)
+kable(print(beforesummary))
 
 ```
 1. Create a variable called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
@@ -1490,7 +1493,7 @@ Bex <- Bex %>%
     * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
       1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
       2. assign as few labels per trial 
-      3. get a better view and understanding of the data and the most common behaviours produced by each dyad
+      3. get a better View and understanding of the data and the most common behaviours produced by each dyad
       4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
       
 
@@ -1524,14 +1527,18 @@ Bex <- Bex %>%
   
   
 ```{r DyadResponse MultipleResponse, echo=FALSE}
-#Rows with more than1 character
-rows_with_multiple_entries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+# Rows with more than 1 character
+beforesummaryrowswithmultipleentries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Display the rows with multiple entries in DyadResponse
-View(Bex[rows_with_multiple_entries, ])
+View(Bex[beforesummaryrowswithmultipleentries, ])
 
-# Print the amount of cells with multiple entries and the total number of rows
-cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_multiple_entries), "\n")
+# Print the number of rows with multiple entries and the total number of rows
+cat("Number of rows with multiple entries in DyadResponse: ", length(beforesummaryrowswithmultipleentries), "\n")
+
+# Escape underscores in output for LaTeX
+escaped_rows <- paste(gsub("_", "\\\\_", beforesummaryrowswithmultipleentries), collapse = ", ")
+cat("Rows with multiple entries in DyadResponse: ", escaped_rows, "\n")
 
 ```
 
@@ -1544,27 +1551,27 @@ cat("Number of rows with multiple entries in DyadResponse: ", length(rows_with_m
 * B.Idnetify Rows with more than 1 entry
 
 *  Step 1: Identify Rows with More than 1 Entry
-rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+beforesummaryrowswithmultipleentries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 Display the rows with more than 1 entry in DyadResponse
-knitr::kable(Bex[rows_with_multiple_entries_1, ])
+knitr::kable(Bex[beforesummaryrowswithmultipleentries_1, ])
 
 * Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
+cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
 
 * C. Identify Rows with more than 2 entry
 ```{r DyadResponse > 2 entry, echo=FALSE}
 # Step 1: Identify Rows with More than 1 Entry
-rows_with_multiple_entries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+beforesummaryrowswithmultipleentries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(rows_with_multiple_entries_1), "\n")
+cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
 
 ```
 * D. 
 ```{r ,echo=FALSE}
 # Step 3: Extract Unique Combinations for More than 1 Entry
-all_combinations_1 <- unlist(lapply(rows_with_multiple_entries_1, function(row) {
+all_combinations_1 <- unlist(lapply(beforesummaryrowswithmultipleentries_1, function(row) {
   unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
   combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
 }))
@@ -1580,14 +1587,14 @@ for (entry in names(combination_counts_1)) {
 after_summary4 <- nrow(Bex)}
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - beforesummary, "\n")
 ```
 
 
  6. Male agress female > Not approaching : Remove Not approaching if there is Male aggress female (2x)
 ```{r Male agress female > Intrusion, echo=FALSE}
 # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 # 6. Remove rows with 'Not approaching' if 'Male aggress female' is present
 Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
 
@@ -1595,7 +1602,7 @@ Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Male aggress fe
 after_summary6 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching): ", after_summary6 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching): ", after_summary6 - beforesummary, "\n")
 ```
 
  7. Tolerance > Distracted: Remove Distracted if there is tolerance (3x)
@@ -1603,7 +1610,7 @@ cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching)
 ```{r Tolerance > Distracted, echo=FALSE}
 
 # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 
 # Tolerance & Distracted: 7.Remove Distracted if there is tolerance
 Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Distracted", Bex$DyadResponse)), ]
@@ -1612,7 +1619,7 @@ Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Distracted", Bex$Dyad
 after_summary7 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summary7 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summary7 - beforesummary, "\n")
 
 ```
 
@@ -1620,7 +1627,7 @@ cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summar
  
 ```{r Female agress male > Tolerance, echo=FALSE}
 # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 
 # 8. Remove rows with 'Tolerance' if 'Female aggress male' is present
 Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
@@ -1629,7 +1636,7 @@ Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Female aggress male",
 after_summary8 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", after_summary8 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", after_summary8 - beforesummary, "\n")
 
 ```
 
@@ -1638,20 +1645,20 @@ cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", a
  9.Tolerance > Loosing interest: Remove Losing interest if there is Tolerance (13x)
 ```{r Tolerance > Loosing interest, echo=FALSE}
 # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 
 # Count occurrences after modification
 after_summary9 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after_summary9 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after_summary9 - beforesummary, "\n")
 
 
 ```
  10.Male agress female > Tolerance : Remove Tolerance if there is Male agress male (31)
 ```{r Male agress female > Tolerance, echo=FALSE}
  # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 
 # 10. Remove rows with 'Tolerance' if 'Male aggress female' is present
 Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
@@ -1660,13 +1667,13 @@ Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Male aggress female",
 after_summary10 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", after_summary10 - before_summary, "\n")
+cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", after_summary10 - beforesummary, "\n")
 
 ```
  11.Tolerance > Not approaching: Remove Not approaching if there is tolerance (6x)
 ```{r Tolerance > Not approaching, echo=FALSE}
 # Count occurrences before modifications
-before_summary <- nrow(Bex)
+beforesummary <- nrow(Bex)
 
 # 11. Remove rows with 'Not approaching' if 'Tolerance' is present
 Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Tolerance", Bex$DyadResponse)), ]
@@ -1676,7 +1683,7 @@ Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Tolerance", Bex
 after_summary11 <- nrow(Bex)
 
 # Display the change in occurrences
-cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after_summary11 - before_summary, "\n")
+cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after_summary11 - beforesummary, "\n")
 ```
 
 * Looks at partner &  Other 1                  - Display line for detailed check (1x)
@@ -1734,7 +1741,7 @@ if (!"MultipleResponses" %in% names(Bex)) {
 }
 ```
 
-```{Check Responses in DyadResponse for Id1, echo=FALSE}
+```{r Check Responses in DyadResponse for Id1, echo=FALSE}
 # Count occurrences of each behavior in DyadResponse
 count_NotApproaching <- sum(grepl("Not approaching", Bex$DyadResponse))
 count_Intrusion <- sum(grepl("Intrusion", Bex$DyadResponse))
@@ -1761,7 +1768,6 @@ cat("Occurrences of '1' in 'Distracted':", count_Distracted_1, "\n")
 ```
 
 
-{r Check changes of dichotomic variables}
 
 ### Exploratory Graph (To organise)
 
@@ -1915,7 +1921,7 @@ print(faceted_monthly_plot_with_lines)
 
 ```
 
-```{r Still not asleep?, echo=FALSE}
+
 ```{r daily graph2, echo=FALSE}
 library(ggplot2)
 library(dplyr)
@@ -1972,9 +1978,6 @@ unique_male_ids <- unique(Bex$MaleID)
 # Unique values in FemaleID
 unique_female_ids <- unique(Bex$FemaleID)
 
-# Print the unique values
-cat("Unique values in MaleID: ", toString(unique_male_ids), "\n")
-cat("Unique values in FemaleID: ", toString(unique_female_ids), "\n")
 
 
 
@@ -2268,14 +2271,14 @@ experiments made
 
 
 # Bibliography
- • Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. https://doi.org/10.1002/evan.21793
+ • Pisor, A. C., & Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and ReViews. Advance online publication. https://doi.org/10.1002/evan.21793
 (Pisor & Surbeck, 2019)
 
 
 # Annex
 
 #### Annex 1 : View of the dataset when imported - First 6 entries of each variable 
-* We can see here the brief view of the **original dataset** names **BoxEx**when i initially imported it as seen in **section 0: Opening data** 
+* We can see here the brief View of the **original dataset** names **BoxEx**when i initially imported it as seen in **section 0: Opening data** 
 
 
 

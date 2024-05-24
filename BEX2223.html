@@ -252,6 +252,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023</h1>
+<h4 class="date">mai 24, 2024 13:39</h4>
 
 </div>
 
@@ -302,7 +303,7 @@ div.tocify {
 ## $ Observers             &lt;chr&gt; &quot;Josefien; Michael; Ona; Zonke&quot;, &quot;Josefien; Mich…
 ## $ DeviceId              &lt;chr&gt; &quot;{7A4E6639-7387-7648-88EC-7FD27A0F258A}&quot;, &quot;{7A4E…</code></pre>
 <ul>
-<li><p>I am now using the <strong>view</strong> function to have a sight on the entire dataset and <strong>glimpse</strong> to display a summary of my dataset</p></li>
+<li><p>I am now using the <strong>View</strong> function to have a sight on the entire dataset and <strong>glimpse</strong> to display a summary of my dataset</p></li>
 <li><p>I have <strong>20 variables</strong> (here columns) and <strong>2795 trials</strong> (here rows)</p></li>
 <li><p>I will now make a brief summary of each variables and their use before creating a new dataframe (df) with my variables of interest that I will call <strong>Bex</strong></p></li>
 <li><p>The highlighted variables are the ones I will use for <strong>Bex</strong>. I will then <strong>clean the data</strong> before heading to the <strong>statistical analysis</strong> and the <strong>interpretation of the results</strong></p></li>
@@ -396,7 +397,7 @@ div.tocify {
 <ol style="list-style-type: decimal">
 <li>correct any mistakes (ex. if tolerance and aggression are together aggression&gt;tolerance)</li>
 <li>assign as few labels per trial</li>
-<li>get a better view and understanding of the data and the most common behaviours produced by each dyad</li>
+<li>get a better View and understanding of the data and the most common behaviours produced by each dyad</li>
 <li>create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at the other individual / )</li>
 </ol></li>
 <li>Projection of the hierarchy (changes will be made)
@@ -1078,7 +1079,9 @@ print(combinations_summary)</code></pre>
 <pre><code>## Number of &#39;No Remarks&#39; entries:  2135</code></pre>
 <pre><code>## Number of actual remarks entries:  607</code></pre>
 <pre><code>## Total number of keyword occurrences in the Remarks column:  0</code></pre>
-<p>*NA Check in BexClean</p>
+<ul>
+<li>NA Check in BexClean</li>
+</ul>
 <pre><code>## Number of NA entries in Context:  0</code></pre>
 <pre><code>## Number of NA entries in SpecialBehaviour:  0</code></pre>
 <pre><code>## Number of NA entries in GotCorn:  0</code></pre>
@@ -1766,7 +1769,7 @@ print(combinations_summary)</code></pre>
 <ol style="list-style-type: decimal">
 <li>correct any mistakes (ex. if tolerance and aggression are together aggression&gt;tolerance)</li>
 <li>assign as few labels per trial</li>
-<li>get a better view and understanding of the data and the most common behaviours produced by each dyad</li>
+<li>get a better View and understanding of the data and the most common behaviours produced by each dyad</li>
 <li>create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at the other individual / )</li>
 </ol>
 <ul>
@@ -1786,16 +1789,17 @@ print(combinations_summary)</code></pre>
 </ul></li>
 </ul>
 <pre><code>## Number of rows with multiple entries in DyadResponse:  233</code></pre>
+<pre><code>## Rows with multiple entries in DyadResponse:  57, 62, 68, 72, 75, 88, 92, 93, 101, 102, 117, 137, 196, 198, 248, 282, 284, 285, 296, 305, 309, 311, 325, 329, 333, 334, 335, 348, 353, 354, 374, 375, 394, 395, 398, 404, 416, 461, 475, 476, 489, 504, 517, 518, 529, 536, 543, 604, 607, 629, 632, 744, 752, 753, 761, 764, 765, 767, 772, 773, 784, 790, 821, 832, 864, 869, 891, 895, 901, 915, 922, 937, 940, 941, 957, 958, 965, 976, 1000, 1007, 1018, 1030, 1045, 1051, 1063, 1212, 1216, 1228, 1232, 1243, 1246, 1248, 1250, 1257, 1274, 1287, 1291, 1296, 1311, 1313, 1314, 1329, 1330, 1333, 1339, 1344, 1346, 1355, 1381, 1401, 1402, 1410, 1419, 1464, 1467, 1476, 1481, 1487, 1491, 1492, 1498, 1513, 1523, 1524, 1531, 1561, 1598, 1601, 1605, 1610, 1619, 1632, 1633, 1636, 1639, 1642, 1645, 1648, 1657, 1661, 1717, 1721, 1727, 1739, 1748, 1750, 1782, 1783, 1786, 1793, 1798, 1799, 1801, 1802, 1803, 1804, 1805, 1812, 1813, 1816, 1817, 1818, 1819, 1822, 1825, 1826, 1827, 1828, 1829, 1834, 1840, 1853, 1854, 1855, 1886, 1894, 2085, 2087, 2088, 2098, 2099, 2100, 2101, 2102, 2106, 2110, 2144, 2145, 2146, 2149, 2150, 2163, 2172, 2181, 2182, 2189, 2190, 2191, 2196, 2198, 2199, 2202, 2215, 2223, 2234, 2245, 2254, 2287, 2291, 2340, 2350, 2351, 2356, 2359, 2360, 2367, 2392, 2393, 2397, 2462, 2463, 2464, 2490, 2531, 2602, 2610, 2627, 2630, 2631, 2644, 2652, 2658, 2730</code></pre>
 <ul>
 <li><p>Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split.</p></li>
 <li><p>I will make an intermediary summary to see that state of DyadResponse at the moment</p></li>
 <li><p>A. Summary od DyadResponse</p></li>
 <li><p>B.Idnetify Rows with more than 1 entry</p></li>
-<li><p>Step 1: Identify Rows with More than 1 Entry rows_with_multiple_entries_1 &lt;- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), “;”))) &gt; 1))</p></li>
+<li><p>Step 1: Identify Rows with More than 1 Entry beforesummaryrowswithmultipleentries_1 &lt;- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), “;”))) &gt; 1))</p></li>
 </ul>
-<p>Display the rows with more than 1 entry in DyadResponse knitr::kable(Bex[rows_with_multiple_entries_1, ])</p>
+<p>Display the rows with more than 1 entry in DyadResponse knitr::kable(Bex[beforesummaryrowswithmultipleentries_1, ])</p>
 <ul>
-<li><p>Print the amount of cells with more than 1 entry and the total number of rows cat(“Number of rows with more than 1 entry in DyadResponse:”, length(rows_with_multiple_entries_1), “”)</p></li>
+<li><p>Print the amount of cells with more than 1 entry and the total number of rows cat(“Number of rows with more than 1 entry in DyadResponse:”, length(beforesummaryrowswithmultipleentries_1), “”)</p></li>
 <li><p>C. Identify Rows with more than 2 entry</p></li>
 </ul>
 <pre><code>## Number of rows with more than 1 entry in DyadResponse:  233</code></pre>
@@ -1881,7 +1885,17 @@ print(combinations_summary)</code></pre>
 <div id="code-to-settle" class="section level1">
 <h1>Code to settle</h1>
 <p>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong></p>
-<p>{r Check changes of dichotomic variables}</p>
+<pre><code>## Occurrences of &#39;Not approaching&#39; in DyadResponse: 560</code></pre>
+<pre><code>## Occurrences of &#39;Intrusion&#39; in DyadResponse: 116</code></pre>
+<pre><code>## Occurrences of &#39;Losing interest&#39; in DyadResponse: 97</code></pre>
+<pre><code>## Occurrences of &#39;Distracted&#39; in DyadResponse: 14</code></pre>
+<pre><code>## Warning: Unknown or uninitialised column: `NotApproaching`.</code></pre>
+<pre><code>## Warning: Unknown or uninitialised column: `LosingInterest`.</code></pre>
+<pre><code>## Warning: Unknown or uninitialised column: `Distracted`.</code></pre>
+<pre><code>## Occurrences of &#39;1&#39; in &#39;NotApproaching&#39;: 0</code></pre>
+<pre><code>## Occurrences of &#39;1&#39; in &#39;Intrusion&#39;: 56</code></pre>
+<pre><code>## Occurrences of &#39;1&#39; in &#39;LosingInterest&#39;: 0</code></pre>
+<pre><code>## Occurrences of &#39;1&#39; in &#39;Distracted&#39;: 0</code></pre>
 <div id="exploratory-graph-to-organise" class="section level3">
 <h3>Exploratory Graph (To organise)</h3>
 <p>####Dyad, Distance &amp; Date</p>
@@ -1981,10 +1995,6 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 <div id="unique-values-in-femaleid" class="section level1">
 <h1>Unique values in FemaleID</h1>
 <p>unique_female_ids &lt;- unique(Bex$FemaleID)</p>
-</div>
-<div id="print-the-unique-values" class="section level1">
-<h1>Print the unique values</h1>
-<p>cat(“Unique values in MaleID:”, toString(unique_male_ids), “”) cat(“Unique values in FemaleID:”, toString(unique_female_ids), “”)</p>
 </div>
 <div id="sections-below-are-here-for-the-organization-of-my-paper-and-will-be-worked-on-once-the-data-cleaning-and-exploration-is-done" class="section level1">
 <h1>Sections below are here for the organization of my paper and will be worked on once the data cleaning and exploration is done</h1>
@@ -2169,14 +2179,14 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 </div>
 <div id="bibliography-1" class="section level1">
 <h1>Bibliography</h1>
-<p>• Pisor, A. C., &amp; Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and Reviews. Advance online publication. <a href="https://doi.org/10.1002/evan.21793" class="uri">https://doi.org/10.1002/evan.21793</a> (Pisor &amp; Surbeck, 2019)</p>
+<p>• Pisor, A. C., &amp; Surbeck, M. (2019). The evolution of intergroup tolerance in nonhuman primates and humans. Evolutionary Anthropology: Issues and ReViews. Advance online publication. <a href="https://doi.org/10.1002/evan.21793" class="uri">https://doi.org/10.1002/evan.21793</a> (Pisor &amp; Surbeck, 2019)</p>
 </div>
 <div id="annex" class="section level1">
 <h1>Annex</h1>
 <div id="annex-1-view-of-the-dataset-when-imported---first-6-entries-of-each-variable" class="section level4">
 <h4>Annex 1 : View of the dataset when imported - First 6 entries of each variable</h4>
 <ul>
-<li>We can see here the brief view of the <strong>original dataset</strong> names <strong>BoxEx</strong>when i initially imported it as seen in <strong>section 0: Opening data</strong></li>
+<li>We can see here the brief View of the <strong>original dataset</strong> names <strong>BoxEx</strong>when i initially imported it as seen in <strong>section 0: Opening data</strong></li>
 </ul>
 <table>
 <caption>First Few Entries (continued below)</caption>

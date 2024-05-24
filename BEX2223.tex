@@ -1,0 +1,3615 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\title{Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys
+- M.AungKyaw - 2022-2023}
+\author{}
+\date{\vspace{-2.5em}mai 24, 2024 13:36}
+
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{longtable,booktabs,array}
+\usepackage{calc} % for calculating minipage widths
+% Correct order of tables after \paragraph or \subparagraph
+\usepackage{etoolbox}
+\makeatletter
+\patchcmd\longtable{\par}{\if@noskipsec\mbox{}\fi\par}{}{}
+\makeatother
+% Allow footnotes in longtable head/foot
+\IfFileExists{footnotehyper.sty}{\usepackage{footnotehyper}}{\usepackage{footnote}}
+\makesavenoteenv{longtable}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifLuaTeX
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\begin{document}
+\maketitle
+
+{
+\setcounter{tocdepth}{6}
+\tableofcontents
+}
+\hypertarget{introduction}{%
+\section{Introduction}\label{introduction}}
+
+\hypertarget{opening-the-data}{%
+\section{0.Opening the data}\label{opening-the-data}}
+
+\hypertarget{loading-data}{%
+\subsubsection{Loading data}\label{loading-data}}
+
+\begin{itemize}
+\tightlist
+\item
+  First I downloaded the \textbf{knitr package} to create outputs as
+  html, pdf or word files when knitting my r markdown file. I also
+  loaded the \textbf{pander} package for better presentation
+\item
+  The \textbf{dplyr} package was installed for better manipulation of
+  the data as filtering or creating new variables and \textbf{lubridate}
+  for a better manipulation of dates and time
+\item
+  Then, I installed the \textbf{readxl package} to import my dataset
+  which is called \textbf{Box Experiments.xls}
+\item
+  This dataset contains information related to my master thesis project.
+  I used cyber tracker in order to record the behaviors of dyads of
+  Vervet monkeys in a box experiment on tolerance from September 2022 to
+  September 2023
+\end{itemize}
+
+\hypertarget{explore-the-data}{%
+\section{1.Explore the data}\label{explore-the-data}}
+
+\hypertarget{description-of-the-initial-datset---boxex}{%
+\subsubsection{Description of the initial datset -
+``Boxex''}\label{description-of-the-initial-datset---boxex}}
+
+\begin{verbatim}
+## Glimpse of the Box Experiment dataset:
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 2,795
+## Columns: 20
+## $ Date                  <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27,~
+## $ Time                  <dttm> 1899-12-31 09:47:50, 1899-12-31 09:50:07, 1899-~
+## $ Data                  <chr> "Box Experiment", "Box Experiment", "Box Experim~
+## $ Group                 <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Ba~
+## $ GPSS                  <chr> "-28.010549999999999", "-28.010549999999999", "-~
+## $ GPSE                  <chr> "31.191050000000001", "31.191050000000001", "31.~
+## $ MaleID                <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge",~
+## $ FemaleID              <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", ~
+## $ `Male placement corn` <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ MaleCorn              <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, ~
+## $ FemaleCorn            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ DyadDistance          <chr> "2m", "2m", "1m", "1m", "0m", "0m", "0m", "0m", ~
+## $ DyadResponse          <chr> "Tolerance", "Tolerance", "Tolerance", "Toleranc~
+## $ OtherResponse         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ Audience              <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk~
+## $ IDIndividual1         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ IntruderID            <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Sey~
+## $ Remarks               <chr> NA, NA, "Nge box did not open because of the bat~
+## $ Observers             <chr> "Josefien; Michael; Ona; Zonke", "Josefien; Mich~
+## $ DeviceId              <chr> "{7A4E6639-7387-7648-88EC-7FD27A0F258A}", "{7A4E~
+\end{verbatim}
+
+\begin{itemize}
+\item
+  I am now using the \textbf{View} function to have a sight on the
+  entire dataset and \textbf{glimpse} to display a summary of my dataset
+\item
+  I have \textbf{20 variables} (here columns) and \textbf{2795 trials}
+  (here rows)
+\item
+  I will now make a brief summary of each variables and their use before
+  creating a new dataframe (df) with my variables of interest that I
+  will call \textbf{Bex}
+\item
+  The highlighted variables are the ones I will use for \textbf{Bex}. I
+  will then \textbf{clean the data} before heading to the
+  \textbf{statistical analysis} and the \textbf{interpretation of the
+  results}
+\end{itemize}
+
+\hypertarget{variables-of-boxex}{%
+\paragraph{Variables of Boxex}\label{variables-of-boxex}}
+
+\begin{itemize}
+\item
+  \textbf{Date} : ``Date'' is in a \textbf{POSIXct} format which is
+  appropriate for the display of time
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I want to use the date to know \textbf{how many sessions} have been
+    done with each dyads in my experiment.
+  \item
+    I will create a variable called \textbf{Session} where \textbf{1
+    session = 1 day}
+  \item
+    The data has values from the \textbf{14th of September 2022} until
+    the \textbf{13th of September 2023}
+  \item
+    I may consider separating the \textbf{12 months} of data in
+    \textbf{4 seasons} to make a preliminary check of a potential effect
+    of seasonality. Nevertheless since we did not use any tools to
+    measure the weather, temperature, humidity or food availability
+    (also related to seasonality and weather). Categorizing my data in 4
+    without having further data would then be quite arbitrary. If I end
+    up doing it in my report, it will be done without any intention to
+    include it in my scientific analysis nor my scientific report .
+  \end{itemize}
+\item
+  \textbf{Time} : ``Time is coded'' in a \textbf{POSIXct} format
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I do not plan to use this variable but we can see that ``Time'' has
+    the correct hours displayed with a date which is incorrect.
+  \item
+    (In the case I wanted to observe \textbf{when the trials occurred
+    during the day} as time may have an influence on their behavior
+    (\textbf{Isbell \& Young 1993})) I would need to correct the
+    incorrect display of the date in the dataset.
+  \item
+    This variable could also be useful to see when the \textbf{seasonal
+    effect} took place as we only went in the morning during summer
+    because of the heat while we went later and for longer times in the
+    field to do the box experiment in winter
+  \item
+    For now, the values in ``Time'' are all on the same (wrong) day
+    which is the \textbf{31st of December}
+  \item
+    Note: I first did not intend to keep \textbf{Time} in Bex but I
+    needed this variable to see the order of the trails within a day. I
+    finally decided to keep it.
+  \end{itemize}
+\item
+  Data : chr ``Data'' is coded as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It describes \textbf{the type of data} being recorded in the
+    software \textbf{cybertracker}. We installed the software on tablets
+    to record the different behaviors of vervet monkeys in our research
+    center
+  \item
+    In our case, my data was recorded in cybertracker as \textbf{Box
+    Experiment} as we created a form specifically for this experiment
+  \item
+    For this reason we can remove this column since the information it
+    contains is unecessary and redundant
+  \end{itemize}
+\item
+  Group : chr The data is coded in r as a \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It describes the \textbf{group of monkey} in which we did the trial
+  \item
+    I will keep this column to see the amount of trials that we did in
+    the 3 group of monkeys which are Baie-Dankie \textbf{(BD)}, Ankhase
+    \textbf{(AK)}, and Noha \textbf{(NH)}
+  \end{itemize}
+\item
+  GPSS : num ``GPSS'' is coded as \textbf{numerical}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{south coordinates} in which we started the
+    experiment
+  \item
+    I do not plan to use coordinates nor look at locations so I will
+    remove this acolumn
+  \end{itemize}
+\item
+  GPSE : num ``GPSE'' is coded in as \textbf{numerical}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{east coordinates} in which we started the
+    experiment
+  \item
+    I do not plan to use coordinates nor look at locations so I will
+    remove this column
+  \end{itemize}
+\item
+  \textbf{MaleID} : chr ``MaleID'' is coded as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It indicates the \textbf{name of the male involved in the trial}
+  \item
+    I plan to use this to see how factors related to the individual may
+    influence the experiment (age, sex, rank)
+  \item
+    It will also help me see which behaviour was displayed by each
+    individuals (here males)
+  \end{itemize}
+\item
+  \textbf{FemaleID} : chr ``FemaleID'' is coded as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It indicates the \textbf{name of the female involved in the trial}
+  \item
+    I plan to use this variable in the same way as ``Male ID''
+  \item
+    It will also help me see which behaviour was displayed by each
+    individuals (here females)
+  \end{itemize}
+\item
+  \textbf{Male placement corn}: dbl ``Male placement corn is coded in r
+  as \textbf{double}
+
+  \begin{itemize}
+  \item
+    It gives the \textbf{amount of corn given to the male of the dyad
+    before the trials}
+  \item
+    Within a session it happened that we gave more placement corn to
+    attract the monkeys again to the boxes. This lead to an update of
+    the number in the same session. The number found at the end of the
+    session is the total placement corn an individual has received
+  \item
+    I will fuse this column with \textbf{male corn} as the data has been
+    separated between these two variables. This is due to a mistake when
+    creating the original box experiment form in cybertracker
+  \item
+    This variable could be related to the level of motivation of a
+    monkey but as it is not directly related to my hypothesis I may not
+    use this column. I will re-consider the use of this column later on
+  \item
+    In regards of this possibility I will change the format of the
+    variable to numerical
+  \end{itemize}
+\item
+  \textbf{MaleCorn} : dbl ``MaleCorn'' is coded in r as \textbf{double}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the same information as in \textbf{male placement corn}
+  \item
+    I will import the values from ``male placement corn'' into this one
+  \item
+    I will change the format of the variable to numerical
+  \end{itemize}
+\item
+  \textbf{FemaleCorn} : dbl The data is coded in r as \textbf{double}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{amount of corn given to the female of the dyad
+    before the trials}
+  \item
+    It works in the same way as ``male placement corn''/``MaleCORN''
+  \item
+    I will change the format of the variable to numerical
+  \end{itemize}
+\item
+  \textbf{DyadDistance} : chr The data is coded in r as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{distance for each trial} that we have done with
+    the dyads.
+  \item
+    The trial number 1 for each dyad was at 5 meters.
+  \item
+    The maximum was around 10 m while the minimum is 0
+  \item
+    We will have to remove the ``m'' for meters in order to have a
+    numerical variable instead of character
+  \item
+    Also, since the very first trials per dyad can be considered as a
+    kind of learning phase, i may remove the \textbf{15 first trials}
+    that were made for each dyad
+  \end{itemize}
+\item
+  \textbf{DyadResponse} : chr The data is coded in r as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It indicated which \textbf{behaviour was produced by the dyad's
+    during each trial}
+  \item
+    The different behaviours were: \textbf{Distracted}, \textbf{Female
+    aggress male}, \textbf{Male aggress female}, \textbf{Intrusion},
+    \textbf{Loosing interest}, \textbf{Not approaching},
+    \textbf{Tolerance} and \textbf{Other}
+  \item
+    I will change the columns associated to each behavior
+    (i.e.~Response) of \textbf{DyadResponse} into dichotomic variables
+    in order to see the frequency of each behaviour
+  \item
+    This will allow me to see which behavior occurred more ,and
+    behavioural differences could be found between dyads
+  \item
+    As multiple response could occur within the same trial, multiple
+    behaviors can be found in a single cell. I will create a hierarchy
+    to reduce the amount of behaviors assigned to each trial (if there
+    is more than one). This will also be complemented with the
+    information found in the column \textbf{remarks}
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \tightlist
+    \item
+      correct any mistakes (ex. if tolerance and aggression are together
+      aggression\textgreater tolerance)
+    \item
+      assign as few labels per trial
+    \item
+      get a better View and understanding of the data and the most
+      common behaviours produced by each dyad
+    \item
+      create variables that can complement the behaviour found (ex. not
+      approaching + looks at partner would be looks at partner + a new
+      variable called hesistant to see when the did not come but look at
+      the other individual / )
+    \end{enumerate}
+  \item
+    Projection of the hierarchy (changes will be made)
+
+    \begin{itemize}
+    \item
+      Create a table with each combination existing
+    \item
+      Decide what is more important
+    \item
+      Ex:
+
+      \begin{itemize}
+      \tightlist
+      \item
+        Aggression \textgreater{} Tolerance
+      \item
+        Tolerance \textgreater{} Not approaching -\textgreater{} Create
+        a variable called hesistant in addtion to the tolerance count to
+        see frequency of tolerance behaviour that happened after
+        \textgreater{} 1min
+      \item
+        Tolerance \textgreater{} Loosing interest
+      \item
+        Tolerance \textgreater{} Intrusion
+      \item
+        Not approaching = looking box but not coming while Loosing
+        interest = not paying attention to the box
+      \item
+        Intrusion \textgreater{} Loosing interest
+      \item
+        Intrusion \textgreater{} Not approaching
+      \item
+        Not approaching \textgreater{} Looks at partner
+      \item
+        We can code every look at partner as no approaching and keep the
+        count of looks at partner as additional information
+      \item
+        Not approaching \textgreater?\textgreater{} Loosing interest ?
+        !!
+      \item
+        Define distracted
+      \item
+        Not approaching \textgreater{} Distracted
+      \item
+        Aggression \textgreater{} Not approaching
+      \item
+        Other \textgreater{} Look case by case and categorize depending
+        of behavior
+      \item
+        Remarks may be used for the same reason
+      \end{itemize}
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{OtherResponse} : chr ``The data''OtherResponse'' is coded as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It describes \textbf{any behaviour that is different from the ones
+    found in Dyad Response} (meaning ≠ tolerance, aggression, intrusion,
+    loosing interest, not approaching, distracted, looks at partner that
+    where categorized as \textbf{other})
+  \item
+    I will have to look at every \textbf{OtherResponse} and rename each
+    entry in one of the response already if existing. I will proceed
+    case by case.
+  \item
+    If I want to do an intermediate manipulation I may rename every NA
+    in ``OtherResponse'' into \textbf{Response} to see the amount of
+    case to treat and how many occurrences seem to not fit in the
+    categories of ``DyadResponse''
+  \end{itemize}
+\item
+  \textbf{Audience} : chr ``Audience'' is in r as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{names of the individuals in the audience}
+  \item
+    I would like to use it to see the \textbf{amount of audience (big vs
+    small)} and the \textbf{dominance level of the audience (high vs
+    low)}
+  \item
+    I will create a variable called \textbf{NAudience} to see hoy many
+    individuals are in the audience for each trial
+  \item
+    After calculating the elo ratings of the individuals using another
+    dataset (Life history), I will create a dichotomic variable called
+    \textbf{RankAudience} to see effects related to rank with the effect
+    of audience
+  \end{itemize}
+\item
+  \textbf{IDIndividual1} : chr ``IDIndividual1'' is coded in r as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{names of the individuals that did not approach,
+    showed aggression, got distracted or lost interest} during a trial
+  \item
+    I will have to look at it to see how often these behaviors occurred
+  \item
+    I will consider how to use this variable during the cleaning of the
+    data
+  \end{itemize}
+\item
+  \textbf{IntruderID} : chr ``IndtruderID'' is coded as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{name of the individual that intruded the
+    experiment during a trial}
+  \item
+    Intrusion could mean, invade the space of the experiment and
+    interact with one of our individual, steal the food, show agnostic
+    behavior, stand in very close proximity of the dyad's individuals
+  \end{itemize}
+\item
+  \textbf{Remarks} : chr The data is coded in r as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives either additional information concerning the experiment
+    when unusual behaviors occurred , mistakes that needed to be
+    corrected or details that we wanted to record in case we would need
+    them
+  \end{itemize}
+\item
+  Observers :chr The data is coded in r as \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{names of the observers during the experiment}
+  \item
+    We will not use this data as we do not look at the effect that an
+    experimenter would have on the monkeys
+  \item
+    (Should I still look at an effect of the amount of
+    experimenter?\ldots maybe better for detailled analysis of our
+    study)
+  \end{itemize}
+\item
+  DeviceID :chr ``The data''DeviceID'' is coded in r as
+  \textbf{character}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    It gives the \textbf{name of the device/tablet} used to record the
+    data during the experiment
+  \item
+    We will not use this data either
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{treating-missing-data}{%
+\section{2. Treating missing data}\label{treating-missing-data}}
+
+\hypertarget{creating-a-new-dataframe---bex}{%
+\subsection{2.1. Creating a new dataframe -
+Bex}\label{creating-a-new-dataframe---bex}}
+
+\begin{itemize}
+\item
+  Since I do not want to work with the whole dataset, I'm gonna select
+  the variables of interest using the function \textbf{select}
+\item
+  I will keep Time, Date, Group, MaleID, FemaleID, MaleCorn, Male
+  placement corn, FemaleCorn, DyadDistance, DyadResponse, OtherResponse,
+  Audience, IDIndividual1, IntruderID, Remarks
+\end{itemize}
+
+\begin{verbatim}
+## Rows: 2,795
+## Columns: 15
+## $ Time                  <dttm> 1899-12-31 09:47:50, 1899-12-31 09:50:07, 1899-~
+## $ Date                  <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27,~
+## $ Group                 <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Ba~
+## $ MaleID                <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge",~
+## $ FemaleID              <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", ~
+## $ MaleCorn              <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, ~
+## $ `Male placement corn` <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ FemaleCorn            <dbl> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ DyadDistance          <chr> "2m", "2m", "1m", "1m", "0m", "0m", "0m", "0m", ~
+## $ DyadResponse          <chr> "Tolerance", "Tolerance", "Tolerance", "Toleranc~
+## $ OtherResponse         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ Audience              <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk~
+## $ IDIndividual1         <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, ~
+## $ IntruderID            <chr> NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, NA, "Sey~
+## $ Remarks               <chr> NA, NA, "Nge box did not open because of the bat~
+\end{verbatim}
+
+\hypertarget{merging-male-placement-corn-and-malecorn}{%
+\subsubsection{2.1.1 Merging Male placement corn and
+MaleCorn}\label{merging-male-placement-corn-and-malecorn}}
+
+\begin{itemize}
+\tightlist
+\item
+  I want to process all the missing data in Bex. But before, I will
+  merge the column \textbf{MaleCorn} and \textbf{Male placement corn} as
+  the data of both columns is supposed to be together under ``MaleCorn''
+\item
+  Looking manually in the Bex table it seems that very few data is in
+  \textbf{MaleCorn} while most of it seems to be in \textbf{Male
+  placement corn}
+\item
+  Every time there is a missing value in Male placement corn we can see
+  a value in Male Corn, I will then create a new variable MaleCorn where
+  every time that there is NA in male placement corn the value will be
+  taken in MaleCornOld (previous malecorn). If there is no NA it will
+  take the value of ´Male placement corn´
+\item
+  I will first \textbf{rename MaleCorn to MaleCornOld}, then
+  \textbf{check the amount of NA's} and then \textbf{merge
+  ``MaleCornOld'' and ``male placement corn''} into the \textbf{new
+  variable ``MaleCorn''}
+\end{itemize}
+
+\begin{verbatim}
+## Number of rows with common NAs in MaleCornOld and 'Male placement corn': 1499 
+## Number of occurrences of 0 in MaleCorn: 1499 
+## Number of remaining NA values in MaleCorn: 0
+\end{verbatim}
+
+\begin{itemize}
+\item
+  I have found \textbf{1499 NA in common} between MaleCornOld and `male
+  placement corn', \textbf{1609 NA in Male placement corn} and
+  \textbf{2685 in MaleCorn old}
+\item
+  For the \textbf{merge of MaleCornOld and Male placement corn}, I used
+  different conditions: 1.In this code, a new variable MaleCorn is
+  created. If there is a missing value in Male placement corn, it takes
+  the corresponding value from MaleCornOld; otherwise, it takes the
+  value from Male placementcorn. 2.If there are no value in both
+  MaleCornOld and Male placement corn (NA,NA) for a given row, I would
+  like the code to display 0 as it means that no placement was given
+\item
+  In this way, I should not loose any data, minimize the mistakes and
+  already transform the NA's of this variable into a number which will
+  remove the remaining NA's which are meant to be 0
+\item
+  After the merge I found that there were \textbf{no NA's remaining} in
+  the \textbf{``New'' Male Corn} and that \textbf{1499 0's} where found
+  in the column which \textbf{corresponds to the amount of common NA's
+  found previously} between the \textbf{``Old'' Male Corn} and
+  \textbf{male placement corn}
+\end{itemize}
+
+\hypertarget{cleaning-femalecorn}{%
+\subsubsection{2.1.2 Cleaning FemaleCorn}\label{cleaning-femalecorn}}
+
+\begin{verbatim}
+## Number of remaining NA values in FemaleCorn: 0
+\end{verbatim}
+
+\hypertarget{cleaning-variables-with-missing-data}{%
+\subsubsection{2.2 Cleaning variables with missing
+data}\label{cleaning-variables-with-missing-data}}
+
+\begin{itemize}
+\item
+  Now in order to see where are located the missing points in the data,
+  I'm going to \textbf{print} the variables \textbf{with and without
+  NA's}
+\item
+  The function \textbf{sapply} is used to apply the function
+  \textbf{sum} for NA's to each column of the data frame, so each
+  variable
+\end{itemize}
+
+\begin{verbatim}
+## Variables with Missing Data:
+\end{verbatim}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+& x \\
+\midrule
+\endhead
+MaleID & 19 \\
+FemaleID & 60 \\
+DyadDistance & 33 \\
+DyadResponse & 47 \\
+OtherResponse & 2758 \\
+Audience & 924 \\
+IDIndividual1 & 2143 \\
+IntruderID & 2737 \\
+Remarks & 2181 \\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## Variables with No Missing Data:
+\end{verbatim}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+& x \\
+\midrule
+\endhead
+Time & 0 \\
+Date & 0 \\
+Group & 0 \\
+FemaleCorn & 0 \\
+MaleCorn & 0 \\
+\bottomrule
+\end{longtable}
+
+\begin{itemize}
+\item
+  We can see that out of the 14 variables we have in \textbf{Bex} we
+  have \textbf{9 variables with missing data} which are \textbf{Male ID,
+  Female ID, DyadDistance, DyadResponse, OtherResponse, Audience,
+  IDIndividual1, IntruderID, Remarks}: I will proceed to clean these
+  variables one by one
+\item
+  MaleID 19
+\item
+  FemaleID 60
+\item
+  DyadDistance 33
+\item
+  DyadResponse 47
+\item
+  OtherResponse 2758
+\item
+  Audience 924
+\item
+  ID Individual1 2143
+\item
+  IntruderID 2737
+\item
+  Remarks 2181
+\item
+  Before making treating the NA's in the dataset I will make a backup of
+  the data at this point:
+\end{itemize}
+
+\hypertarget{treating-variables-with-missing-data}{%
+\subsubsection{2.3 Treating variables with missing
+data}\label{treating-variables-with-missing-data}}
+
+\hypertarget{cleaning-remarks---2181-nas}{%
+\paragraph{2.3.1 Cleaning ``Remarks'' - (2181
+NA's)}\label{cleaning-remarks---2181-nas}}
+
+\begin{itemize}
+\item
+  Since most of the time we did not have any remarks it is
+  understandable that this variable contains 2181 NA's out of 2795 rows
+\item
+  I will first transform every missing data in the column Remark into
+  \textbf{No Remarks} and then check that the amount of ``No remarks''
+  found
+\item
+  After the changes we can effectively see that we have \textbf{2181
+  ``No Remarks''} and we have no missing data left in that column, I
+  will treat this column by hand once all the NA's have been removed
+  from the dataset
+\end{itemize}
+
+\begin{verbatim}
+## Number of 'No Remarks' in the 'Remarks' column: 2181
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## No Remarks    Remarks 
+##       2181        614
+\end{verbatim}
+
+\hypertarget{cleaning-intruder-id---2737-nas}{%
+\subsubsection{2.3.2 Cleaning ``Intruder ID'' - (2737
+NA's)}\label{cleaning-intruder-id---2737-nas}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Intruder ID} is a variable that contains the \textbf{name of
+  the individuals that made and intrusion during a trial}.
+\item
+  If more than one individual intruded, his name may be in the comments,
+  which I will check when treating the data from this column
+\item
+  Because nothing was entered when there was no intrusion, I will
+  replace every NA's by \textbf{No Intrusion}
+\item
+  Also, I will use a function to create a new dichotomic variable called
+  \textbf{Intrusion}. Every time there is a value in IntruderID, it
+  should display 1 (Yes), if not a 0 (No intrusion)
+\end{itemize}
+
+\begin{verbatim}
+## Number of 'No Intrusion' in the 'Intruder ID' column after replacement: 2737
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  We previously had 2737 NA's in IntruderID while now we have the same
+  amount of occurrences of IntruderID which shis that the transformation
+  went as intended
+\end{itemize}
+
+\hypertarget{cleaning-idindividual1---2143-nas}{%
+\paragraph{2.3.3 Cleaning ``IDIndividual1'' - (2143
+NA's)}\label{cleaning-idindividual1---2143-nas}}
+
+\begin{itemize}
+\tightlist
+\item
+  IDIndividual1 is meant to report the name of the individual that did a
+  behavior such as not approach, show aggression or loose interest
+  during a trial
+\item
+  I will now replace every NA in this column by \textbf{No individual}
+  and print the amount of NA's left and the amount of changes made
+\end{itemize}
+
+\begin{verbatim}
+## Number of NAs replaced in IDIndividual1: 2143 
+## Number of remaining NA values in IDIndividual1: 0
+\end{verbatim}
+
+\hypertarget{cleaning-audience---924-nas}{%
+\subsubsection{2.6 Cleaning ``Audience'' - (924
+NA'S)}\label{cleaning-audience---924-nas}}
+
+\begin{itemize}
+\tightlist
+\item
+  Audience is made to report every name of individuals around our dyad
+  during a given trial
+\item
+  I will replace every NA by \textbf{No audience} as no entry means the
+  absence of other individuals around
+\item
+  I will also create a new variable called ``Amount audience'' that will
+  have to tell me how many individuals are found in the column Audience
+\end{itemize}
+
+\begin{verbatim}
+## Number of changes made in 'Audience': 924
+\end{verbatim}
+
+\begin{verbatim}
+## Remaining NA values in 'Audience': 0
+\end{verbatim}
+
+\hypertarget{cleaning-otherresponse---2758-nas}{%
+\subsubsection{2.7 Cleaning ``OtherResponse'' - (2758
+NA'S)}\label{cleaning-otherresponse---2758-nas}}
+
+\begin{verbatim}
+## Number of changes made in 'OtherResponse': 2758
+\end{verbatim}
+
+\begin{verbatim}
+## Remaining NA values in 'OtherResponse': 0
+\end{verbatim}
+
+\hypertarget{cleaning-of-time}{%
+\subsubsection{2.8 Cleaning of ``Time''}\label{cleaning-of-time}}
+
+\begin{itemize}
+\tightlist
+\item
+  Since the reading of the data is more complicated without the time,
+  which was usefull to know which trial was before or after, I changed
+  the code made for Bex and added \textbf{Time} in the dataframe. Since
+  I will need it for the cleaning of Dyaddistance, I will now extract
+  the time from the date. Even if the date is wrong as seen in the first
+  output, the time is correct. As in the second output, only the time
+  has been kept
+\end{itemize}
+
+\begin{verbatim}
+## [1] "1899-12-31 09:47:50 UTC" "1899-12-31 09:50:07 UTC"
+## [3] "1899-12-31 09:53:11 UTC" "1899-12-31 09:54:28 UTC"
+## [5] "1899-12-31 09:55:19 UTC" "1899-12-31 09:56:56 UTC"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "09:47:50" "09:50:07" "09:53:11" "09:54:28" "09:55:19" "09:56:56"
+\end{verbatim}
+
+\hypertarget{cleaning-dyaddistance}{%
+\subsubsection{2.9 Cleaning DyadDistance}\label{cleaning-dyaddistance}}
+
+\begin{itemize}
+\tightlist
+\item
+  Before looking at the NA's of Dyaddistance I will remove the ``m''
+  that is in front of every number to have a numerical variable
+\item
+  Then I will look at the location of the NA's in the data to treat them
+  case by case.
+\end{itemize}
+
+\begin{verbatim}
+## Warning: NAs introduits lors de la conversion automatique
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 69 x 16
+##    Time     Date                Group    MaleID FemaleID FemaleCorn DyadDistance
+##    <chr>    <dttm>              <chr>    <chr>  <chr>         <dbl>        <dbl>
+##  1 12:09:34 2022-09-27 00:00:00 Baie Da~ Xia    Piep              7           NA
+##  2 12:13:28 2022-09-27 00:00:00 Baie Da~ Xia    Piep              7           NA
+##  3 16:02:32 2022-09-15 00:00:00 Ankhase  Sho    Ginq              6           NA
+##  4 10:46:33 2023-08-17 00:00:00 Baie Da~ Xia    Piep              0           NA
+##  5 09:30:17 2023-07-29 00:00:00 Baie Da~ Xin    Ouli              0           NA
+##  6 12:08:51 2023-07-11 00:00:00 Baie Da~ Xia    Piep              0           NA
+##  7 13:30:07 2023-06-29 00:00:00 Baie Da~ Sey    Sirk              0           NA
+##  8 09:54:24 2023-06-27 00:00:00 Ankhase  Sho    Ginq              0           NA
+##  9 10:13:56 2023-06-23 00:00:00 Ankhase  Sho    Ginq              0           NA
+## 10 09:39:04 2023-06-15 00:00:00 Ankhase  Sho    Ginq              2           NA
+## # i 59 more rows
+## # i 9 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
+## #   Intrusion <dbl>, AmountAudience <dbl>
+## Number of NA values in DyadDistance column (using second approach): 69 
+## Rows with NA values in DyadDistance column: 24, 27, 95, 492, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1800, 1840, 1841, 1868, 1869, 1888, 1891, 1892, 1896, 1911, 1912, 1915, 1918, 1919, 1952, 1953, 1958, 1980, 1981, 1984, 1986, 1996, 2000, 2009, 2054, 2104, 2105, 2191, 2233, 2234, 2287, 2437, 2569, 2579, 2580, 2643, 2676, 2709, 2729
+\end{verbatim}
+
+\begin{itemize}
+\item
+  We have 69 missing values in DyadDistance. I will look at each row in
+  it's context as the actual distance of the box was always dependent of
+  the previous trials. I will start with the bigger number as for now
+  the oldest trial is at the last row while the closest one is in row 1.
+
+  \begin{itemize}
+  \tightlist
+  \item
+    If \textbf{tolerance} was achieved \textbf{twice in a row} =
+    \textless1m
+  \item
+    If \textbf{aggression} (male agress female or female agress male),
+    not approaching,or \textbf{loosing interest} occured =
+    \textgreater1m
+  \item
+    If \textbf{distracted} or \textbf{intrusion} occured = same distance
+  \end{itemize}
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{24} - In trial23 (0m) there was aggression then at trial24
+    (1m) there was tolerance. The 24th trial is supposed to be at
+    \textbf{1m}
+  \item
+    \textbf{27} - In trial25 (1m) there was not approaching then at
+    trial26 (2m) there was tolerance.The 25th trial is supposed to be at
+    \textbf{2m}
+  \item
+    \textbf{95} - In trial93 (2m ) there was male agress female then at
+    trial 94 (3m) there was not approaching. The 95th trial is supposed
+    to be at \textbf{4m}
+  \item
+    \textbf{492} - In trial490 (0m) there was tolerance then at trial491
+    (0m) there was tolerance. The 492nd trial is supposed to be at
+    \textbf{0m}
+  \item
+    \textbf{744} - In trial742 (3m) there was aggression then at
+    trial743 (4m) there was tolerance. The 744th trial is supposed to be
+    at \textbf{4m}\\
+  \item
+    \textbf{971} - In trial969 (0m) there was tolerance then at trial970
+    (0m) there was tolerance. The 971st trial is supposed to be at
+    \textbf{0m}
+  \item
+    \textbf{1113} - In trial1111 (2m) there was tolerance then at
+    trial1112 (0m) there was tolerance. The 1113th trial is supposed to
+    be at \textbf{0m}
+  \item
+    \textbf{1130} - In trial1128 there was another dyad so we can not
+    use this cell. Then at trial1129 (3m) there was not approaching.
+    Nevertheless, we don't have any DyadResponse, i will thus
+    \textbf{delete this row}
+  \item
+    \textbf{1164} - In trial1162 (3m) there was not approaching then at
+    trial1163 (3m) there was not approaching. The 1164th trial is
+    supposed to be at \textbf{4m}
+  \item
+    \textbf{1261} - The two preivous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1341} - In trial1339 (0m) there was tolerance then at
+    trial1340 (0m) there was tolerance. The 1341st trial is supposed to
+    be at \textbf{0m}
+  \item
+    \textbf{1396} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1491} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1583} - In trial1581 (2m) there was not approaching and
+    intrusion then at trial1582 (2m) there was not approaching. The
+    1583rd trial is supposed to be at \textbf{3m}
+  \item
+    \textbf{1683} - One trial only was made with tolerance (2m) but
+    since there are no DyadResponse I will \textbf{delete this row}
+  \item
+    \textbf{1693} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1717} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1718} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1719} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1724} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1725} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1739} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1755} - since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{1756} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1757} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1764} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{1779} - It seems like it was the first trial of the Dyad Pom
+    Xian, if so, the distance has to be \textbf{5m}
+  \item
+    \textbf{1782} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1792} - Trial1791 was intrusion (4m) so this trial should be
+    at \textbf{4m}
+  \item
+    \textbf{1799} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1800} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1840} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1841} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1868} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1869} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1888} - he two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1891} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{1892} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1896} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{1911} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1912} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1915} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1918} - In trial1916 (4m) there was tolerance then at
+    trial1917 (4m) there was not loosing interest The 1918th trial is
+    supposed to be at \textbf{4m}
+  \item
+    \textbf{1919} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1952} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1953} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1958} - In trial1956 (2m) there was tolerance then at
+    trial1957 (2m) there was distracted. The 1958th trial is supposed to
+    be at \textbf{2m}
+  \item
+    \textbf{1980} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1981} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1984} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1986} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{1996} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{2000} - In trial1997 and 1999 (5m) there was tolerance then
+    at trial1999 (5m) there was intrusion. The 2000th trial is supposed
+    to be at \textbf{4m}
+  \item
+    \textbf{2009} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{2054} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{2104} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{2105} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{2191} - In trial2189 (1m) there was not approaching then at
+    trial2190 (2m) there was not approaching. The 2191st trial is
+    supposed to be at \textbf{3m}
+  \item
+    \textbf{2233} - In trial2231 (3m) there was not approaching then at
+    trial2232 (4m) there was not approaching. The 2233rd trial is
+    supposed to be at \textbf{5m}
+  \item
+    \textbf{2234} - The trial did not happen because they where not at
+    the right distance. I will thus \textbf{delete this row}
+  \item
+    \textbf{2287} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{2437} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{2569} - In trial2567 (1m) there was tolerance then at
+    trial2568 (1m) there was tolerance. The 2569th trial is supposed to
+    be at (0m)
+  \item
+    \textbf{2579} - In trial2577 (1m) there was tolerance then at
+    trial2578 (0m) there was not approaching. The 2579th trial is
+    supposed to be at \textbf{1m}
+  \item
+    \textbf{2580} - The two previous trials were made with another Dyad.
+    Also DyadResponse is not available. I will thus \textbf{delete this
+    row}
+  \item
+    \textbf{2643} - Since there are no DyadResponse I will
+    \textbf{delete this row}
+  \item
+    \textbf{2676} - In trial2674 (1m) there was tolerance then at
+    trial2675 (0m) there was tolerance. The 2676th trial is supposed to
+    be at \textbf{0m}
+  \item
+    \textbf{2709} - In trial2707 (2m) there was tolerance then at
+    trial2708 (2m) there was tolerance. The 2709th trial is supposed to
+    be at \textbf{1m}
+  \item
+    \textbf{2729} - In trial2727 (3m) there wastolerance then at
+    trial2728 (2m) there was tolerance. The 2729th trial is supposed to
+    be at \textbf{2m}
+  \end{enumerate}
+\item
+  Now that I have looked at each missing line and saw which ones to
+  keep, I decided to create a new variable called \textbf{Distance}. I
+  will also to create a new variable called \textbf{No trial}.
+\item
+  For the variable \textbf{Distance} I will replace each row where there
+  was missing data with a value and I will delete the ones where no
+  values could be assigned. This will allow me to have no missing data
+  and find a number to each trial that has been done
+\item
+  Before making the changes i'm gonna make a backup called
+  \textbf{BackupbeforeDistanceNA}
+\end{itemize}
+
+\begin{verbatim}
+## Number of NA's in DyadDistance after replacements and deletions: 1 
+## Data size after deletions: 2748
+\end{verbatim}
+
+\begin{verbatim}
+## Row index with NA in DyadDistance: 1925
+\end{verbatim}
+
+*It seems that there is still the row 1925 with an NA in DyadDistance
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{69}
+\tightlist
+\item
+  \textbf{1925} - In trial1923 (2m) there was distracted then at
+  trial1924 (2m) there was tolerance. The 2725th trial is supposed to be
+  at \textbf{2m}
+\end{enumerate}
+
+\begin{verbatim}
+## Row index with NA in DyadDistance:
+\end{verbatim}
+
+*In this modification, I added a check to see if the columns Dyadistance
+and Distance already exist in your dataframe (Bex). If they do, it
+prints a message saying that the modification has already been applied,
+and no changes are made. If they don't exist, it proceeds with the
+modifications. This way, running the code multiple times won't cause
+redundant changes.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{24 values} were inserted in \textbf{Distance} to replace the
+  NA's where the distance could be found by looking at the previous
+  rows. The \textbf{46 remaining NA's} were then \textbf{removed} from
+  Distance \textbf{leaving 0 remaining NA in the variable ``Distance''}
+\end{itemize}
+
+\hypertarget{cleaning-female-and-male-id}{%
+\subsubsection{2.10 Cleaning Female and Male
+ID}\label{cleaning-female-and-male-id}}
+
+\begin{itemize}
+\item
+  Before cleaning Female and Male ID, here is a list of every dyad of
+  the box experiment and their respective groups. This will help us find
+  the missing names when only one individual is missing out of the duo
+  (either male or female):
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \item
+    Sirk \& Sey - BD
+  \item
+    Ouli \& Xin - BD
+  \item
+    Piep \& Xia - BD
+  \item
+    Oerw \& Nge - BD
+  \item
+    Oort \& Kom - BD
+  \item
+    Ginq \& Sho - AK
+  \item
+    Ndaw \& Buk - Ak
+  \item
+    Xian \& Pom - AK
+  \item
+    Guat \& Pom - Ak
+  \end{enumerate}
+\item
+  Note that the 4 letter codes correspond to the femaleID, the 3 letter
+  codes to the males ID and the 2 letter codes to the group name of the
+  monkeys
+\item
+  I need to check where are the NA's in both FemaleID and Male ID by
+  looking at the rows where data is missing. Since every trial was made
+  with a Dyad and never with an single individual, treating these two
+  columns together makes more sense. If both individuals are missing I
+  may have to delete the row.
+\end{itemize}
+
+\begin{verbatim}
+## Row numbers with missing values in FemaleID:  865 866 867 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 1812 1813 1814 1815 1816 1817 1818 1819 1820 1884 1885 2619 2620 2621 2622 2623 2624 2625 2626 2627 2628 2629
+\end{verbatim}
+
+\begin{verbatim}
+## Number of missing values in FemaleID:  59
+\end{verbatim}
+
+\begin{verbatim}
+## Row numbers with missing values in MaleID:  1693 1694 1695 1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710
+\end{verbatim}
+
+\begin{verbatim}
+## Number of missing values in MaleID:  18
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows with missing values in both FemaleID and MaleID:  18
+\end{verbatim}
+
+\begin{verbatim}
+## Row numbers with missing values in both FemaleID and MaleID:  1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704, 1705, 1706, 1707, 1708, 1709, 1710
+\end{verbatim}
+
+\begin{verbatim}
+## Number of missing values in FemaleID not in MaleID:  41
+\end{verbatim}
+
+\begin{verbatim}
+## Row numbers with missing values in FemaleID not in MaleID:  865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 1808, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 1884, 1885, 2619, 2620, 2621, 2622, 2623, 2624, 2625, 2626, 2627, 2628, 2629
+\end{verbatim}
+
+\begin{itemize}
+\item
+  \textbf{FemaleID} has \textbf{41 NA's} while they are \textbf{18 NA's}
+  in \textbf{Male ID}
+\item
+  In these missing data, we have \textbf{18 NA's} that are in common
+  between FemaleID and MaleID which represents the totality of the
+  missing values in MaleID
+\item
+  All the missing data in MaleID are found in consecutive rows, from row
+  \textbf{1693} to row \textbf{1710} and are from the group Noha (NH) on
+  the 19th of april 2023. We can also see that trials had bee made in
+  the same day, and looking at the time of the experiment, the previous
+  trials made and the audience we can see that these NA's in female and
+  male ID we can asses that the individuals involved were \textbf{Xian}
+  for the female ID and \textbf{Pom} for the \textbf{MaleID}. I will
+  thus replace these values using a condtion. These NA's in Noha (Trial
+  1693 to 1710) are the only NA's that MaleID has and are the only NA's
+  of female ID in Noha. I will thus replace every NA of \textbf{MaleID
+  NA in Noha} with \textbf{Pom} and every \textbf{Female ID NA in Noha}
+  with \textbf{Xian}
+\end{itemize}
+
+\begin{verbatim}
+## Number of remaining NA values in MaleID after replacement:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of remaining NA values in FemaleID after replacement:  41
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows with missing values in both MaleID and FemaleID after replacement:  0
+\end{verbatim}
+
+\begin{itemize}
+\item
+  In order to clean FemaleID, I will use the data from the now complete
+  MaleID. I will use conditions stating that depending which name is
+  found in MaleID when there is an NA in FemaleID, a certain name will
+  have to replace the NA in female ID
+\item
+  Before automating the process I will check manually the data to see if
+  they are any exceptions or mistakes
+\end{itemize}
+
+\begin{verbatim}
+## Rows with missing values in FemaleID:
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 41 x 16
+##    Time     Date                Group   MaleID FemaleID FemaleCorn DyadDistance
+##    <chr>    <dttm>              <chr>   <chr>  <chr>         <dbl>        <dbl>
+##  1 09:31:55 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            1
+##  2 09:33:14 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            1
+##  3 09:34:07 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            0
+##  4 09:34:51 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            0
+##  5 09:36:59 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            0
+##  6 09:38:13 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            1
+##  7 09:39:26 2023-07-22 00:00:00 Ankhase Buk    <NA>              7            0
+##  8 09:41:11 2023-07-22 00:00:00 Ankhase Buk    <NA>              0            0
+##  9 09:42:17 2023-07-22 00:00:00 Ankhase Buk    <NA>              0            0
+## 10 09:44:06 2023-07-22 00:00:00 Ankhase Buk    <NA>              0            1
+## # i 31 more rows
+## # i 9 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
+## #   Intrusion <dbl>, AmountAudience <dbl>
+\end{verbatim}
+
+If there is NA in femaleID, we will replace the value with - Sirk if
+MaleID is Sey - Ouli if MaleID is Xin - Piep if MaleID is Xia - Oerw if
+MaleID is Nge - Oort if MaleID is Kom - Ginq if MaleID is Sho - Ndaw if
+MaleID is Buk
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Using dplyr to summarize combinations of MaleID and FemaleID}
+\NormalTok{combinations\_summary }\OtherTok{\textless{}{-}}\NormalTok{ Bex }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{group\_by}\NormalTok{(MaleID, FemaleID) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
+  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Count))}
+
+\CommentTok{\# View the results}
+\FunctionTok{print}\NormalTok{(combinations\_summary)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## # A tibble: 20 x 3
+##    MaleID FemaleID Count
+##    <chr>  <chr>    <int>
+##  1 Xia    Piep       576
+##  2 Sey    Sirk       557
+##  3 Kom    Oort       338
+##  4 Sho    Ginq       278
+##  5 Pom    Xian       259
+##  6 Buk    Ndaw       245
+##  7 Xin    Ouli       159
+##  8 Nge    Oerw       153
+##  9 Piep   Xia         35
+## 10 Oort   Kom         29
+## 11 Ouli   Xin         27
+## 12 Oerw   Nge         19
+## 13 Sirk   Sey         17
+## 14 Buk    <NA>        15
+## 15 Sey    <NA>        13
+## 16 Nge    <NA>        11
+## 17 Buk    Ginq         6
+## 18 Pom    Guat         5
+## 19 Xin    Oort         4
+## 20 Kom    <NA>         2
+\end{verbatim}
+
+\begin{verbatim}
+## Number of NA values in MaleID:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of NA values in FemaleID:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  After the use of the conditions in FemaleID I could see the changes
+  where successfully done and that 0 NA's are remaining in both FemaleID
+  and MaleID
+\end{itemize}
+
+\hypertarget{dyad-response-7}{%
+\subsubsection{2.12 Dyad Response (7)}\label{dyad-response-7}}
+
+\begin{itemize}
+\tightlist
+\item
+  The last variable I still have to treat for NA's is DyadResponse.
+  Before treating the NA's we had 47 NA's we know that we treated most
+  of them we have only 7 remaining. These NA's can be found at the rows
+  \textbf{871, 1163, 1219, 1339, 1579,1888 and 1962}
+\end{itemize}
+
+\begin{verbatim}
+## Rows with missing values in DyadResponse:  871, 1163, 1219, 1339, 1579, 1888, 1962
+\end{verbatim}
+
+\begin{verbatim}
+## Lines with missing values in DyadResponse:
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 7 x 16
+##   Time     Date                Group     MaleID FemaleID FemaleCorn DyadDistance
+##   <chr>    <dttm>              <chr>     <chr>  <chr>         <dbl>        <dbl>
+## 1 09:39:26 2023-07-22 00:00:00 Ankhase   Buk    Ndaw              7            0
+## 2 10:13:56 2023-06-23 00:00:00 Ankhase   Sho    Ginq              0            4
+## 3 08:34:45 2023-06-17 00:00:00 Baie Dan~ Kom    Oort              3            2
+## 4 08:54:12 2023-06-09 00:00:00 Baie Dan~ Xia    Piep              1            0
+## 5 13:35:08 2023-05-03 00:00:00 Baie Dan~ Kom    Oort              5            3
+## 6 13:27:30 2023-01-18 00:00:00 Ankhase   Buk    Ndaw              5            4
+## 7 08:36:49 2022-12-13 00:00:00 Baie Dan~ Kom    Oort              8            4
+## # i 9 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
+## #   Intrusion <dbl>, AmountAudience <dbl>
+\end{verbatim}
+
+\begin{itemize}
+\item
+  Row 871: The previous row was tolerance at 1m and the next tolerance
+  at 0 which means that the row 871 should be \textbf{Tolerance} for
+  DyadResponse
+\item
+  Row 1163: The value can not be found from the other rows so I will
+  \textbf{delete} row 1163
+\item
+  Row 1219: The previous row was not approaching at 2m and the next is
+  tolerance at 2m and tolerance at 1m, which means that the row 1219
+  should be \textbf{Tolerance} for DyadResponse
+\item
+  Row 1339: The previous row was tolerance at 0m while the next one was
+  tolerance at 0m, which means that the tow 1339 should be
+  \textbf{Tolerance} for DyadResponse
+\item
+  Row 1579: The value can not be found from the other rows so I will
+  \textbf{delete} row 1579
+\item
+  Row 1888: The value can not be found from the other rows so I will
+  \textbf{delete} row 1888
+\item
+  Row 1962: The value can not be found from the other rows so I will
+  \textbf{delete} row 1962
+\end{itemize}
+
+\begin{verbatim}
+## Number of remaining NA values in DyadResponse:  0
+\end{verbatim}
+
+\hypertarget{final-check-remaing-nas-in-bex}{%
+\subsubsection{2.13 Final check: remaing NA's in
+Bex?}\label{final-check-remaing-nas-in-bex}}
+
+\begin{verbatim}
+## Final check of NA values in Bex:
+\end{verbatim}
+
+\begin{verbatim}
+##           Time           Date          Group         MaleID       FemaleID 
+##              0              0              0              0              0 
+##     FemaleCorn   DyadDistance   DyadResponse  OtherResponse       Audience 
+##              0              0              0              0              0 
+##  IDIndividual1     IntruderID        Remarks       MaleCorn      Intrusion 
+##              0              0              0              0              0 
+## AmountAudience 
+##              0
+\end{verbatim}
+
+\hypertarget{correction-and-creation-of-new-variables}{%
+\section{3. Correction and creation of New
+Variables}\label{correction-and-creation-of-new-variables}}
+
+\hypertarget{making-a-backup-of-bex}{%
+\subsubsection{3.1 Making a backup of
+Bex}\label{making-a-backup-of-bex}}
+
+\begin{itemize}
+\tightlist
+\item
+  I will now continue making changes, in case they are any problems or
+  comparason to be made I may use this function to look how Bex looked
+  at that point
+\end{itemize}
+
+\hypertarget{treating-remarks-before-processing-with-new-modifications}{%
+\subsubsection{3.2 Treating Remarks before processing with new
+modifications}\label{treating-remarks-before-processing-with-new-modifications}}
+
+\begin{itemize}
+\item
+  Since I have removed all the missing data from the different columns,
+  I now have to correct potential mistakes that can be found and create
+  new variables to be able to manipulate better my data. Since the
+  column remarks contains corrections and additional information, so i
+  will treat it now
+\item
+  Before that lets check how many remarks we have in our dataset, how
+  many of the main keywords we can find and make a visual representation
+  of it
+\end{itemize}
+
+\hypertarget{vizualization-of-the-remarks-keywords}{%
+\paragraph{3.2.2 Vizualization of the Remarks
+Keywords}\label{vizualization-of-the-remarks-keywords}}
+
+\begin{itemize}
+\tightlist
+\item
+  Before making any changes I will make a count of the total amount of
+  remarks and a count and barplot of the main keywords in the column to
+  see in which proportion they are found. It has to be noted that some
+  of the words are used in different contexts and have different
+  meaning. This is why I will clean them manually
+\end{itemize}
+
+\begin{verbatim}
+## Number of 'No Remarks' entries:  2139
+\end{verbatim}
+
+\begin{verbatim}
+## Number of actual remarks entries:  603
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  There will be 599 entries I will have to treat manually in the Excel
+  Spreadsheet for the Remarks
+\end{itemize}
+
+\includegraphics{BEX2223_files/figure-latex/Remarks Exploration-1.pdf}
+
+\begin{verbatim}
+## Total number of keyword occurrences in the Barplot:  822
+\end{verbatim}
+
+\hypertarget{exporting-of-bex}{%
+\paragraph{3.2.3 Exporting of Bex}\label{exporting-of-bex}}
+
+\begin{itemize}
+\tightlist
+\item
+  I will now export the dataset and treat manually treat the remarks in
+  an Excel spreadsheet before uploading it again and creating a new
+  dataframe. I will also print a Glimpse of Bex to have information
+  before the manual changes
+\end{itemize}
+
+\begin{verbatim}
+## Glimpse of the Bex Before treating Remarks:
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 2,742
+## Columns: 16
+## $ Time           <chr> "09:47:50", "09:50:07", "09:53:11", "09:54:28", "09:55:~
+## $ Date           <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27, 2022-0~
+## $ Group          <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Baie Dank~
+## $ MaleID         <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge",~
+## $ FemaleID       <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw",~
+## $ FemaleCorn     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7~
+## $ DyadDistance   <dbl> 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 1, 1, 0, 0~
+## $ DyadResponse   <chr> "Tolerance", "Tolerance", "Tolerance", "Tolerance", "To~
+## $ OtherResponse  <chr> "No Response", "No Response", "No Response", "No Respon~
+## $ Audience       <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk", "Sir~
+## $ IDIndividual1  <chr> "No individual", "No individual", "No individual", "No ~
+## $ IntruderID     <chr> "No Intrusion", "No Intrusion", "No Intrusion", "No Int~
+## $ Remarks        <chr> "No Remarks", "No Remarks", "Nge box did not open becau~
+## $ MaleCorn       <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3~
+## $ Intrusion      <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0~
+## $ AmountAudience <dbl> 3, 3, 2, 1, 2, 2, 2, 1, 1, 2, 6, 6, 3, 2, 2, 2, 2, 2, 2~
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223"
+\end{verbatim}
+
+\hypertarget{journal-of-manual-changes-in-bex-excel-spreadsheet}{%
+\paragraph{3.2.4 Journal of manual changes in Bex excel
+spreadsheet}\label{journal-of-manual-changes-in-bex-excel-spreadsheet}}
+
+\begin{itemize}
+\item
+  Before treating all the data in the Remarks I will create a few
+  columns to redistribute information
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{Context}: To add contextual information
+  \item
+    \textbf{SpecialBehaviour} : To report any particular behaviour an
+    individual could have done during a trial
+  \item
+    \textbf{Got corn}, to see if the individual got the corn or not
+  \end{enumerate}
+\item
+  Also whenever i will have treated a remark, i will replace it with
+  ``Treated''. And if I have to delete the row I'll write ``Delete''.
+  After re importing the data I will make a count of these changes to
+  see if I still have the correct amount of cells and changes that have
+  been done
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Creation of the columns \textbf{Context}, \textbf{SpecialBehaviour}
+    and \textbf{GotCorn}
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Default values for the new columns are \textbf{NoContext},
+    \textbf{NoSpecialBehaviour} \& \textbf{Yes}
+  \end{enumerate}
+
+  a.Context: \textbf{BoxMalfunction}, \textbf{BoxOpenedBefore},
+  \textbf{NoExperiment}, \textbf{Agonistic}, \textbf{Guat;Ap;Xian},
+  \textbf{CornLeak}, \textbf{BetweenGroupEncounter},
+  \textbf{ContactCalling},
+
+  b.SpecialBehaviour \textbf{Oerw;Vo;Exp}, \textbf{Sey;Ap;AfterOpen},
+  \textbf{Oerw;Vo;Exp,Nge;Vo;Exp}, \textbf{Sirk;ApAfter30},
+  \textbf{Sirk;Av;Oerw},
+  \textbf{Oerw;Lo},\textbf{Sey;Sf;Oort,Oort;At;Kom},
+  \textbf{Kom;Ap;AfterOpen}, \textbf{Sey;Ch,Sirk},
+  \textbf{Xin;Hesitation}. \textbf{Xia;Sf;Piep},
+  \textbf{Pom;Sf;Xian},\textbf{Kom;Sf;Oort}, \textbf{Sey;Sf;Sirk},
+  \textbf{Xia;Sf;Piep,Piep;Sf,XIa}, \textbf{Oort;At;Kom},
+  \textbf{Sey;Rt;Sho;Ap}, \textbf{Sho;Rt;Ginq;Ap}, \textbf{Buk;Sf;Ndaw},
+  \textbf{Sho;Rt;Ndaw;Ap}, \textbf{Oort;Sf;Kom},
+  \textbf{Ginq;Sho;Ap;After30}, \textbf{Ndaw;Sc,Buk;Sf},
+  \textbf{Ndaw;Ap;After30}, \textbf{Kom;Ap;After30},
+  \textbf{Xia;Piep;Ap;After30}, \textbf{Pom;Bi;Xian},
+  \textbf{Sho;Ndaw;Av;Buk}, \textbf{Kom;Sf;Oort},
+  \textbf{Kom;St;Oort,Oort;St;Kom}, \textbf{Sey;Hi;Sirk},
+  \textbf{Obse;Ap;Piep;Av},\textbf{Piep;Sf;Xia},
+  \textbf{Sirk;ApWhenPartnerLeft}, \textbf{Sey;Hh;Sirk},
+  \textbf{Xia;Sf;Piep;Sc}, \textbf{Xia;Piep;ShareFood},
+  \textbf{Piep;Ap;After30,Xia;Mu;Piep}, \textbf{Oort;St;Sirk;Ja,Sey;Sf},
+  \textbf{Pom;Sf;Xian}, \textbf{Ndaw;ApWhenPartnerLeft},
+  \textbf{Xian;At;Pom,Gaya;Su}, \textbf{Xian;Sf;Pom},
+  \textbf{Xian;Hesitation},
+  \textbf{Xia;ApWhenPartnerLeft},\textbf{Sirk;Hesitation},
+  \textbf{Ginq;Hesitation}, \textbf{Sey;Ap;Kom;Av},
+  \textbf{Oort;Sc;Kom}, \textbf{Xian; Pom}, \textbf{Pom;Ap;Xian},
+  \textbf{Pom;Ap;Xian,Xian;Rt}, \textbf{Sey;Ap;Sirk;Rt},
+  \textbf{Sey;St;Sirk;Ig}, \textbf{Xia;Asf;Piep},
+  \textbf{Piep;ApWhenPartnerLeft}, \textbf{Sho;Ap;After30},
+  \textbf{Ginq;ApWhenPartnerLeft}, \textbf{Pom;Sf;Xian;Sf;Pom},
+  \textbf{Xian;ApWhenPartnerLeft}, \textbf{Piep;Ch;Sirk},
+  \textbf{Sey;St;Sirk}, \textbf{Ndaw;Ap;After30},
+  \textbf{Xian;Ap;After30}, \textbf{Xian;St;Prai},
+  \textbf{Pom;Sf;Xian;Vc}, \textbf{Kom;Ap;After30},
+  \textbf{Kom;ApproachWithPartner}, \textbf{Oort;ApWhenPartnerLeft},
+  \textbf{Sho;Ap;After30},\textbf{Ginq;Ap;After30},
+  \textbf{Ginq;ApproachWithPartner}, \textbf{Ndaw;Hesitation},
+  \textbf{Oerw;Hesitation}, \textbf{Oerw;ApWhenPartnerLeft}.
+  \textbf{Piep;Ap;After30}, \textbf{Sirk;Ap;After30},
+  \textbf{Xia;Ap;After30}, \textbf{Ouli;Gr;BBOuli},
+  \textbf{Oerw;Ap;After30}, \textbf{Sirk;Hesitation},
+  \textbf{Sey;Ap;Sirk;Av}, \textbf{Ouli;Ap;Xia;Av},
+  \textbf{Xin;Ap;After30}, \textbf{Sho;Sf;Ginq;Sc},
+  \textbf{Xia;ApWhenPartnerLeft}, \textbf{Sey;Ap;Sirk;Ja},
+  \textbf{Nge;Oerw;ShareFood}, \textbf{Nge;Ap;Oerw;Oerw;At,Obse;At;Nge},
+
+  c.GotCorn: \textbf{No;Nge}, \textbf{No;Piep}, \textbf{No;Xian},
+  \textbf{No;Oort}, \textbf{No;Sirk}, \textbf{No;Kom}, \textbf{No;Ndaw},
+  \textbf{No;Kom}, \textbf{No;Oort}, \textbf{No;Xia}, \textbf{No;Buk},
+  \textbf{No;Sho}, \textbf{No;Sey,No;Piep}, \textbf{No;Ginq}
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Remarks: \textbf{Treated}, \textbf{TODelete}
+  \end{enumerate}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Values set for exsting columns
+  \end{enumerate}
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \item
+    IntruderID: \textbf{Sey}, \textbf{Oerw}, \textbf{Guat},
+    \textbf{Kom}, \textbf{Gris}, \textbf{Sho}, \textbf{Oerw; Ouli},
+    \textbf{Guat; Gri}, \textbf{Xop}, \textbf{Obse}, \textbf{Oort},
+    \textbf{Obse; Sey}, \textbf{Ginq; Ghid}, \textbf{Xia},
+    \textbf{Grif}, \textbf{Sey}, \textbf{Gree; Gran}, \textbf{Godu;
+    Gub}, \textbf{Gran}, \textbf{Oerw; Nak}, \textbf{Ghid},
+    \textbf{Buk}, \textbf{Oup}
+  \item
+    DyadDistance: \textbf{6}, \textbf{7}, \textbf{8}, \textbf{9} ,
+    \textbf{1}
+  \item
+    Audience: \textbf{UnidentifiedAudience}, \textbf{Ouli; Riss},
+    \textbf{Gris}, \textbf{Sey}, \textbf{Sey; Piep; Sirk, Oup Ome}
+  \item
+    IDIndividual1: \textbf{Piep}, \textbf{Oort; Kom}, \textbf{Ndaw;
+    Buk}, \textbf{Sho; Ginq}, \textbf{Ndaw, Buk}, \textbf{Xian, Pom},
+    \textbf{Oort; Kom}, \textbf{Buk; Ndaw}, \textbf{Sirk; Sey},
+    \textbf{Xin; Ouli}, \textbf{Oerw; Nge}
+  \item
+    DyadResponse: \textbf{Tolerance}, \textbf{Not approaching; Losing
+    interest}, \textbf{Losing interest; Intrusion}
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{updates-from-here}{%
+\section{UPDATES FROM HERE}\label{updates-from-here}}
+
+\hypertarget{re-uploading-the-dataset-after-the-treatment-of-the-remarks}{%
+\subsubsection{3.3 Re Uploading the dataset after the treatment of the
+Remarks}\label{re-uploading-the-dataset-after-the-treatment-of-the-remarks}}
+
+\begin{itemize}
+\tightlist
+\item
+  Now that I have \ldots{} I will reimport the dataset and make a check
+  of the data
+\end{itemize}
+
+\begin{verbatim}
+## Rows: 2,742
+## Columns: 16
+## $ Time           <chr> "09:47:50", "09:50:07", "09:53:11", "09:54:28", "09:55:~
+## $ Date           <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27, 2022-0~
+## $ Group          <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Baie Dank~
+## $ MaleID         <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge",~
+## $ FemaleID       <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw",~
+## $ FemaleCorn     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7~
+## $ DyadDistance   <dbl> 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 1, 1, 0, 0~
+## $ DyadResponse   <chr> "Tolerance", "Tolerance", "Tolerance", "Tolerance", "To~
+## $ OtherResponse  <chr> "No Response", "No Response", "No Response", "No Respon~
+## $ Audience       <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk", "Sir~
+## $ IDIndividual1  <chr> "No individual", "No individual", "No individual", "No ~
+## $ IntruderID     <chr> "No Intrusion", "No Intrusion", "No Intrusion", "No Int~
+## $ Remarks        <chr> "No Remarks", "No Remarks", "Nge box did not open becau~
+## $ MaleCorn       <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3~
+## $ Intrusion      <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0~
+## $ AmountAudience <dbl> 3, 3, 2, 1, 2, 2, 2, 1, 1, 2, 6, 6, 3, 2, 2, 2, 2, 2, 2~
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 2,742
+## Columns: 19
+## $ Time             <chr> "09:47:50", "09:50:07", "09:53:11", "09:54:28", "09:5~
+## $ Date             <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27, 2022~
+## $ Group            <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Baie Da~
+## $ MaleID           <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge~
+## $ FemaleID         <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw~
+## $ FemaleCorn       <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7,~
+## $ DyadDistance     <dbl> 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 1, 1, 0,~
+## $ DyadResponse     <chr> "Tolerance", "Tolerance", "Tolerance", "Tolerance", "~
+## $ OtherResponse    <chr> "No Response", "No Response", "No Response", "No Resp~
+## $ Audience         <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk", "S~
+## $ IDIndividual1    <chr> "No individual", "No individual", "No individual", "N~
+## $ IntruderID       <chr> "No Intrusion", "No Intrusion", "No Intrusion", "No I~
+## $ Remarks          <chr> "No Remarks", "No Remarks", "Treated", "Treated", "No~
+## $ MaleCorn         <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3,~
+## $ Intrusion        <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,~
+## $ AmountAudience   <dbl> 3, 3, 2, 1, 2, 2, 2, 1, 1, 2, 6, 6, 3, 2, 2, 2, 2, 2,~
+## $ Context          <chr> "NoContext", "NoContext", "BoxMalfunction", "BoxOpene~
+## $ SpecialBehaviour <chr> "NoSpecialBehaviour", "NoSpecialBehaviour", "Oerw;Vo;~
+## $ GotCorn          <chr> "Yes", "Yes", "No;Nge", "Yes", "Yes", "Yes", "Yes", "~
+\end{verbatim}
+
+\begin{itemize}
+\item
+  I will now check the state fo remarks and of the data before and after
+  to see if no major mistakes may have been done
+\item
+  First the amount of Remarks and No Remarks, before: Number of `No
+  Remarks' entries: 2119 Number of actual remarks entries: 599
+\end{itemize}
+
+\begin{verbatim}
+## Number of 'No Remarks' entries:  2135
+\end{verbatim}
+
+\begin{verbatim}
+## Number of actual remarks entries:  607
+\end{verbatim}
+
+\begin{verbatim}
+## Total number of keyword occurrences in the Remarks column:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  NA Check in BexClean
+\end{itemize}
+
+\begin{verbatim}
+## Number of NA entries in Context:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of NA entries in SpecialBehaviour:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of NA entries in GotCorn:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of NA entries in BexClean:  0
+\end{verbatim}
+
+\#\#\#4.1 Creation of new dataframe?
+
+\hypertarget{treatment-and-cleaning-of-last-variables-before-stats}{%
+\subsubsection{Treatment and cleaning of last variables before
+stats!?}\label{treatment-and-cleaning-of-last-variables-before-stats}}
+
+\hypertarget{time---creation-of-period-and-hour}{%
+\subsubsection{4.2 Time - Creation of Period and
+Hour}\label{time---creation-of-period-and-hour}}
+
+\begin{itemize}
+\item
+  Time : I did not plan to use this variable but since I used, I
+  considered looking at the time sections in which we did the
+  expermiment. I will thus look at the time ranges (max and min in the
+  day / latest and earliest time) before separating the day in different
+  sections to have an idea in which part of the day most of the
+  experiments occured. This will not be used in my analysis, but if I
+  wanted to, I could interesting to compare the amount of
+  experimentations made per day and have a line indicating the time of
+  sunrise.
+\item
+  The \textbf{Minimum Time} in the dataset is \textbf{06:03:26}* while
+  the \textbf{Maximum Time} is at \textbf{16:36:59}
+\item
+  In my box experiment I have this variable called time that tells me
+  when the experiment was done. I don't think I need this information
+  per se. I was wondering if it could be easy and interesting to see
+  from when to when the time occurs and then separate this time in a few
+  sections like early, monring, morning, miday, afternoon, end of the
+  day
+\item
+  a.6 to 8 : Early morning b.8 to 10: Morning c.10 to 12: Noon d.12 to
+  14: Afternoon e.14 to 17: End of the day
+\item
+  Last, I want to create a variable called Hour that will take the value
+  in Time and round it to the hour in which it is ex: from 06:00 to
+  06:59 -\textgreater{} 6, from 07:00 to 07:59 -\textgreater{} 7
+  etc\ldots{}
+\item
+  This will allow me to see when most of the trials occured with more
+  detail and I will be to see in which hour most of the trial happened.
+  Nevertheless Period will be better for an improved readability
+\end{itemize}
+
+\hypertarget{date---creation-of-month-and-day}{%
+\subsubsection{Date - Creation of Month and
+Day}\label{date---creation-of-month-and-day}}
+
+\begin{itemize}
+\tightlist
+\item
+  i want to Create a variable called month to see the month of the
+  experiment and day so I know which day of the experiment it was (1st,
+  10th, 1000th..)
+\end{itemize}
+
+\hypertarget{group---ok}{%
+\subsubsection{Group - Ok}\label{group---ok}}
+
+\hypertarget{male-and-female-id---creation-of-dyad-trial-and-session}{%
+\subsubsection{Male and Female ID - Creation of Dyad, Trial and
+Session}\label{male-and-female-id---creation-of-dyad-trial-and-session}}
+
+\begin{itemize}
+\tightlist
+\item
+  I will use Female and Male ID to create different variables
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    While checking if there are still any mistakes in \textbf{FemaleID
+    and MaleID} using \textbf{unique}, I saw that some of the names are
+    in the wrong rows. I want the \textbf{3 letter male codes} whether
+    they are in the column FemaleID or MaleID to be in the \textbf{new
+    column Male} while I want the \textbf{4 letter female codes} whether
+    they are in FemaleID or MaleID to be in the \textbf{new column
+    Female} before checking again with unique that the transformation
+    worked. I will use mutate
+  \end{enumerate}
+\end{itemize}
+
+\begin{verbatim}
+## Unique Female IDs: Sirk Ginq Piep Oerw Xin Ndaw Xia Sey Ouli Nge Oort Xian Guat Kom
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Ginq Guat  Kom Ndaw  Nge Oerw Oort Ouli Piep  Sey Sirk  Xia Xian  Xin 
+##  283    5   29  259   19  164  341  159  575   17  570   35  259   27
+\end{verbatim}
+
+\begin{verbatim}
+## Unique Male IDs: Sey Sho Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort
+\end{verbatim}
+
+\begin{verbatim}
+## 
+##  Buk  Kom  Nge Oerw Oort Ouli Piep  Pom  Sey  Sho Sirk  Xia  Xin 
+##  265  337  164   19   29   27   35  264  570  277   17  575  163
+\end{verbatim}
+
+\begin{verbatim}
+##       
+##        Buk Kom Nge Oerw Oort Ouli Piep Pom Sey Sho Sirk Xia Xin
+##   Ginq   6   0   0    0    0    0    0   0   0 277    0   0   0
+##   Guat   0   0   0    0    0    0    0   5   0   0    0   0   0
+##   Kom    0   0   0    0   29    0    0   0   0   0    0   0   0
+##   Ndaw 259   0   0    0    0    0    0   0   0   0    0   0   0
+##   Nge    0   0   0   19    0    0    0   0   0   0    0   0   0
+##   Oerw   0   0 164    0    0    0    0   0   0   0    0   0   0
+##   Oort   0 337   0    0    0    0    0   0   0   0    0   0   4
+##   Ouli   0   0   0    0    0    0    0   0   0   0    0   0 159
+##   Piep   0   0   0    0    0    0    0   0   0   0    0 575   0
+##   Sey    0   0   0    0    0    0    0   0   0   0   17   0   0
+##   Sirk   0   0   0    0    0    0    0   0 570   0    0   0   0
+##   Xia    0   0   0    0    0    0   35   0   0   0    0   0   0
+##   Xian   0   0   0    0    0    0    0 259   0   0    0   0   0
+##   Xin    0   0   0    0    0   27    0   0   0   0    0   0   0
+\end{verbatim}
+
+\begin{longtable}[]{@{}lrrrrrrrrrrrrr@{}}
+\toprule
+& Buk & Kom & Nge & Oerw & Oort & Ouli & Piep & Pom & Sey & Sho & Sirk &
+Xia & Xin \\
+\midrule
+\endhead
+Ginq & 6 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 277 & 0 & 0 & 0 \\
+Guat & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 5 & 0 & 0 & 0 & 0 & 0 \\
+Kom & 0 & 0 & 0 & 0 & 29 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+Ndaw & 259 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+Nge & 0 & 0 & 0 & 19 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+Oerw & 0 & 0 & 164 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+Oort & 0 & 337 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 4 \\
+Ouli & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 159 \\
+Piep & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 575 & 0 \\
+Sey & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 17 & 0 & 0 \\
+Sirk & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 570 & 0 & 0 & 0 & 0 \\
+Xia & 0 & 0 & 0 & 0 & 0 & 0 & 35 & 0 & 0 & 0 & 0 & 0 & 0 \\
+Xian & 0 & 0 & 0 & 0 & 0 & 0 & 0 & 259 & 0 & 0 & 0 & 0 & 0 \\
+Xin & 0 & 0 & 0 & 0 & 0 & 27 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\tightlist
+\item
+  Create a variable called Male that in each row will take the name of
+  the \textbf{3 letter code} that is either in MaleID or Female ID and a
+  variable called Female that in each row will take the name of the
+  \textbf{4 letter code} that is either in MaleID or FemaleID
+\end{enumerate}
+
+\begin{verbatim}
+##  [1] "Sey Sirk" "Sho Ginq" "Xia Piep" "Nge Oerw" "Xin Ouli" "Buk Ndaw"
+##  [7] "Buk Ginq" "Kom Oort" "Pom Xian" "Pom Guat" "Xin Oort"
+\end{verbatim}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+Var1 & Freq \\
+\midrule
+\endhead
+Buk Ginq & 6 \\
+Buk Ndaw & 259 \\
+Kom Oort & 366 \\
+Nge Oerw & 183 \\
+Pom Guat & 5 \\
+Pom Xian & 259 \\
+Sey Sirk & 587 \\
+Sho Ginq & 277 \\
+Xia Piep & 610 \\
+Xin Oort & 4 \\
+Xin Ouli & 186 \\
+\bottomrule
+\end{longtable}
+
+\# Correct from here, mistake were inserted in dyad by changin wrong
+lines
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{1}
+\tightlist
+\item
+  Create the variable called \textbf{Dyad} created by combining the name
+  of FemaleID and MaleID into one name with a space between the two
+  codes. For information the 3 letter code is the name of the female
+  while the 4 letter code is the name of the male like displayed here;
+\end{enumerate}
+
+New output! : 2673 trials Old output : 2724 trials
+
+--\textgreater51 rows missing!
+
+\begin{itemize}
+\item
+  Buk Ginq 6
+\item
+  Buk Ndaw 257 vs 255!
+\item
+  Kom Oort 366 vs 324! +26!
+\item
+  Kom Ginq! 2!
+\item
+  Nge Oerw 181 vs 163 + 18!
+\item
+  Pom Guat 5
+\item
+  Pom Xian 257 vs 251!
+\item
+  Sey Sirk 584 vs 544! vs 17!
+\item
+  Sho Ginq 273 vs 272!
+\item
+  Xia Piep 606 vs 35!+ 567!
+\item
+  Xin Oort 4
+\item
+  Xin Ouli 185 vs 27!+ 157!
+
+  \begin{itemize}
+  \tightlist
+  \item
+    They are a few \textbf{wrong dyads} that I will have to identify in
+    the dataset and manuallly correct, those wrong dyads to change and
+    identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+##  [1]  613  614  615  616  617  931 2710 2711 2712 2713
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Buk Ginq" "Xin Oort"
+\end{verbatim}
+
+\begin{itemize}
+\item
+  \begin{itemize}
+  \item
+    I will change the occurences of \textbf{Buk Ginq} to \textbf{Sho
+    Ginq} for \textbf{row 605 to 609} and \textbf{row 921}. I know these
+    triasl are with SHo Ginq because the comments metionned Sho in them
+    while Male(ID) gave Buk
+  \item
+    For the \textbf{rows from 2692 to 2695} since, Ouli is in the
+    audience it is unlikely that we had trials with the dyad \textbf{Xin
+    Ouli}. Also I think they are little chances that the names of both
+    individuals were entered wrong. I will replace these occurences
+    where we had \textbf{Xin Oort} by \textbf{Kom Oort}
+  \item
+    I thus want \textbf{Buk} to be replaced in male ID in rows 605 to
+    609 and row 921 with \textbf{Sho} and, \textbf{Xin} to be replaced
+    by \textbf{Kom} in rows 2692 to 2695 in Male ID before updating Dyad
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+## Unique Male after correction Sey Sho Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort
+\end{verbatim}
+
+\begin{verbatim}
+## Unique Dyad after correction Sey   Sirk Sho   Ginq Xia   Piep Nge   Oerw Xin   Ouli Buk   Ndaw Sho   Ndaw Buk   Ginq Kom   Oort Sho   Oerw Pom   Xian Pom   Guat Kom   Ginq Kom   Ouli Xin   Oort
+\end{verbatim}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+Var1 & Freq \\
+\midrule
+\endhead
+Buk & 263 \\
+Kom & 341 \\
+Nge & 163 \\
+Oerw & 19 \\
+Oort & 29 \\
+Ouli & 27 \\
+Piep & 35 \\
+Pom & 264 \\
+Sey & 570 \\
+Sho & 277 \\
+Sirk & 17 \\
+Xia & 575 \\
+Xin & 162 \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+Var1 & Freq \\
+\midrule
+\endhead
+Buk Ginq & 6 \\
+Buk Ndaw & 257 \\
+Kom Ginq & 3 \\
+Kom Oort & 366 \\
+Kom Ouli & 1 \\
+Nge Oerw & 182 \\
+Pom Guat & 5 \\
+Pom Xian & 259 \\
+Sey Sirk & 587 \\
+Sho Ginq & 274 \\
+Sho Ndaw & 2 \\
+Sho Oerw & 1 \\
+Xia Piep & 610 \\
+Xin Oort & 4 \\
+Xin Ouli & 185 \\
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{2}
+\item
+  Create the variable called \textbf{Trial} where the data will be
+  \textbf{sorted by date and dyad} in order to see how many trials have
+  been done with each individual: \textbf{One row (per dyad) = one
+  trial} and the variable called \textbf{Day} where the data will be
+  \textbf{sorted by date and dyad and day} in order to see how many
+  sessions have been done with each individual: \textbf{One day (per
+  dyad) = one session} Now, let's proceed with creating the Dyad
+  variable, Trial, and Day:
+\item
+  Make a summary of trial and session so I can see see how many trials
+  and sessions have been done with the individuals
+\end{enumerate}
+
+\begin{verbatim}
+## Trial Summary:
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 15 x 2
+##    Dyad       Num_Trials
+##    <chr>           <int>
+##  1 Buk   Ginq          6
+##  2 Buk   Ndaw        257
+##  3 Kom   Ginq          3
+##  4 Kom   Oort        366
+##  5 Kom   Ouli          1
+##  6 Nge   Oerw        182
+##  7 Pom   Guat          5
+##  8 Pom   Xian        259
+##  9 Sey   Sirk        587
+## 10 Sho   Ginq        274
+## 11 Sho   Ndaw          2
+## 12 Sho   Oerw          1
+## 13 Xia   Piep        610
+## 14 Xin   Oort          4
+## 15 Xin   Ouli        185
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Day Summary:
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 15 x 2
+##    Dyad       Num_y
+##    <chr>      <int>
+##  1 Buk   Ginq     2
+##  2 Buk   Ndaw    41
+##  3 Kom   Ginq    42
+##  4 Kom   Oort    73
+##  5 Kom   Ouli    74
+##  6 Nge   Oerw    96
+##  7 Pom   Guat    97
+##  8 Pom   Xian   116
+##  9 Sey   Sirk   169
+## 10 Sho   Ginq   204
+## 11 Sho   Ndaw   205
+## 12 Sho   Oerw   206
+## 13 Xia   Piep   255
+## 14 Xin   Oort   256
+## 15 Xin   Ouli   283
+\end{verbatim}
+
+\begin{longtable}[]{@{}lr@{}}
+\toprule
+Var1 & Freq \\
+\midrule
+\endhead
+Buk Ginq & 6 \\
+Buk Ndaw & 257 \\
+Kom Ginq & 3 \\
+Kom Oort & 366 \\
+Kom Ouli & 1 \\
+Nge Oerw & 182 \\
+Pom Guat & 5 \\
+Pom Xian & 259 \\
+Sey Sirk & 587 \\
+Sho Ginq & 274 \\
+Sho Ndaw & 2 \\
+Sho Oerw & 1 \\
+Xia Piep & 610 \\
+Xin Oort & 4 \\
+Xin Ouli & 185 \\
+\bottomrule
+\end{longtable}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{4}
+\tightlist
+\item
+  After relfection I decided to \textbf{remove every column} that is
+  with PomGuat since they are not enough trials for this Dyad and since
+  we then changed PomGuat for PomXian. I have 5 occurnces to change. For
+  easier manipulation I will remove every row where there is
+  \textbf{Guat}
+\end{enumerate}
+
+\begin{verbatim}
+## Change in Rows:  -5
+\end{verbatim}
+
+\hypertarget{female-corn-and-male-corn}{%
+\paragraph{Female Corn and Male Corn}\label{female-corn-and-male-corn}}
+
+\begin{itemize}
+\tightlist
+\item
+  The idea is that for each Dyad, we gave an amount of corn to attract
+  the monkey of a dyad to the right distance of his partner for a trial
+  by putting corn in experiment box that he could get by approaching. We
+  repeated this step as much as needed to have our Dyad at the desired
+  distance to continue the trials from the previous day of
+  experimentation. This means I will only Keep the last number per dyad
+  and day for each day.
+\item
+  I decided to create \textbf{two variables}, that are called
+  \textbf{PlacementMale} and \textbf{PlacementFemale} that will only
+  keep the final amount of corn given to each individual within a day of
+  experiment
+\end{itemize}
+
+\hypertarget{dyaddistance---creation-of-proximity}{%
+\paragraph{DyadDistance - Creation of
+proximity}\label{dyaddistance---creation-of-proximity}}
+
+\begin{itemize}
+\tightlist
+\item
+  I would like to create a variable called proximity to have another
+  measure of the proximity of the individuals.
+\item
+  First lets look at the maximum and minimum distance found in Dyad
+  Distance
+\end{itemize}
+
+\begin{verbatim}
+## Maximum Distance: 10
+\end{verbatim}
+
+\begin{verbatim}
+## Minimum Distance: 0
+\end{verbatim}
+
+\begin{itemize}
+\item
+  The \textbf{minumum Distance} is \textbf{0m} while the \textbf{maximum
+  Distance} is \textbf{10m}
+\item
+  Now lets create a new variable called \textbf{Proximity} using the
+  distances found in \textbf{DyadDistance} on the following model:
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \tightlist
+  \item
+    0 = Contact
+  \item
+    1 - 2 = Very close
+  \item
+    2 - 3 = Close
+  \item
+    4 - 5 = Distant
+  \item
+    5 - 6 = Far
+  \item
+    7 - 8 = Very Far
+  \item
+    9 - 10 = Maximum Distance
+  \end{enumerate}
+\item
+  The idea is that for each Dyad, we gave an amoun of corn to attract
+  the monkey of a dyad to the right distance of his partner for a trial
+  by putting corn in experiment box that he could get by approaching. We
+  repeated this step as much as needed to have our Dyad at the desired
+  distance to continue the trials from the previous day of
+  experimentation. This means I will only Keep the last number per dyad
+  and day for each day
+\item
+  DyadDistance - Creation of proximity
+\item
+  Dyad Response - Detailed cleaning
+\item
+  Reminder: The different behaviors that are coded in
+  \textbf{DyadResponse} are: \textbf{Distracted}, \textbf{Female aggress
+  male}, \textbf{Male aggress female}, \textbf{Intrusion},
+  \textbf{Loosing interest}, \textbf{Not approaching},
+  \textbf{Tolerance} and \textbf{Other}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    I will change the columns associated to each behavior
+    (i.e.~Response) of \textbf{DyadResponse} into dichotomic variables
+    in order to see the frequency of each behaviour
+  \item
+    This will allow me to see which behavior occurred more than others,
+    and what differences are between dyads
+  \item
+    As multiple response could occur within the same trial, multiple
+    behaviors can be found in a single cell. I will create a hierarchy
+    to reduce the amount of behaviors assigned to each trial (if there
+    is more than one). This will also be complemented with the
+    information found in the column comments
+
+    \begin{enumerate}
+    \def\labelenumi{\arabic{enumi}.}
+    \tightlist
+    \item
+      correct any mistakes (ex. if tolerance and aggression are together
+      aggression\textgreater tolerance)
+    \item
+      assign as few labels per trial
+    \item
+      get a better View and understanding of the data and the most
+      common behaviours produced by each dyad
+    \item
+      create variables that can complement the behaviour found (ex. not
+      approaching + looks at partner would be looks at partner + a new
+      variable called hesistant to see when the did not come but look at
+      the other individual / )
+    \end{enumerate}
+
+    \begin{itemize}
+    \item
+      Create a table with each combination existing
+    \item
+      Decide what is more important
+    \end{itemize}
+  \end{itemize}
+\item
+  \textbf{Dyad Response Hierarchy} Projection of the hierarchy (changes
+  will be made) - Aggression \textgreater{} Tolerance - Tolerance
+  \textgreater{} Not approaching -\textgreater{} Create a variable
+  called hesistant in addtion to the tolerance count to see frequency of
+  tolerance behaviour that happened after \textgreater{} 1min -
+  Tolerance \textgreater{} Loosing interest - Tolerance \textgreater{}
+  Intrusion\\
+  - Not approaching = looking box but not coming while Loosing interest
+  = not paying attention to the box - Intrusion \textgreater{} Loosing
+  interest - Intrusion \textgreater{} Not approaching - Not approaching
+  \textgreater{} Looks at partner - We can code every look at partner as
+  no approaching and keep the count of looks at partner as additional
+  information\\
+  - Not approaching \textgreater?\textgreater{} Loosing interest ? !! -
+  Define distracted - Not approaching \textgreater{} Distracted -
+  Aggression \textgreater{} Not approaching - Other \textgreater{} Look
+  case by case and categorize depending of behavior\\
+  - Remarks may be used for the same reason
+
+  \begin{itemize}
+  \item
+    First I want to see how many rows in DyadResponse have more than one
+    entry per cell
+
+    \begin{itemize}
+    \tightlist
+    \item
+      And \textbf{if there are more than one value per cell}, report it
+      in a new column called ``MultipleResponses''
+    \end{itemize}
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+## Number of rows with multiple entries in DyadResponse:  233
+\end{verbatim}
+
+\begin{verbatim}
+## Rows with multiple entries in DyadResponse:  57, 62, 68, 72, 75, 88, 92, 93, 101, 102, 117, 137, 196, 198, 248, 282, 284, 285, 296, 305, 309, 311, 325, 329, 333, 334, 335, 348, 353, 354, 374, 375, 394, 395, 398, 404, 416, 461, 475, 476, 489, 504, 517, 518, 529, 536, 543, 604, 607, 629, 632, 744, 752, 753, 761, 764, 765, 767, 772, 773, 784, 790, 821, 832, 864, 869, 891, 895, 901, 915, 922, 937, 940, 941, 957, 958, 965, 976, 1000, 1007, 1018, 1030, 1045, 1051, 1063, 1212, 1216, 1228, 1232, 1243, 1246, 1248, 1250, 1257, 1274, 1287, 1291, 1296, 1311, 1313, 1314, 1329, 1330, 1333, 1339, 1344, 1346, 1355, 1381, 1401, 1402, 1410, 1419, 1464, 1467, 1476, 1481, 1487, 1491, 1492, 1498, 1513, 1523, 1524, 1531, 1561, 1598, 1601, 1605, 1610, 1619, 1632, 1633, 1636, 1639, 1642, 1645, 1648, 1657, 1661, 1717, 1721, 1727, 1739, 1748, 1750, 1782, 1783, 1786, 1793, 1798, 1799, 1801, 1802, 1803, 1804, 1805, 1812, 1813, 1816, 1817, 1818, 1819, 1822, 1825, 1826, 1827, 1828, 1829, 1834, 1840, 1853, 1854, 1855, 1886, 1894, 2085, 2087, 2088, 2098, 2099, 2100, 2101, 2102, 2106, 2110, 2144, 2145, 2146, 2149, 2150, 2163, 2172, 2181, 2182, 2189, 2190, 2191, 2196, 2198, 2199, 2202, 2215, 2223, 2234, 2245, 2254, 2287, 2291, 2340, 2350, 2351, 2356, 2359, 2360, 2367, 2392, 2393, 2397, 2462, 2463, 2464, 2490, 2531, 2602, 2610, 2627, 2630, 2631, 2644, 2652, 2658, 2730
+\end{verbatim}
+
+\begin{itemize}
+\item
+  Now that I know that they are 230 rows with multiple entries I will
+  print each combinations to see which one I have to print and also
+  display the combinations once the data is split.
+\item
+  I will make an intermediary summary to see that state of DyadResponse
+  at the moment
+\item
+  A. Summary od DyadResponse
+\item
+  B.Idnetify Rows with more than 1 entry
+\item
+  Step 1: Identify Rows with More than 1 Entry
+  beforesummaryrowswithmultipleentries\_1 \textless-
+  which(sapply(Bex\$DyadResponse, function(x)
+  length(unlist(strsplit(as.character(x), ``;''))) \textgreater{} 1))
+\end{itemize}
+
+Display the rows with more than 1 entry in DyadResponse
+knitr::kable(Bex{[}beforesummaryrowswithmultipleentries\_1, {]})
+
+\begin{itemize}
+\item
+  Print the amount of cells with more than 1 entry and the total number
+  of rows cat(``Number of rows with more than 1 entry in
+  DyadResponse:'', length(beforesummaryrowswithmultipleentries\_1),
+  ``\n'')
+\item
+  C. Identify Rows with more than 2 entry
+\end{itemize}
+
+\begin{verbatim}
+## Number of rows with more than 1 entry in DyadResponse:  233
+\end{verbatim}
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\Alph{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+  \end{enumerate}
+\end{itemize}
+
+\begin{verbatim}
+## Unique Combinations and Counts for More than 1 Entry:
+\end{verbatim}
+
+\begin{verbatim}
+##  Distracted &  Intrusion  2
+##  Female aggress male &  Intrusion 2
+##  Looks at partner &  Other 1
+##  Losing interest &  Intrusion 1
+##  Losing interest &  Looks at partner 1
+##  Male aggress female &  Female aggress male 2
+##  Male aggress female &  Looks at partner 1
+##  Not approaching &  Intrusion 1
+##  Not approaching &  Losing interest 1
+## Distracted &  Losing interest 1
+## Female aggress male &  Intrusion 1
+## Female aggress male &  Not approaching 3
+## Male aggress female &  Intrusion 1
+## Male aggress female &  Looks at partner 1
+## Male aggress female &  Not approaching 2
+## Not approaching &  Distracted 7
+## Not approaching &  Intrusion 21
+## Not approaching &  Looks at partner 10
+## Not approaching &  Losing interest 46
+## Not approaching &  Other  1
+## Tolerance &  Distracted   3
+## Tolerance &  Female aggress male 23
+## Tolerance &  Intrusion    42
+## Tolerance &  Looks at partner 25
+## Tolerance &  Losing interest 13
+## Tolerance &  Male aggress female 31
+## Tolerance &  Not approaching 6
+## Tolerance &  Other        8
+\end{verbatim}
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk (Female aggress male > Not approaching):  2731 2737 2737 2478 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2400 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2573 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2718 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2708 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2710 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2702 2737 2737 2737 2732 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2478 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2167 2737 2737 2737 2460 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2720 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2162 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2733 2578 2737 2737 2737 2737 2737 2737
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{5}
+\tightlist
+\item
+  Male agress female \textgreater{} Not approaching : Remove Not
+  approaching if there is Male aggress female (2x)
+\end{enumerate}
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk (Male aggress female > Not approaching):  -2
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{6}
+\tightlist
+\item
+  Tolerance \textgreater{} Distracted: Remove Distracted if there is
+  tolerance (3x)
+\end{enumerate}
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk Tolerance > Distracted:  -3
+\end{verbatim}
+
+8.Female agress male \textgreater{} Tolerance: Remove Tolerance if there
+is Female agress male (23x)
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk (Tolerance & Female aggress male):  -23
+\end{verbatim}
+
+9.Tolerance \textgreater{} Loosing interest: Remove Losing interest if
+there is Tolerance (13x)
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk (Tolerance & Losing interest):  0
+\end{verbatim}
+
+10.Male agress female \textgreater{} Tolerance : Remove Tolerance if
+there is Male agress male (31)
+
+\begin{verbatim}
+## Change in Occurrences for the Chunk (Tolerance & Male aggress female):  -29
+\end{verbatim}
+
+11.Tolerance \textgreater{} Not approaching: Remove Not approaching if
+there is tolerance (6x)
+
+\begin{verbatim}
+## Change in Occurrences for teh Chunk (Tolerance & Not approaching):  -6
+\end{verbatim}
+
+\begin{itemize}
+\item
+  Looks at partner \& Other 1 - Display line for detailed check (1x)
+\item
+  Not approaching \& Losing interest 46 - Keep both, I will consider
+  doing a detailled check
+\item
+  Not approaching \& Distracted 7 - Display line for detailed check
+\item
+  Not approaching \& Other 1 - Display line for detailed check
+\item
+  Tolerance \& Other 8 - Display line for detailed check
+\item
+  Code to display rows numbers and the response in DyadResponse that
+  have mroe than one entry
+\item
+  Other Reponse - DEtailed cleaning to delete the column
+\item
+  Audience - Creation of Amount Audience and Density
+\item
+  ID Individua1 - Not sure yet
+\item
+  Intruder ID
+\item
+  Remarks - Detailed Cleaning
+\item
+  Intrusion
+\item
+  Not Approaching
+\item
+  Lossing Interest
+\item
+  Distracted
+\item
+  MultipleResponse
+\item
+  Amount Audience
+\item
+  DyadDistance
+\item
+  Distance
+\item
+  No trial
+\end{itemize}
+
+\hypertarget{code-to-keep-and-place-again}{%
+\paragraph{Code to keep and place
+again}\label{code-to-keep-and-place-again}}
+
+\hypertarget{code-to-settle}{%
+\section{Code to settle}\label{code-to-settle}}
+
+I also chose to directly create new dichotomic variables for ``Not
+approaching'', ``Intrusion'', ``Losing interest'', ``Distracted'', for
+this I would like the function to 1.Check if there is a \textbf{value
+different than ``No individual''} 2.\textbf{If the value ≠``No
+individual''} then I want it to \textbf{take the response found in
+``DyadResposne''}
+
+\begin{verbatim}
+## Occurrences of 'Not approaching' in DyadResponse: 560
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of 'Intrusion' in DyadResponse: 116
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of 'Losing interest' in DyadResponse: 97
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of 'Distracted' in DyadResponse: 14
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Unknown or uninitialised column: `NotApproaching`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Unknown or uninitialised column: `LosingInterest`.
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Unknown or uninitialised column: `Distracted`.
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of '1' in 'NotApproaching': 0
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of '1' in 'Intrusion': 56
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of '1' in 'LosingInterest': 0
+\end{verbatim}
+
+\begin{verbatim}
+## Occurrences of '1' in 'Distracted': 0
+\end{verbatim}
+
+\hypertarget{exploratory-graph-to-organise}{%
+\subsubsection{Exploratory Graph (To
+organise)}\label{exploratory-graph-to-organise}}
+
+\#\#\#\#Dyad, Distance \& Date
+
+\begin{itemize}
+\item
+  Trials of grpahs, I will have to check all of them
+\item
+  My goal here is too see if each dyad have an general evolution of
+  their dyad distance trough time and how many varaition do they have
+\end{itemize}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : at 19306
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : radius 0.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : all data on boundary of neighborhood. make span bigger
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 19306
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 0.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1616
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Computation failed in `stat_smooth()`
+## Caused by error in `predLoess()`:
+## ! NA/NaN/Inf dans un appel à une fonction externe (argument 5)
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Dyad Distance \& Date-1.pdf}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Load required libraries}
+\FunctionTok{library}\NormalTok{(ggplot2)}
+\FunctionTok{library}\NormalTok{(dplyr)}
+
+\CommentTok{\# Ensure Date is in the correct format}
+\NormalTok{Bex}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(Bex}\SpecialCharTok{$}\NormalTok{Date)}
+
+\CommentTok{\# Plot with smoothed lines and confidence intervals with improved readability}
+\NormalTok{daily\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Bex, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Date, }\AttributeTok{y =}\NormalTok{ DyadDistance, }\AttributeTok{group =}\NormalTok{ Dyad, }\AttributeTok{color =}\NormalTok{ Dyad)) }\SpecialCharTok{+}
+  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Adjusted alpha and line size}
+  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
+  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Adjust legend position}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Date"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Dyad Distance"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Dyad Distance Over Time with Confidence Interval"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Dyad"}\NormalTok{) }\SpecialCharTok{+}
+  \FunctionTok{expand\_limits}\NormalTok{(}\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{)) }\CommentTok{\# Expand y{-}axis limits if needed}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
+## i Please use `linewidth` instead.
+## This warning is displayed once every 8 hours.
+## Call `lifecycle::last_lifecycle_warnings()` to see where this warning was
+## generated.
+\end{verbatim}
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\CommentTok{\# Print the daily plot}
+\FunctionTok{print}\NormalTok{(daily\_plot)}
+\end{Highlighting}
+\end{Shaded}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : at 19306
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : radius 0.04
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : all data on boundary of neighborhood. make span bigger
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : pseudoinverse used at 19306
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : neighborhood radius 0.2
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : reciprocal condition number 1
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : There are other near singularities as well. 1616
+\end{verbatim}
+
+\begin{verbatim}
+## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
+## parametric, : zero-width neighborhood. make span bigger
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Computation failed in `stat_smooth()`
+## Caused by error in `predLoess()`:
+## ! NA/NaN/Inf dans un appel à une fonction externe (argument 5)
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Other graphs-1.pdf}
+
+\begin{verbatim}
+## `summarise()` has grouped output by 'Dyad'. You can override using the
+## `.groups` argument.
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Monthly graph-1.pdf}
+
+\begin{verbatim}
+## `geom_line()`: Each group consists of only one observation.
+## i Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## i Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## i Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## i Do you need to adjust the group aesthetic?
+## `geom_line()`: Each group consists of only one observation.
+## i Do you need to adjust the group aesthetic?
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/last test before sleep-1.pdf}
+
+\includegraphics{BEX2223_files/figure-latex/daily graph2-1.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  I want to use the date to know \textbf{how many sessions} have been
+  done with each dyads in my experiment. * I will create a variable
+  called \textbf{Session} where \textbf{1 session = 1 day} * The data
+  has values from the \textbf{14th of September 2022} until the
+  \textbf{13th of September 2023} * I will also create a variable called
+  \textbf{Trial} to know how many trials have been done with each dyad
+  where \textbf{1 row = 1 trial}
+\end{itemize}
+
+\begin{verbatim}
+* I may consider, in parallel of my hypothesis, to separate the data in *4 seasons* to make a preliminary check of a potential effect of seasonality. Nevertheless the fact that we did not use anywithout      tools to mesure the weather and the idea to make a categorization in 4 seasons without considering the actua quite arbitrary. I may do it but with no intention to include this in my scientific report.
+l temperature, food quantitiy and other elements related to seasonailty make this categorizationn a categorization where 12 months of          data will be separated in 4 categories
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  But before I may want to make a few changes already by merging
+  \textbf{Male corn} and \textbf{Male placement corn} into '' Male
+  corn'' and maybe replacing all of the NA's in ``Other response'' by
+  response
+\end{itemize}
+
+\#Lines to check unique values in MaleFemaleID to see if they are any
+problems with it \# Unique values in MaleID unique\_male\_ids \textless-
+unique(Bex\$MaleID)
+
+\hypertarget{unique-values-in-femaleid}{%
+\section{Unique values in FemaleID}\label{unique-values-in-femaleid}}
+
+unique\_female\_ids \textless- unique(Bex\$FemaleID)
+
+\hypertarget{sections-below-are-here-for-the-organization-of-my-paper-and-will-be-worked-on-once-the-data-cleaning-and-exploration-is-done}{%
+\section{Sections below are here for the organization of my paper and
+will be worked on once the data cleaning and exploration is
+done}\label{sections-below-are-here-for-the-organization-of-my-paper-and-will-be-worked-on-once-the-data-cleaning-and-exploration-is-done}}
+
+\hypertarget{describing-the-data}{%
+\subsection{3. Describing the data}\label{describing-the-data}}
+
+\hypertarget{visualizing-the-data}{%
+\subsection{4.Visualizing the data}\label{visualizing-the-data}}
+
+\hypertarget{research-question-hypothesis}{%
+\subsection{5.Research question \&
+Hypothesis}\label{research-question-hypothesis}}
+
+\hypertarget{research-question}{%
+\subsubsection{Research question}\label{research-question}}
+
+\begin{itemize}
+\item
+  What factors influence the rate at which individuals (vervets) learn
+  to tolerate each other in a controlled box experiment?
+\item
+  Ex: The rate at which individuals (vervets) learn to tolerate each
+  other in a box experiment is influenced by social factors (audience,
+  social network, behavior of the partner) and idioyncratic factors
+  (age, rank)
+\end{itemize}
+
+\hypertarget{hypothesis}{%
+\subsubsection{Hypothesis}\label{hypothesis}}
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    Hypothesis about the Presence of High-Ranking Individuals:
+  \end{enumerate}
+\end{itemize}
+
+The presence of a higher number of high-ranking individuals in the
+audience will negatively correlate with the level of tolerance achieved
+among vervets in the box experiment. This is expected to result in
+higher frequencies of aggressive behaviors, intrusions, and loss of
+interest, particularly from lower-ranking individuals.
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{1}
+  \tightlist
+  \item
+    Hypothesis about Partner Agonistic Behaviors:
+  \end{enumerate}
+\end{itemize}
+
+Vervets tolerance levels in the box experiment will be influenced by
+their partner's display of agonistic behaviors. Specifically, partners
+who exhibit more frequent agonistic behaviors towards their partner will
+lead to decrease in their motivation to participate in future trials.
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{2}
+  \tightlist
+  \item
+    Hypothesis about the Establishment of an Optimal Distance:
+  \end{enumerate}
+\end{itemize}
+
+During the box experiment, vervet dyads will establish an ``optimal''
+distance for interaction, characterized by a higher frequency of
+tolerance compared to other distances. This optimal distance is expected
+to signify that the individuals tolerate each other more effectively at
+this specific proximity .
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{3}
+  \tightlist
+  \item
+    Hypothesis about Age and Rank:
+  \end{enumerate}
+\end{itemize}
+
+The age and rank of individual vervets within the group will influence
+the success of the trials in the box experiment. Specifically, older and
+higher-ranking individuals are expected to exhibit lower rates of
+success compared to dyads consisting of younger and lower-ranked
+individuals. This decrease in success is anticipated to be associated
+with a higher frequency of aggressive behaviors displayed by older and
+higher-ranking individuals towards their partners. (I'm not sure this
+hypothesis makes sens, I have the feeling age and rank must have an
+influence but I don't know how to put it, I will think about it)
+
+\begin{itemize}
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \setcounter{enumi}{4}
+  \tightlist
+  \item
+    Hyptohesis about seasonality
+  \end{enumerate}
+\end{itemize}
+
+Seasonality is expected to impact the motivation of vervet dyads to
+participate in the box experiment. We hypothesize that dyads will have
+lower motivation, as indicated by a reduced number of trials, during the
+summer months compared to the winter months. This difference in
+motivation is likely influenced by temperature and food availability. To
+test this hypothesis, we will categorize the data into four seasonal
+periods, each spanning four months, and analyze whether there is a
+significant effect of seasonality on the motivation to engage in the
+trials.
+
+\hypertarget{statistical-tests-and-analisis-of-the-data}{%
+\subsection{6.Statistical tests and analisis of the
+data}\label{statistical-tests-and-analisis-of-the-data}}
+
+\hypertarget{statistical-tests}{%
+\subsubsection{Statistical tests}\label{statistical-tests}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothesis 1}: Influence of High-Ranking Individuals
+\end{itemize}
+
+Variables Needed:
+
+\textbf{DyadResponse} (specifically, ``aggression'' responses)
+\textbf{Amountaudience} (to measure the number of individuals in the
+audience) \textbf{Audience\ldots15} (to identify the names of
+individuals in the audience for calculating dominance ranks) \textbf{Elo
+rating} of the individuals based on the ab libitum data collected in IVP
+(which I have to calculate asap)
+
+Statistical Analysis:\textbf{Logistic Regression}, as it could analyze
+the influence of high-ranking individuals on the occurrence of
+aggression in dyad responses. This will help determine whether the
+presence of high-ranking individuals affects the likelihood of
+aggression.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothesis 2}: Impact of Partner's Agonistic Behaviors
+\end{itemize}
+
+Variables Needed:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{DyadResponse} (specifically, ``aggression'' responses)
+\item
+  \textbf{MaleagressF} (male's aggression towards female)
+\item
+  \textbf{FemaleaggressM} (female's aggression towards male)
+\end{itemize}
+
+Statistical Analysis: \textbf{Logistic Regression} as it could be used
+to assess how the occurrence of aggression in dyad responses is
+influenced by the partner's gender-specific agonistic behaviors.
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothesis 3}: Identification of an Optimal Interaction
+  Distance
+\end{itemize}
+
+Variables Needed:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{DyadDistance} (distance between boxes)
+\item
+  \textbf{Tolerance} (as a binary outcome)
+\end{itemize}
+
+Statistical Analysis: \textbf{generalized Linear Model (GLM)} to
+investigate whether there is an optimal distance that leads to a higher
+likelihood of tolerance (Tolerance = 1).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothesis 4}: Role of Age and Rank
+\end{itemize}
+
+Variables Needed:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tolerance} (as a binary outcome)
+\item
+  \textbf{Male and Female} (to identify individuals' ages and ranks)
+\item
+  \textbf{Dyad} (to link individuals to dyads)
+\item
+  \textbf{Birthdate} to calculate the age of each individual
+\end{itemize}
+
+Statistical Analysis: \textbf{Logistic Regression} Logistic regression
+can be employed to determine whether the age and rank of individual
+vervets within dyads have an impact on the likelihood of tolerance
+(Tolerance = 1).
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Hypothesis 5}: Influence of Seasonality
+\end{itemize}
+
+Variables Needed:
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Date} (to categorize data into seasons)
+\item
+  \textbf{Trial} (to count the number of trials in each season) and the
+  data for at least 365 days so i can separate the data in 4 (1 year = 4
+  seasons = 12*4 month) to see if they may be an effect of seasonality
+  on the motivation (amount of trials) of the dyads
+\end{itemize}
+
+Statistical Analysis:
+
+ANOVA or Kruskal-Wallis Test: Depending on the distribution of your
+trial data, you can use either ANOVA (if the data are normally
+distributed) or the Kruskal-Wallis test (for non-normally distributed
+data) to assess the impact of seasonality on the number of trials. If
+significant differences are found, you can follow up with post-hoc tests
+to identify which seasons differ from each other. Please note that the
+effectiveness of these analyses may depend on the distribution of your
+data and specific research objectives. You may also consider conducting
+exploratory data analysis (e.g., visualization) to gain a better
+understanding of your dataset before performing these analyses.
+Additionally, if you have specific questions about data preprocessing or
+variable transformations, feel free to ask for further guidance.
+--\textgreater{} I took this from ChatGPT, I have to look more into it
+
+\textbf{REMARKS}: So here are a few updates I made in the document. I
+also planned to send my cleaned data to Radu (the statistician of UNINE)
+as he was keen to help me find the right test. Of course I will also
+look again in Bshary's and Charlotte's work with the boxes and improve
+these suggestions that are quite simple for now
+
+Also I still have to clean the last grpahs about male/female aggression
+as I didn't finish that yet. I juste wanted to share my hypothesis and
+ideas for statistics so I can soon go into the ``serious'' work
+
+Anyway, thank you in advance for your help \textless3
+
+Michael
+
+\hypertarget{plotting-the-results-of-the-analysis}{%
+\subsection{7. Plotting the results of the
+analysis}\label{plotting-the-results-of-the-analysis}}
+
+\hypertarget{interpretation-of-the-results}{%
+\subsection{9. Interpretation of the
+results}\label{interpretation-of-the-results}}
+
+\hypertarget{comeback-on-the-research-question-and-hypothesis}{%
+\subsection{10. Comeback on the research question and
+hypothesis}\label{comeback-on-the-research-question-and-hypothesis}}
+
+\hypertarget{bibliography}{%
+\subsection{11. Bibliography}\label{bibliography}}
+
+\hypertarget{organization-for-my-paper}{%
+\subsection{12. Organization for my
+paper}\label{organization-for-my-paper}}
+
+\begin{itemize}
+\tightlist
+\item
+  Introduction
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Tolerance humans, primates
+  \item
+    Apes vs monkeys / Captivity vs Wild
+  \item
+    IVP: Wild habituated vervets, experiments possible
+  \item
+    Paper Bshary, Canteloup\ldots{} Prolongation study
+  \item
+    Relevance idea/topic research
+  \item
+    Research question \& hypothesis
+  \end{itemize}
+\end{itemize}
+
+But: intro need triangle shape: broad to narrow end wiht research
+question\textgreater{} tolerance importance \textgreater{} animal reign,
+actual knowledge/ direction knowledge we need \textgreater{} show how my
+experiment goes in that way How to adress the gap, answer with research
+question
+
+Then explain why choosing vervet monkeys, (IVP in methods), sociality,
+experiments made
+
+\begin{itemize}
+\item
+  Methods
+
+  \begin{itemize}
+  \item
+    IVP, research area, (goal, house, type people)
+  \item
+    Population: groups, dyads, male/female, ranks..
+  \item
+    Box material: boxes, remotes, batteries, camera, tripod, corn (no
+    marmelade ;), (water spray, security reason, non agressive way to
+    select individuals and not engage with mokeys when reachrging boxes
+    with corn), pattern, previous distances, tablets, box experiment
+    form
+  \item
+    Tablets
+  \item
+    (No observers mentionned)
+  \item
+    Habituation boxes \textgreater{} individuals trained to recognice
+    boxes, they have differernt levels of habituation
+  \item
+    Patterns \textgreater{} appendix, mention similar to habituation,
+    use to recognize box but efficieny depeds of experience)
+  \item
+    Selection dyads \textgreater{} assigment from elo rating (different
+    rank), if above average bond no dyad made, if not possible,
+    availibilty of monkey also factor !! Non random can be a problem,
+    think about why and how you selected data We created variations in
+    dyads made by different sex, rank and not above average bonde
+    (calculate bondeness)
+  \item
+    Amount corn, do you want to mention it\textgreater{} maybe important
+    Calculate corn during and placement cf paper on corn /food
+    motivation
+  \item
+    Corn (daily intake vervet \% made from corn, cf site we saw, cf
+    screenshot, comapre paper previousely made an all)
+  \item
+    1st dyad trial (BD) \textgreater{} appendix
+  \item
+    Videos \textgreater{} details appendix
+  \item
+    Finding dyads \textgreater{} appendix
+  \item
+    Placement to attract them \textgreater{} meniton if statiscial made
+    on placement corn
+  \item
+    Trials (1 session = max 15 trials/in total) (session could be broken
+    in different sub sessions to reach 15 trials max)
+  \item
+    If agression \textgreater{} 1m / If 2x tolerance \textless{} 1m ,
+    also if not approaching \textgreater{} 1m ( if no tolerance increase
+    distance except if intrusion) (borgeaud \textgreater{} expectation
+    fo aggression)
+  \item
+    Time of the day \textgreater{} appendix
+  \item
+    Territory? \textgreater{} appendix
+  \item
+    Amount sessions p day/week, how we chose the moment to follow them
+    \textgreater appendix
+  \item
+    Problems/ unplanned events: weather, BGE's, not finding the monkeys
+    (group, dyad or individual), dispersal of males, river crossing,
+    inacessibility (experiments or boxes), low vision (experiments or
+    monkeys),\textgreater{} appendix
+  \item
+    (Where do i mention the confounding variables?) \textgreater{} look
+    in litterature, if something that could affect and already reported
+    in papers check, oterhwise exclude ``normal life'' factors for both
+    monekys and Experimenter
+  \item
+    Types of experimental plan
+  \item
+    Statistical tests (for each hypothesis)
+  \end{itemize}
+\item
+  Analysis
+\item
+  Results
+\item
+  Interpretation
+\item
+  Conclusion
+\end{itemize}
+
+\hypertarget{glossary}{%
+\section{Glossary}\label{glossary}}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tolerance}: Tolerance: An individual has an encounter with a
+  conspecific and can freely leave but remains in the encounter without
+  acting aggressively toward the conspecific. (Pisor \& Surbeck, 2019)
+\item
+  \textbf{Agression}
+\item
+  \textbf{Session}
+\item
+  \textbf{Trial}
+\item
+  \textbf{Group}: In the Primate order, groups are individuals ``which
+  remain {[}physically{]} together in or separate from a larger unit''
+  and interact with each other more than with other individuals.6 This
+  definition does not cover all uses of the word ``group'' in the social
+  sciences (e.g., human identity groups who identify with a common name
+  or symbol may or may not interact with one another more frequently
+  than with other individuals). Because of this ambiguity, we use the
+  word ``community'' when referring to humans to better capture the
+  notion of spatial proximity, per Ref. 54. Members of the same group
+  are referred to as ``same-group'' and those from another group
+  ``extra-group.'' (Pisor \& Surbeck, 2019)
+\end{itemize}
+
+\hypertarget{bibliography-1}{%
+\section{Bibliography}\label{bibliography-1}}
+
+• Pisor, A. C., \& Surbeck, M. (2019). The evolution of intergroup
+tolerance in nonhuman primates and humans. Evolutionary Anthropology:
+Issues and ReViews. Advance online publication.
+\url{https://doi.org/10.1002/evan.21793} (Pisor \& Surbeck, 2019)
+
+\hypertarget{annex}{%
+\section{Annex}\label{annex}}
+
+\hypertarget{annex-1-view-of-the-dataset-when-imported---first-6-entries-of-each-variable}{%
+\paragraph{Annex 1 : View of the dataset when imported - First 6 entries
+of each
+variable}\label{annex-1-view-of-the-dataset-when-imported---first-6-entries-of-each-variable}}
+
+\begin{itemize}
+\tightlist
+\item
+  We can see here the brief View of the \textbf{original dataset} names
+  \textbf{BoxEx}when i initially imported it as seen in \textbf{section
+  0: Opening data}
+\end{itemize}
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{First Few Entries (continued below)}\tabularnewline
+\toprule
+Date & Time & Data & Group \\
+\midrule
+\endfirsthead
+\toprule
+Date & Time & Data & Group \\
+\midrule
+\endhead
+2022-09-27 & 1899-12-31 09:47:50 & Box Experiment & Baie Dankie \\
+2022-09-27 & 1899-12-31 09:50:07 & Box Experiment & Baie Dankie \\
+2022-09-27 & 1899-12-31 09:53:11 & Box Experiment & Baie Dankie \\
+2022-09-27 & 1899-12-31 09:54:28 & Box Experiment & Baie Dankie \\
+2022-09-27 & 1899-12-31 09:55:19 & Box Experiment & Baie Dankie \\
+2022-09-27 & 1899-12-31 09:56:56 & Box Experiment & Baie Dankie \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+GPSS & GPSE & MaleID & FemaleID \\
+\midrule
+\endfirsthead
+\toprule
+GPSS & GPSE & MaleID & FemaleID \\
+\midrule
+\endhead
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+-28.010549999999999 & 31.191050000000001 & Nge & Oerw \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}ccccc@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+Male placement corn & MaleCorn & FemaleCorn & DyadDistance &
+DyadResponse \\
+\midrule
+\endfirsthead
+\toprule
+Male placement corn & MaleCorn & FemaleCorn & DyadDistance &
+DyadResponse \\
+\midrule
+\endhead
+NA & 3 & NA & 2m & Tolerance \\
+NA & 3 & NA & 2m & Tolerance \\
+NA & 3 & NA & 1m & Tolerance \\
+NA & 3 & NA & 1m & Tolerance \\
+NA & 3 & NA & 0m & Tolerance \\
+NA & 3 & NA & 0m & Tolerance \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}cccc@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+OtherResponse & Audience & IDIndividual1 & IntruderID \\
+\midrule
+\endfirsthead
+\toprule
+OtherResponse & Audience & IDIndividual1 & IntruderID \\
+\midrule
+\endhead
+NA & Obse; Oup; Sirk & NA & NA \\
+NA & Obse; Oup; Sirk & NA & NA \\
+NA & Oup; Sirk & NA & NA \\
+NA & Sirk & NA & NA \\
+NA & Sey; Sirk & NA & NA \\
+NA & Sey; Sirk & NA & NA \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}
+  >{\centering\arraybackslash}p{(\columnwidth - 0\tabcolsep) * \real{1.00}}@{}}
+\caption{Table continues below}\tabularnewline
+\toprule
+\begin{minipage}[b]{\linewidth}\centering
+Remarks
+\end{minipage} \\
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{\linewidth}\centering
+Remarks
+\end{minipage} \\
+\midrule
+\endhead
+NA \\
+NA \\
+Nge box did not open because of the battery. Oerw vocalized to MA when
+he ap to the box to open it. \\
+Sey came to the boxes once they were open \\
+NA \\
+NA \\
+\bottomrule
+\end{longtable}
+
+\begin{longtable}[]{@{}cc@{}}
+\toprule
+Observers & DeviceId \\
+\midrule
+\endhead
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+Josefien; Michael; Ona; Zonke &
+\{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
+\bottomrule
+\end{longtable}
+
+```beforeNA
+
+\end{document}
