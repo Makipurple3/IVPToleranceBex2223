@@ -1,18 +1,18 @@
 ---
 title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023"
 output:
-  word_document:
-    toc: yes
-    toc_depth: 6
-  pdf_document:
-    toc: yes
-    toc_depth: 6
   html_document:
     df_print: paged
     toc: yes
     toc_depth: 6
     toc_float:
       collapsed: no
+  pdf_document:
+    toc: yes
+    toc_depth: 6
+  word_document:
+    toc: yes
+    toc_depth: 6
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 header-includes:
   - \usepackage[utf8]{inputenc}
@@ -991,7 +991,7 @@ print(na_counts)
 # 3. Correction and creation of New Variables 
 
 ### 3.1 Making a backup of Bex
-* I will now continue making changes, in case they are any problems or comparason to be made I may use this function to look how Bex looked at that point
+* Before making new changes I will make a backup of my dataset at this point
 
 ```{r Backup Bex 1, include=FALSE}
 # Create a backup
@@ -1001,7 +1001,7 @@ backup_Bex <- Bex
 
 ### 3.2 Treating Remarks before processing with new modifications
 * Since I have removed all the missing data from the different columns, I now have to correct potential mistakes that can be found and create new variables to be able to manipulate better my data.
-Since the column remarks contains corrections and additional information, so i will treat it now
+* Since the column remarks contains corrections and additional information, I will treat it now
 
 
 * Before that lets check how many remarks we have in our dataset, how many of the main keywords we can find and make a visual representation of it
@@ -1111,19 +1111,16 @@ getwd()
   
   
   
-# UPDATES FROM HERE
+
   
 
   
 ### 3.3 Re Uploading the dataset after the treatment of the Remarks 
 
-* Now that I have ... I will reimport the dataset and make a check of the data
+* Now that I have manually treated the remarks in a spreadsheet I will re import the dataset 
 ```{r BexImport After Manual Cleaning, echo=FALSE}
 # Import the Excel file
 BexClean<- read_excel("Bex_After_manual_cleaning.xlsx")
-
-#Glimpse of Bex for comparaison
-glimpse(Bex)
 
 #GLimpse of Bex_Cleaned
 glimpse(BexClean)
@@ -1131,34 +1128,8 @@ glimpse(BexClean)
 
 ```
 
-* I will now check the state fo remarks and of the data before and after to see if no major mistakes may have been done
 
-* First the amount of Remarks and No Remarks, before: Number of 'No Remarks' entries:  2119 
-Number of actual remarks entries:  599 
-
-```{r temporary check for remarks treatment,echo=FALSE}
-
-
-# Count the 'No Remarks' and actual remarks entries
-no_remarks_count <- sum(BexClean$Remarks == 'No Remarks', na.rm = TRUE)
-remarks_count <- sum(BexClean$Remarks != 'No Remarks' & !is.na(BexClean$Remarks), na.rm = TRUE)
-
-# Print the counts
-cat("Number of 'No Remarks' entries: ", no_remarks_count, "\n")
-cat("Number of actual remarks entries: ", remarks_count, "\n")
-
-# Count total keyword occurrences in the Remarks column
-# Replace 'keyword' with the actual keyword you are looking for
-# Example keyword, replace 'keyword' with your specific keyword
-keyword_occurrences <- sum(grepl("keyword", BexClean$Remarks, ignore.case = TRUE), na.rm = TRUE)
-
-# Print the keyword occurrences
-cat("Total number of keyword occurrences in the Remarks column: ", keyword_occurrences, "\n")
-```
-
-
-
-* NA Check in BexClean
+* And Check for any remaining NA's in BexClean
 
 ```{r NABexClean, echo=FALSE}
 # Check for NA values in specific columns
@@ -1178,22 +1149,19 @@ cat("Number of NA entries in BexClean: ", bexclean_na_count, "\n")
 ```
 
 
-###4.1 Creation of new dataframe?
 
-### Treatment and cleaning of last variables before stats!?
-
-### 4.2 Time - Creation of Period and Hour
-* Time : I did not plan to use this variable but since I used, I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
+### 3.4 Time - Creation of Period and Hour
+* Time : I considered looking at the time sections in which we did the expermiment. I will thus look at the time ranges (max and min in the day / latest and earliest time) before separating the day in different sections to have an idea in which part of the day most of the experiments occured. This will not be used in my analysis, but if I wanted to, I could interesting to compare the amount of experimentations made per day and have a line indicating the time of sunrise. 
 
 ```{r Time Periods, include=FALSE}
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   mutate(Time = as.POSIXct(Time, format = "%H:%M:%S"),
          Period = case_when(
-           between(hour(Time), 6, 8) ~ "Early Morning",
-           between(hour(Time), 8, 10) ~ "Morning",
-           between(hour(Time), 10, 12) ~ "Noon",
-           between(hour(Time), 12, 14) ~ "Afternoon",
-           between(hour(Time), 14, 17) ~ "End of the Day",
+           between(hour(Time), 6, 8) ~ "6 to 8",
+           between(hour(Time), 8, 10) ~ "8 to 10",
+           between(hour(Time), 10, 12) ~ "10 to 12",
+           between(hour(Time), 12, 14) ~ "12 to 14",
+           between(hour(Time), 14, 17) ~ "14 to 17",
            TRUE ~ NA_character_
          )
   )
@@ -1211,7 +1179,7 @@ Bex <- Bex %>%
 * This will allow me to see when most of the trials occured with more detail and I will be to see in which hour most of the trial happened. Nevertheless Period will be better for an improved readability
 ```{r Hour, include=FALSE}
 
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   mutate(Time = as.POSIXct(Time, format = "%H:%M:%S"),  # Convert Time back to POSIXct
          Hour = floor_date(Time, "hour"),  # Create Hour variable
          Hour = format(Hour, "%H:%M:%S"),  # Format Hour for display
@@ -1220,12 +1188,12 @@ Bex <- Bex %>%
 
 ```
 
-### Date - Creation of Month and Day
+### 3.5 Date - Creation of Month and Day
 *  i want to Create a variable called month to see the month of the experiment and day so I know which day of the experiment it was (1st, 10th, 1000th..)
 ```{r Month and Day, include=FALSE}
 
 # Assuming 'Date' is the name of your variable
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   arrange(Date) %>%  # Arrange data in ascending order of Date
   mutate(
     Day = as.numeric(difftime(Date, min(Date), units = "days")) + 1,  # Assign a unique day number
@@ -1235,39 +1203,38 @@ Bex <- Bex %>%
 ```
 
 
-### Group - Ok
-### Male and Female ID - Creation of Dyad, Trial and Session
+
+### 3.6 Male and Female ID - Creation of Dyad, Trial and Session
 
 * I will use Female and Male ID to create different variables
   1. While checking if there are still any mistakes  in **FemaleID and MaleID** using **unique**, I saw that some of the names are in the wrong rows. I want the **3 letter male codes** whether they are in the column FemaleID or MaleID to be in the **new column Male** while I want the **4 letter female codes** whether they are in FemaleID or MaleID to be in the **new column Female** before checking again with unique that the transformation worked. I will use mutate
 ```{r Female Male ID Check, echo=FALSE}
-#Unique outputs for FemaleID
-unique_female_ids <- unique(Bex$FemaleID)
+# Unique outputs for FemaleID
+unique_female_ids <- unique(BexClean$FemaleID)
 cat("Unique Female IDs:", unique_female_ids, "\n")
 
 # Count the occurrences of each name before the transformation
-table(Bex$FemaleID)
+cat("Occurrences of Female IDs:\n")
+print(table(BexClean$FemaleID))
 
 # Unique outputs for MaleID
-unique_male_ids <- unique(Bex$MaleID)
+unique_male_ids <- unique(BexClean$MaleID)
 cat("Unique Male IDs:", unique_male_ids, "\n")
 
 # Count the occurrences of each name before the transformation
-table(Bex$MaleID)
+cat("Occurrences of Male IDs:\n")
+print(table(BexClean$MaleID))
 
-
-beforesummary <- table(Bex$FemaleID, Bex$MaleID)
-kable(print(beforesummary))
+# Summary table
+beforesummary <- table(BexClean$FemaleID, BexClean$MaleID)
+kable(beforesummary)
 
 ```
 1. Create a variable called Male that in each row will take the name of the **3 letter code** that is either in MaleID or Female ID and a variable called Female that in each row will take the name of the **4 letter code** that is either in MaleID or FemaleID
 
 ```{r Female Male ID correction, echo=FALSE}
 
-#library(dplyr)
-library(knitr)
-
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   mutate(
     Male = ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
     Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA)),
@@ -1275,22 +1242,20 @@ Bex <- Bex %>%
   )
 
 # Display and verify the changes
-print(unique(Bex$Dyad))
-kable(table(Bex$Dyad))
+unique_dyads <- unique(BexClean$Dyad)
+cat("Unique Dyads:", unique_dyads, "\n")
+kable(table(BexClean$Dyad))
+
+# Cross-tabulate Male and Female IDs
+corrected_table <- table(BexClean$Male, BexClean$Female)
+kable(corrected_table)
 
 ```
   
-  # Correct from here, mistake were inserted in dyad by changin wrong lines 
-
-
-
 
   2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
 
-New output! : 2673 trials 
-Old output  : 2724 trials
-
--->51 rows missing!
+# UPDATES FROM HERE
 
 * Buk Ginq	6
 * Buk Ndaw	257 vs 255!
