@@ -1,6 +1,12 @@
 ---
 title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023"
 output:
+  word_document:
+    toc: yes
+    toc_depth: 6
+  pdf_document:
+    toc: yes
+    toc_depth: 6
   html_document:
     df_print: paged
     toc: yes
@@ -8,6 +14,14 @@ output:
     toc_float:
       collapsed: no
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
+header-includes:
+  - \usepackage[utf8]{inputenc}
+  - \usepackage{amssymb}
+  - \usepackage{textcomp}
+  - \usepackage[T1]{fontenc}
+  - \usepackage{underscore}
+  - \usepackage{newunicodechar}
+  - \newunicodechar{≠}{$\neq$}
 ---
 
 ```{r setup, include=FALSE}
@@ -72,8 +86,8 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 
 ```{r View and Glimpse of Boxex, echo=FALSE}
 
-# First View of my datset
-View(Boxex)
+# First View of my datset using View(Boxex)> Line removed for knitting
+
 
 #GLimpse function to see the summary and  the structure
 
