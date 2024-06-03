@@ -1286,6 +1286,7 @@ print(wrong_rows)
 print(wrong_dyads)
 
 
+View(BexClean)
 
 ```
 
@@ -1299,43 +1300,47 @@ print(wrong_dyads)
   
 ```{r Correct Wrong Dyads, echo=FALSE}
 # Check if corrections have already been made for "Sho"
-if (!all(Bex$MaleID[613:617] == "Sho", na.rm = TRUE)) {
-  Bex$MaleID[613:617] <- "Sho"
+if (!all(BexClean$MaleID[613:617] == "Sho", na.rm = TRUE)) {
+  BexClean$MaleID[613:617] <- "Sho"
 }
 
 # Check if corrections have already been made for "Sho" at another specific row
-if (Bex$MaleID[931] != "Sho") {
-  Bex$MaleID[931] <- "Sho"
+if (BexClean$MaleID[931] != "Sho") {
+  BexClean$MaleID[931] <- "Sho"
 }
 
 # Check if corrections have already been made for "Kom"
-if (!all(Bex$MaleID[2170:2713] == "Kom", na.rm = TRUE)) {
-  Bex$MaleID[2170:2713] <- "Kom"
+if (!all(BexClean$MaleID[2170:2713] == "Kom", na.rm = TRUE)) {
+  BexClean$MaleID[2170:2713] <- "Kom"
 }
 
 # Delete duplicate rows if any
-Bex <- Bex[!duplicated(Bex), ]
+BexClean <- BexClean[!duplicated(BexClean), ]
 
 # Update Dyad based on the corrected MaleID
-Bex <- dplyr::mutate(Bex, Dyad = paste(
+BexClean <- dplyr::mutate(BexClean, Dyad = paste(
   ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
   " ",
   ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA))
 ))
 
 # Check and summarize unique MaleIDs and Dyads after correction
-unique_male <- unique(Bex$MaleID)
+unique_male <- unique(BexClean$MaleID)
 cat("Unique Male after correction", unique_male, "\n")
 
-unique_dyad <- unique(Bex$Dyad)
+unique_dyad <- unique(BexClean$Dyad)
 cat("Unique Dyad after correction", unique_dyad, "\n")
 
-knitr::kable(table(Bex$MaleID))
-knitr::kable(table(Bex$Dyad))
+knitr::kable(table(BexClean$MaleID))
+knitr::kable(table(BexClean$Dyad))
+
+
 
 ```
 
   
+
+
 
   3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Day** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Day:
@@ -1344,13 +1349,13 @@ knitr::kable(table(Bex$Dyad))
 
 ```{r Dyad and Day, include=FALSE}
 # Create Trial variable
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   arrange(Date, Dyad) %>%
   group_by(Dyad) %>%
   mutate(Trial = row_number())
 
 # Create Day variable  # (Changed 'Session' to 'Day' for better clarity)
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   arrange(Dyad, Date) %>%
   group_by(Dyad, Date) %>%
   mutate(Day = cur_group_id())
@@ -1359,11 +1364,11 @@ Bex <- Bex %>%
 4. Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals
 ```{r Dyad and Day Summary, echo=FALSE}
 # Summary of Trial and Day
-summary_trial <- Bex %>%
+summary_trial <- BexClean %>%
   group_by(Dyad) %>%
   summarise(Num_Trials = max(Trial))
 
-summary_Day <- Bex %>%
+summary_Day <- BexClean %>%
   group_by(Dyad) %>%
   summarise(Num_y = max(Day))
 
@@ -1373,7 +1378,7 @@ print(summary_trial)
 cat("\nDay Summary:\n")
 print(summary_Day)
 
-kable(table(Bex$Dyad))
+kable(table(BexClean$Dyad))
 
 ```
 
@@ -1383,13 +1388,13 @@ kable(table(Bex$Dyad))
 ```{r Remove PomGuat, echo=FALSE}
 
 # Count the rows before modifications
-before_rows <- nrow(Bex)
+before_rows <- nrow(BexClean)
 
 # Remove rows where "Guat" is present in FemaleID
-Bex <- Bex %>% filter(!grepl("Guat", FemaleID, ignore.case = TRUE))
+BexClean <- BexClean %>% filter(!grepl("Guat", FemaleID, ignore.case = TRUE))
 
 # Count the rows after modifications
-after_rows <- nrow(Bex)
+after_rows <- nrow(BexClean)
 
 # Display the change in rows
 cat("Change in Rows: ", after_rows - before_rows, "\n")
@@ -1407,7 +1412,7 @@ cat("Change in Rows: ", after_rows - before_rows, "\n")
 
 
 
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   arrange(Dyad, Date) %>%
   group_by(Dyad, Day) %>%
   mutate(
@@ -1422,10 +1427,10 @@ Bex <- Bex %>%
 * First lets look at the maximum and minimum distance found in Dyad Distance
 ```{r DyadDistance Max & Min, echo=FALSE}
 # Find maximum distance
-max_distance <- max(Bex$DyadDistance, na.rm = TRUE)
+max_distance <- max(BexClean$DyadDistance, na.rm = TRUE)
 
 # Find minimum distance
-min_distance <- min(Bex$DyadDistance, na.rm = TRUE)
+min_distance <- min(BexClean$DyadDistance, na.rm = TRUE)
 
 # Print the results
 cat("Maximum Distance:", max_distance, "\n")
@@ -1444,7 +1449,7 @@ cat("Minimum Distance:", min_distance, "\n")
   
 ```{r Proximity, echo=FALSE}
   # Assuming 'DyadDistance' is the name of your distance variable
-Bex <- Bex %>%
+BexClean <- BexClean %>%
   mutate(
     Proximity = case_when(
       DyadDistance == 0 ~ "Contact",
@@ -1506,10 +1511,10 @@ Bex <- Bex %>%
   
 ```{r DyadResponse MultipleResponse, echo=FALSE}
 # Rows with more than 1 character
-beforesummaryrowswithmultipleentries <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Display the rows with multiple entries in DyadResponse
-View(Bex[beforesummaryrowswithmultipleentries, ])
+View(BexClean[beforesummaryrowswithmultipleentries, ])
 
 # Print the number of rows with multiple entries and the total number of rows
 cat("Number of rows with multiple entries in DyadResponse: ", length(beforesummaryrowswithmultipleentries), "\n")
@@ -1529,10 +1534,10 @@ cat("Rows with multiple entries in DyadResponse: ", escaped_rows, "\n")
 * B.Idnetify Rows with more than 1 entry
 
 *  Step 1: Identify Rows with More than 1 Entry
-beforesummaryrowswithmultipleentries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+beforesummaryrowswithmultipleentries_1 <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 Display the rows with more than 1 entry in DyadResponse
-knitr::kable(Bex[beforesummaryrowswithmultipleentries_1, ])
+knitr::kable(BexClean[beforesummaryrowswithmultipleentries_1, ])
 
 * Print the amount of cells with more than 1 entry and the total number of rows
 cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
@@ -1540,7 +1545,7 @@ cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesumm
 * C. Identify Rows with more than 2 entry
 ```{r DyadResponse > 2 entry, echo=FALSE}
 # Step 1: Identify Rows with More than 1 Entry
-beforesummaryrowswithmultipleentries_1 <- which(sapply(Bex$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+beforesummaryrowswithmultipleentries_1 <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Print the amount of cells with more than 1 entry and the total number of rows
 cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
@@ -1550,7 +1555,7 @@ cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesumm
 ```{r ,echo=FALSE}
 # Step 3: Extract Unique Combinations for More than 1 Entry
 all_combinations_1 <- unlist(lapply(beforesummaryrowswithmultipleentries_1, function(row) {
-  unique_chars <- unlist(strsplit(as.character(Bex$DyadResponse[row]), ";"))
+  unique_chars <- unlist(strsplit(as.character(BexClean$DyadResponse[row]), ";"))
   combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
 }))
 
@@ -1562,7 +1567,7 @@ cat("Unique Combinations and Counts for More than 1 Entry:\n")
 for (entry in names(combination_counts_1)) {
   cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
   
-after_summary4 <- nrow(Bex)}
+after_summary4 <- nrow(BexClean)}
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - beforesummary, "\n")
@@ -1572,12 +1577,12 @@ cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching)
  6. Male agress female > Not approaching : Remove Not approaching if there is Male aggress female (2x)
 ```{r Male agress female > Intrusion, echo=FALSE}
 # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 # 6. Remove rows with 'Not approaching' if 'Male aggress female' is present
-Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
+BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Male aggress female", BexClean$DyadResponse)), ]
 
 # Count occurrences after modification
-after_summary6 <- nrow(Bex)
+after_summary6 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching): ", after_summary6 - beforesummary, "\n")
@@ -1588,13 +1593,13 @@ cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching)
 ```{r Tolerance > Distracted, echo=FALSE}
 
 # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 
 # Tolerance & Distracted: 7.Remove Distracted if there is tolerance
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Distracted", Bex$DyadResponse)), ]
+BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Distracted", BexClean$DyadResponse)), ]
 
 # Count occurrences after modification
-after_summary7 <- nrow(Bex)
+after_summary7 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summary7 - beforesummary, "\n")
@@ -1605,13 +1610,13 @@ cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summar
  
 ```{r Female agress male > Tolerance, echo=FALSE}
 # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 
 # 8. Remove rows with 'Tolerance' if 'Female aggress male' is present
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Female aggress male", Bex$DyadResponse)), ]
+BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Female aggress male", BexClean$DyadResponse)), ]
 
 # Count occurrences after modification
-after_summary8 <- nrow(Bex)
+after_summary8 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", after_summary8 - beforesummary, "\n")
@@ -1623,10 +1628,10 @@ cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", a
  9.Tolerance > Loosing interest: Remove Losing interest if there is Tolerance (13x)
 ```{r Tolerance > Loosing interest, echo=FALSE}
 # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 
 # Count occurrences after modification
-after_summary9 <- nrow(Bex)
+after_summary9 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after_summary9 - beforesummary, "\n")
@@ -1636,13 +1641,13 @@ cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after
  10.Male agress female > Tolerance : Remove Tolerance if there is Male agress male (31)
 ```{r Male agress female > Tolerance, echo=FALSE}
  # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 
 # 10. Remove rows with 'Tolerance' if 'Male aggress female' is present
-Bex <- Bex[!(grepl("Tolerance", Bex$DyadResponse) & grepl("Male aggress female", Bex$DyadResponse)), ]
+BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Male aggress female", BexClean$DyadResponse)), ]
 
 # Count occurrences after modification
-after_summary10 <- nrow(Bex)
+after_summary10 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", after_summary10 - beforesummary, "\n")
@@ -1651,14 +1656,14 @@ cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", a
  11.Tolerance > Not approaching: Remove Not approaching if there is tolerance (6x)
 ```{r Tolerance > Not approaching, echo=FALSE}
 # Count occurrences before modifications
-beforesummary <- nrow(Bex)
+beforesummary <- nrow(BexClean)
 
 # 11. Remove rows with 'Not approaching' if 'Tolerance' is present
-Bex <- Bex[!(grepl("Not approaching", Bex$DyadResponse) & grepl("Tolerance", Bex$DyadResponse)), ]
+BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
 
 
 # Count occurrences after modification
-after_summary11 <- nrow(Bex)
+after_summary11 <- nrow(BexClean)
 
 # Display the change in occurrences
 cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after_summary11 - beforesummary, "\n")
@@ -1701,19 +1706,19 @@ I also chose to directly create new dichotomic variables for "Not approaching", 
 
 ```{r Create dichotomous variables, echo=FALSE}
 # Check if the "MultipleResponses" column already exists
-if (!"MultipleResponses" %in% names(Bex)) {
+if (!"MultipleResponses" %in% names(BexClean)) {
   # Replace NA in IDIndividual1 by "No individual"
-  Bex$IDIndividual1[is.na(Bex$IDIndividual1)] <- "No individual"
+  BexClean$IDIndividual1[is.na(BexClean$IDIndividual1)] <- "No individual"
 
   # Check for multiple responses
-  Bex$MultipleResponses <- ifelse(
-  Bex$IDIndividual1 != "No individual" & grepl("[;,] ?", Bex$DyadResponse),
+  BexClean$MultipleResponses <- ifelse(
+  BexClean$IDIndividual1 != "No individual" & grepl("[;,] ?", BexClean$DyadResponse),
   ">1 Response",
   "Single Response"
 )
 
   
-  View(Bex)
+  View(BexClean)
 } else {
   cat("The 'MultipleResponses' column already exists. No changes made.\n")
 }
@@ -1721,10 +1726,10 @@ if (!"MultipleResponses" %in% names(Bex)) {
 
 ```{r Check Responses in DyadResponse for Id1, echo=FALSE}
 # Count occurrences of each behavior in DyadResponse
-count_NotApproaching <- sum(grepl("Not approaching", Bex$DyadResponse))
-count_Intrusion <- sum(grepl("Intrusion", Bex$DyadResponse))
-count_LosingInterest <- sum(grepl("Losing interest", Bex$DyadResponse))
-count_Distracted <- sum(grepl("Distracted", Bex$DyadResponse))
+count_NotApproaching <- sum(grepl("Not approaching", BexClean$DyadResponse))
+count_Intrusion <- sum(grepl("Intrusion", BexClean$DyadResponse))
+count_LosingInterest <- sum(grepl("Losing interest", BexClean$DyadResponse))
+count_Distracted <- sum(grepl("Distracted", BexClean$DyadResponse))
 
 cat("Occurrences of 'Not approaching' in DyadResponse:", count_NotApproaching, "\n")
 cat("Occurrences of 'Intrusion' in DyadResponse:", count_Intrusion, "\n")
@@ -1733,10 +1738,10 @@ cat("Occurrences of 'Distracted' in DyadResponse:", count_Distracted, "\n")
 
 
 # Count the number of '1's in the new variables
-count_NotApproaching_1 <- sum(Bex$NotApproaching == 1)
-count_Intrusion_1 <- sum(Bex$Intrusion == 1)
-count_LosingInterest_1 <- sum(Bex$LosingInterest == 1)
-count_Distracted_1 <- sum(Bex$Distracted == 1)
+count_NotApproaching_1 <- sum(BexClean$NotApproaching == 1)
+count_Intrusion_1 <- sum(BexClean$Intrusion == 1)
+count_LosingInterest_1 <- sum(BexClean$LosingInterest == 1)
+count_Distracted_1 <- sum(BexClean$Distracted == 1)
 
 cat("Occurrences of '1' in 'NotApproaching':", count_NotApproaching_1, "\n")
 cat("Occurrences of '1' in 'Intrusion':", count_Intrusion_1, "\n")
@@ -1762,12 +1767,12 @@ library(dplyr)
 library(lubridate)
 
 # Check if the DyadDistance column exists
-if("DyadDistance" %in% colnames(Bex)) {
+if("DyadDistance" %in% colnames(BexClean)) {
     # Convert Date column to Date format if it's not already
-    Bex$Date <- as.Date(Bex$Date)
+    BexClean$Date <- as.Date(BexClean$Date)
 
     # Plot using Date
-    plot <- ggplot(data = Bex, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
+    plot <- ggplot(data = BexClean, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
       geom_smooth(se = FALSE, method = "loess") +
       theme_minimal() +
       labs(x = "Date", y = "Dyad Distance", title = "Dyad Distance Over Time", color = "Dyad")
@@ -1775,7 +1780,7 @@ if("DyadDistance" %in% colnames(Bex)) {
     # Print the plot
     print(plot)
 } else {
-    print("DyadDistance column not found in Bex dataframe")
+    print("DyadDistance column not found in BexClean dataframe")
 }
 
 
@@ -1790,10 +1795,10 @@ library(ggplot2)
 library(dplyr)
 
 # Ensure Date is in the correct format
-Bex$Date <- as.Date(Bex$Date)
+BexClean$Date <- as.Date(BexClean$Date)
 
 # Plot with smoothed lines and confidence intervals with improved readability
-daily_plot <- ggplot(data = Bex, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
+daily_plot <- ggplot(data = BexClean, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
   geom_smooth(method = "loess", se = TRUE, alpha = 0.2, size = 1) + # Adjusted alpha and line size
   theme_minimal() +
   theme(legend.position = "right") + # Adjust legend position
@@ -1812,10 +1817,10 @@ library(dplyr)
 library(lubridate)
 
 # Ensure Date is in the correct format
-Bex$Date <- as.Date(Bex$Date)
+BexClean$Date <- as.Date(BexClean$Date)
 
 # Aggregate data by month and calculate mean and SD
-monthly_stats <- Bex %>%
+monthly_stats <- BexClean %>%
   mutate(Month = floor_date(Date, "month")) %>%
   group_by(Dyad, Month) %>%
   summarise(
@@ -1836,10 +1841,10 @@ library(dplyr)
 library(lubridate)
 
 # Ensure Date is in the correct format
-Bex$Date <- as.Date(Bex$Date)
+BexClean$Date <- as.Date(BexClean$Date)
 
 # Aggregate data by month and calculate mean and SD
-monthly_stats <- Bex %>%
+monthly_stats <- BexClean %>%
   mutate(Month = floor_date(Date, "month")) %>%
   group_by(Dyad, Month) %>%
   summarise(
@@ -1867,10 +1872,10 @@ library(dplyr)
 library(lubridate)
 
 # Ensure Date is in the correct format
-Bex$Date <- as.Date(Bex$Date)
+BexClean$Date <- as.Date(BexClean$Date)
 
 # Aggregate data by month and calculate mean and SD
-monthly_stats <- Bex %>%
+monthly_stats <- BexClean %>%
   mutate(Month = floor_date(Date, "month")) %>%
   group_by(Dyad, Month) %>%
   summarise(
@@ -1906,10 +1911,10 @@ library(dplyr)
 library(lubridate)
 
 # Ensure Date is in the correct format
-Bex$Date <- as.Date(Bex$Date)
+BexClean$Date <- as.Date(BexClean$Date)
 
 # Aggregate data by month and calculate mean and SD
-monthly_stats <- Bex %>%
+monthly_stats <- BexClean %>%
   mutate(Month = floor_date(Date, "month")) %>%
   group_by(Dyad, Month) %>%
   summarise(
@@ -1919,8 +1924,8 @@ monthly_stats <- Bex %>%
   )
 
 # Calculate overall mean and standard deviation for reference
-overall_mean <- mean(Bex$DyadDistance, na.rm = TRUE)
-overall_sd <- sd(Bex$DyadDistance, na.rm = TRUE)
+overall_mean <- mean(BexClean$DyadDistance, na.rm = TRUE)
+overall_sd <- sd(BexClean$DyadDistance, na.rm = TRUE)
 
 # Faceted plot with Mean Points and Error Bars for each month
 faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
@@ -1951,7 +1956,7 @@ print(faceted_monthly_plot)
 
 #Lines to check unique values in MaleFemaleID to see if they are any problems with it
 # Unique values in MaleID
-unique_male_ids <- unique(Bex$MaleID)
+unique_male_ids <- unique(BexClean$MaleID)
 
 # Unique values in FemaleID
 unique_female_ids <- unique(Bex$FemaleID)
