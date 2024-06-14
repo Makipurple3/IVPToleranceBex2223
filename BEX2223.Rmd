@@ -1313,11 +1313,9 @@ print(BexClean$Dyad[wrong_rows])
   * I thus want **Buk** to be replaced in male ID in rows 613 to 617 and row 913 with **Sho** and, **Xin** to be replaced by **Kom** in rows 2710 to 2713 in Male ID before updating Dyad
   
   
-  
-* INSERT: If Rows 613 to 617 and 931 are coded with Buk for MaleId and Ginq for FemaleId replace Male by Sho  
+* If Rows 613 to 617 and 931 are coded with Buk for MaleId and Ginq for FemaleId replace Male by Sho  
 
 
-# UPDATES FROM HERE
   
 ```{r Correct Wrong Dyads, echo=FALSE}
 
@@ -1379,15 +1377,10 @@ cat("Number of rows changed to Kom Oort:", length(rows_to_correct_kom), "\n")
 
 ```
 
-  
-
-
-
   3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Day** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Day:
   
   
-
 ```{r Dyad and Day, echo=FALSE}
 # Create Trial variable
 BexClean <- BexClean %>%
@@ -1475,6 +1468,8 @@ cat("Change in Rows: ", after_rows - before_rows, "\n")
 ```
 
   
+
+# UPDATES FROM HERE
 
 #### Female Corn and Male Corn 
 
