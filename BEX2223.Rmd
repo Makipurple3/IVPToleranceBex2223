@@ -36,7 +36,10 @@ knitr::opts_chunk$set(echo = TRUE)
 
 
 # Introduction
-
+```{r Cleaning of environement, echo=FALSE}
+# Clear the environment 
+rm(list = ls())
+```
 
 # 0.Opening the data
 ### Loading data
@@ -90,9 +93,14 @@ Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAun
 
 
 #GLimpse function to see the summary and  the structure
-
 cat("Glimpse of the Box Experiment dataset:\n\n")
 glimpse(Boxex)
+
+#Head of Boxex for sample view of the data
+head(Boxex)
+
+
+
 ```
 
 
@@ -1110,7 +1118,7 @@ getwd()
   e. DyadResponse: **Tolerance**, **Not approaching; Losing interest**, **Losing interest; Intrusion**
   
   
-  
+
 
   
 
@@ -1122,10 +1130,12 @@ getwd()
 # Import the Excel file
 BexClean<- read_excel("Bex_After_manual_cleaning.xlsx")
 
-#GLimpse of Bex_Cleaned
+#GLimpse of Bex Clean
 glimpse(BexClean)
 
 
+#Head of Bex Clean
+head(BexClean)
 ```
 
 
@@ -1213,17 +1223,9 @@ BexClean <- BexClean %>%
 unique_female_ids <- unique(BexClean$FemaleID)
 cat("Unique Female IDs:", unique_female_ids, "\n")
 
-# Count the occurrences of each name before the transformation
-cat("Occurrences of Female IDs:\n")
-print(table(BexClean$FemaleID))
-
 # Unique outputs for MaleID
 unique_male_ids <- unique(BexClean$MaleID)
 cat("Unique Male IDs:", unique_male_ids, "\n")
-
-# Count the occurrences of each name before the transformation
-cat("Occurrences of Male IDs:\n")
-print(table(BexClean$MaleID))
 
 # Summary table
 beforesummary <- table(BexClean$FemaleID, BexClean$MaleID)
@@ -1246,95 +1248,134 @@ unique_dyads <- unique(BexClean$Dyad)
 cat("Unique Dyads:", unique_dyads, "\n")
 kable(table(BexClean$Dyad))
 
-# Cross-tabulate Male and Female IDs
-corrected_table <- table(BexClean$Male, BexClean$Female)
-kable(corrected_table)
+
+unique_combinations <- unique(BexClean[, c("Male", "Female")])
+cat("Unique Male-Female Combinations:")
+print(unique_combinations)
+
 
 ```
   
 
-  2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female     while the 4 letter code is the name of the male like displayed here;
-
-
-* Buk Ginq	6
-* Buk Ndaw	259
-* Kom Oort	366
-* Nge Oerw	183
-* Pom Guat	5
-* Pom Xian	259
-* Sey Sirk	587
-* Sho Ginq	277
-* Xia Piep	610
-* Xin Oort	4
-* Xin Ouli	186
-
-
-  * They are a few **wrong dyads** that I will have to identify in the dataset and manuallly correct, those wrong dyads to change and identify are:
-    -Buk Ginq - 6 occurences
-    -Xin Oort - 4 occurences
+  2. Create the variable called **Dyad** created by combining the name of FemaleID and MaleID into one name with a space between the two codes. For information the 3 letter code is the name of the female while the 4 letter code is the name of the male like displayed here with the correct dyads;
   
+  * The correct dyads are:
+    - Buk Ndaw	
+    - Kom Oort	
+    - Nge Oerw	
+    - Pom Guat	
+    - Pom Xian	
+    - Sey Sirk	
+    - Sho Ginq	
+    - Xia Piep	
+    - Xin Ouli	
+
+
+  * While the dyads we have now in the datset are;
+    - Buk Ginq	6
+    - Buk Ndaw	259
+    - Kom Oort	366
+    - Nge Oerw	183
+    - Pom Guat	5
+    - Pom Xian	259
+    - Sey Sirk	587
+    - Sho Ginq	277
+    - Xia Piep	610
+    - Xin Oort	4
+    - Xin Ouli	186
+
+
+ 
 ```{r Identify Wrong Dyads, echo=FALSE}
 
-# Part 1: Identify rows with wrong dyads
-wrong_dyads <- c("Buk Ginq", "Xin Oort")
+# Define the correct dyads
+correct_dyads <- c("Buk Ndaw", "Kom Oort", "Nge Oerw", "Pom Guat", "Pom Xian",
+                   "Sey Sirk", "Sho Ginq", "Xia Piep", "Xin Ouli")
 
 # Identify the rows with wrong dyads
-wrong_rows <- which(BexClean$Dyad %in% wrong_dyads)
+wrong_rows <- which(!BexClean$Dyad %in% correct_dyads)
 
-# Part 3: Print wron rows and dyads
+# Print the wrong rows and the dyads in those rows
+print("Wrong Rows:")
 print(wrong_rows)
-print(wrong_dyads)
-
-
-View(BexClean)
+print("Wrong Dyads:")
+print(BexClean$Dyad[wrong_rows])
 
 ```
 
-# UPDATES FROM HERE
+ * They are a 10  **wrong dyads** that I will have to identify in the dataset and manually correct, those wrong dyads to change and identify are:
+    -Buk Ginq - 6 occurences
+    -Xin Oort - 4 occurences
 
-  * I will change the occurences of **Buk Ginq** to **Sho Ginq** for **row 613 to 617** and **row 931**. I know these triasl are with SHo Ginq because the comments metionned Sho in them while Male(ID) gave Buk
-  * For the **rows from 2692 to 2695** since, Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli**. Also I think they are little chances that the names of both individuals     were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
+  * I will change the occurences of **Buk Ginq** to **Sho Ginq** for **row 613 to 617** and **row 931**. I know these trials are with Sho Ginq because the comments mentioned Sho in them while Male(ID) gave Buk which was a mistake
+  * For the **rows from 2710 to 2713** since, Ouli is in the audience it is unlikely that we had trials with the dyad **Xin Ouli**. Also I think they are little chances that the names of both individuals were entered wrong. I will replace these occurences where we had **Xin Oort** by **Kom Oort**
   
-  * I thus want **Buk** to be replaced in male ID in rows 605 to 609 and row 921 with **Sho** and, **Xin** to be replaced by **Kom** in rows 2692 to 2695 in Male ID before updating Dyad
+  * I thus want **Buk** to be replaced in male ID in rows 613 to 617 and row 913 with **Sho** and, **Xin** to be replaced by **Kom** in rows 2710 to 2713 in Male ID before updating Dyad
   
+  
+  
+* INSERT: If Rows 613 to 617 and 931 are coded with Buk for MaleId and Ginq for FemaleId replace Male by Sho  
+
+
+# UPDATES FROM HERE
   
 ```{r Correct Wrong Dyads, echo=FALSE}
-# Check if corrections have already been made for "Sho"
-if (!all(BexClean$MaleID[613:617] == "Sho", na.rm = TRUE)) {
-  BexClean$MaleID[613:617] <- "Sho"
+
+# Define the correct dyads
+correct_dyads <- c("Buk Ndaw", "Kom Oort", "Nge Oerw", "Pom Guat", "Pom Xian",
+                   "Sey Sirk", "Sho Ginq", "Xia Piep", "Xin Ouli")
+
+# Identify rows to be corrected
+rows_to_correct_sho <- which(BexClean$MaleID == "Buk" & BexClean$FemaleID == "Ginq")
+rows_to_correct_kom <- which(BexClean$MaleID == "Xin" & BexClean$FemaleID == "Oort")
+
+# Print rows to be corrected
+cat("Rows to correct Sho Ginq:\n")
+print(rows_to_correct_sho)
+cat("Rows to correct Kom Oort:\n")
+print(rows_to_correct_kom)
+
+# Apply corrections
+BexClean <- BexClean %>%
+  mutate(
+    MaleID = ifelse(row_number() %in% rows_to_correct_sho, "Sho", MaleID),
+    MaleID = ifelse(row_number() %in% rows_to_correct_kom, "Kom", MaleID),
+    Dyad = paste(MaleID, FemaleID, sep = " ")
+  )
+
+# Extract Male and Female after correction
+BexClean <- BexClean %>%
+  mutate(
+    Male = ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
+    Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA)),
+    Dyad = paste(Male, Female, sep = " ")
+  )
+
+# Validate the corrections
+wrong_rows_after_correction <- which(!BexClean$Dyad %in% correct_dyads)
+
+# Print the wrong rows and the dyads in those rows after correction
+cat("Wrong Rows After Correction:\n")
+print(wrong_rows_after_correction)
+cat("Wrong Dyads After Correction:\n")
+print(BexClean$Dyad[wrong_rows_after_correction])
+
+# Check if all dyads are now correct
+all_correct <- all(BexClean$Dyad %in% correct_dyads)
+if (all_correct) {
+  cat("All dyads are now correct.\n")
+} else {
+  cat("There are still some incorrect dyads.\n")
 }
 
-# Check if corrections have already been made for "Sho" at another specific row
-if (BexClean$MaleID[931] != "Sho") {
-  BexClean$MaleID[931] <- "Sho"
-}
+# Display the final summary of dyads
+unique_dyads <- unique(BexClean$Dyad)
+cat("Unique Dyads after correction:", unique_dyads, "\n")
+kable(table(BexClean$Dyad))
 
-# Check if corrections have already been made for "Kom"
-if (!all(BexClean$MaleID[2170:2713] == "Kom", na.rm = TRUE)) {
-  BexClean$MaleID[2170:2713] <- "Kom"
-}
-
-# Delete duplicate rows if any
-BexClean <- BexClean[!duplicated(BexClean), ]
-
-# Update Dyad based on the corrected MaleID
-BexClean <- dplyr::mutate(BexClean, Dyad = paste(
-  ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
-  " ",
-  ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA))
-))
-
-# Check and summarize unique MaleIDs and Dyads after correction
-unique_male <- unique(BexClean$MaleID)
-cat("Unique Male after correction", unique_male, "\n")
-
-unique_dyad <- unique(BexClean$Dyad)
-cat("Unique Dyad after correction", unique_dyad, "\n")
-
-knitr::kable(table(BexClean$MaleID))
-knitr::kable(table(BexClean$Dyad))
-
-
+# Print how many rows have been changed
+cat("Number of rows changed to Sho Ginq:", length(rows_to_correct_sho), "\n")
+cat("Number of rows changed to Kom Oort:", length(rows_to_correct_kom), "\n")
 
 ```
 
@@ -1347,7 +1388,7 @@ knitr::kable(table(BexClean$Dyad))
   
   
 
-```{r Dyad and Day, include=FALSE}
+```{r Dyad and Day, echo=FALSE}
 # Create Trial variable
 BexClean <- BexClean %>%
   arrange(Date, Dyad) %>%
