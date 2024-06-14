@@ -1404,23 +1404,55 @@ BexClean <- BexClean %>%
 ```
 4. Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals
 ```{r Dyad and Day Summary, echo=FALSE}
-# Summary of Trial and Day
+# Step 1: Summarize the Trials and Days
 summary_trial <- BexClean %>%
   group_by(Dyad) %>%
-  summarise(Num_Trials = max(Trial))
+  summarise(Num_Trials = max(Trial)) %>%
+  arrange(desc(Num_Trials))  # Sort by Num_Trials in descending order
 
 summary_Day <- BexClean %>%
   group_by(Dyad) %>%
-  summarise(Num_y = max(Day))
+  summarise(Num_Days = max(Day)) %>%
+  arrange(desc(Num_Days))  # Sort by Num_Days in descending order
 
+# Step 2: Print the results with better presentation
 cat("Trial Summary:\n")
-print(summary_trial)
+kable(summary_trial, col.names = c("Dyad", "Amount of Trials"), caption = "Summary of Trials")
 
 cat("\nDay Summary:\n")
-print(summary_Day)
+kable(summary_Day, col.names = c("Dyad", "Number of Days"), caption = "Summary of Days")
 
-kable(table(BexClean$Dyad))
+# Calculate Mean for Trials and Days
+mean_trials <- mean(summary_trial$Num_Trials)
+mean_days <- mean(summary_Day$Num_Days)
 
+# Step 3: Plot the summaries
+
+# Plot for Trials
+plot_trials <- ggplot(summary_trial, aes(x = reorder(Dyad, -Num_Trials), y = Num_Trials, fill = Dyad)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Num_Trials), vjust = -0.5, size = 4) +
+  geom_hline(yintercept = mean_trials, linetype = "dashed", color = "red") +
+  annotate("text", x = Inf, y = mean_trials, label = paste("Mean:", round(mean_trials, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
+  labs(title = "Amount of Trials per Dyad", x = "Dyad", y = "Amount of Trials") +
+  theme_minimal() +
+  theme(legend.position = "bottom", legend.title = element_blank(), text = element_text(size = 12), axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set1")
+
+# Plot for Days
+plot_days <- ggplot(summary_Day, aes(x = reorder(Dyad, -Num_Days), y = Num_Days, fill = Dyad)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Num_Days), vjust = -0.5, size = 4) +
+  geom_hline(yintercept = mean_days, linetype = "dashed", color = "red") +
+  annotate("text", x = Inf, y = mean_days, label = paste("Mean:", round(mean_days, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
+  labs(title = "Number of Days per Dyad", x = "Dyad", y = "Number of Days") +
+  theme_minimal() +
+  theme(legend.position = "bottom", legend.title = element_blank(), text = element_text(size = 12), axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_brewer(palette = "Set1")
+
+# Display the plots
+print(plot_trials)
+print(plot_days)
 ```
 
 
