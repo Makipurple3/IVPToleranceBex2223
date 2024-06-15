@@ -1128,7 +1128,7 @@ getwd()
 * Now that I have manually treated the remarks in a spreadsheet I will re import the dataset 
 ```{r BexImport After Manual Cleaning, echo=FALSE}
 # Import the Excel file
-BexClean<- read_excel("Bex_After_manual_cleaning.xlsx")
+BexClean <- read_excel("Bex_After_manual_cleaning.xlsx")
 
 #GLimpse of Bex Clean
 glimpse(BexClean)
@@ -1477,8 +1477,6 @@ cat("Change in Rows: ", after_rows - before_rows, "\n")
 
 ```{r FemaleMale Corn, echo=FALSE}
 
-
-
 BexClean <- BexClean %>%
   arrange(Dyad, Date) %>%
   group_by(Dyad, Day) %>%
@@ -1487,37 +1485,27 @@ BexClean <- BexClean %>%
     PlacementFemale = last(FemaleCorn)
   )
 
-# Print the first few rows to verify the new columns
-head(BexClean)
-
 # Check if columns are created successfully
 if ("PlacementMale" %in% names(BexClean) && "PlacementFemale" %in% names(BexClean)) {
   cat("Placement columns were created successfully.\n")
 } else {
   cat("Error: Placement columns were not created.\n")
 }
-
-
-# Check if columns are created successfully
-if ("PlacementMale" %in% names(BexClean) && "PlacementFemale" %in% names(BexClean)) {
-  cat("Placement columns were created successfully.\n")
-} else {
-  cat("Error: Placement columns were not created.\n")
-}
-
-
 ```
 
 ```{r PlacementMaleFemale Plot, echo=FALSE}
 
-# Summarize the total amount of corn received by each male and female
+# Summarize the total amount of placement corn given to each male
 summary_male_corn <- BexClean %>%
-  group_by(MaleID) %>%
+  filter(!is.na(Male)) %>%
+  group_by(Male) %>%
   summarise(Total_Corn = sum(PlacementMale, na.rm = TRUE)) %>%
   arrange(desc(Total_Corn))
 
+# Summarize the total amount of placement corn given to each female
 summary_female_corn <- BexClean %>%
-  group_by(FemaleID) %>%
+  filter(!is.na(Female)) %>%
+  group_by(Female) %>%
   summarise(Total_Corn = sum(PlacementFemale, na.rm = TRUE)) %>%
   arrange(desc(Total_Corn))
 
@@ -1538,23 +1526,23 @@ custom_colors <- scale_fill_manual(values = c(
 ))
 
 # Plot for PlacementMale
-plot_male_corn <- ggplot(summary_male_corn, aes(x = reorder(MaleID, -Total_Corn), y = Total_Corn, fill = MaleID)) +
+plot_male_corn <- ggplot(summary_male_corn, aes(x = reorder(Male, -Total_Corn), y = Total_Corn, fill = Male)) +
   geom_bar(stat = "identity", width = 0.4) +
   geom_text(aes(label = Total_Corn), vjust = -0.5, size = 4) +
   geom_hline(yintercept = mean_male_corn, linetype = "dashed", color = "red") +
   annotate("text", x = Inf, y = mean_male_corn, label = paste("Mean:", round(mean_male_corn, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
-  labs(title = "Total Amount of Corn Received by Males", x = "MaleID", y = "Total Amount of Corn") +
+  labs(title = "Total Placement Corn Given to Males", x = "Male", y = "Total Placement Corn") +
   theme_minimal() +
   theme(legend.position = "none", text = element_text(size = 14), axis.text.x = element_text(angle = 45, hjust = 1)) +
   custom_colors
 
 # Plot for PlacementFemale
-plot_female_corn <- ggplot(summary_female_corn, aes(x = reorder(FemaleID, -Total_Corn), y = Total_Corn, fill = FemaleID)) +
+plot_female_corn <- ggplot(summary_female_corn, aes(x = reorder(Female, -Total_Corn), y = Total_Corn, fill = Female)) +
   geom_bar(stat = "identity", width = 0.4) +
   geom_text(aes(label = Total_Corn), vjust = -0.5, size = 4) +
   geom_hline(yintercept = mean_female_corn, linetype = "dashed", color = "red") +
   annotate("text", x = Inf, y = mean_female_corn, label = paste("Mean:", round(mean_female_corn, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
-  labs(title = "Total Amount of Corn Received by Females", x = "FemaleID", y = "Total Amount of Corn") +
+  labs(title = "Total Placement Corn Given to Females", x = "Female", y = "Total Placement Corn") +
   theme_minimal() +
   theme(legend.position = "none", text = element_text(size = 14), axis.text.x = element_text(angle = 45, hjust = 1)) +
   custom_colors
@@ -1562,7 +1550,6 @@ plot_female_corn <- ggplot(summary_female_corn, aes(x = reorder(FemaleID, -Total
 # Display the plots
 print(plot_male_corn)
 print(plot_female_corn)
-
 
 ```
 
