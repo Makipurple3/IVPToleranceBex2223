@@ -1133,7 +1133,6 @@ BexClean<- read_excel("Bex_After_manual_cleaning.xlsx")
 #GLimpse of Bex Clean
 glimpse(BexClean)
 
-
 #Head of Bex Clean
 head(BexClean)
 ```
@@ -1487,6 +1486,83 @@ BexClean <- BexClean %>%
     PlacementMale = last(MaleCorn),
     PlacementFemale = last(FemaleCorn)
   )
+
+# Print the first few rows to verify the new columns
+head(BexClean)
+
+# Check if columns are created successfully
+if ("PlacementMale" %in% names(BexClean) && "PlacementFemale" %in% names(BexClean)) {
+  cat("Placement columns were created successfully.\n")
+} else {
+  cat("Error: Placement columns were not created.\n")
+}
+
+
+# Check if columns are created successfully
+if ("PlacementMale" %in% names(BexClean) && "PlacementFemale" %in% names(BexClean)) {
+  cat("Placement columns were created successfully.\n")
+} else {
+  cat("Error: Placement columns were not created.\n")
+}
+
+
+```
+
+```{r PlacementMaleFemale Plot, echo=FALSE}
+
+# Summarize the total amount of corn received by each male and female
+summary_male_corn <- BexClean %>%
+  group_by(MaleID) %>%
+  summarise(Total_Corn = sum(PlacementMale, na.rm = TRUE)) %>%
+  arrange(desc(Total_Corn))
+
+summary_female_corn <- BexClean %>%
+  group_by(FemaleID) %>%
+  summarise(Total_Corn = sum(PlacementFemale, na.rm = TRUE)) %>%
+  arrange(desc(Total_Corn))
+
+# Calculate means
+mean_male_corn <- mean(summary_male_corn$Total_Corn)
+mean_female_corn <- mean(summary_female_corn$Total_Corn)
+
+# Custom colors for each Dyad
+custom_colors <- scale_fill_manual(values = c(
+  "Buk" = "#1f77b4", "Ndaw" = "#1f77b4",
+  "Kom" = "#ff7f0e", "Oort" = "#ff7f0e",
+  "Nge" = "#2ca02c", "Oerw" = "#2ca02c",
+  "Pom" = "#d62728", "Xian" = "#d62728",
+  "Sey" = "#9467bd", "Sirk" = "#9467bd",
+  "Sho" = "#8c564b", "Ginq" = "#8c564b",
+  "Xia" = "#e377c2", "Piep" = "#e377c2",
+  "Xin" = "#7f7f7f", "Ouli" = "#7f7f7f"
+))
+
+# Plot for PlacementMale
+plot_male_corn <- ggplot(summary_male_corn, aes(x = reorder(MaleID, -Total_Corn), y = Total_Corn, fill = MaleID)) +
+  geom_bar(stat = "identity", width = 0.4) +
+  geom_text(aes(label = Total_Corn), vjust = -0.5, size = 4) +
+  geom_hline(yintercept = mean_male_corn, linetype = "dashed", color = "red") +
+  annotate("text", x = Inf, y = mean_male_corn, label = paste("Mean:", round(mean_male_corn, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
+  labs(title = "Total Amount of Corn Received by Males", x = "MaleID", y = "Total Amount of Corn") +
+  theme_minimal() +
+  theme(legend.position = "none", text = element_text(size = 14), axis.text.x = element_text(angle = 45, hjust = 1)) +
+  custom_colors
+
+# Plot for PlacementFemale
+plot_female_corn <- ggplot(summary_female_corn, aes(x = reorder(FemaleID, -Total_Corn), y = Total_Corn, fill = FemaleID)) +
+  geom_bar(stat = "identity", width = 0.4) +
+  geom_text(aes(label = Total_Corn), vjust = -0.5, size = 4) +
+  geom_hline(yintercept = mean_female_corn, linetype = "dashed", color = "red") +
+  annotate("text", x = Inf, y = mean_female_corn, label = paste("Mean:", round(mean_female_corn, 2)), hjust = 1.1, vjust = -0.5, color = "red") +
+  labs(title = "Total Amount of Corn Received by Females", x = "FemaleID", y = "Total Amount of Corn") +
+  theme_minimal() +
+  theme(legend.position = "none", text = element_text(size = 14), axis.text.x = element_text(angle = 45, hjust = 1)) +
+  custom_colors
+
+# Display the plots
+print(plot_male_corn)
+print(plot_female_corn)
+
 
 ```
 
