@@ -1574,22 +1574,35 @@ cat("Minimum Distance:", min_distance, "\n")
 ```
 * The **minumum Distance** is **0m** while the **maximum Distance** is **10m**
 * Then lets make a graph of the frequency for each distances with a line for the median to show the most frquent distance
-```{r DyadDistance Frequency Plot, echo=FALSE}
-
-# Calculate frequency of each distance
+```{r DyadDistance Frequency, echo=FALSE}
+# Calculate the frequency of each distance across all dyads
 distance_freq <- BexClean %>%
+  ungroup() %>%  # Ensure data is ungrouped before counting
   count(DyadDistance) %>%
   arrange(DyadDistance)
 
-# Calculate the median distance
-median_distance <- median(BexClean$DyadDistance, na.rm = TRUE)
+# Create the table
+distance_freq_table <- distance_freq %>%
+  rename(Frequency = n)
+
+# Display the table
+distance_freq_table
+
+```
+
+
+```{r DyadDistance Frequency Plot, echo=FALSE}
+
+# Calculate the frequency of each distance across all dyads
+distance_freq <- BexClean %>%
+  ungroup() %>%  # Ensure data is ungrouped before counting
+  count(DyadDistance) %>%
+  arrange(DyadDistance)
 
 # Create the horizontal bar plot with purple bars
 plot_distance_freq <- ggplot(distance_freq, aes(x = n, y = factor(DyadDistance))) +
   geom_bar(stat = "identity", fill = "purple") +
   geom_text(aes(label = n), hjust = -0.2, size = 5, color = "black", position = position_nudge(x = 10)) +
-  geom_vline(xintercept = median_distance, linetype = "dashed", color = "red", size = 1) +
-  annotate("text", x = median_distance + 0.2, y = max(as.numeric(factor(distance_freq$DyadDistance))) + 0.2, label = paste("Median:", median_distance), color = "red", size = 6, hjust = 0, vjust = -0.5) +
   labs(title = "Frequency of Distances Between Boxes Across Every Dyad",
        y = "Dyad Distance (m)", x = "Frequency (Amount Trials)") +
   theme_minimal() +
@@ -1604,7 +1617,6 @@ plot_distance_freq <- ggplot(distance_freq, aes(x = n, y = factor(DyadDistance))
 
 # Display the plot
 print(plot_distance_freq)
-
 ```
 
 
