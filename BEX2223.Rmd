@@ -1555,7 +1555,6 @@ print(plot_female_corn)
 
 
 
-# UPDATES FROM HERE
 
 ### 3.8 DyadDistance - Creation of proximity
 * I would like to create a variable called proximity to have another measure of the proximity of the individuals. 
@@ -1593,15 +1592,16 @@ distance_freq_table
 
 ```{r DyadDistance Frequency Plot, echo=FALSE}
 
+
 # Calculate the frequency of each distance across all dyads
 distance_freq <- BexClean %>%
   ungroup() %>%  # Ensure data is ungrouped before counting
   count(DyadDistance) %>%
   arrange(DyadDistance)
 
-# Create the horizontal bar plot with purple bars
+# Create the horizontal bar plot with light purple bars
 plot_distance_freq <- ggplot(distance_freq, aes(x = n, y = factor(DyadDistance))) +
-  geom_bar(stat = "identity", fill = "purple") +
+  geom_bar(stat = "identity", fill = "#DDA0DD") +
   geom_text(aes(label = n), hjust = -0.2, size = 5, color = "black", position = position_nudge(x = 10)) +
   labs(title = "Frequency of Distances Between Boxes Across Every Dyad",
        y = "Dyad Distance (m)", x = "Frequency (Amount Trials)") +
@@ -1617,6 +1617,8 @@ plot_distance_freq <- ggplot(distance_freq, aes(x = n, y = factor(DyadDistance))
 
 # Display the plot
 print(plot_distance_freq)
+
+
 ```
 
 
@@ -1647,26 +1649,44 @@ BexClean <- BexClean %>%
 
 
 ```{r Proximity plot, echo=FALSE}
+
 # Calculate frequency of each proximity category
 proximity_freq <- BexClean %>%
+  ungroup() %>%  # Ensure data is ungrouped before counting
   count(Proximity) %>%
-  arrange(Proximity)
+  arrange(desc(n))
+
+# Define light orange colors for the proximity categories
+proximity_colors <- c("Contact" = "#FFD580", "1-2" = "#FFC966", "2-3" = "#FFBF40", "4-5" = "#FFB31A", "5+" = "#FFA500")
 
 # Create the horizontal bar plot for Proximity
-plot_proximity_freq <- ggplot(proximity_freq, aes(x = n, y = factor(Proximity), fill = Proximity)) +
+plot_proximity_freq <- ggplot(proximity_freq, aes(x = n, y = factor(Proximity, levels = c("Contact", "1-2", "2-3", "4-5", "5+")), fill = Proximity)) +
   geom_bar(stat = "identity", width = 0.4) +
   geom_text(aes(label = n), hjust = -0.2, size = 4, color = "black") +
+  scale_fill_manual(values = proximity_colors) +
   labs(title = "Frequency of Proximity Categories",
-       y = "Proximity", x = "Frequency (Amount Trials)") +
+       y = "Proximity (Meters)", x = "Frequency (Amount Trials)") +
   theme_minimal() +
-  theme(legend.position = "none", text = element_text(size = 14), axis.text.y = element_text(angle = 0, hjust = 1))
+  theme(
+    legend.position = "none",
+    text = element_text(size = 14),
+    axis.text.y = element_text(angle = 0, hjust = 1),
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14),
+    axis.title.y = element_text(size = 14)
+  )
 
 # Display the plot
 print(plot_proximity_freq)
 
 
+# Display the plot
+print(plot_proximity_freq)
+
 ```
 
+
+# UPDATES FROM HERE
 * The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
 
 * DyadDistance - Creation of proximity
