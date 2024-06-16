@@ -1676,8 +1676,6 @@ plot_proximity_freq <- ggplot(proximity_freq, aes(x = n, y = factor(Proximity, l
     axis.title.y = element_text(size = 14)
   )
 
-# Display the plot
-print(plot_proximity_freq)
 
 
 # Display the plot
@@ -1686,20 +1684,19 @@ print(plot_proximity_freq)
 ```
 
 
-# UPDATES FROM HERE
-* The idea is that for each Dyad, we gave an amoun of corn to attract the monkey of a dyad to the right distance of his partner for a trial by putting corn in experiment box that he could get by approaching. We repeated this step as much as needed to have our Dyad at the desired distance to continue the trials from the previous day of experimentation. This means I will only Keep the last number per dyad and day for each day
 
-* DyadDistance - Creation of proximity
-* Dyad Response - Detailed cleaning
+# UPDATES FROM HERE
+
+### 3.9 Dyad Response - Corrections and detailed cleaning
 
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
-    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**    into dichotomic variables in order to see the frequency of each behaviour
+    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to see the frequency of each behaviour
     * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
-    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there     is more than one). This will also be complemented with the information found in the column comments
+    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there is more than one). This will also be complemented with the information found in the column comments
       1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
       2. assign as few labels per trial 
       3. get a better View and understanding of the data and the most common behaviours produced by each dyad
-      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at         the other individual / )
+      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at the other individual / )
       
 
       - Create a table with each combination existing
@@ -2009,7 +2006,7 @@ if("DyadDistance" %in% colnames(BexClean)) {
 ```
 
 
-```{r Other graphs}
+```{r Other graphs, echo=FALSE}
 
 
 # Load required libraries
