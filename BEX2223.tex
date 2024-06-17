@@ -7,7 +7,7 @@
 \title{Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys
 - M.AungKyaw - 2022-2023}
 \author{}
-\date{\vspace{-2.5em}juin 03, 2024 16:02}
+\date{\vspace{-2.5em}juin 16, 2024 17:46}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -194,6 +194,22 @@
 ## $ Remarks               <chr> NA, NA, "Nge box did not open because of the bat~
 ## $ Observers             <chr> "Josefien; Michael; Ona; Zonke", "Josefien; Mich~
 ## $ DeviceId              <chr> "{7A4E6639-7387-7648-88EC-7FD27A0F258A}", "{7A4E~
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 20
+##   Date                Time                Data          Group GPSS  GPSE  MaleID
+##   <dttm>              <dttm>              <chr>         <chr> <chr> <chr> <chr> 
+## 1 2022-09-27 00:00:00 1899-12-31 09:47:50 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## 2 2022-09-27 00:00:00 1899-12-31 09:50:07 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## 3 2022-09-27 00:00:00 1899-12-31 09:53:11 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## 4 2022-09-27 00:00:00 1899-12-31 09:54:28 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## 5 2022-09-27 00:00:00 1899-12-31 09:55:19 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## 6 2022-09-27 00:00:00 1899-12-31 09:56:56 Box Experime~ Baie~ -28.~ 31.1~ Nge   
+## # i 13 more variables: FemaleID <chr>, `Male placement corn` <dbl>,
+## #   MaleCorn <dbl>, FemaleCorn <dbl>, DyadDistance <chr>, DyadResponse <chr>,
+## #   OtherResponse <chr>, Audience <chr>, IDIndividual1 <chr>, IntruderID <chr>,
+## #   Remarks <chr>, Observers <chr>, DeviceId <chr>
 \end{verbatim}
 
 \begin{itemize}
@@ -1649,9 +1665,8 @@ Bex}\label{making-a-backup-of-bex}}
 \begin{itemize}
 \tightlist
 \item
-  I will now continue making changes, in case they are any problems or
-  comparason to be made I may use this function to look how Bex looked
-  at that point
+  Before making new changes I will make a backup of my dataset at this
+  point
 \end{itemize}
 
 \hypertarget{treating-remarks-before-processing-with-new-modifications}{%
@@ -1662,9 +1677,10 @@ modifications}\label{treating-remarks-before-processing-with-new-modifications}}
 \item
   Since I have removed all the missing data from the different columns,
   I now have to correct potential mistakes that can be found and create
-  new variables to be able to manipulate better my data. Since the
-  column remarks contains corrections and additional information, so i
-  will treat it now
+  new variables to be able to manipulate better my data.
+\item
+  Since the column remarks contains corrections and additional
+  information, I will treat it now
 \item
   Before that lets check how many remarks we have in our dataset, how
   many of the main keywords we can find and make a visual representation
@@ -1889,9 +1905,6 @@ spreadsheet}\label{journal-of-manual-changes-in-bex-excel-spreadsheet}}
   \end{enumerate}
 \end{itemize}
 
-\hypertarget{updates-from-here}{%
-\section{UPDATES FROM HERE}\label{updates-from-here}}
-
 \hypertarget{re-uploading-the-dataset-after-the-treatment-of-the-remarks}{%
 \subsubsection{3.3 Re Uploading the dataset after the treatment of the
 Remarks}\label{re-uploading-the-dataset-after-the-treatment-of-the-remarks}}
@@ -1899,30 +1912,9 @@ Remarks}\label{re-uploading-the-dataset-after-the-treatment-of-the-remarks}}
 \begin{itemize}
 \tightlist
 \item
-  Now that I have \ldots{} I will reimport the dataset and make a check
-  of the data
+  Now that I have manually treated the remarks in a spreadsheet I will
+  re import the dataset
 \end{itemize}
-
-\begin{verbatim}
-## Rows: 2,742
-## Columns: 16
-## $ Time           <chr> "09:47:50", "09:50:07", "09:53:11", "09:54:28", "09:55:~
-## $ Date           <dttm> 2022-09-27, 2022-09-27, 2022-09-27, 2022-09-27, 2022-0~
-## $ Group          <chr> "Baie Dankie", "Baie Dankie", "Baie Dankie", "Baie Dank~
-## $ MaleID         <chr> "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge", "Nge",~
-## $ FemaleID       <chr> "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw", "Oerw",~
-## $ FemaleCorn     <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 7, 7, 7, 7~
-## $ DyadDistance   <dbl> 2, 2, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 2, 2, 1, 1, 0, 0~
-## $ DyadResponse   <chr> "Tolerance", "Tolerance", "Tolerance", "Tolerance", "To~
-## $ OtherResponse  <chr> "No Response", "No Response", "No Response", "No Respon~
-## $ Audience       <chr> "Obse; Oup; Sirk", "Obse; Oup; Sirk", "Oup; Sirk", "Sir~
-## $ IDIndividual1  <chr> "No individual", "No individual", "No individual", "No ~
-## $ IntruderID     <chr> "No Intrusion", "No Intrusion", "No Intrusion", "No Int~
-## $ Remarks        <chr> "No Remarks", "No Remarks", "Nge box did not open becau~
-## $ MaleCorn       <dbl> 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3, 3~
-## $ Intrusion      <dbl> 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0~
-## $ AmountAudience <dbl> 3, 3, 2, 1, 2, 2, 2, 1, 1, 2, 6, 6, 3, 2, 2, 2, 2, 2, 2~
-\end{verbatim}
 
 \begin{verbatim}
 ## Rows: 2,742
@@ -1948,31 +1940,26 @@ Remarks}\label{re-uploading-the-dataset-after-the-treatment-of-the-remarks}}
 ## $ GotCorn          <chr> "Yes", "Yes", "No;Nge", "Yes", "Yes", "Yes", "Yes", "~
 \end{verbatim}
 
-\begin{itemize}
-\item
-  I will now check the state fo remarks and of the data before and after
-  to see if no major mistakes may have been done
-\item
-  First the amount of Remarks and No Remarks, before: Number of `No
-  Remarks' entries: 2119 Number of actual remarks entries: 599
-\end{itemize}
-
 \begin{verbatim}
-## Number of 'No Remarks' entries:  2135
-\end{verbatim}
-
-\begin{verbatim}
-## Number of actual remarks entries:  607
-\end{verbatim}
-
-\begin{verbatim}
-## Total number of keyword occurrences in the Remarks column:  0
+## # A tibble: 6 x 19
+##   Time     Date                Group     MaleID FemaleID FemaleCorn DyadDistance
+##   <chr>    <dttm>              <chr>     <chr>  <chr>         <dbl>        <dbl>
+## 1 09:47:50 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            2
+## 2 09:50:07 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            2
+## 3 09:53:11 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            1
+## 4 09:54:28 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            1
+## 5 09:55:19 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            0
+## 6 09:56:56 2022-09-27 00:00:00 Baie Dan~ Nge    Oerw              0            0
+## # i 12 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
+## #   Intrusion <dbl>, AmountAudience <dbl>, Context <chr>,
+## #   SpecialBehaviour <chr>, GotCorn <chr>
 \end{verbatim}
 
 \begin{itemize}
 \tightlist
 \item
-  NA Check in BexClean
+  And Check for any remaining NA's in BexClean
 \end{itemize}
 
 \begin{verbatim}
@@ -1991,20 +1978,13 @@ Remarks}\label{re-uploading-the-dataset-after-the-treatment-of-the-remarks}}
 ## Number of NA entries in BexClean:  0
 \end{verbatim}
 
-\#\#\#4.1 Creation of new dataframe?
-
-\hypertarget{treatment-and-cleaning-of-last-variables-before-stats}{%
-\subsubsection{Treatment and cleaning of last variables before
-stats!?}\label{treatment-and-cleaning-of-last-variables-before-stats}}
-
 \hypertarget{time---creation-of-period-and-hour}{%
-\subsubsection{4.2 Time - Creation of Period and
+\subsubsection{3.4 Time - Creation of Period and
 Hour}\label{time---creation-of-period-and-hour}}
 
 \begin{itemize}
 \item
-  Time : I did not plan to use this variable but since I used, I
-  considered looking at the time sections in which we did the
+  Time : I considered looking at the time sections in which we did the
   expermiment. I will thus look at the time ranges (max and min in the
   day / latest and earliest time) before separating the day in different
   sections to have an idea in which part of the day most of the
@@ -2037,7 +2017,7 @@ Hour}\label{time---creation-of-period-and-hour}}
 \end{itemize}
 
 \hypertarget{date---creation-of-month-and-day}{%
-\subsubsection{Date - Creation of Month and
+\subsubsection{3.5 Date - Creation of Month and
 Day}\label{date---creation-of-month-and-day}}
 
 \begin{itemize}
@@ -2048,11 +2028,8 @@ Day}\label{date---creation-of-month-and-day}}
   10th, 1000th..)
 \end{itemize}
 
-\hypertarget{group---ok}{%
-\subsubsection{Group - Ok}\label{group---ok}}
-
 \hypertarget{male-and-female-id---creation-of-dyad-trial-and-session}{%
-\subsubsection{Male and Female ID - Creation of Dyad, Trial and
+\subsubsection{3.6 Male and Female ID - Creation of Dyad, Trial and
 Session}\label{male-and-female-id---creation-of-dyad-trial-and-session}}
 
 \begin{itemize}
@@ -2080,38 +2057,7 @@ Session}\label{male-and-female-id---creation-of-dyad-trial-and-session}}
 \end{verbatim}
 
 \begin{verbatim}
-## 
-## Ginq Guat  Kom Ndaw  Nge Oerw Oort Ouli Piep  Sey Sirk  Xia Xian  Xin 
-##  283    5   29  259   19  164  341  159  575   17  570   35  259   27
-\end{verbatim}
-
-\begin{verbatim}
 ## Unique Male IDs: Sey Sho Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort
-\end{verbatim}
-
-\begin{verbatim}
-## 
-##  Buk  Kom  Nge Oerw Oort Ouli Piep  Pom  Sey  Sho Sirk  Xia  Xin 
-##  265  337  164   19   29   27   35  264  570  277   17  575  163
-\end{verbatim}
-
-\begin{verbatim}
-##       
-##        Buk Kom Nge Oerw Oort Ouli Piep Pom Sey Sho Sirk Xia Xin
-##   Ginq   6   0   0    0    0    0    0   0   0 277    0   0   0
-##   Guat   0   0   0    0    0    0    0   5   0   0    0   0   0
-##   Kom    0   0   0    0   29    0    0   0   0   0    0   0   0
-##   Ndaw 259   0   0    0    0    0    0   0   0   0    0   0   0
-##   Nge    0   0   0   19    0    0    0   0   0   0    0   0   0
-##   Oerw   0   0 164    0    0    0    0   0   0   0    0   0   0
-##   Oort   0 337   0    0    0    0    0   0   0   0    0   0   4
-##   Ouli   0   0   0    0    0    0    0   0   0   0    0   0 159
-##   Piep   0   0   0    0    0    0    0   0   0   0    0 575   0
-##   Sey    0   0   0    0    0    0    0   0   0   0   17   0   0
-##   Sirk   0   0   0    0    0    0    0   0 570   0    0   0   0
-##   Xia    0   0   0    0    0    0   35   0   0   0    0   0   0
-##   Xian   0   0   0    0    0    0    0 259   0   0    0   0   0
-##   Xin    0   0   0    0    0   27    0   0   0   0    0   0   0
 \end{verbatim}
 
 \begin{longtable}[]{@{}lrrrrrrrrrrrrr@{}}
@@ -2148,8 +2094,7 @@ Xin & 0 & 0 & 0 & 0 & 0 & 27 & 0 & 0 & 0 & 0 & 0 & 0 & 0 \\
 \end{enumerate}
 
 \begin{verbatim}
-##  [1] "Sey Sirk" "Sho Ginq" "Xia Piep" "Nge Oerw" "Xin Ouli" "Buk Ndaw"
-##  [7] "Buk Ginq" "Kom Oort" "Pom Xian" "Pom Guat" "Xin Oort"
+## Unique Dyads: Sey Sirk Sho Ginq Xia Piep Nge Oerw Xin Ouli Buk Ndaw Buk Ginq Kom Oort Pom Xian Pom Guat Xin Oort
 \end{verbatim}
 
 \begin{longtable}[]{@{}lr@{}}
@@ -2171,8 +2116,26 @@ Xin Ouli & 186 \\
 \bottomrule
 \end{longtable}
 
-\# Correct from here, mistake were inserted in dyad by changin wrong
-lines
+\begin{verbatim}
+## Unique Male-Female Combinations:
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 11 x 2
+##    Male  Female
+##    <chr> <chr> 
+##  1 Sey   Sirk  
+##  2 Sho   Ginq  
+##  3 Xia   Piep  
+##  4 Nge   Oerw  
+##  5 Xin   Ouli  
+##  6 Buk   Ndaw  
+##  7 Buk   Ginq  
+##  8 Kom   Oort  
+##  9 Pom   Xian  
+## 10 Pom   Guat  
+## 11 Xin   Oort
+\end{verbatim}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2182,83 +2145,146 @@ lines
   Create the variable called \textbf{Dyad} created by combining the name
   of FemaleID and MaleID into one name with a space between the two
   codes. For information the 3 letter code is the name of the female
-  while the 4 letter code is the name of the male like displayed here;
+  while the 4 letter code is the name of the male like displayed here
+  with the correct dyads;
 \end{enumerate}
 
-New output! : 2673 trials Old output : 2724 trials
-
---\textgreater51 rows missing!
-
 \begin{itemize}
+\tightlist
 \item
-  Buk Ginq 6
-\item
-  Buk Ndaw 257 vs 255!
-\item
-  Kom Oort 366 vs 324! +26!
-\item
-  Kom Ginq! 2!
-\item
-  Nge Oerw 181 vs 163 + 18!
-\item
-  Pom Guat 5
-\item
-  Pom Xian 257 vs 251!
-\item
-  Sey Sirk 584 vs 544! vs 17!
-\item
-  Sho Ginq 273 vs 272!
-\item
-  Xia Piep 606 vs 35!+ 567!
-\item
-  Xin Oort 4
-\item
-  Xin Ouli 185 vs 27!+ 157!
+  The correct dyads are:
 
   \begin{itemize}
   \tightlist
   \item
-    They are a few \textbf{wrong dyads} that I will have to identify in
-    the dataset and manuallly correct, those wrong dyads to change and
-    identify are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences
+    Buk Ndaw\\
+  \item
+    Kom Oort\\
+  \item
+    Nge Oerw\\
+  \item
+    Pom Guat\\
+  \item
+    Pom Xian\\
+  \item
+    Sey Sirk\\
+  \item
+    Sho Ginq\\
+  \item
+    Xia Piep\\
+  \item
+    Xin Ouli
+  \end{itemize}
+\item
+  While the dyads we have now in the datset are;
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Buk Ginq 6
+  \item
+    Buk Ndaw 259
+  \item
+    Kom Oort 366
+  \item
+    Nge Oerw 183
+  \item
+    Pom Guat 5
+  \item
+    Pom Xian 259
+  \item
+    Sey Sirk 587
+  \item
+    Sho Ginq 277
+  \item
+    Xia Piep 610
+  \item
+    Xin Oort 4
+  \item
+    Xin Ouli 186
   \end{itemize}
 \end{itemize}
+
+\begin{verbatim}
+## [1] "Wrong Rows:"
+\end{verbatim}
 
 \begin{verbatim}
 ##  [1]  613  614  615  616  617  931 2710 2711 2712 2713
 \end{verbatim}
 
 \begin{verbatim}
-## [1] "Buk Ginq" "Xin Oort"
+## [1] "Wrong Dyads:"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "Buk Ginq" "Buk Ginq" "Buk Ginq" "Buk Ginq" "Buk Ginq" "Buk Ginq"
+##  [7] "Xin Oort" "Xin Oort" "Xin Oort" "Xin Oort"
 \end{verbatim}
 
 \begin{itemize}
 \item
-  \begin{itemize}
-  \item
-    I will change the occurences of \textbf{Buk Ginq} to \textbf{Sho
-    Ginq} for \textbf{row 605 to 609} and \textbf{row 921}. I know these
-    triasl are with SHo Ginq because the comments metionned Sho in them
-    while Male(ID) gave Buk
-  \item
-    For the \textbf{rows from 2692 to 2695} since, Ouli is in the
-    audience it is unlikely that we had trials with the dyad \textbf{Xin
-    Ouli}. Also I think they are little chances that the names of both
-    individuals were entered wrong. I will replace these occurences
-    where we had \textbf{Xin Oort} by \textbf{Kom Oort}
-  \item
-    I thus want \textbf{Buk} to be replaced in male ID in rows 605 to
-    609 and row 921 with \textbf{Sho} and, \textbf{Xin} to be replaced
-    by \textbf{Kom} in rows 2692 to 2695 in Male ID before updating Dyad
-  \end{itemize}
+  They are a 10 \textbf{wrong dyads} that I will have to identify in the
+  dataset and manually correct, those wrong dyads to change and identify
+  are: -Buk Ginq - 6 occurences -Xin Oort - 4 occurences
+\item
+  I will change the occurences of \textbf{Buk Ginq} to \textbf{Sho Ginq}
+  for \textbf{row 613 to 617} and \textbf{row 931}. I know these trials
+  are with Sho Ginq because the comments mentioned Sho in them while
+  Male(ID) gave Buk which was a mistake
+\item
+  For the \textbf{rows from 2710 to 2713} since, Ouli is in the audience
+  it is unlikely that we had trials with the dyad \textbf{Xin Ouli}.
+  Also I think they are little chances that the names of both
+  individuals were entered wrong. I will replace these occurences where
+  we had \textbf{Xin Oort} by \textbf{Kom Oort}
+\item
+  I thus want \textbf{Buk} to be replaced in male ID in rows 613 to 617
+  and row 913 with \textbf{Sho} and, \textbf{Xin} to be replaced by
+  \textbf{Kom} in rows 2710 to 2713 in Male ID before updating Dyad
+\item
+  If Rows 613 to 617 and 931 are coded with Buk for MaleId and Ginq for
+  FemaleId replace Male by Sho
 \end{itemize}
 
 \begin{verbatim}
-## Unique Male after correction Sey Sho Xia Nge Ouli Buk Piep Sirk Xin Oerw Kom Pom Oort
+## Rows to correct Sho Ginq:
 \end{verbatim}
 
 \begin{verbatim}
-## Unique Dyad after correction Sey   Sirk Sho   Ginq Xia   Piep Nge   Oerw Xin   Ouli Buk   Ndaw Sho   Ndaw Buk   Ginq Kom   Oort Sho   Oerw Pom   Xian Pom   Guat Kom   Ginq Kom   Ouli Xin   Oort
+## [1] 613 614 615 616 617 931
+\end{verbatim}
+
+\begin{verbatim}
+## Rows to correct Kom Oort:
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 2710 2711 2712 2713
+\end{verbatim}
+
+\begin{verbatim}
+## Wrong Rows After Correction:
+\end{verbatim}
+
+\begin{verbatim}
+## integer(0)
+\end{verbatim}
+
+\begin{verbatim}
+## Wrong Dyads After Correction:
+\end{verbatim}
+
+\begin{verbatim}
+## character(0)
+\end{verbatim}
+
+\begin{verbatim}
+## All dyads are now correct.
+\end{verbatim}
+
+\begin{verbatim}
+## Unique Dyads after correction: Sey Sirk Sho Ginq Xia Piep Nge Oerw Xin Ouli Buk Ndaw Kom Oort Pom Xian Pom Guat
 \end{verbatim}
 
 \begin{longtable}[]{@{}lr@{}}
@@ -2266,44 +2292,25 @@ New output! : 2673 trials Old output : 2724 trials
 Var1 & Freq \\
 \midrule
 \endhead
-Buk & 263 \\
-Kom & 341 \\
-Nge & 163 \\
-Oerw & 19 \\
-Oort & 29 \\
-Ouli & 27 \\
-Piep & 35 \\
-Pom & 264 \\
-Sey & 570 \\
-Sho & 277 \\
-Sirk & 17 \\
-Xia & 575 \\
-Xin & 162 \\
-\bottomrule
-\end{longtable}
-
-\begin{longtable}[]{@{}lr@{}}
-\toprule
-Var1 & Freq \\
-\midrule
-\endhead
-Buk Ginq & 6 \\
-Buk Ndaw & 257 \\
-Kom Ginq & 3 \\
-Kom Oort & 366 \\
-Kom Ouli & 1 \\
-Nge Oerw & 182 \\
+Buk Ndaw & 259 \\
+Kom Oort & 370 \\
+Nge Oerw & 183 \\
 Pom Guat & 5 \\
 Pom Xian & 259 \\
 Sey Sirk & 587 \\
-Sho Ginq & 274 \\
-Sho Ndaw & 2 \\
-Sho Oerw & 1 \\
+Sho Ginq & 283 \\
 Xia Piep & 610 \\
-Xin Oort & 4 \\
-Xin Ouli & 185 \\
+Xin Ouli & 186 \\
 \bottomrule
 \end{longtable}
+
+\begin{verbatim}
+## Number of rows changed to Sho Ginq: 6
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows changed to Kom Oort: 4
+\end{verbatim}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2326,75 +2333,57 @@ Xin Ouli & 185 \\
 ## Trial Summary:
 \end{verbatim}
 
-\begin{verbatim}
-## # A tibble: 15 x 2
-##    Dyad       Num_Trials
-##    <chr>           <int>
-##  1 Buk   Ginq          6
-##  2 Buk   Ndaw        257
-##  3 Kom   Ginq          3
-##  4 Kom   Oort        366
-##  5 Kom   Ouli          1
-##  6 Nge   Oerw        182
-##  7 Pom   Guat          5
-##  8 Pom   Xian        259
-##  9 Sey   Sirk        587
-## 10 Sho   Ginq        274
-## 11 Sho   Ndaw          2
-## 12 Sho   Oerw          1
-## 13 Xia   Piep        610
-## 14 Xin   Oort          4
-## 15 Xin   Ouli        185
-\end{verbatim}
+\begin{longtable}[]{@{}lr@{}}
+\caption{Summary of Trials}\tabularnewline
+\toprule
+Dyad & Amount of Trials \\
+\midrule
+\endfirsthead
+\toprule
+Dyad & Amount of Trials \\
+\midrule
+\endhead
+Xia Piep & 610 \\
+Sey Sirk & 587 \\
+Kom Oort & 370 \\
+Sho Ginq & 283 \\
+Buk Ndaw & 259 \\
+Pom Xian & 259 \\
+Xin Ouli & 186 \\
+Nge Oerw & 183 \\
+Pom Guat & 5 \\
+\bottomrule
+\end{longtable}
 
 \begin{verbatim}
 ## 
 ## Day Summary:
 \end{verbatim}
 
-\begin{verbatim}
-## # A tibble: 15 x 2
-##    Dyad       Num_y
-##    <chr>      <int>
-##  1 Buk   Ginq     2
-##  2 Buk   Ndaw    41
-##  3 Kom   Ginq    42
-##  4 Kom   Oort    73
-##  5 Kom   Ouli    74
-##  6 Nge   Oerw    96
-##  7 Pom   Guat    97
-##  8 Pom   Xian   116
-##  9 Sey   Sirk   169
-## 10 Sho   Ginq   204
-## 11 Sho   Ndaw   205
-## 12 Sho   Oerw   206
-## 13 Xia   Piep   255
-## 14 Xin   Oort   256
-## 15 Xin   Ouli   283
-\end{verbatim}
-
 \begin{longtable}[]{@{}lr@{}}
+\caption{Summary of Days}\tabularnewline
 \toprule
-Var1 & Freq \\
+Dyad & Number of Days \\
+\midrule
+\endfirsthead
+\toprule
+Dyad & Number of Days \\
 \midrule
 \endhead
-Buk Ginq & 6 \\
-Buk Ndaw & 257 \\
-Kom Ginq & 3 \\
-Kom Oort & 366 \\
-Kom Ouli & 1 \\
-Nge Oerw & 182 \\
-Pom Guat & 5 \\
-Pom Xian & 259 \\
-Sey Sirk & 587 \\
-Sho Ginq & 274 \\
-Sho Ndaw & 2 \\
-Sho Oerw & 1 \\
-Xia Piep & 610 \\
-Xin Oort & 4 \\
-Xin Ouli & 185 \\
+Xin Ouli & 276 \\
+Xia Piep & 249 \\
+Sho Ginq & 200 \\
+Sey Sirk & 165 \\
+Pom Xian & 112 \\
+Pom Guat & 93 \\
+Nge Oerw & 92 \\
+Kom Oort & 70 \\
+Buk Ndaw & 39 \\
 \bottomrule
 \end{longtable}
+
+\includegraphics{BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf}
 
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
@@ -2412,8 +2401,9 @@ Xin Ouli & 185 \\
 ## Change in Rows:  -5
 \end{verbatim}
 
-\hypertarget{female-corn-and-male-corn}{%
-\paragraph{Female Corn and Male Corn}\label{female-corn-and-male-corn}}
+\hypertarget{female-and-male-placement-corn}{%
+\subsubsection{3.7 Female and Male Placement
+Corn}\label{female-and-male-placement-corn}}
 
 \begin{itemize}
 \tightlist
@@ -2432,8 +2422,15 @@ Xin Ouli & 185 \\
   experiment
 \end{itemize}
 
+\begin{verbatim}
+## Placement columns were created successfully.
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf}
+
 \hypertarget{dyaddistance---creation-of-proximity}{%
-\paragraph{DyadDistance - Creation of
+\subsubsection{3.8 DyadDistance - Creation of
 proximity}\label{dyaddistance---creation-of-proximity}}
 
 \begin{itemize}
@@ -2455,9 +2452,36 @@ proximity}\label{dyaddistance---creation-of-proximity}}
 \end{verbatim}
 
 \begin{itemize}
+\tightlist
 \item
   The \textbf{minumum Distance} is \textbf{0m} while the \textbf{maximum
   Distance} is \textbf{10m}
+\item
+  Then lets make a graph of the frequency for each distances with a line
+  for the median to show the most frquent distance
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 11 x 2
+##    DyadDistance Frequency
+##           <dbl>     <int>
+##  1            0       904
+##  2            1       644
+##  3            2       471
+##  4            3       303
+##  5            4       217
+##  6            5       133
+##  7            6        41
+##  8            7        13
+##  9            8         9
+## 10            9         1
+## 11           10         1
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf}
+
+\begin{itemize}
+\tightlist
 \item
   Now lets create a new variable called \textbf{Proximity} using the
   distances found in \textbf{DyadDistance} on the following model:
@@ -2468,30 +2492,26 @@ proximity}\label{dyaddistance---creation-of-proximity}}
   \item
     0 = Contact
   \item
-    1 - 2 = Very close
+    1 - 2 = 1-2
   \item
-    2 - 3 = Close
+    2 - 3 = 2-3
   \item
-    4 - 5 = Distant
+    4 - 5 = 4-5
   \item
-    5 - 6 = Far
-  \item
-    7 - 8 = Very Far
-  \item
-    9 - 10 = Maximum Distance
+    5 - 10 = +5
   \end{enumerate}
-\item
-  The idea is that for each Dyad, we gave an amoun of corn to attract
-  the monkey of a dyad to the right distance of his partner for a trial
-  by putting corn in experiment box that he could get by approaching. We
-  repeated this step as much as needed to have our Dyad at the desired
-  distance to continue the trials from the previous day of
-  experimentation. This means I will only Keep the last number per dyad
-  and day for each day
-\item
-  DyadDistance - Creation of proximity
-\item
-  Dyad Response - Detailed cleaning
+\end{itemize}
+
+\includegraphics{BEX2223_files/figure-latex/Proximity plot-1.pdf}
+
+\hypertarget{updates-from-here}{%
+\section{UPDATES FROM HERE}\label{updates-from-here}}
+
+\hypertarget{dyad-response---corrections-and-detailed-cleaning}{%
+\subsubsection{3.9 Dyad Response - Corrections and detailed
+cleaning}\label{dyad-response---corrections-and-detailed-cleaning}}
+
+\begin{itemize}
 \item
   Reminder: The different behaviors that are coded in
   \textbf{DyadResponse} are: \textbf{Distracted}, \textbf{Female aggress
@@ -2575,11 +2595,11 @@ proximity}\label{dyaddistance---creation-of-proximity}}
 \end{itemize}
 
 \begin{verbatim}
-## Number of rows with multiple entries in DyadResponse:  233
+## Number of rows with multiple entries in DyadResponse:  271
 \end{verbatim}
 
 \begin{verbatim}
-## Rows with multiple entries in DyadResponse:  57, 62, 68, 72, 75, 88, 92, 93, 101, 102, 117, 137, 196, 198, 248, 282, 284, 285, 296, 305, 309, 311, 325, 329, 333, 334, 335, 348, 353, 354, 374, 375, 394, 395, 398, 404, 416, 461, 475, 476, 489, 504, 517, 518, 529, 536, 543, 604, 607, 629, 632, 744, 752, 753, 761, 764, 765, 767, 772, 773, 784, 790, 821, 832, 864, 869, 891, 895, 901, 915, 922, 937, 940, 941, 957, 958, 965, 976, 1000, 1007, 1018, 1030, 1045, 1051, 1063, 1212, 1216, 1228, 1232, 1243, 1246, 1248, 1250, 1257, 1274, 1287, 1291, 1296, 1311, 1313, 1314, 1329, 1330, 1333, 1339, 1344, 1346, 1355, 1381, 1401, 1402, 1410, 1419, 1464, 1467, 1476, 1481, 1487, 1491, 1492, 1498, 1513, 1523, 1524, 1531, 1561, 1598, 1601, 1605, 1610, 1619, 1632, 1633, 1636, 1639, 1642, 1645, 1648, 1657, 1661, 1717, 1721, 1727, 1739, 1748, 1750, 1782, 1783, 1786, 1793, 1798, 1799, 1801, 1802, 1803, 1804, 1805, 1812, 1813, 1816, 1817, 1818, 1819, 1822, 1825, 1826, 1827, 1828, 1829, 1834, 1840, 1853, 1854, 1855, 1886, 1894, 2085, 2087, 2088, 2098, 2099, 2100, 2101, 2102, 2106, 2110, 2144, 2145, 2146, 2149, 2150, 2163, 2172, 2181, 2182, 2189, 2190, 2191, 2196, 2198, 2199, 2202, 2215, 2223, 2234, 2245, 2254, 2287, 2291, 2340, 2350, 2351, 2356, 2359, 2360, 2367, 2392, 2393, 2397, 2462, 2463, 2464, 2490, 2531, 2602, 2610, 2627, 2630, 2631, 2644, 2652, 2658, 2730
+## Rows with multiple entries in DyadResponse:  3, 4, 13, 53, 58, 64, 68, 71, 72, 84, 88, 89, 97, 98, 113, 133, 137, 192, 194, 244, 275, 277, 278, 284, 289, 298, 302, 304, 318, 322, 326, 327, 328, 331, 341, 346, 347, 367, 368, 387, 388, 391, 397, 409, 454, 468, 469, 482, 497, 510, 511, 522, 529, 536, 597, 600, 626, 629, 687, 696, 706, 711, 713, 726, 740, 748, 749, 757, 760, 761, 763, 768, 769, 780, 786, 818, 829, 841, 843, 845, 861, 866, 877, 888, 892, 898, 912, 919, 934, 937, 938, 954, 955, 962, 973, 997, 1004, 1015, 1027, 1042, 1048, 1060, 1108, 1141, 1143, 1161, 1162, 1190, 1209, 1213, 1217, 1225, 1229, 1236, 1240, 1243, 1245, 1247, 1254, 1267, 1271, 1284, 1288, 1293, 1308, 1310, 1311, 1326, 1327, 1330, 1336, 1341, 1343, 1352, 1378, 1398, 1399, 1407, 1416, 1461, 1464, 1473, 1478, 1484, 1488, 1489, 1495, 1510, 1520, 1521, 1528, 1558, 1595, 1598, 1602, 1607, 1616, 1629, 1630, 1633, 1636, 1639, 1642, 1645, 1654, 1658, 1679, 1708, 1714, 1718, 1724, 1741, 1750, 1752, 1784, 1785, 1788, 1795, 1800, 1801, 1802, 1804, 1805, 1806, 1807, 1808, 1815, 1816, 1819, 1820, 1821, 1822, 1824, 1825, 1828, 1829, 1830, 1831, 1832, 1837, 1843, 1856, 1857, 1858, 1889, 1897, 1968, 1984, 2023, 2066, 2088, 2090, 2091, 2100, 2101, 2102, 2103, 2104, 2105, 2109, 2112, 2113, 2147, 2148, 2149, 2152, 2153, 2166, 2175, 2184, 2185, 2192, 2193, 2194, 2199, 2201, 2202, 2205, 2218, 2226, 2237, 2248, 2257, 2290, 2294, 2343, 2353, 2354, 2359, 2360, 2362, 2363, 2370, 2388, 2395, 2396, 2400, 2465, 2466, 2467, 2493, 2534, 2601, 2609, 2626, 2629, 2630, 2643, 2651, 2657, 2730
 \end{verbatim}
 
 \begin{itemize}
@@ -2597,12 +2617,12 @@ proximity}\label{dyaddistance---creation-of-proximity}}
 \item
   Step 1: Identify Rows with More than 1 Entry
   beforesummaryrowswithmultipleentries\_1 \textless-
-  which(sapply(Bex\$DyadResponse, function(x)
+  which(sapply(BexClean\$DyadResponse, function(x)
   length(unlist(strsplit(as.character(x), ``;''))) \textgreater{} 1))
 \end{itemize}
 
 Display the rows with more than 1 entry in DyadResponse
-knitr::kable(Bex{[}beforesummaryrowswithmultipleentries\_1, {]})
+knitr::kable(BexClean{[}beforesummaryrowswithmultipleentries\_1, {]})
 
 \begin{itemize}
 \item
@@ -2615,7 +2635,7 @@ knitr::kable(Bex{[}beforesummaryrowswithmultipleentries\_1, {]})
 \end{itemize}
 
 \begin{verbatim}
-## Number of rows with more than 1 entry in DyadResponse:  233
+## Number of rows with more than 1 entry in DyadResponse:  271
 \end{verbatim}
 
 \begin{itemize}
@@ -2638,26 +2658,27 @@ knitr::kable(Bex{[}beforesummaryrowswithmultipleentries\_1, {]})
 ##  Looks at partner &  Other 1
 ##  Losing interest &  Intrusion 1
 ##  Losing interest &  Looks at partner 1
-##  Male aggress female &  Female aggress male 2
+##  Male aggress female &  Female aggress male 3
 ##  Male aggress female &  Looks at partner 1
 ##  Not approaching &  Intrusion 1
 ##  Not approaching &  Losing interest 1
-## Distracted &  Losing interest 1
+## Distracted &  Losing interest 3
 ## Female aggress male &  Intrusion 1
 ## Female aggress male &  Not approaching 3
+## Losing interest &  Intrusion 1
 ## Male aggress female &  Intrusion 1
 ## Male aggress female &  Looks at partner 1
 ## Male aggress female &  Not approaching 2
 ## Not approaching &  Distracted 7
-## Not approaching &  Intrusion 21
+## Not approaching &  Intrusion 32
 ## Not approaching &  Looks at partner 10
-## Not approaching &  Losing interest 46
+## Not approaching &  Losing interest 49
 ## Not approaching &  Other  1
 ## Tolerance &  Distracted   3
-## Tolerance &  Female aggress male 23
-## Tolerance &  Intrusion    42
+## Tolerance &  Female aggress male 24
+## Tolerance &  Intrusion    53
 ## Tolerance &  Looks at partner 25
-## Tolerance &  Losing interest 13
+## Tolerance &  Losing interest 23
 ## Tolerance &  Male aggress female 31
 ## Tolerance &  Not approaching 6
 ## Tolerance &  Other        8
@@ -2697,7 +2718,7 @@ knitr::kable(Bex{[}beforesummaryrowswithmultipleentries\_1, {]})
 is Female agress male (23x)
 
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Tolerance & Female aggress male):  -23
+## Change in Occurrences for the Chunk (Tolerance & Female aggress male):  -24
 \end{verbatim}
 
 9.Tolerance \textgreater{} Loosing interest: Remove Losing interest if
@@ -2711,7 +2732,7 @@ there is Tolerance (13x)
 there is Male agress male (31)
 
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Tolerance & Male aggress female):  -29
+## Change in Occurrences for the Chunk (Tolerance & Male aggress female):  -28
 \end{verbatim}
 
 11.Tolerance \textgreater{} Not approaching: Remove Not approaching if
@@ -2781,15 +2802,15 @@ individual''} then I want it to \textbf{take the response found in
 ``DyadResposne''}
 
 \begin{verbatim}
-## Occurrences of 'Not approaching' in DyadResponse: 560
+## Occurrences of 'Not approaching' in DyadResponse: 564
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of 'Intrusion' in DyadResponse: 116
+## Occurrences of 'Intrusion' in DyadResponse: 135
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of 'Losing interest' in DyadResponse: 97
+## Occurrences of 'Losing interest' in DyadResponse: 112
 \end{verbatim}
 
 \begin{verbatim}
@@ -2842,72 +2863,7 @@ organise)}\label{exploratory-graph-to-organise}}
 ## `geom_smooth()` using formula = 'y ~ x'
 \end{verbatim}
 
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : at 19306
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : radius 0.04
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : all data on boundary of neighborhood. make span bigger
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 19306
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 0.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 1
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 1616
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Computation failed in `stat_smooth()`
-## Caused by error in `predLoess()`:
-## ! NA/NaN/Inf dans un appel à une fonction externe (argument 5)
-\end{verbatim}
-
 \includegraphics{BEX2223_files/figure-latex/Dyad Distance \& Date-1.pdf}
-
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Load required libraries}
-\FunctionTok{library}\NormalTok{(ggplot2)}
-\FunctionTok{library}\NormalTok{(dplyr)}
-
-\CommentTok{\# Ensure Date is in the correct format}
-\NormalTok{Bex}\SpecialCharTok{$}\NormalTok{Date }\OtherTok{\textless{}{-}} \FunctionTok{as.Date}\NormalTok{(Bex}\SpecialCharTok{$}\NormalTok{Date)}
-
-\CommentTok{\# Plot with smoothed lines and confidence intervals with improved readability}
-\NormalTok{daily\_plot }\OtherTok{\textless{}{-}} \FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ Bex, }\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ Date, }\AttributeTok{y =}\NormalTok{ DyadDistance, }\AttributeTok{group =}\NormalTok{ Dyad, }\AttributeTok{color =}\NormalTok{ Dyad)) }\SpecialCharTok{+}
-  \FunctionTok{geom\_smooth}\NormalTok{(}\AttributeTok{method =} \StringTok{"loess"}\NormalTok{, }\AttributeTok{se =} \ConstantTok{TRUE}\NormalTok{, }\AttributeTok{alpha =} \FloatTok{0.2}\NormalTok{, }\AttributeTok{size =} \DecValTok{1}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Adjusted alpha and line size}
-  \FunctionTok{theme\_minimal}\NormalTok{() }\SpecialCharTok{+}
-  \FunctionTok{theme}\NormalTok{(}\AttributeTok{legend.position =} \StringTok{"right"}\NormalTok{) }\SpecialCharTok{+} \CommentTok{\# Adjust legend position}
-  \FunctionTok{labs}\NormalTok{(}\AttributeTok{x =} \StringTok{"Date"}\NormalTok{, }\AttributeTok{y =} \StringTok{"Dyad Distance"}\NormalTok{, }\AttributeTok{title =} \StringTok{"Dyad Distance Over Time with Confidence Interval"}\NormalTok{, }\AttributeTok{color =} \StringTok{"Dyad"}\NormalTok{) }\SpecialCharTok{+}
-  \FunctionTok{expand\_limits}\NormalTok{(}\AttributeTok{y =} \FunctionTok{c}\NormalTok{(}\DecValTok{0}\NormalTok{, }\ConstantTok{NA}\NormalTok{)) }\CommentTok{\# Expand y{-}axis limits if needed}
-\end{Highlighting}
-\end{Shaded}
 
 \begin{verbatim}
 ## Warning: Using `size` aesthetic for lines was deprecated in ggplot2 3.4.0.
@@ -2917,61 +2873,8 @@ organise)}\label{exploratory-graph-to-organise}}
 ## generated.
 \end{verbatim}
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\CommentTok{\# Print the daily plot}
-\FunctionTok{print}\NormalTok{(daily\_plot)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 ## `geom_smooth()` using formula = 'y ~ x'
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : at 19306
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : radius 0.04
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : all data on boundary of neighborhood. make span bigger
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : pseudoinverse used at 19306
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : neighborhood radius 0.2
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : reciprocal condition number 1
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : There are other near singularities as well. 1616
-\end{verbatim}
-
-\begin{verbatim}
-## Warning in simpleLoess(y, x, w, span, degree = degree, parametric =
-## parametric, : zero-width neighborhood. make span bigger
-\end{verbatim}
-
-\begin{verbatim}
-## Warning: Computation failed in `stat_smooth()`
-## Caused by error in `predLoess()`:
-## ! NA/NaN/Inf dans un appel à une fonction externe (argument 5)
 \end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/Other graphs-1.pdf}
@@ -2982,19 +2885,6 @@ organise)}\label{exploratory-graph-to-organise}}
 \end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/Monthly graph-1.pdf}
-
-\begin{verbatim}
-## `geom_line()`: Each group consists of only one observation.
-## i Do you need to adjust the group aesthetic?
-## `geom_line()`: Each group consists of only one observation.
-## i Do you need to adjust the group aesthetic?
-## `geom_line()`: Each group consists of only one observation.
-## i Do you need to adjust the group aesthetic?
-## `geom_line()`: Each group consists of only one observation.
-## i Do you need to adjust the group aesthetic?
-## `geom_line()`: Each group consists of only one observation.
-## i Do you need to adjust the group aesthetic?
-\end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/last test before sleep-1.pdf}
 
@@ -3028,7 +2918,7 @@ l temperature, food quantitiy and other elements related to seasonailty make thi
 
 \#Lines to check unique values in MaleFemaleID to see if they are any
 problems with it \# Unique values in MaleID unique\_male\_ids \textless-
-unique(Bex\$MaleID)
+unique(BexClean\$MaleID)
 
 \hypertarget{unique-values-in-femaleid}{%
 \section{Unique values in FemaleID}\label{unique-values-in-femaleid}}

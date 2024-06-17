@@ -252,7 +252,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023</h1>
-<h4 class="date">juin 16, 2024 17:45</h4>
+<h4 class="date">juin 17, 2024 19:30</h4>
 
 </div>
 
@@ -1675,24 +1675,28 @@ print(combinations_summary)</code></pre>
 <div id="updates-from-here" class="section level1">
 <h1>UPDATES FROM HERE</h1>
 <div id="dyad-response---corrections-and-detailed-cleaning" class="section level3">
-<h3>3.9 Dyad Response - Corrections and detailed cleaning</h3>
+<h3>3.9.1 Dyad Response - Corrections and detailed cleaning</h3>
 <ul>
 <li><p>Reminder: The different behaviors that are coded in <strong>DyadResponse</strong> are: <strong>Distracted</strong>, <strong>Female aggress male</strong>, <strong>Male aggress female</strong>, <strong>Intrusion</strong>, <strong>Loosing interest</strong>, <strong>Not approaching</strong>, <strong>Tolerance</strong> and <strong>Other</strong></p>
 <ul>
 <li>I will change the columns associated to each behavior (i.e. Response) of <strong>DyadResponse</strong> into dichotomic variables in order to see the frequency of each behaviour</li>
 <li>This will allow me to see which behavior occurred more than others, and what differences are between dyads</li>
-<li>As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a hierarchy to reduce the amount of behaviors assigned to each trial (if there is more than one). This will also be complemented with the information found in the column comments
+<li>As multiple behaviours could occur within the same trial, multiple responses (data entries) can be found in a single cell. I will create a hierarchy to reduce the amount of behaviors assigned to each trial (if there is more than one).
 <ol style="list-style-type: decimal">
-<li>correct any mistakes (ex. if tolerance and aggression are together aggression&gt;tolerance)</li>
-<li>assign as few labels per trial</li>
-<li>get a better View and understanding of the data and the most common behaviours produced by each dyad</li>
-<li>create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at the other individual / )</li>
-</ol>
+<li>correct any potential discrepancies (ex. if tolerance and aggression occured within the same trial aggression&gt;tolerance)</li>
+<li>assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to choose which response to keep</li>
+<li>get a better view and understanding of the data and the most common behaviours produced by each dyad producing plots and tables</li>
+<li>if necessary create new variables that can complement redistribute the information initally found in the column</li>
+</ol></li>
+</ul></li>
+<li><p>I will create some tables to have a better understanding of the state of the column dyadresponse and the different existing combinations at this point</p></li>
+<li><p>Also I will create the hierarchy before implementing in the dataset</p>
+<h3 id="dyad-response-description">3.9.2 Dyad Response description</h3></li>
+<li><p>I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves</p></li>
+<li><p>I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table</p></li>
+</ul>
+<p>### 3.9.3 Dyad Resposne Hierarchy</p>
 <ul>
-<li><p>Create a table with each combination existing</p></li>
-<li><p>Decide what is more important</p></li>
-</ul></li>
-</ul></li>
 <li><p><strong>Dyad Response Hierarchy</strong> Projection of the hierarchy (changes will be made) - Aggression &gt; Tolerance - Tolerance &gt; Not approaching -&gt; Create a variable called hesistant in addtion to the tolerance count to see frequency of tolerance behaviour that happened after &gt; 1min - Tolerance &gt; Loosing interest - Tolerance &gt; Intrusion<br />
 - Not approaching = looking box but not coming while Loosing interest = not paying attention to the box - Intrusion &gt; Loosing interest - Intrusion &gt; Not approaching - Not approaching &gt; Looks at partner - We can code every look at partner as no approaching and keep the count of looks at partner as additional information<br />
 - Not approaching &gt;?&gt; Loosing interest ? !! - Define distracted - Not approaching &gt; Distracted - Aggression &gt; Not approaching - Other &gt; Look case by case and categorize depending of behavior<br />

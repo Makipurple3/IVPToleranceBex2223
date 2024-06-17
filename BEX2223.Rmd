@@ -7,10 +7,10 @@ output:
     toc_depth: 6
     toc_float:
       collapsed: no
-  pdf_document:
+  word_document:
     toc: yes
     toc_depth: 6
-  word_document:
+  pdf_document:
     toc: yes
     toc_depth: 6
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
@@ -1687,21 +1687,35 @@ print(plot_proximity_freq)
 
 # UPDATES FROM HERE
 
-### 3.9 Dyad Response - Corrections and detailed cleaning
+### 3.9.1 Dyad Response - Corrections and detailed cleaning
 
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
     * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to see the frequency of each behaviour
     * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
-    * As multiple response could occur within the same trial, multiple behaviors can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there is more than one). This will also be complemented with the information found in the column comments
-      1. correct any mistakes (ex. if tolerance and aggression are together aggression>tolerance)
-      2. assign as few labels per trial 
-      3. get a better View and understanding of the data and the most common behaviours produced by each dyad
-      4. create variables that can complement the behaviour found (ex. not approaching + looks at partner would be looks at partner + a new variable called hesistant to see when the did not come but look at the other individual / )
+    * As multiple behaviours could occur within the same trial, multiple responses (data entries) can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there is more than one).
+      1. correct any potential discrepancies (ex. if tolerance and aggression occured within the same trial        aggression>tolerance)
+      2. assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to            choose which response to keep
+      3. get a better view and understanding of the data and the most common behaviours produced by each dyad       producing plots and tables
+      4. if necessary create new variables that can complement redistribute the information initally found in       the column
       
+* I will create some tables to have a better understanding of the state of the column dyadresponse and the different existing combinations at this point
 
-      - Create a table with each combination existing
-      
-      - Decide what is more important
+* Also I will create the hierarchy before implementing in the dataset
+    
+  ### 3.9.2 Dyad Response description
+  
+* I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
+ * I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
+ 
+  
+```{r Dyad Response Description, echo=FALSE}
+
+
+```
+  
+  
+  ### 3.9.3 Dyad Resposne Hierarchy 
+
 * **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
       - Aggression > Tolerance
       - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
