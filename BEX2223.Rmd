@@ -876,7 +876,7 @@ print(Bex[is.na(Bex$FemaleID), ])
     - Ndaw if MaleID  is  Buk 
     
     
-```{r FemaleMaleID Check}
+```{r FemaleMaleID Check, echo=FALSE}
 
 library(dplyr)
 
@@ -1685,7 +1685,6 @@ print(plot_proximity_freq)
 
 
 
-# UPDATES FROM HERE
 
 ### 3.9.1 Dyad Response - Corrections and detailed cleaning
 
@@ -1756,7 +1755,7 @@ cat("Sum of single and multiple entry rows: ", num_single_responses + num_multip
 
 ```
 
-```{r DyadResponse unique combinations and frequncies, echo=FALSE}
+```{r DyadResponse unique combinations and frequencies, echo=FALSE}
 
 # Helper function to sort responses within each cell for consistency
 sort_responses <- function(response) {
@@ -1799,8 +1798,61 @@ print(knitr::kable(multiple_responses, col.names = c("Combination", "Frequency")
 
 ```
   
-```{r DyadResponse frequency plots before modification, echo=FALSE}
+```{r DyadResponse frequency plots before modification Single Response, echo=FALSE}
 
+# Updated code to plot the frequency of single dyad responses
+ggplot(single_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = n), vjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of single response in DyadResponse before modification",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Updated code to plot the frequency of multiple dyad response combinations
+ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  geom_text(aes(label = n), hjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of multiple DyadResponse combinations before modification",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  coord_flip() +  # Flip coordinates for better readability
+  theme(axis.text.y = element_text(size = 10))  # Adjust text size
+
+```
+
+```{r DyadResponse frequency plots before modification Sing and Multiple Response, echo=FALSE}
+
+# Updated code to plot the frequency of single dyad responses
+ggplot(single_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = n), vjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of single response in DyadResponse before modification",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Updated code to plot the frequency of multiple dyad response combinations
+ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
+  geom_bar(stat = "identity", fill = "orange") +
+  geom_text(aes(label = n), hjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of multiple DyadResponse combinations before modification",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  coord_flip() +  # Flip coordinates for better readability
+  theme(axis.text.y = element_text(size = 10))  # Adjust text size
 
 
 ```
