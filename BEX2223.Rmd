@@ -1702,19 +1702,106 @@ print(plot_proximity_freq)
 
 * Also I will create the hierarchy before implementing in the dataset
     
-  ### 3.9.2 Dyad Response description
+### 3.9.2 Dyad Response description
   
 * I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
  * I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
  
+```{r DyadResponse MultipleResponse, echo=FALSE}
+# Identify and display rows with multiple entries
+beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Display the rows with multiple entries in DyadResponse
+View(BexClean[beforesummaryrowswithmultipleentries, ])
+
+# Print the number of rows with multiple entries and the total number of rows
+cat("Number of rows with multiple entries in DyadResponse: ", length(beforesummaryrowswithmultipleentries), "\n")
+cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
+
+# Add new column for Multiple Responses
+BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
+
+```  
   
-```{r Dyad Response Description, echo=FALSE}
+```{r DyadResponse count of rows with single/multiple entries, echo=FALSE}
+
+# Helper function to sort responses within each cell for consistency
+sort_responses <- function(response) {
+  sorted <- sapply(strsplit(response, ";"), function(x) paste(sort(trimws(x)), collapse = ";"))
+  return(sorted)
+}
+
+# Apply the sorting function to the DyadResponse column
+BexClean$DyadResponse_sorted <- sort_responses(BexClean$DyadResponse)
+
+# Calculate the total number of rows in the dataset
+total_rows <- nrow(BexClean)
+
+# Calculate the number of rows with single and multiple responses
+num_single_responses <- BexClean %>%
+  filter(!grepl(";", DyadResponse)) %>%
+  nrow()
+
+num_multiple_responses <- BexClean %>%
+  filter(grepl(";", DyadResponse)) %>%
+  nrow()
+
+# Print the counts and verify they add up to the total
+cat("Total number of rows in DyadResponse: ", total_rows, "\n")
+cat("Number of rows with a single entry in DyadResponse: ", num_single_responses, "\n")
+cat("Number of rows with multiple entries in DyadResponse: ", num_multiple_responses, "\n")
+cat("Sum of single and multiple entry rows: ", num_single_responses + num_multiple_responses, "\n")
+
+
+
+```
+
+```{r DyadResponse unique combinations and frequncies, echo=FALSE}
+
+# Helper function to sort responses within each cell for consistency
+sort_responses <- function(response) {
+  sorted <- sapply(strsplit(response, ";"), function(x) paste(sort(trimws(x)), collapse = ";"))
+  return(sorted)
+}
+
+# Apply the sorting function to the DyadResponse column
+BexClean$DyadResponse_sorted <- sort_responses(BexClean$DyadResponse)
+
+# Ensure data is ungrouped to focus only on unique combinations of responses
+BexClean <- BexClean %>% ungroup()
+
+# Identify unique combinations and their frequencies without Dyad and Day
+unique_combinations <- BexClean %>%
+  filter(grepl(";", DyadResponse_sorted)) %>%
+  count(DyadResponse_sorted) %>%
+  arrange(desc(n))
+
+# Identify single and multiple responses
+single_responses <- BexClean %>%
+  filter(!grepl(";", DyadResponse_sorted)) %>%
+  count(DyadResponse_sorted) %>%
+  arrange(desc(n))
+
+multiple_responses <- BexClean %>%
+  filter(grepl(";", DyadResponse_sorted)) %>%
+  count(DyadResponse_sorted) %>%
+  arrange(desc(n))
+
+# Display the results
+cat("Unique combinations of multiple responses and their frequencies:\n")
+print(unique_combinations)
+
+cat("Rows with single responses in DyadResponse:\n")
+print(single_responses)
+
+cat("Rows with multiple responses in DyadResponse:\n")
+print(multiple_responses)
 
 
 ```
   
   
-  ### 3.9.3 Dyad Resposne Hierarchy 
+  ### 3.9.3 Dyad Response Hierarchy 
 
 * **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
       - Aggression > Tolerance
@@ -1742,21 +1829,7 @@ print(plot_proximity_freq)
   
   
   
-```{r DyadResponse MultipleResponse, echo=FALSE}
-# Rows with more than 1 character
-beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-# Display the rows with multiple entries in DyadResponse
-View(BexClean[beforesummaryrowswithmultipleentries, ])
-
-# Print the number of rows with multiple entries and the total number of rows
-cat("Number of rows with multiple entries in DyadResponse: ", length(beforesummaryrowswithmultipleentries), "\n")
-
-# Escape underscores in output for LaTeX
-escaped_rows <- paste(gsub("_", "\\\\_", beforesummaryrowswithmultipleentries), collapse = ", ")
-cat("Rows with multiple entries in DyadResponse: ", escaped_rows, "\n")
-
-```
 
 
 * Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split. 
@@ -1909,6 +1982,38 @@ cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after
  * Tolerance &  Other        8                  - Display line for detailed check
 
 
+SEE WHEN AND HOW TO Put ThIS CODE TO REPLACE PREIVOSU NUMBERS:
+
+
+# 1. Aggression > Tolerance
+BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & (grepl("Female aggress male", BexClean$DyadResponse) | grepl("Male aggress female", BexClean$DyadResponse))), ]
+
+# 2. Tolerance > Not approaching
+BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
+
+# 3. Tolerance > Loosing interest
+BexClean <- BexClean[!(grepl("Losing interest", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
+
+# 4. Tolerance > Intrusion
+BexClean <- BexClean[!(grepl("Intrusion", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
+
+# 5. Intrusion > Loosing interest
+BexClean <- BexClean[!(grepl("Losing interest", BexClean$DyadResponse) & grepl("Intrusion", BexClean$DyadResponse)), ]
+
+# 6. Intrusion > Not approaching
+BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Intrusion", BexClean$DyadResponse)), ]
+
+# 7. Not approaching > Looks at partner
+# Code every look at partner as not approaching and keep the count of looks at partner as additional information
+
+# 8. Define distracted
+# Not approaching > Distracted
+BexClean <- BexClean[!(grepl("Distracted", BexClean$DyadResponse) & grepl("Not approaching", BexClean$DyadResponse)), ]
+
+# 9. Other > Look case by case and categorize depending on behavior
+
+# Final clean-up and reporting
+knitr::kable(BexClean, col.names = colnames(BexClean), caption = "Cleaned DyadResponse Data")
 
 * Code to display rows numbers and the response in DyadResponse that have mroe than one entry
 

@@ -252,7 +252,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023</h1>
-<h4 class="date">juin 17, 2024 19:30</h4>
+<h4 class="date">juin 19, 2024 18:30</h4>
 
 </div>
 
@@ -1690,12 +1690,64 @@ print(combinations_summary)</code></pre>
 </ol></li>
 </ul></li>
 <li><p>I will create some tables to have a better understanding of the state of the column dyadresponse and the different existing combinations at this point</p></li>
-<li><p>Also I will create the hierarchy before implementing in the dataset</p>
-<h3 id="dyad-response-description">3.9.2 Dyad Response description</h3></li>
-<li><p>I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves</p></li>
-<li><p>I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table</p></li>
+<li><p>Also I will create the hierarchy before implementing in the dataset</p></li>
 </ul>
-<p>### 3.9.3 Dyad Resposne Hierarchy</p>
+</div>
+<div id="dyad-response-description" class="section level3">
+<h3>3.9.2 Dyad Response description</h3>
+<ul>
+<li>I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves</li>
+<li>I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table</li>
+</ul>
+<pre><code>## Number of rows with multiple entries in DyadResponse:  271</code></pre>
+<pre><code>## Rows with multiple entries in DyadResponse:  3 4 13 53 58 64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469 482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 749 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 912 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1108 1141 1143 1161 1162 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1341 1343 1352 1378 1398 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 1558 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 1806 1807 1808 1815 1816 1819 1820 1821 1822 1824 1825 1828 1829 1830 1831 1832 1837 1843 1856 1857 1858 1889 1897 1968 1984 2023 2066 2088 2090 2091 2100 2101 2102 2103 2104 2105 2109 2112 2113 2147 2148 2149 2152 2153 2166 2175 2184 2185 2192 2193 2194 2199 2201 2202 2205 2218 2226 2237 2248 2257 2290 2294 2343 2353 2354 2359 2360 2362 2363 2370 2388 2395 2396 2400 2465 2466 2467 2493 2534 2601 2609 2626 2629 2630 2643 2651 2657 2730</code></pre>
+<pre><code>## Total number of rows in DyadResponse:  2737</code></pre>
+<pre><code>## Number of rows with a single entry in DyadResponse:  2466</code></pre>
+<pre><code>## Number of rows with multiple entries in DyadResponse:  271</code></pre>
+<pre><code>## Sum of single and multiple entry rows:  2737</code></pre>
+<pre><code>## Unique combinations of multiple responses and their frequencies:</code></pre>
+<pre><code>## # A tibble: 30 × 2
+##    DyadResponse_sorted                  n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Intrusion;Tolerance                 49
+##  2 Losing interest;Not approaching     47
+##  3 Intrusion;Not approaching           30
+##  4 Male aggress female;Tolerance       27
+##  5 Looks at partner;Tolerance          23
+##  6 Losing interest;Tolerance           22
+##  7 Female aggress male;Tolerance       19
+##  8 Looks at partner;Not approaching     9
+##  9 Other;Tolerance                      7
+## 10 Distracted;Not approaching           6
+## # ℹ 20 more rows</code></pre>
+<pre><code>## Rows with single responses in DyadResponse:</code></pre>
+<pre><code>## # A tibble: 8 × 2
+##   DyadResponse_sorted     n
+##   &lt;chr&gt;               &lt;int&gt;
+## 1 Tolerance            1809
+## 2 Not approaching       465
+## 3 Male aggress female    73
+## 4 Intrusion              51
+## 5 Losing interest        37
+## 6 Female aggress male    18
+## 7 Other                   9
+## 8 Distracted              4</code></pre>
+<pre><code>## Rows with multiple responses in DyadResponse:</code></pre>
+<pre><code>## # A tibble: 30 × 2
+##    DyadResponse_sorted                  n
+##    &lt;chr&gt;                            &lt;int&gt;
+##  1 Intrusion;Tolerance                 49
+##  2 Losing interest;Not approaching     47
+##  3 Intrusion;Not approaching           30
+##  4 Male aggress female;Tolerance       27
+##  5 Looks at partner;Tolerance          23
+##  6 Losing interest;Tolerance           22
+##  7 Female aggress male;Tolerance       19
+##  8 Looks at partner;Not approaching     9
+##  9 Other;Tolerance                      7
+## 10 Distracted;Not approaching           6
+## # ℹ 20 more rows</code></pre>
+<p>### 3.9.3 Dyad Response Hierarchy</p>
 <ul>
 <li><p><strong>Dyad Response Hierarchy</strong> Projection of the hierarchy (changes will be made) - Aggression &gt; Tolerance - Tolerance &gt; Not approaching -&gt; Create a variable called hesistant in addtion to the tolerance count to see frequency of tolerance behaviour that happened after &gt; 1min - Tolerance &gt; Loosing interest - Tolerance &gt; Intrusion<br />
 - Not approaching = looking box but not coming while Loosing interest = not paying attention to the box - Intrusion &gt; Loosing interest - Intrusion &gt; Not approaching - Not approaching &gt; Looks at partner - We can code every look at partner as no approaching and keep the count of looks at partner as additional information<br />
@@ -1707,10 +1759,6 @@ print(combinations_summary)</code></pre>
 <li>And <strong>if there are more than one value per cell</strong>, report it in a new column called “MultipleResponses”</li>
 </ul></li>
 </ul></li>
-</ul>
-<pre><code>## Number of rows with multiple entries in DyadResponse:  271</code></pre>
-<pre><code>## Rows with multiple entries in DyadResponse:  3, 4, 13, 53, 58, 64, 68, 71, 72, 84, 88, 89, 97, 98, 113, 133, 137, 192, 194, 244, 275, 277, 278, 284, 289, 298, 302, 304, 318, 322, 326, 327, 328, 331, 341, 346, 347, 367, 368, 387, 388, 391, 397, 409, 454, 468, 469, 482, 497, 510, 511, 522, 529, 536, 597, 600, 626, 629, 687, 696, 706, 711, 713, 726, 740, 748, 749, 757, 760, 761, 763, 768, 769, 780, 786, 818, 829, 841, 843, 845, 861, 866, 877, 888, 892, 898, 912, 919, 934, 937, 938, 954, 955, 962, 973, 997, 1004, 1015, 1027, 1042, 1048, 1060, 1108, 1141, 1143, 1161, 1162, 1190, 1209, 1213, 1217, 1225, 1229, 1236, 1240, 1243, 1245, 1247, 1254, 1267, 1271, 1284, 1288, 1293, 1308, 1310, 1311, 1326, 1327, 1330, 1336, 1341, 1343, 1352, 1378, 1398, 1399, 1407, 1416, 1461, 1464, 1473, 1478, 1484, 1488, 1489, 1495, 1510, 1520, 1521, 1528, 1558, 1595, 1598, 1602, 1607, 1616, 1629, 1630, 1633, 1636, 1639, 1642, 1645, 1654, 1658, 1679, 1708, 1714, 1718, 1724, 1741, 1750, 1752, 1784, 1785, 1788, 1795, 1800, 1801, 1802, 1804, 1805, 1806, 1807, 1808, 1815, 1816, 1819, 1820, 1821, 1822, 1824, 1825, 1828, 1829, 1830, 1831, 1832, 1837, 1843, 1856, 1857, 1858, 1889, 1897, 1968, 1984, 2023, 2066, 2088, 2090, 2091, 2100, 2101, 2102, 2103, 2104, 2105, 2109, 2112, 2113, 2147, 2148, 2149, 2152, 2153, 2166, 2175, 2184, 2185, 2192, 2193, 2194, 2199, 2201, 2202, 2205, 2218, 2226, 2237, 2248, 2257, 2290, 2294, 2343, 2353, 2354, 2359, 2360, 2362, 2363, 2370, 2388, 2395, 2396, 2400, 2465, 2466, 2467, 2493, 2534, 2601, 2609, 2626, 2629, 2630, 2643, 2651, 2657, 2730</code></pre>
-<ul>
 <li><p>Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split.</p></li>
 <li><p>I will make an intermediary summary to see that state of DyadResponse at the moment</p></li>
 <li><p>A. Summary od DyadResponse</p></li>
@@ -1776,11 +1824,59 @@ print(combinations_summary)</code></pre>
 <p>11.Tolerance &gt; Not approaching: Remove Not approaching if there is tolerance (6x)</p>
 <pre><code>## Change in Occurrences for teh Chunk (Tolerance &amp; Not approaching):  -6</code></pre>
 <ul>
-<li><p>Looks at partner &amp; Other 1 - Display line for detailed check (1x)</p></li>
-<li><p>Not approaching &amp; Losing interest 46 - Keep both, I will consider doing a detailled check</p></li>
-<li><p>Not approaching &amp; Distracted 7 - Display line for detailed check</p></li>
-<li><p>Not approaching &amp; Other 1 - Display line for detailed check</p></li>
-<li><p>Tolerance &amp; Other 8 - Display line for detailed check</p></li>
+<li>Looks at partner &amp; Other 1 - Display line for detailed check (1x)</li>
+<li>Not approaching &amp; Losing interest 46 - Keep both, I will consider doing a detailled check</li>
+<li>Not approaching &amp; Distracted 7 - Display line for detailed check</li>
+<li>Not approaching &amp; Other 1 - Display line for detailed check</li>
+<li>Tolerance &amp; Other 8 - Display line for detailed check</li>
+</ul>
+<p>SEE WHEN AND HOW TO Put ThIS CODE TO REPLACE PREIVOSU NUMBERS:</p>
+</div>
+</div>
+<div id="aggression-tolerance" class="section level1">
+<h1>1. Aggression &gt; Tolerance</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Tolerance”, BexClean<span class="math inline">\(DyadResponse) &amp; (grepl(&quot;Female aggress male&quot;, BexClean\)</span>DyadResponse) | grepl(“Male aggress female”, BexClean$DyadResponse))), ]</p>
+</div>
+<div id="tolerance-not-approaching" class="section level1">
+<h1>2. Tolerance &gt; Not approaching</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Not approaching”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Tolerance&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="tolerance-loosing-interest" class="section level1">
+<h1>3. Tolerance &gt; Loosing interest</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Losing interest”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Tolerance&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="tolerance-intrusion" class="section level1">
+<h1>4. Tolerance &gt; Intrusion</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Intrusion”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Tolerance&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="intrusion-loosing-interest" class="section level1">
+<h1>5. Intrusion &gt; Loosing interest</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Losing interest”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Intrusion&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="intrusion-not-approaching" class="section level1">
+<h1>6. Intrusion &gt; Not approaching</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Not approaching”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Intrusion&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="not-approaching-looks-at-partner" class="section level1">
+<h1>7. Not approaching &gt; Looks at partner</h1>
+</div>
+<div id="code-every-look-at-partner-as-not-approaching-and-keep-the-count-of-looks-at-partner-as-additional-information" class="section level1">
+<h1>Code every look at partner as not approaching and keep the count of looks at partner as additional information</h1>
+</div>
+<div id="define-distracted" class="section level1">
+<h1>8. Define distracted</h1>
+</div>
+<div id="not-approaching-distracted" class="section level1">
+<h1>Not approaching &gt; Distracted</h1>
+<p>BexClean &lt;- BexClean[!(grepl(“Distracted”, BexClean<span class="math inline">\(DyadResponse) &amp; grepl(&quot;Not approaching&quot;, BexClean\)</span>DyadResponse)), ]</p>
+</div>
+<div id="other-look-case-by-case-and-categorize-depending-on-behavior" class="section level1">
+<h1>9. Other &gt; Look case by case and categorize depending on behavior</h1>
+</div>
+<div id="final-clean-up-and-reporting" class="section level1">
+<h1>Final clean-up and reporting</h1>
+<p>knitr::kable(BexClean, col.names = colnames(BexClean), caption = “Cleaned DyadResponse Data”)</p>
+<ul>
 <li><p>Code to display rows numbers and the response in DyadResponse that have mroe than one entry</p></li>
 <li><p>Other Reponse - DEtailed cleaning to delete the column</p></li>
 <li><p>Audience - Creation of Amount Audience and Density</p></li>
@@ -1801,10 +1897,10 @@ print(combinations_summary)</code></pre>
 <h4>Code to keep and place again</h4>
 </div>
 </div>
-</div>
 <div id="code-to-settle" class="section level1">
 <h1>Code to settle</h1>
 <p>I also chose to directly create new dichotomic variables for “Not approaching”, “Intrusion”, “Losing interest”, “Distracted”, for this I would like the function to 1.Check if there is a <strong>value different than “No individual”</strong> 2.<strong>If the value ≠“No individual”</strong> then I want it to <strong>take the response found in “DyadResposne”</strong></p>
+<pre><code>## The &#39;MultipleResponses&#39; column already exists. No changes made.</code></pre>
 <pre><code>## Occurrences of &#39;Not approaching&#39; in DyadResponse: 564</code></pre>
 <pre><code>## Occurrences of &#39;Intrusion&#39; in DyadResponse: 135</code></pre>
 <pre><code>## Occurrences of &#39;Losing interest&#39; in DyadResponse: 112</code></pre>
