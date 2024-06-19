@@ -1787,19 +1787,23 @@ multiple_responses <- BexClean %>%
   count(DyadResponse_sorted) %>%
   arrange(desc(n))
 
-# Display the results
-cat("Unique combinations of multiple responses and their frequencies:\n")
-print(unique_combinations)
+# Display unique combinations and their frequencies
+print(knitr::kable(unique_combinations, col.names = c("Combination", "Frequency"), caption = "Unique DyadResponse Combinations and Their Frequencies", row.names = FALSE))
 
-cat("Rows with single responses in DyadResponse:\n")
-print(single_responses)
+# Display rows with single responses
+print(knitr::kable(single_responses, col.names = c("DyadResponse", "Frequency"), caption = "Rows with Single Responses in DyadResponse", row.names = FALSE))
 
-cat("Rows with multiple responses in DyadResponse:\n")
-print(multiple_responses)
+# Display rows with multiple responses
+print(knitr::kable(multiple_responses, col.names = c("Combination", "Frequency"), caption = "Rows with Multiple Responses in DyadResponse", row.names = FALSE))
 
 
 ```
   
+```{r DyadResponse frequency plots before modification, echo=FALSE}
+
+
+
+```
   
   ### 3.9.3 Dyad Response Hierarchy 
 

@@ -252,7 +252,7 @@ div.tocify {
 
 
 <h1 class="title toc-ignore">Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023</h1>
-<h4 class="date">juin 19, 2024 18:30</h4>
+<h4 class="date">juin 19, 2024 18:43</h4>
 
 </div>
 
@@ -1705,48 +1705,92 @@ print(combinations_summary)</code></pre>
 <pre><code>## Number of rows with a single entry in DyadResponse:  2466</code></pre>
 <pre><code>## Number of rows with multiple entries in DyadResponse:  271</code></pre>
 <pre><code>## Sum of single and multiple entry rows:  2737</code></pre>
-<pre><code>## Unique combinations of multiple responses and their frequencies:</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    DyadResponse_sorted                  n
-##    &lt;chr&gt;                            &lt;int&gt;
-##  1 Intrusion;Tolerance                 49
-##  2 Losing interest;Not approaching     47
-##  3 Intrusion;Not approaching           30
-##  4 Male aggress female;Tolerance       27
-##  5 Looks at partner;Tolerance          23
-##  6 Losing interest;Tolerance           22
-##  7 Female aggress male;Tolerance       19
-##  8 Looks at partner;Not approaching     9
-##  9 Other;Tolerance                      7
-## 10 Distracted;Not approaching           6
-## # ℹ 20 more rows</code></pre>
-<pre><code>## Rows with single responses in DyadResponse:</code></pre>
-<pre><code>## # A tibble: 8 × 2
-##   DyadResponse_sorted     n
-##   &lt;chr&gt;               &lt;int&gt;
-## 1 Tolerance            1809
-## 2 Not approaching       465
-## 3 Male aggress female    73
-## 4 Intrusion              51
-## 5 Losing interest        37
-## 6 Female aggress male    18
-## 7 Other                   9
-## 8 Distracted              4</code></pre>
-<pre><code>## Rows with multiple responses in DyadResponse:</code></pre>
-<pre><code>## # A tibble: 30 × 2
-##    DyadResponse_sorted                  n
-##    &lt;chr&gt;                            &lt;int&gt;
-##  1 Intrusion;Tolerance                 49
-##  2 Losing interest;Not approaching     47
-##  3 Intrusion;Not approaching           30
-##  4 Male aggress female;Tolerance       27
-##  5 Looks at partner;Tolerance          23
-##  6 Losing interest;Tolerance           22
-##  7 Female aggress male;Tolerance       19
-##  8 Looks at partner;Not approaching     9
-##  9 Other;Tolerance                      7
-## 10 Distracted;Not approaching           6
-## # ℹ 20 more rows</code></pre>
+<pre><code>## 
+## 
+## Table: Unique DyadResponse Combinations and Their Frequencies
+## 
+## |Combination                                       | Frequency|
+## |:-------------------------------------------------|---------:|
+## |Intrusion;Tolerance                               |        49|
+## |Losing interest;Not approaching                   |        47|
+## |Intrusion;Not approaching                         |        30|
+## |Male aggress female;Tolerance                     |        27|
+## |Looks at partner;Tolerance                        |        23|
+## |Losing interest;Tolerance                         |        22|
+## |Female aggress male;Tolerance                     |        19|
+## |Looks at partner;Not approaching                  |         9|
+## |Other;Tolerance                                   |         7|
+## |Distracted;Not approaching                        |         6|
+## |Not approaching;Tolerance                         |         4|
+## |Distracted;Losing interest                        |         3|
+## |Female aggress male;Male aggress female;Tolerance |         3|
+## |Female aggress male;Not approaching               |         3|
+## |Distracted;Tolerance                              |         2|
+## |Female aggress male;Intrusion;Tolerance           |         2|
+## |Male aggress female;Not approaching               |         2|
+## |Distracted;Intrusion;Not approaching              |         1|
+## |Distracted;Intrusion;Tolerance                    |         1|
+## |Female aggress male;Intrusion                     |         1|
+## |Intrusion;Losing interest                         |         1|
+## |Intrusion;Losing interest;Not approaching         |         1|
+## |Intrusion;Male aggress female                     |         1|
+## |Intrusion;Not approaching;Tolerance               |         1|
+## |Looks at partner;Losing interest;Not approaching  |         1|
+## |Looks at partner;Male aggress female              |         1|
+## |Looks at partner;Male aggress female;Tolerance    |         1|
+## |Looks at partner;Other;Tolerance                  |         1|
+## |Losing interest;Not approaching;Tolerance         |         1|
+## |Not approaching;Other                             |         1|</code></pre>
+<pre><code>## 
+## 
+## Table: Rows with Single Responses in DyadResponse
+## 
+## |DyadResponse        | Frequency|
+## |:-------------------|---------:|
+## |Tolerance           |      1809|
+## |Not approaching     |       465|
+## |Male aggress female |        73|
+## |Intrusion           |        51|
+## |Losing interest     |        37|
+## |Female aggress male |        18|
+## |Other               |         9|
+## |Distracted          |         4|</code></pre>
+<pre><code>## 
+## 
+## Table: Rows with Multiple Responses in DyadResponse
+## 
+## |Combination                                       | Frequency|
+## |:-------------------------------------------------|---------:|
+## |Intrusion;Tolerance                               |        49|
+## |Losing interest;Not approaching                   |        47|
+## |Intrusion;Not approaching                         |        30|
+## |Male aggress female;Tolerance                     |        27|
+## |Looks at partner;Tolerance                        |        23|
+## |Losing interest;Tolerance                         |        22|
+## |Female aggress male;Tolerance                     |        19|
+## |Looks at partner;Not approaching                  |         9|
+## |Other;Tolerance                                   |         7|
+## |Distracted;Not approaching                        |         6|
+## |Not approaching;Tolerance                         |         4|
+## |Distracted;Losing interest                        |         3|
+## |Female aggress male;Male aggress female;Tolerance |         3|
+## |Female aggress male;Not approaching               |         3|
+## |Distracted;Tolerance                              |         2|
+## |Female aggress male;Intrusion;Tolerance           |         2|
+## |Male aggress female;Not approaching               |         2|
+## |Distracted;Intrusion;Not approaching              |         1|
+## |Distracted;Intrusion;Tolerance                    |         1|
+## |Female aggress male;Intrusion                     |         1|
+## |Intrusion;Losing interest                         |         1|
+## |Intrusion;Losing interest;Not approaching         |         1|
+## |Intrusion;Male aggress female                     |         1|
+## |Intrusion;Not approaching;Tolerance               |         1|
+## |Looks at partner;Losing interest;Not approaching  |         1|
+## |Looks at partner;Male aggress female              |         1|
+## |Looks at partner;Male aggress female;Tolerance    |         1|
+## |Looks at partner;Other;Tolerance                  |         1|
+## |Losing interest;Not approaching;Tolerance         |         1|
+## |Not approaching;Other                             |         1|</code></pre>
 <p>### 3.9.3 Dyad Response Hierarchy</p>
 <ul>
 <li><p><strong>Dyad Response Hierarchy</strong> Projection of the hierarchy (changes will be made) - Aggression &gt; Tolerance - Tolerance &gt; Not approaching -&gt; Create a variable called hesistant in addtion to the tolerance count to see frequency of tolerance behaviour that happened after &gt; 1min - Tolerance &gt; Loosing interest - Tolerance &gt; Intrusion<br />
