@@ -1686,7 +1686,7 @@ print(plot_proximity_freq)
 
 
 
-### 3.9.1 Dyad Response - Corrections and detailed cleaning
+### 3.9 Dyad Response - Corrections and detailed cleaning
 
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
     * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to see the frequency of each behaviour
@@ -1707,18 +1707,6 @@ print(plot_proximity_freq)
  * I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
  
 ```{r DyadResponse MultipleResponse, echo=FALSE}
-# Identify and display rows with multiple entries
-beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-# Display the rows with multiple entries in DyadResponse
-View(BexClean[beforesummaryrowswithmultipleentries, ])
-
-# Print the number of rows with multiple entries and the total number of rows
-cat("Number of rows with multiple entries in DyadResponse: ", length(beforesummaryrowswithmultipleentries), "\n")
-cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
-
-# Add new column for Multiple Responses
-BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
 
 ```  
   
@@ -1749,9 +1737,20 @@ num_multiple_responses <- BexClean %>%
 cat("Total number of rows in DyadResponse: ", total_rows, "\n")
 cat("Number of rows with a single entry in DyadResponse: ", num_single_responses, "\n")
 cat("Number of rows with multiple entries in DyadResponse: ", num_multiple_responses, "\n")
-cat("Sum of single and multiple entry rows: ", num_single_responses + num_multiple_responses, "\n")
 
 
+
+# Identify and display rows with multiple entries
+beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Display the rows with multiple entries in DyadResponse
+View(BexClean[beforesummaryrowswithmultipleentries, ])
+
+# Print the number of rows with multiple entries and the total number of rowslength(beforesummaryrowswithmultipleentries), "\n")
+cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
+
+# Add new column for Multiple Responses
+BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
 
 ```
 
@@ -1769,12 +1768,6 @@ BexClean$DyadResponse_sorted <- sort_responses(BexClean$DyadResponse)
 # Ensure data is ungrouped to focus only on unique combinations of responses
 BexClean <- BexClean %>% ungroup()
 
-# Identify unique combinations and their frequencies without Dyad and Day
-unique_combinations <- BexClean %>%
-  filter(grepl(";", DyadResponse_sorted)) %>%
-  count(DyadResponse_sorted) %>%
-  arrange(desc(n))
-
 # Identify single and multiple responses
 single_responses <- BexClean %>%
   filter(!grepl(";", DyadResponse_sorted)) %>%
@@ -1786,62 +1779,26 @@ multiple_responses <- BexClean %>%
   count(DyadResponse_sorted) %>%
   arrange(desc(n))
 
-# Display unique combinations and their frequencies
-print(knitr::kable(unique_combinations, col.names = c("Combination", "Frequency"), caption = "Unique DyadResponse Combinations and Their Frequencies", row.names = FALSE))
-
 # Display rows with single responses
 print(knitr::kable(single_responses, col.names = c("DyadResponse", "Frequency"), caption = "Rows with Single Responses in DyadResponse", row.names = FALSE))
+
+# Plot the frequency of single dyad responses
+ggplot(single_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = n), vjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of single response in DyadResponse before modification",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 # Display rows with multiple responses
 print(knitr::kable(multiple_responses, col.names = c("Combination", "Frequency"), caption = "Rows with Multiple Responses in DyadResponse", row.names = FALSE))
 
 
-```
-  
-```{r DyadResponse frequency plots before modification Single Response, echo=FALSE}
-
-# Updated code to plot the frequency of single dyad responses
-ggplot(single_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  geom_text(aes(label = n), vjust = -0.3) +
-  theme_minimal() +
-  labs(
-    title = "Frequency of single response in DyadResponse before modification",
-    x = "Behaviour produced during a trial",
-    y = "Frequency (Amount of trials)"
-  ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Updated code to plot the frequency of multiple dyad response combinations
-ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
-  geom_bar(stat = "identity", fill = "orange") +
-  geom_text(aes(label = n), hjust = -0.3) +
-  theme_minimal() +
-  labs(
-    title = "Frequency of multiple DyadResponse combinations before modification",
-    x = "Behaviour produced during a trial",
-    y = "Frequency (Amount of trials)"
-  ) +
-  coord_flip() +  # Flip coordinates for better readability
-  theme(axis.text.y = element_text(size = 10))  # Adjust text size
-
-```
-
-```{r DyadResponse frequency plots before modification Sing and Multiple Response, echo=FALSE}
-
-# Updated code to plot the frequency of single dyad responses
-ggplot(single_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
-  geom_bar(stat = "identity", fill = "steelblue") +
-  geom_text(aes(label = n), vjust = -0.3) +
-  theme_minimal() +
-  labs(
-    title = "Frequency of single response in DyadResponse before modification",
-    x = "Behaviour produced during a trial",
-    y = "Frequency (Amount of trials)"
-  ) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))
-
-# Updated code to plot the frequency of multiple dyad response combinations
+# Plot the frequency of multiple dyad response combinations
 ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
   geom_bar(stat = "identity", fill = "orange") +
   geom_text(aes(label = n), hjust = -0.3) +
@@ -1856,8 +1813,10 @@ ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
 
 
 ```
-  
-  ### 3.9.3 Dyad Response Hierarchy 
+ 
+#UPDATES FROM HERE  
+
+### 3.9.3 Dyad Response Hierarchy 
 
 * **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
       - Aggression > Tolerance
