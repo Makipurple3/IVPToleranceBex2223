@@ -1689,13 +1689,13 @@ print(plot_proximity_freq)
 ### 3.9 Dyad Response - Corrections and detailed cleaning
 
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
-    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to see the frequency of each behaviour
-    * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
-    * As multiple behaviours could occur within the same trial, multiple responses (data entries) can be found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there is more than one).
-      1. correct any potential discrepancies (ex. if tolerance and aggression occured within the same trial        aggression>tolerance)
-      2. assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to            choose which response to keep
-      3. get a better view and understanding of the data and the most common behaviours produced by each dyad       producing plots and tables
-      4. if necessary create new variables that can complement redistribute the information initally found in       the column
+    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into        dichotomic variables in order to see the frequency of each behaviour
+    * This will allow me to see which behavior occurred more than others, and what differences are            between dyads 
+    * As multiple behaviours could occur within the same trial, multiple responses (data entries) can be       found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to        each trial (if  there is more than one).
+      1. correct any potential discrepancies (ex. if tolerance and aggression occured within the same         trial aggression>tolerance)
+      2. assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to       choose which response to keep
+      3. get a better view and understanding of the data and the most common behaviours produced by each       dyad producing plots and tables
+      4. if necessary create new variables that can complement redistribute the information initally          found in the column
       
 * I will create some tables to have a better understanding of the state of the column dyadresponse and the different existing combinations at this point
 
@@ -1704,11 +1704,8 @@ print(plot_proximity_freq)
 ### 3.9.2 Dyad Response description
   
 * I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
- * I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
- 
-```{r DyadResponse MultipleResponse, echo=FALSE}
+* I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
 
-```  
   
 ```{r DyadResponse count of rows with single/multiple entries, echo=FALSE}
 
@@ -1814,27 +1811,42 @@ ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
 
 ```
  
-#UPDATES FROM HERE  
 
 ### 3.9.3 Dyad Response Hierarchy 
 
-* **Dyad Response Hierarchy** Projection of the hierarchy (changes will be made)
-      - Aggression > Tolerance
-      - Tolerance > Not approaching -> Create a variable called hesistant in         addtion to the tolerance count to see frequency of tolerance                 behaviour that happened after > 1min
-      - Tolerance > Loosing interest
-      - Tolerance > Intrusion      
-      - Not approaching = looking box but not coming while Loosing interest           = not paying attention to the box
-       - Intrusion > Loosing interest
-      - Intrusion > Not approaching
-      - Not approaching > Looks at partner
-      - We can code every look at partner as no approaching and keep the             count of looks at partner as additional information       
-      - Not approaching >?> Loosing interest ? !!
-       - Define distracted
-      - Not approaching > Distracted
-      - Aggression > Not approaching
-      - Other > Look case by case and categorize depending of behavior     
-      - Remarks may be used for the same reason
-        
+# UPDATES FROM HERE  
+
+
+```{r test viw bex,echo=FALSE}
+
+View(Bex)
+```
+
+*  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
+
+* If there is **Aggression & Tolerance** I will keep **Agression** as we defined tolerance as the absence of any sign of aggression between individuals of a Dyad. Each Time we wrote tolerance it means that the monkeys touched the boxes at the same time. I will create a variable called **SimulatenousTouch** to record every time the box did the action at the same time. Then I will in every case of aggression and tolerance within a trial keep Aggression: **Aggression > Tolerance**
+
+* If there is **Tolerance & Not approaching** I will keep **Tolerance** as it means that one of the individuals took more than 30 seconds to come at the box and then at the end came. In these cases 
+I will create a variable called **Hesistant** to count the frequency of times where the monkey took more time to approach than in the usual trials. Once the variable is created based on all the occurence of tolerance and not approaching, I will replace all the occurences of not approaching and tolerance with tolerance: **Tolerance > No approaching**
+
+* If there is **Tolerance & Loosing interest** I will keep **Tolerance** as it means that the dyad did touch the boxes: **Tolerance > Loosing interest**
+
+* If there is **Tolerance & Intrusion** I will keep **Tolerance**. Before replacing these occurrences I will created a variable called **Intrusion** the value will be Yes if there was Intrusion in DyadResponse (alone or with another response) and No if there wasn't any Intrusion: **Tolerance > Intrusion**
+
+* If there is **Not approaching & Loosing interest** I will keep both as **Not approaching = looking box but not coming to it ** while **Loosing interest = not paying attention to the box and not coming to it**
+
+* If there is **Intrusion & Loosing interest** I will keep Intrusion: **Intrusion > Loosing interest**
+
+* If there is **Intrusion & Not approaching** I will keep Intrusion: **Intrusion > Not approaching**
+
+* I will delete all the occurences of **Looks at partner** as this data was not collected during the whole period of the experiment 
+
+* If there is **Not approaching & Distracted** I will keep **Not approaching**: **Not approaching > Distracted**
+
+* If there is **Aggression & Not Approaching** I will keep both Aggression > Not approaching
+* Other > Look case by case and categorize depending of behavior     
+* Remarks may be used for the same reason
+* Define distracted
 
   * First I want to see how many rows in DyadResponse have more than one entry per cell
   
