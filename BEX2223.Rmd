@@ -1706,6 +1706,7 @@ print(plot_proximity_freq)
 * I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
 * I want one table for the Different combinantions and one showing the differernt combinations for only ONE response per cell, in a second table
 
+
   
 ```{r DyadResponse count of rows with single/multiple entries, echo=FALSE}
 
@@ -1750,6 +1751,85 @@ cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipl
 BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
 
 ```
+
+```{r UniqueResponse Test1, echo=FALSE}
+
+# Ensure there are no semicolons in single response entries
+BexClean$DyadResponse <- gsub(";", "", BexClean$DyadResponse)
+
+# Summary of unique responses
+unique_responses_summary <- table(BexClean$DyadResponse)
+cat("Unique Responses and Counts:\n")
+for (entry in names(unique_responses_summary)) {
+  cat(sprintf("%-25s %d\n", entry, unique_responses_summary[[entry]]))
+}
+
+
+```
+
+```{r TwoResponse Test2, echo=FALSE}
+
+
+# Identify Rows with Exactly 2 Entries
+rows_with_two_entries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) == 2))
+
+# Display Rows with Exactly 2 Entries
+cat("Number of rows with exactly 2 entries in DyadResponse: ", length(rows_with_two_entries), "\n")
+
+# Extract and Count Unique Combinations for Exactly 2 Entries
+all_combinations_2 <- unlist(lapply(rows_with_two_entries, function(row) {
+  unique_chars <- unlist(strsplit(as.character(BexClean$DyadResponse[row]), ";"))
+  apply(combn(unique_chars, 2), 2, paste, collapse = " & ")
+}))
+
+# Count Occurrences of Unique Combinations for Exactly 2 Entries
+combination_counts_2 <- table(all_combinations_2)
+cat("Unique Combinations and Counts for Exactly 2 Entries:\n")
+for (entry in names(combination_counts_2)) {
+  cat(sprintf("%-25s %d\n", entry, combination_counts_2[[entry]]))
+}
+
+
+
+
+
+```
+
+```{r MoreThanTwoResponse, echo=FALSE}
+
+# Identify Rows with More than 2 Entries
+rows_with_more_than_two_entries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 2))
+
+# Display Rows with More than 2 Entries
+cat("Number of rows with more than 2 entries in DyadResponse: ", length(rows_with_more_than_two_entries), "\n")
+
+# Extract and Count Unique Combinations for More than 2 Entries
+if(length(rows_with_more_than_two_entries) > 0) {
+  all_combinations_more_than_2 <- unlist(lapply(rows_with_more_than_two_entries, function(row) {
+    unique_chars <- unlist(strsplit(as.character(BexClean$DyadResponse[row]), ";"))
+    paste(unique_chars, collapse = " & ")
+  }))
+  
+  # Count Occurrences of Unique Combinations for More than 2 Entries
+  combination_counts_more_than_2 <- table(all_combinations_more_than_2)
+  cat("Unique Combinations and Counts for More than 2 Entries:\n")
+  for (entry in names(combination_counts_more_than_2)) {
+    cat(sprintf("%-25s %d\n", entry, combination_counts_more_than_2[[entry]]))
+ 
+
+
+
+
+```
+
+
+
+
+
+
+
+
+
 
 ```{r DyadResponse unique combinations and frequencies, echo=FALSE}
 
@@ -1811,16 +1891,46 @@ ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
 
 ```
  
+ 
+ 
+ 
+* C. Identify Rows with more than 2 entry
+```{r DyadResponse > 2 entry, echo=FALSE}
+# Step 1: Identify Rows with More than 1 Entry
+beforesummaryrowswithmultipleentries_1 <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Print the amount of cells with more than 1 entry and the total number of rows
+cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
+
+```
+* D. 
+```{r ,echo=FALSE}
+
+
+# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
+combination_counts_1 <- table(all_combinations_1)
+
+# Display Unique Combinations and Counts for More than 1 Entry
+cat("Unique Combinations and Counts for More than 1 Entry:\n")
+for (entry in names(combination_counts_1)) {
+  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
+  
+after_summary4 <- nrow(BexClean)}
+
+# Display the change in occurrences
+cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - beforesummary, "\n")
+
+
+#DO THE SAME FOR TWO ENTRIES
+```
+ 
+ 
 
 ### 3.9.3 Dyad Response Hierarchy 
 
 # UPDATES FROM HERE  
 
-
-```{r test viw bex,echo=FALSE}
-
-View(Bex)
-```
+* I will print the amount of **Other** occurences in DyadResposne and treat them to remove some multiple combinations
 
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
 
@@ -1857,54 +1967,49 @@ I will create a variable called **Hesistant** to count the frequency of times wh
   
   
 
+# 3.9.4 Implementing changes in DyadResponse and Implementing Hierarchy
+# Helper function to remove specific combinations
+remove_combinations <- function(df, keep, remove) {
+  df <- df[!(grepl(remove, df$DyadResponse) & grepl(keep, df$DyadResponse)), ]
+  return(df)
+}
+
+# 1. Aggression > Tolerance
+BexClean <- remove_combinations(BexClean, "Female aggress male", "Tolerance")
+BexClean <- remove_combinations(BexClean, "Male aggress female", "Tolerance")
+
+# 2. Tolerance > Not approaching
+BexClean <- remove_combinations(BexClean, "Tolerance", "Not approaching")
+
+# 3. Tolerance > Losing interest
+BexClean <- remove_combinations(BexClean, "Tolerance", "Losing interest")
+
+# 4. Tolerance > Intrusion
+BexClean <- remove_combinations(BexClean, "Tolerance", "Intrusion")
+
+# 5. Intrusion > Losing interest
+BexClean <- remove_combinations(BexClean, "Intrusion", "Losing interest")
+
+# 6. Intrusion > Not approaching
+BexClean <- remove_combinations(BexClean, "Intrusion", "Not approaching")
+
+# 7. Not approaching > Looks at partner
+BexClean$DyadResponse <- gsub("Looks at partner", "Not approaching", BexClean$DyadResponse)
+
+# 8. Not approaching > Distracted
+BexClean <- remove_combinations(BexClean, "Not approaching", "Distracted")
+
+# 9. Other > Look case by case and categorize depending on behavior
+# This step requires manual inspection and categorization
+
+# Final clean-up and reporting
+knitr::kable(BexClean, col.names = colnames(BexClean), caption = "Cleaned DyadResponse Data")
 
 
-* Now that I know that they are 230 rows with multiple entries I will print each combinations to see which one I have to print and also display the combinations once the data is split. 
-* I will make an intermediary summary to see that state of DyadResponse at the moment
 
-* A. Summary od DyadResponse
 
-* B.Idnetify Rows with more than 1 entry
 
-*  Step 1: Identify Rows with More than 1 Entry
-beforesummaryrowswithmultipleentries_1 <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-Display the rows with more than 1 entry in DyadResponse
-knitr::kable(BexClean[beforesummaryrowswithmultipleentries_1, ])
-
-* Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
-
-* C. Identify Rows with more than 2 entry
-```{r DyadResponse > 2 entry, echo=FALSE}
-# Step 1: Identify Rows with More than 1 Entry
-beforesummaryrowswithmultipleentries_1 <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
-
-# Print the amount of cells with more than 1 entry and the total number of rows
-cat("Number of rows with more than 1 entry in DyadResponse: ", length(beforesummaryrowswithmultipleentries_1), "\n")
-
-```
-* D. 
-```{r ,echo=FALSE}
-# Step 3: Extract Unique Combinations for More than 1 Entry
-all_combinations_1 <- unlist(lapply(beforesummaryrowswithmultipleentries_1, function(row) {
-  unique_chars <- unlist(strsplit(as.character(BexClean$DyadResponse[row]), ";"))
-  combn(unique_chars, 2, FUN = function(x) paste(x, collapse = " & "))
-}))
-
-# Step 4: Count Occurrences of Unique Combinations for More than 1 Entry
-combination_counts_1 <- table(all_combinations_1)
-
-# Display Unique Combinations and Counts for More than 1 Entry
-cat("Unique Combinations and Counts for More than 1 Entry:\n")
-for (entry in names(combination_counts_1)) {
-  cat(sprintf("%-25s %d\n", entry, combination_counts_1[[entry]]))
-  
-after_summary4 <- nrow(BexClean)}
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Female aggress male > Not approaching): ", after_summary4 - beforesummary, "\n")
-```
 
 
  6. Male agress female > Not approaching : Remove Not approaching if there is Male aggress female (2x)
