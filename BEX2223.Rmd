@@ -33,8 +33,6 @@ knitr::opts_chunk$set(echo = TRUE)
     <img src="/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/BEX Visuals/Minimalist-vervet-box-logo.png" alt="Minimalist Vervet Box Logo" style="width: 50%; height: auto;"/>
 </center>
 
-
-
 # Introduction
 ```{r Cleaning of environement, echo=FALSE}
 # Clear the environment 
@@ -1736,19 +1734,51 @@ cat("Total number of rows in DyadResponse: ", total_rows, "\n")
 cat("Number of rows with a single entry in DyadResponse: ", num_single_responses, "\n")
 cat("Number of rows with multiple entries in DyadResponse: ", num_multiple_responses, "\n")
 
+```
 
 
-# Identify and display rows with multiple entries
-beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
-# Display the rows with multiple entries in DyadResponse
-View(BexClean[beforesummaryrowswithmultipleentries, ])
+```{r DyadResponse TwoResponse & ThreeResponse Frequency, echo=FALSE}
 
-# Print the number of rows with multiple entries and the total number of rowslength(beforesummaryrowswithmultipleentries), "\n")
-cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
+# Helper function to sort responses within each cell for consistency
+sort_responses <- function(response) {
+  sorted <- sapply(strsplit(response, ";"), function(x) paste(sort(trimws(x)), collapse = ";"))
+  return(sorted)
+}
 
-# Add new column for Multiple Responses
-BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
+# Apply the sorting function to the DyadResponse column
+BexClean$DyadResponse_sorted <- sort_responses(BexClean$DyadResponse)
+
+# Ensure data is ungrouped to focus only on unique combinations of responses
+BexClean <- BexClean %>% ungroup()
+
+# Identify rows with exactly two responses
+rows_with_two_entries <- BexClean %>%
+  filter(sapply(strsplit(DyadResponse_sorted, ";"), length) == 2)
+
+# Display number of rows with exactly two entries
+cat("Number of rows with exactly 2 entries in DyadResponse: ", nrow(rows_with_two_entries), "\n")
+
+
+# Helper function to sort responses within each cell for consistency
+sort_responses <- function(response) {
+  sorted <- sapply(strsplit(response, ";"), function(x) paste(sort(trimws(x)), collapse = ";"))
+  return(sorted)
+}
+
+# Apply the sorting function to the DyadResponse column
+BexClean$DyadResponse_sorted <- sort_responses(BexClean$DyadResponse)
+
+# Ensure data is ungrouped to focus only on unique combinations of responses
+BexClean <- BexClean %>% ungroup()
+
+# Identify rows with more than two responses
+rows_with_more_than_two_entries <- BexClean %>%
+  filter(sapply(strsplit(DyadResponse_sorted, ";"), length) > 2)
+
+# Display number of rows with more than two entries
+cat("Number of rows with more than 2 entries in DyadResponse: ", nrow(rows_with_more_than_two_entries), "\n")
+
 
 ```
 
@@ -1756,8 +1786,7 @@ BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Resp
 
 
 
-
-```{r DyadResponse unique combinations and frequencies, echo=FALSE}
+```{r DyadResponse unique and multiple combinations and frequencies and plots, echo=FALSE}
 
 # Helper function to sort responses within each cell for consistency
 sort_responses <- function(response) {
@@ -1818,18 +1847,92 @@ ggplot(multiple_responses, aes(x = reorder(DyadResponse_sorted, -n), y = n)) +
 ```
  
  
- 
+```{r plot and Frequency for DyadResponse, echo=FALSE}
+
+# Count unique combinations for more than two entries
+if (nrow(rows_with_more_than_two_entries) > 0) {
+  all_combinations_more_than_2 <- rows_with_more_than_two_entries %>%
+    mutate(Combination = sapply(strsplit(DyadResponse_sorted, ";"), function(x) paste(sort(x), collapse = " & "))) %>%
+    count(Combination) %>%
+    arrange(desc(n))
+  
+  # Display unique combinations and counts
+  cat("Unique Combinations and Counts for More than 2 Entries:\n")
+  for (entry in seq_along(all_combinations_more_than_2$Combination)) {
+    cat(sprintf("%-25s %d\n", all_combinations_more_than_2$Combination[entry], all_combinations_more_than_2$n[entry]))
+  }
+} else {
+  cat("No rows with more than 2 entries in DyadResponse.\n")
+}
+
+
+# Identify and display rows with multiple entries
+beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
+
+# Display the rows with multiple entries in DyadResponse
+View(BexClean[beforesummaryrowswithmultipleentries, ])
+
+# Print the number of rows with multiple entries and the total number of rowslength(beforesummaryrowswithmultipleentries), "\n")
+cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
+
+# Add new column for Multiple Responses
+BexClean$MultipleResponses <- ifelse(grepl(";", BexClean$DyadResponse), ">1 Response", "Single Response")
+
+```
+
  
 
 
+```{r Dyad Response Unique, echo=FALSE}
+
+
+# Ensure there are no semicolons in single response entries
+BexClean$DyadResponse <- gsub(";", "", BexClean$DyadResponse)
+
+# Summary of unique responses
+unique_responses_summary <- table(BexClean$DyadResponse)
+
+# Convert to data frame and sort by Response column
+df_unique_responses <- as.data.frame(unique_responses_summary, stringsAsFactors = FALSE)
+colnames(df_unique_responses) <- c("Response", "Frequency")
+df_unique_responses <- df_unique_responses[order(df_unique_responses$Response), ]
+
+# Print sorted unique responses and counts
+cat("Unique Responses and Counts (Sorted Alphabetically):\n")
+for (entry in seq_along(df_unique_responses$Response)) {
+  cat(sprintf("%-25s %d\n", df_unique_responses$Response[entry], df_unique_responses$Frequency[entry]))
+}
+
+# Plot the frequency of unique responses
+ggplot(df_unique_responses, aes(x = reorder(Response, -Frequency), y = Frequency)) +
+  geom_bar(stat = "identity", fill = "steelblue") +
+  geom_text(aes(label = Frequency), vjust = -0.3) +
+  theme_minimal() +
+  labs(
+    title = "Frequency of Unique Responses in DyadResponse",
+    x = "Behaviour produced during a trial",
+    y = "Frequency (Amount of trials)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
+```
  
+
+
+
  
 
 ### 3.9.3 Dyad Response Hierarchy 
 
-# UPDATES FROM HERE  
 
 * I will print the amount of **Other** occurences in DyadResposne and treat them to remove some multiple combinations
+
+
+
+
+* I will delete all the occurences of **Looks at partner** as this data was not collected during the whole period of the experiment 
 
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
 
@@ -1848,23 +1951,21 @@ I will create a variable called **Hesistant** to count the frequency of times wh
 
 * If there is **Intrusion & Not approaching** I will keep Intrusion: **Intrusion > Not approaching**
 
-* I will delete all the occurences of **Looks at partner** as this data was not collected during the whole period of the experiment 
-
 * If there is **Not approaching & Distracted** I will keep **Not approaching**: **Not approaching > Distracted**
 
 * If there is **Aggression & Not Approaching** I will keep both Aggression > Not approaching
-* Other > Look case by case and categorize depending of behavior     
-* Remarks may be used for the same reason
+
+* For all occurrences of **Male aggress male** and **Female aggress male** create a variable called **Aggression** and put **Yes** for every occurrences of Female and Male aggression and **No** when there wasn't
+
+
+
+
+
+
+  
+  
 * Define distracted
 
-  * First I want to see how many rows in DyadResponse have more than one entry per cell
-  
-    * And **if there are more than one value per cell**, report it in a new column called "MultipleResponses"
-
-
-  
-  
-  
 
 # 3.9.4 Implementing changes in DyadResponse and Implementing Hierarchy
 # Helper function to remove specific combinations
