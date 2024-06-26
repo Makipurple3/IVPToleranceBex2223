@@ -1930,6 +1930,28 @@ ggplot(df_unique_responses, aes(x = reorder(Response, -Frequency), y = Frequency
 * I will print the amount of **Other** occurences in DyadResposne and treat them to remove some multiple combinations
 
 
+```{r DyadResponse Others, echo=FALSE}
+
+# Identify and count occurrences of "Other" in DyadResponse
+other_occurrences <- grep("Other", BexClean$DyadResponse)
+
+# Print the number of "Other" occurrences
+cat("Number of 'Other' occurrences in DyadResponse: ", length(other_occurrences), "\n")
+
+
+# Create a data frame with the relevant information
+other_occurrences_df <- data.frame(
+  Line = other_occurrences,
+  MaleID = BexClean$MaleID[other_occurrences],
+  FemaleID = BexClean$FemaleID[other_occurrences],
+  OtherResponse = BexClean$OtherResponse[other_occurrences]
+)
+
+# Display the data frame using kable
+kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
+      caption = "Rows with 'Other' in DyadResponse")
+
+```
 
 
 * I will delete all the occurences of **Looks at partner** as this data was not collected during the whole period of the experiment 
