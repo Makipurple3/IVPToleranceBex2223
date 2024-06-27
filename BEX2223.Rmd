@@ -27,6 +27,8 @@ header-includes:
 ```{r setup, include=FALSE}
 # Set global knitr options
 knitr::opts_chunk$set(echo = TRUE)
+
+
 ```
 
 <center>
@@ -284,7 +286,6 @@ Bex<-Boxex%>%
   select(Time,Date,Group, MaleID, FemaleID, MaleCorn,`Male placement corn`, FemaleCorn, DyadDistance, DyadResponse, OtherResponse, Audience, IDIndividual1, IntruderID, Remarks )
 glimpse(Bex)
 
-View(Bex)
 ```
 
 ### 2.1.1 Merging Male placement corn and MaleCorn
@@ -940,7 +941,6 @@ cat("Rows with missing values in DyadResponse: ", toString(na_dyadresponse_rows)
 cat("Lines with missing values in DyadResponse:\n")
 print(Bex[na_dyadresponse_rows, ])
 
-View(Bex) 
 ```
 
 
@@ -1687,21 +1687,21 @@ print(plot_proximity_freq)
 ### 3.9 Dyad Response - Corrections and detailed cleaning
 
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
-    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into        dichotomic variables in order to see the frequency of each behaviour
-    * This will allow me to see which behavior occurred more than others, and what differences are            between dyads 
-    * As multiple behaviours could occur within the same trial, multiple responses (data entries) can be       found in a single cell. I will create a  hierarchy to reduce the amount of behaviors assigned to        each trial (if  there is more than one).
-      1. correct any potential discrepancies (ex. if tolerance and aggression occured within the same         trial aggression>tolerance)
-      2. assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to       choose which response to keep
-      3. get a better view and understanding of the data and the most common behaviours produced by each       dyad producing plots and tables
-      4. if necessary create new variables that can complement redistribute the information initally          found in the column
+    * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to         see the frequency of each behaviour
+    * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
+    * As multiple behaviours could occur within the same trial, multiple responses (data entries) can be found in a single cell. I will          create a  hierarchy to reduce the amount of behaviors assigned to each trial (if  there is more than one).
+      1. correct any potential discrepancies (ex. if tolerance and aggression occured within the same trial aggression>tolerance)
+      2. assign as few labels per trial, ideally one using a hierarchy among the occuring behaviours to choose which response to keep
+      3. get a better view and understanding of the data and the most common behaviours produced by each dyad producing plots and tables
+      4. if necessary create new variables that can complement redistribute the information initally found in the column
       
 * I will create some tables to have a better understanding of the state of the column dyadresponse and the different existing combinations at this point
 
 * Also I will create the hierarchy before implementing in the dataset
     
-### 3.9.2 Dyad Response description
+##### 3.9.2 Dyad Response description
   
-* I need to know how many different combinations exist within DyadResponse and how many occurnces/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
+* I need to know how many different combinations exist within DyadResponse and how many occurrences/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
 * I want one table for the Different combinations and one showing the differernt combinations for only ONE response per cell, in a second table
 
 
@@ -1870,7 +1870,7 @@ if (nrow(rows_with_more_than_two_entries) > 0) {
 beforesummaryrowswithmultipleentries <- which(sapply(BexClean$DyadResponse, function(x) length(unlist(strsplit(as.character(x), ";"))) > 1))
 
 # Display the rows with multiple entries in DyadResponse
-View(BexClean[beforesummaryrowswithmultipleentries, ])
+(BexClean[beforesummaryrowswithmultipleentries, ])
 
 # Print the number of rows with multiple entries and the total number of rowslength(beforesummaryrowswithmultipleentries), "\n")
 cat("Rows with multiple entries in DyadResponse: ", beforesummaryrowswithmultipleentries, "\n")
@@ -1922,22 +1922,24 @@ ggplot(df_unique_responses, aes(x = reorder(Response, -Frequency), y = Frequency
 
 
 
- 
+# UPDATES FROM HERE 
 
-### 3.9.3 Dyad Response Hierarchy 
+#### 3.9.3 Dyad Response Hierarchy 
 
 
-* I will print the amount of **Other** occurences in DyadResposne and treat them to remove some multiple combinations
+* I will print the amount of **Other** occurrencess in DyadResposne and treat them to remove some multiple combinations
 
 
 ```{r DyadResponse Others, echo=FALSE}
+
+# Ensure data consistency
+BexClean <- BexClean %>% mutate(across(everything(), as.character))
 
 # Identify and count occurrences of "Other" in DyadResponse
 other_occurrences <- grep("Other", BexClean$DyadResponse)
 
 # Print the number of "Other" occurrences
 cat("Number of 'Other' occurrences in DyadResponse: ", length(other_occurrences), "\n")
-
 
 # Create a data frame with the relevant information
 other_occurrences_df <- data.frame(
@@ -1951,8 +1953,63 @@ other_occurrences_df <- data.frame(
 kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
       caption = "Rows with 'Other' in DyadResponse")
 
+
 ```
 
+
+
+
+INFORMATION TO DELETE :COLUMNS :Context, Special Behaviour, Got Corn
+
+```{r Test View Bex, echo=FALSE}
+
+(BexClean)
+
+```
+
+
+
+* There are 18 cases where was **Other** as a Response in the experiment. Here are the modifications I will make for them:
+  - Row 39: Since there were No Response as "Other" I will **Delete Row 39**
+  - Row 286: In **DyadResponse** instread of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in     **GotCorn** I will put **No;Oort** 
+  - Row 300: In **DyadResponse** I will put **Tolerance** as both individual        were at their box at the same time
+  - Row 304: In **DyadResponse** I will remove **Other** as ther was already        Tolerance. Also I will put **Oort;Ap;After30** in **SpecialBehaviour**
+  - Row 700: Since ther were No Response as "Other" I will **Delete Row 700**
+  - Row 815: Since ther were No Response as "Other" I will **Delete Row 815**
+  - Row 826: Since ther were No Response as "Other" I will **Delete Row 826**
+  
+  
+  I HAVE TO LOOK AT THE OTHER COLUMNS I CREATED MANUALLY FOR CONTEXT OR SPECIAL BEHAVIOUR.
+  
+  - 1484	Sey	Sirk	wait for her. moved back and waited for sirk to approach and came back
+  - 1659	Sho	Ginq	No Response
+  - 1741	Sho	Ginq	Sho took one of her corn
+  - 2101	Xia	Piep	aggression
+  - 2102	Xia	Piep	Xia ate corn from both boxes
+  - 2103	Xia	Piep	Xia stolen some pieces from piep box
+  - 2104	Xia	Piep	Xia immediately go for piep box and eat her corn then eat his.
+  - 2105	Xia	Piep	piep got 2 pieces out of 3. Xia took one corn
+  - 2170	Piep	Xia	fem ag male
+  - 
+  - Row 2170: In **Row 2170** I will replace **DyadResponse** by **Female aggress male**
+  - Row 2184: As both individual did not approach and **Not approaching** is already in DyadResponse, I     will just remove **Other** from **DyadResponse**Xia	Piep	Neither ID approach
+  - Row 2729:	As there was a mistake in **Row 2729** I will delete this line: **Delet Row 2729**
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
 * I will delete all the occurences of **Looks at partner** as this data was not collected during the whole period of the experiment 
 
