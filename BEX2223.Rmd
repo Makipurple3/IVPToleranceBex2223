@@ -1970,30 +1970,25 @@ INFORMATION TO DELETE :COLUMNS :Context, Special Behaviour, Got Corn
 
 
 * There are 18 cases where was **Other** as a Response in the experiment. Here are the modifications I will make for them:
-  - Row 39: Since there were No Response as "Other" I will **Delete Row 39**
-  - Row 286: In **DyadResponse** instread of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in     **GotCorn** I will put **No;Oort** 
-  - Row 300: In **DyadResponse** I will put **Tolerance** as both individual        were at their box at the same time
-  - Row 304: In **DyadResponse** I will remove **Other** as ther was already        Tolerance. Also I will put **Oort;Ap;After30** in **SpecialBehaviour**
-  - Row 700: Since ther were No Response as "Other" I will **Delete Row 700**
-  - Row 815: Since ther were No Response as "Other" I will **Delete Row 815**
-  - Row 826: Since ther were No Response as "Other" I will **Delete Row 826**
-  
-  
-  I HAVE TO LOOK AT THE OTHER COLUMNS I CREATED MANUALLY FOR CONTEXT OR SPECIAL BEHAVIOUR.
-  
-  - 1484	Sey	Sirk	wait for her. moved back and waited for sirk to approach and came back
-  - 1659	Sho	Ginq	No Response
-  - 1741	Sho	Ginq	Sho took one of her corn
-  - 2101	Xia	Piep	aggression
-  - 2102	Xia	Piep	Xia ate corn from both boxes
-  - 2103	Xia	Piep	Xia stolen some pieces from piep box
-  - 2104	Xia	Piep	Xia immediately go for piep box and eat her corn then eat his.
-  - 2105	Xia	Piep	piep got 2 pieces out of 3. Xia took one corn
-  - 2170	Piep	Xia	fem ag male
-  - 
-  - Row 2170: In **Row 2170** I will replace **DyadResponse** by **Female aggress male**
-  - Row 2184: As both individual did not approach and **Not approaching** is already in DyadResponse, I     will just remove **Other** from **DyadResponse**Xia	Piep	Neither ID approach
-  - Row 2729:	As there was a mistake in **Row 2729** I will delete this line: **Delet Row 2729**
+
+  - Row 39: Since there were No Response as "Other" I will **Delete Row     39**
+  - Row 286: In **DyadResponse** instread of **Other** I will put           **Tolerance** and in **SpecialBehaviour** I will put                    **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in     **GotCorn** I will put         **No;Oort** 
+  - Row 300: In **DyadResponse** I will put **Tolerance** as both           individual were at their box at the same time
+  - Row 304: In **DyadResponse** I will remove **Other** as ther was        already Tolerance. Also I will put **Oort;Ap;After30** in               **SpecialBehaviour**
+  - Row 700: Since ther were No Response as "Other" I will **Delete Row     700**
+  - Row 815: Since ther were No Response as "Other" I will **Delete Row     815**
+  - Row 826: Since ther were No Response as "Other" I will **Delete Row     826**
+  - Row 1484: In **Row 1484** I will replace the **DyadResponse** by        **Tolerance** and put **Sirk;ApproachWithPartner**
+  - Row 1659: Since there were No Response as "Other" I will **Delete       Row 1659**
+  - Row 1741: In **Row 1174** Sho stole corn to Ginq. I will remove         **Other** from **DyadResponse** as there is already **Tolerance**.I     will also put **Sho;Sf;Ginq** in **SpecialBehaviour** and               **No;Ginq** in **GotCorn**
+  - Row 2101: The information in **Row 2101** stating **aggression from     Pix** is not clear to whom. I will **delete Row 2101**
+  - Row 2102: In **Row 2102** Xia stole corn to Piep. I will put            **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in                   **SpecialBehvaiour** and **No;Piep** in **GotCorn**
+  - Row 2103: In **Row 2103** Xia stole corn to Piep. I will put            **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in                   **SpecialBehvaiour** and **No;Piep** in **GotCorn**
+  - Row 2104: In **Row 2104** Xia stole corn to Piep. I will put            **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in                   **SpecialBehvaiour** and **No;Piep** in **GotCorn**
+  - Row 2105: In **Row 2105** Xia stole corn to Piep. I will put            **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in                   **SpecialBehvaiour** and **No;Piep** in **GotCorn**
+  - Row 2170: In **Row 2170** I will replace **DyadResponse** by             **Female aggress male**
+  - Row 2184: As both individual did not approach and **Not                 approaching** is already in DyadResponse, I     will just remove        **Other** from **DyadResponse**Xia	Piep	Neither ID approach
+  - Row 2729:	As there was a mistake in **Row 2729** I will delete this     line: **Delet Row 2729**
   
   
   
