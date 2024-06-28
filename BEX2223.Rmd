@@ -1982,7 +1982,8 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
 
 
 * There are 18 cases where was **Other** as a Response in the experiment. Here are the modifications I will make for them:
-
+  
+  -First lets remember that all of these **DyadResponse** contain **Other** which will make their identification easier
   - Row 39: Since there were No Response as "Other" I will **Delete Row 39** (Buk	Ndaw	No Response)
   - Row 286: In **DyadResponse** instread of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in **GotCorn** I will       put **No;Oort** (Kom	Oort	Ooet scream while at the box and Kom get the corm of both)
   - Row 300: In **DyadResponse** I will put **Tolerance** as both individual were at their box at the same time (300	Kom	Oort	Both at boxes; Kom touching the box of Oort)
@@ -2005,99 +2006,67 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   
 # UPDATES FROM HERE
 
-```{r DyadResponse Others Treatment, echo=FALSE}
+```{r DyadResponse Others Treatment Other&NoResponse -, echo=FALSE}
 
-# Normalize data for consistency
-BexClean <- BexClean %>%
-  mutate(across(everything(), ~ tolower(trimws(as.character(.)))))
+# Load required libraries
+library(dplyr)
 
-# Define the changes to be applied
-changes <- list(
-  list(male_id = "buk", female_id = "ndaw", other_response = "no response", action = "delete"),
-  list(male_id = "kom", female_id = "oort", other_response = "ooet scream while at the box and kom get the corm of both", dyad_response = "tolerance", special_behaviour = "kom;ap;sf;oort,oort;rt;sc", got_corn = "no;oort"),
-  list(male_id = "kom", female_id = "oort", other_response = "both at boxes; kom touching the box of oort", dyad_response = "tolerance"),
-  list(male_id = "kom", female_id = "oort", other_response = "kom touching oort’s box. oort came after 30 sec to her own box.", dyad_response = "tolerance", special_behaviour = "oort;ap;after30"),
-  list(male_id = "nge", female_id = "oerw", other_response = "no response", action = "delete"),
-  list(male_id = "pom", female_id = "xian", other_response = "no response", action = "delete"),
-  list(male_id = "pom", female_id = "xian", other_response = "no response", action = "delete"),
-  list(male_id = "sey", female_id = "sirk", other_response = "wait for her. moved back and waited for sirk to approach and came back", dyad_response = "tolerance", special_behaviour = "sirk;approachwithpartner"),
-  list(male_id = "sho", female_id = "ginq", other_response = "no response", action = "delete"),
-  list(male_id = "sho", female_id = "ginq", other_response = "sho took one of her corn", dyad_response = "tolerance", special_behaviour = "sho;sf;ginq", got_corn = "no;ginq"),
-  list(male_id = "xia", female_id = "piep", other_response = "aggression", action = "delete"),
-  list(male_id = "xia", female_id = "piep", other_response = "xia ate corn from both boxes", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
-  list(male_id = "xia", female_id = "piep", other_response = "xia stolen some pieces from piep box", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
-  list(male_id = "xia", female_id = "piep", other_response = "xia immediately go for piep box and eat her corn then eat his.", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
-  list(male_id = "xia", female_id = "piep", other_response = "piep got 2 pieces out of 3. xia took one corn", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
-  list(male_id = "piep", female_id = "xia", other_response = "fem ag male", dyad_response = "female aggress male"),
-  list(male_id = "xia", female_id = "piep", other_response = "neither id approach", dyad_response = "not approaching"),
-  list(male_id = "xin", female_id = "ouli", other_response = "opened for oerw", action = "delete")
-)
-
-# Function to apply changes
-apply_changes <- function(df, changes) {
-  changes_made <- 0
-  for (change in changes) {
-    male_id <- change$male_id
-    female_id <- change$female_id
-    other_response <- change$other_response
-    
-    row_index <- which(df$MaleID == male_id & df$FemaleID == female_id & df$OtherResponse == other_response)
-    if (length(row_index) == 1) {
-      if (!is.null(change$action) && change$action == "delete") {
-        df <- df[-row_index, ]
-        changes_made <- changes_made + 1
-      } else {
-        if (!is.null(change$dyad_response)) {
-          df$DyadResponse[row_index] <- change$dyad_response
-        }
-        if (!is.null(change$special_behaviour)) {
-          df$SpecialBehaviour[row_index] <- change$special_behaviour
-        }
-        if (!is.null(change$got_corn)) {
-          df$GotCorn[row_index] <- change$got_corn
-        }
-        changes_made <- changes_made + 1
-      }
-    } else {
-      warning(paste("No unique row matched for MaleID:", male_id, "FemaleID:", female_id, "OtherResponse:", other_response))
-    }
-  }
-  return(list(df, changes_made))
-}
-
-# Apply the changes
-result <- apply_changes(BexClean, changes)
-BexClean <- result[[1]]
-changes_made <- result[[2]]
-
-# Print the number of rows changed
-cat("Number of rows that have been changed: ", changes_made, "\n")
-
-# Remove any remaining "Other" in DyadResponse
-BexClean <- BexClean %>%
-  filter(!grepl("other", DyadResponse))
-
-# Display the updated rows with "Other" in DyadResponse (should be empty if all are removed)
-updated_other_occurrences <- grep("other", BexClean$DyadResponse)
-if (length(updated_other_occurrences) > 0) {
-  updated_other_occurrences_df <- data.frame(
-    Line = updated_other_occurrences,
-    MaleID = BexClean$MaleID[updated_other_occurrences],
-    FemaleID = BexClean$FemaleID[updated_other_occurrences],
-    OtherResponse = BexClean$OtherResponse[updated_other_occurrences]
-  )
+# Function to find, count, and remove specific combinations in the dataframe
+find_and_remove_other_no_response <- function(df) {
+  # Filter rows where DyadResponse is 'Other' and OtherResponse is 'No Response'
+  filtered_rows <- df %>%
+    filter(tolower(DyadResponse) == "other" & tolower(OtherResponse) == "no response")
   
-  kable(updated_other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
-        caption = "Updated Rows with 'Other' in DyadResponse")
-} else {
-  cat("No remaining rows with 'Other' in DyadResponse.\n")
+  # Get the row numbers of these filtered rows
+  row_numbers <- which(tolower(df$DyadResponse) == "other" & tolower(df$OtherResponse) == "no response")
+  
+  # Count the number of such combinations
+  count_combinations <- length(row_numbers)
+  
+  # Remove these rows from the dataframe
+  df_updated <- df %>%
+    filter(!(tolower(DyadResponse) == "other" & tolower(OtherResponse) == "no response"))
+  
+  # Count the number of rows changed
+  rows_changed <- nrow(df) - nrow(df_updated)
+  
+  # Return updated dataframe, row numbers, count of combinations, and number of rows changed
+  return(list(df_updated, row_numbers, count_combinations, rows_changed))
 }
+
+# Assuming BexClean is your dataframe
+result <- find_and_remove_other_no_response(BexClean)
+
+# Extract the updated dataframe, row numbers, count of combinations, and rows changed
+BexClean_updated <- result[[1]]
+row_numbers <- result[[2]]
+count_combinations <- result[[3]]
+rows_changed <- result[[4]]
+
+# Display the results
+cat("Number of combinations with 'Other' in DyadResponse and 'No Response' in OtherResponse: ", count_combinations, "\n")
+cat("Row numbers: ", paste(row_numbers, collapse = ", "), "\n")
+cat("Number of rows that have been changed: ", rows_changed, "\n")
+
+# You can now use BexClean_updated for further analysis
+
+```
+
+```{r DyadResponse Others Treatment2 - Deletion, echo=FALSE}
+
+
+
 
 
 ```
 
+```{r DyadResponse Others Treatment3 - Check, echo=FALSE}
 
 
+
+
+
+```
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
 
