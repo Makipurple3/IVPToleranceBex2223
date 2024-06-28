@@ -1987,13 +1987,13 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   - Row 39: Since there were No Response as "Other" I will **Delete Row 39** (Buk	Ndaw	No Response)
   - Row 286: In **DyadResponse** instead of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in **GotCorn** I will       put **No;Oort** (Kom	Oort	Ooet scream while at the box and Kom get the corm of both)
   - Row 300: In **DyadResponse** I will put **Tolerance** as both individual were at their box at the same time (300	Kom	Oort	Both at boxes; Kom touching the box of Oort)
-  - Row 304: In **DyadResponse** I will remove **Other** as ther was already Tolerance. Also I will put **Oort;Ap;After30** in **SpecialBehaviour** (Kom	Oort	Kom touching         Oort’s box. Oort came after 30 sec to her own box.)
+  - Row 304: In **DyadResponse** I will put **Oort;Ap;After30** in **SpecialBehaviour** (Kom	Oort	Kom touching         Oort’s box. Oort came after 30 sec to her own box.)
   - Row 700: Since ther were No Response as "Other" I will **Delete Row 700** (	Nge	Oerw	No Response)
   - Row 815: Since ther were No Response as "Other" I will **Delete Row 815** (Pom	Xian	No Response)
   - Row 826: Since ther were No Response as "Other" I will **Delete Row 826** (Pom	Xian	No Response)
   - Row 1484: In **Row 1484** I will replace the **DyadResponse** by **Tolerance** and put **Sirk;ApproachWithPartner** (Sey	Sirk	wait for her. moved back and waited for sirk     to approach and came back)
   - Row 1659: Since there were No Response as "Other" I will **Delete Row 1659** (1659	Sho	Ginq	No Response)
-  - Row 1741: In **Row 1174** Sho stole corn to Ginq. I will remove **Other** from **DyadResponse** as there is already **Tolerance**.I will also put **Sho;Sf;Ginq** in             **SpecialBehaviour** and **No;Ginq** in **GotCorn** (Sho	Ginq	Sho took one of her corn)
+  - Row 1741: In **Row 1174** Sho stole corn to Ginq. I will put **Sho;Sf;Ginq** in             **SpecialBehaviour** and **No;Ginq** in **GotCorn** (Sho	Ginq	Sho took one of her corn)
   - Row 2101: The information in **Row 2101** stating **aggression from Pix** is not clear to whom. I will **delete Row 2101** (Xia	Piep	aggression)
   - Row 2102: In **Row 2102** Xia stole corn to Piep. I will put **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in **SpecialBehvaiour** and **No;Piep** in **GotCorn** (Xia	     Piep	Xia ate corn from both boxes)
   - Row 2103: In **Row 2103** Xia stole corn to Piep. I will put **Tolerance** in **DyadResponse**, **Xia;Sf;Piep** in **SpecialBehvaiour** and **No;Piep** in **GotCorn** (Xia	     Piep	Xia stolen some pieces from piep box)
@@ -2054,69 +2054,67 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 
 ```
-
-
 # UPDATES FROM HERE
 
 * Then I will treat the remaining 13 lines according to the rules I explained
 
 ```{r DyadResponse Others Treatment - Rows to Change, echo=FALSE}
 
-
-# Function to update specific rows in the dataframe for rows 286 and 300
-update_specific_rows_286_300 <- function(df) {
+# Function to update specific rows in the dataframe for rows 286, 300, and 304
+update_rows_286_300_304 <- function(df) {
   # Define the criteria to find specific rows
-  criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & tolower(df$DyadResponse) == "other" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
-  criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & tolower(df$DyadResponse) == "other" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
+  criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
+  criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
+  criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & grepl("Kom touching Oort's box", df$OtherResponse))
 
   # Update the specific rows
   df_updated <- df %>%
     mutate(
-      DyadResponse = ifelse(criteria_286, "Tolerance", 
-                     ifelse(criteria_300, "Tolerance", DyadResponse)),
-      SpecialBehaviour = ifelse(criteria_286, "Kom;Ap;Sf;Oort,Oort;Rt;Sc", 
-                        SpecialBehaviour),
+      DyadResponse = ifelse(criteria_286 | criteria_300, "Tolerance", DyadResponse),
+      SpecialBehaviour = case_when(
+        criteria_286 ~ "Kom;Ap;Sf;Oort,Oort;Rt;Sc",
+        criteria_304 ~ "Oort;Ap;After30",
+        TRUE ~ SpecialBehaviour
+      ),
       GotCorn = ifelse(criteria_286, "No;Oort", GotCorn)
     )
 
   # Count the number of rows changed
   rows_changed_286 <- sum(criteria_286)
   rows_changed_300 <- sum(criteria_300)
-  total_rows_changed <- rows_changed_286 + rows_changed_300
+  rows_changed_304 <- sum(criteria_304)
+  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304
 
-  # Count the remaining occurrences of 'Other' in DyadResponse
-  remaining_other_count <- sum(grepl("Other", df_updated$DyadResponse))
-  
-  # Return the updated dataframe, number of rows changed, and remaining 'Other' occurrences
-  return(list(df_updated, total_rows_changed, remaining_other_count))
+  # Return the updated dataframe and number of rows changed
+  return(list(df_updated, total_rows_changed))
 }
 
-# Process the remaining rows after the initial removal
-result <- update_specific_rows_286_300(BexClean_updated)
+# Process the dataframe to update rows 286, 300, and 304
+result_286_300_304 <- update_rows_286_300_304(BexClean)
 
-# Extract the updated dataframe, rows changed, and remaining 'Other' occurrences
-BexClean_final <- result[[1]]
-rows_changed <- result[[2]]
-remaining_other_count <- result[[3]]
+# Extract the updated dataframe and rows changed
+BexClean_286_300_304 <- result_286_300_304[[1]]
+rows_changed_286_300_304 <- result_286_300_304[[2]]
 
 # Display the number of rows changed
-cat("Number of rows that have been changed: ", rows_changed, "\n")
+cat("Number of rows changed for 286, 300, and 304: ", rows_changed_286_300_304, "\n")
 
-# Display the number of occurrences of 'Other' in DyadResponse left
-cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_count, "\n")
+# View the updated rows to ensure correctness
+updated_rows_286_300_304 <- BexClean_286_300_304 %>%
+  filter(MaleID == "Kom" & FemaleID == "Oort" & DyadResponse == "Tolerance")
+print(updated_rows_286_300_304)
 
-# You can now use BexClean_final for further analysis
 
 
 ```
 
 
 
+```{r chunk for problmeatic rows in DyadResponse Other, echo=FALSE}
 
 
 
-
-
+```
 
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
