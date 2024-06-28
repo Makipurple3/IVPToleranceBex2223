@@ -2001,96 +2001,97 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   - Row 2170: In **Row 2170** I will replace **DyadResponse** by **Female aggress male** (Piep	Xia	fem ag male)
   - Row 2184: As both individual did not approach and **Not approaching** is already in DyadResponse, I will just remove **Other** from **DyadResponse**Xia	Piep	Neither ID         approach (Xia	Piep	Neither ID approach)
   - Row 2729:	As there was a mistake in **Row 2729** I will delete this line: **Delete Row 2729** (Xin	Ouli	opened for oerw)
+  - Finally I will delete all the occurences of **Other** in DyadResponse
   
+# UPDATES FROM HERE
 
 ```{r DyadResponse Others Treatment, echo=FALSE}
-library(dplyr)
-library(knitr)
 
-# Ensure data consistency
-BexClean <- BexClean %>% mutate(across(everything(), as.character))
+# Normalize data for consistency
+BexClean <- BexClean %>%
+  mutate(across(everything(), ~ tolower(trimws(as.character(.)))))
 
-# Identify and count occurrences of "Other" in DyadResponse
-other_occurrences <- grep("Other", BexClean$DyadResponse)
-
-# Print the number of "Other" occurrences
-cat("Number of 'Other' occurrences in DyadResponse: ", length(other_occurrences), "\n")
-
-# Create a data frame with the relevant information
-other_occurrences_df <- data.frame(
-  Line = other_occurrences,
-  MaleID = BexClean$MaleID[other_occurrences],
-  FemaleID = BexClean$FemaleID[other_occurrences],
-  OtherResponse = BexClean$OtherResponse[other_occurrences]
+# Define the changes to be applied
+changes <- list(
+  list(male_id = "buk", female_id = "ndaw", other_response = "no response", action = "delete"),
+  list(male_id = "kom", female_id = "oort", other_response = "ooet scream while at the box and kom get the corm of both", dyad_response = "tolerance", special_behaviour = "kom;ap;sf;oort,oort;rt;sc", got_corn = "no;oort"),
+  list(male_id = "kom", female_id = "oort", other_response = "both at boxes; kom touching the box of oort", dyad_response = "tolerance"),
+  list(male_id = "kom", female_id = "oort", other_response = "kom touching oort’s box. oort came after 30 sec to her own box.", dyad_response = "tolerance", special_behaviour = "oort;ap;after30"),
+  list(male_id = "nge", female_id = "oerw", other_response = "no response", action = "delete"),
+  list(male_id = "pom", female_id = "xian", other_response = "no response", action = "delete"),
+  list(male_id = "pom", female_id = "xian", other_response = "no response", action = "delete"),
+  list(male_id = "sey", female_id = "sirk", other_response = "wait for her. moved back and waited for sirk to approach and came back", dyad_response = "tolerance", special_behaviour = "sirk;approachwithpartner"),
+  list(male_id = "sho", female_id = "ginq", other_response = "no response", action = "delete"),
+  list(male_id = "sho", female_id = "ginq", other_response = "sho took one of her corn", dyad_response = "tolerance", special_behaviour = "sho;sf;ginq", got_corn = "no;ginq"),
+  list(male_id = "xia", female_id = "piep", other_response = "aggression", action = "delete"),
+  list(male_id = "xia", female_id = "piep", other_response = "xia ate corn from both boxes", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
+  list(male_id = "xia", female_id = "piep", other_response = "xia stolen some pieces from piep box", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
+  list(male_id = "xia", female_id = "piep", other_response = "xia immediately go for piep box and eat her corn then eat his.", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
+  list(male_id = "xia", female_id = "piep", other_response = "piep got 2 pieces out of 3. xia took one corn", dyad_response = "tolerance", special_behaviour = "xia;sf;piep", got_corn = "no;piep"),
+  list(male_id = "piep", female_id = "xia", other_response = "fem ag male", dyad_response = "female aggress male"),
+  list(male_id = "xia", female_id = "piep", other_response = "neither id approach", dyad_response = "not approaching"),
+  list(male_id = "xin", female_id = "ouli", other_response = "opened for oerw", action = "delete")
 )
 
-# Display the data frame using kable
-kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
-      caption = "Rows with 'Other' in DyadResponse")
-
-# Create a backup of the original dataset
-BexClean_backup <- BexClean
-
-# Function to safely update rows based on specific criteria
-update_row <- function(df, male_id, female_id, other_response, dyad_response, special_behaviour, got_corn) {
-  row_index <- which(df$MaleID == male_id & df$FemaleID == female_id & df$OtherResponse == other_response)
-  if (length(row_index) == 1) {
-    if (!is.null(dyad_response)) {
-      df$DyadResponse[row_index] <- dyad_response
+# Function to apply changes
+apply_changes <- function(df, changes) {
+  changes_made <- 0
+  for (change in changes) {
+    male_id <- change$male_id
+    female_id <- change$female_id
+    other_response <- change$other_response
+    
+    row_index <- which(df$MaleID == male_id & df$FemaleID == female_id & df$OtherResponse == other_response)
+    if (length(row_index) == 1) {
+      if (!is.null(change$action) && change$action == "delete") {
+        df <- df[-row_index, ]
+        changes_made <- changes_made + 1
+      } else {
+        if (!is.null(change$dyad_response)) {
+          df$DyadResponse[row_index] <- change$dyad_response
+        }
+        if (!is.null(change$special_behaviour)) {
+          df$SpecialBehaviour[row_index] <- change$special_behaviour
+        }
+        if (!is.null(change$got_corn)) {
+          df$GotCorn[row_index] <- change$got_corn
+        }
+        changes_made <- changes_made + 1
+      }
+    } else {
+      warning(paste("No unique row matched for MaleID:", male_id, "FemaleID:", female_id, "OtherResponse:", other_response))
     }
-    if (!is.null(special_behaviour)) {
-      df$SpecialBehaviour[row_index] <- special_behaviour
-    }
-    if (!is.null(got_corn)) {
-      df$GotCorn[row_index] <- got_corn
-    }
-  } else if (length(row_index) == 0) {
-    cat("Warning: No rows matched for MaleID:", male_id, ", FemaleID:", female_id, ", OtherResponse:", other_response, "\n")
-  } else {
-    cat("Warning: Multiple rows matched for MaleID:", male_id, ", FemaleID:", female_id, ", OtherResponse:", other_response, "\n")
   }
-  return(df)
+  return(list(df, changes_made))
 }
 
-# Apply modifications based on your specifications
-BexClean <- update_row(BexClean, "Buk", "Ndaw", "No Response", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Kom", "Oort", "Ooet scream while at the box and Kom get the corm of both", "Tolerance", "Kom;Ap;Sf;Oort,Oort;Rt;Sc", "No;Oort")
-BexClean <- update_row(BexClean, "Kom", "Oort", "Both at boxes; Kom touching the box of Oort", "Tolerance", NULL, NULL)
-BexClean <- update_row(BexClean, "Kom", "Oort", "Kom touching Oort’s box. Oort came after 30 sec to her own box.", "Tolerance", "Oort;Ap;After30", NULL)
-BexClean <- update_row(BexClean, "Nge", "Oerw", "No Response", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Pom", "Xian", "No Response", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Pom", "Xian", "No Response", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Sey", "Sirk", "wait for her. moved back and waited for sirk to approach and came back", "Tolerance", "Sirk;ApproachWithPartner", NULL)
-BexClean <- update_row(BexClean, "Sho", "Ginq", "No Response", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Sho", "Ginq", "Sho took one of her corn", NULL, "Sho;Sf;Ginq", "No;Ginq")
-BexClean <- update_row(BexClean, "Xia", "Piep", "aggression", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Xia", "Piep", "Xia ate corn from both boxes", "Tolerance", "Xia;Sf;Piep", "No;Piep")
-BexClean <- update_row(BexClean, "Xia", "Piep", "Xia stolen some pieces from piep box", "Tolerance", "Xia;Sf;Piep", "No;Piep")
-BexClean <- update_row(BexClean, "Xia", "Piep", "Xia immediately go for piep box and eat her corn then eat his.", "Tolerance", "Xia;Sf;Piep", "No;Piep")
-BexClean <- update_row(BexClean, "Xia", "Piep", "piep got 2 pieces out of 3. Xia took one corn", "Tolerance", "Xia;Sf;Piep", "No;Piep")
-BexClean <- update_row(BexClean, "Piep", "Xia", "fem ag male", "Female aggress male", NULL, NULL)
-BexClean <- update_row(BexClean, "Xia", "Piep", "Neither ID approach", NULL, NULL, NULL)
-BexClean <- update_row(BexClean, "Xin", "Ouli", "opened for oerw", NULL, NULL, NULL)
-
-# Remove rows with NULL in DyadResponse and those with 'No Response'
-BexClean <- BexClean %>% filter(!is.null(DyadResponse) & DyadResponse != "No Response")
+# Apply the changes
+result <- apply_changes(BexClean, changes)
+BexClean <- result[[1]]
+changes_made <- result[[2]]
 
 # Print the number of rows changed
-changed_rows_count <- nrow(BexClean_backup) - nrow(BexClean)
-cat("Number of rows that have been changed: ", changed_rows_count, "\n")
+cat("Number of rows that have been changed: ", changes_made, "\n")
 
-# Display the updated rows with "Other" in DyadResponse
-updated_other_occurrences <- grep("Other", BexClean$DyadResponse)
-updated_other_occurrences_df <- data.frame(
-  Line = updated_other_occurrences,
-  MaleID = BexClean$MaleID[updated_other_occurrences],
-  FemaleID = BexClean$FemaleID[updated_other_occurrences],
-  OtherResponse = BexClean$OtherResponse[updated_other_occurrences]
-)
+# Remove any remaining "Other" in DyadResponse
+BexClean <- BexClean %>%
+  filter(!grepl("other", DyadResponse))
 
-kable(updated_other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
-      caption = "Updated Rows with 'Other' in DyadResponse")
-
+# Display the updated rows with "Other" in DyadResponse (should be empty if all are removed)
+updated_other_occurrences <- grep("other", BexClean$DyadResponse)
+if (length(updated_other_occurrences) > 0) {
+  updated_other_occurrences_df <- data.frame(
+    Line = updated_other_occurrences,
+    MaleID = BexClean$MaleID[updated_other_occurrences],
+    FemaleID = BexClean$FemaleID[updated_other_occurrences],
+    OtherResponse = BexClean$OtherResponse[updated_other_occurrences]
+  )
+  
+  kable(updated_other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherResponse"),
+        caption = "Updated Rows with 'Other' in DyadResponse")
+} else {
+  cat("No remaining rows with 'Other' in DyadResponse.\n")
+}
 
 
 ```
