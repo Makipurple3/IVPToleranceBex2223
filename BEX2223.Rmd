@@ -1991,7 +1991,7 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   - Row 700: Since ther were No Response as "Other" I will **Delete Row 700** (	Nge	Oerw	No Response)
   - Row 815: Since ther were No Response as "Other" I will **Delete Row 815** (Pom	Xian	No Response)
   - Row 826: Since ther were No Response as "Other" I will **Delete Row 826** (Pom	Xian	No Response)
-  - Row 1484: In **Row 1484** I will replace the **DyadResponse** by **Tolerance** and put **Sirk;ApproachWithPartner** (Sey	Sirk	wait for her. moved back and waited for sirk     to approach and came back)
+  - Row 1484: In **Row 1484** I will replace the **DyadResponse** occurence **Other by **Tolerance** and put **Sirk;ApproachWithPartner** (Sey	Sirk	wait for her. moved back and waited for sirk     to approach and came back)
   - Row 1659: Since there were No Response as "Other" I will **Delete Row 1659** (1659	Sho	Ginq	No Response)
   - Row 1741: In **Row 1174** Sho stole corn to Ginq. I will put **Sho;Sf;Ginq** in             **SpecialBehaviour** and **No;Ginq** in **GotCorn** (Sho	Ginq	Sho took one of her corn)
   - Row 2101: The information in **Row 2101** stating **aggression from Pix** is not clear to whom. I will **delete Row 2101** (Xia	Piep	aggression)
@@ -2060,49 +2060,63 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 ```{r DyadResponse Others Treatment - Rows to Change, echo=FALSE}
 
-# Function to update specific rows in the dataframe for rows 286, 300, and 304
-update_rows_286_300_304 <- function(df) {
+
+
+# Function to update specific rows in the dataframe for rows 286, 300, 304, and 1484
+update_rows_286_300_304_1484 <- function(df) {
+  # Define keywords or patterns for row 1484
+  keywords_1484 <- c("wait for her. moved back and waited for sirk to approach and came back")
+  
   # Define the criteria to find specific rows
   criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
   criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
   criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & grepl("Kom touching Oort's box", df$OtherResponse))
-
+  criteria_1484 <- grepl(paste(keywords_1484, collapse = "|"), df$OtherResponse)
+  
   # Update the specific rows
   df_updated <- df %>%
     mutate(
-      DyadResponse = ifelse(criteria_286 | criteria_300, "Tolerance", DyadResponse),
+      DyadResponse = case_when(
+        criteria_286 | criteria_300 ~ "Tolerance",
+        criteria_304 ~ "Tolerance",  # Adjust based on actual requirement for row 304
+        criteria_1484 ~ "Tolerance", # Adjust based on actual requirement for row 1484
+        TRUE ~ DyadResponse
+      ),
       SpecialBehaviour = case_when(
         criteria_286 ~ "Kom;Ap;Sf;Oort,Oort;Rt;Sc",
         criteria_304 ~ "Oort;Ap;After30",
+        criteria_1484 ~ "Sirk;ApproachWithPartner",  # Adjust based on actual requirement for row 1484
         TRUE ~ SpecialBehaviour
       ),
-      GotCorn = ifelse(criteria_286, "No;Oort", GotCorn)
+      GotCorn = ifelse(criteria_286, "No;Oort", GotCorn)  # Adjust based on actual requirement for row 286
     )
-
+  
   # Count the number of rows changed
   rows_changed_286 <- sum(criteria_286)
   rows_changed_300 <- sum(criteria_300)
   rows_changed_304 <- sum(criteria_304)
-  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304
-
+  rows_changed_1484 <- sum(criteria_1484)
+  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304 + rows_changed_1484
+  
   # Return the updated dataframe and number of rows changed
   return(list(df_updated, total_rows_changed))
 }
 
-# Process the dataframe to update rows 286, 300, and 304
-result_286_300_304 <- update_rows_286_300_304(BexClean)
+# Process the dataframe to update rows 286, 300, 304, and 1484
+result_286_300_304_1484 <- update_rows_286_300_304_1484(BexClean)
 
 # Extract the updated dataframe and rows changed
-BexClean_286_300_304 <- result_286_300_304[[1]]
-rows_changed_286_300_304 <- result_286_300_304[[2]]
+BexClean_286_300_304_1484 <- result_286_300_304_1484[[1]]
+rows_changed_286_300_304_1484 <- result_286_300_304_1484[[2]]
 
 # Display the number of rows changed
-cat("Number of rows changed for 286, 300, and 304: ", rows_changed_286_300_304, "\n")
+cat("Number of rows changed for 286, 300, 304, and 1484: ", rows_changed_286_300_304_1484, "\n")
 
 # View the updated rows to ensure correctness
-updated_rows_286_300_304 <- BexClean_286_300_304 %>%
+updated_rows_286_300_304_1484 <- BexClean_286_300_304_1484 %>%
   filter(MaleID == "Kom" & FemaleID == "Oort" & DyadResponse == "Tolerance")
-print(updated_rows_286_300_304)
+print(updated_rows_286_300_304_1484)
+
 
 
 
@@ -2111,6 +2125,7 @@ print(updated_rows_286_300_304)
 
 
 ```{r chunk for problmeatic rows in DyadResponse Other, echo=FALSE}
+
 
 
 
