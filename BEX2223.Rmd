@@ -2062,16 +2062,18 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 
 
-# Function to update specific rows in the dataframe for rows 286, 300, 304, and 1484
-update_rows_286_300_304_1484 <- function(df) {
-  # Define keywords or patterns for row 1484
+# Function to update specific rows in the dataframe for rows 286, 300, 304, 1484, and 1741
+update_rows_286_300_304_1484_1741 <- function(df) {
+  # Define keywords for specific rows
   keywords_1484 <- c("wait for her. moved back and waited for sirk to approach and came back")
+  keywords_1741 <- c("Sho stole corn to Ginq")
   
   # Define the criteria to find specific rows
   criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
   criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
   criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & grepl("Kom touching Oort's box", df$OtherResponse))
   criteria_1484 <- grepl(paste(keywords_1484, collapse = "|"), df$OtherResponse)
+  criteria_1741 <- grepl(paste(keywords_1741, collapse = "|"), df$OtherResponse)
   
   # Update the specific rows
   df_updated <- df %>%
@@ -2080,15 +2082,21 @@ update_rows_286_300_304_1484 <- function(df) {
         criteria_286 | criteria_300 ~ "Tolerance",
         criteria_304 ~ "Tolerance",  # Adjust based on actual requirement for row 304
         criteria_1484 ~ "Tolerance", # Adjust based on actual requirement for row 1484
+        criteria_1741 ~ "Other",     # Adjust based on actual requirement for row 1741
         TRUE ~ DyadResponse
       ),
       SpecialBehaviour = case_when(
         criteria_286 ~ "Kom;Ap;Sf;Oort,Oort;Rt;Sc",
         criteria_304 ~ "Oort;Ap;After30",
         criteria_1484 ~ "Sirk;ApproachWithPartner",  # Adjust based on actual requirement for row 1484
+        criteria_1741 ~ "Sho;Sf;Ginq",               # Adjust based on actual requirement for row 1741
         TRUE ~ SpecialBehaviour
       ),
-      GotCorn = ifelse(criteria_286, "No;Oort", GotCorn)  # Adjust based on actual requirement for row 286
+      GotCorn = case_when(
+        criteria_286 ~ "No;Oort",
+        criteria_1741 ~ "No;Ginq",  # Adjust based on actual requirement for row 1741
+        TRUE ~ GotCorn
+      )
     )
   
   # Count the number of rows changed
@@ -2096,27 +2104,34 @@ update_rows_286_300_304_1484 <- function(df) {
   rows_changed_300 <- sum(criteria_300)
   rows_changed_304 <- sum(criteria_304)
   rows_changed_1484 <- sum(criteria_1484)
-  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304 + rows_changed_1484
+  rows_changed_1741 <- sum(criteria_1741)
+  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304 + rows_changed_1484 + rows_changed_1741
+  
+  # Count occurrences of "Other" in DyadResponse
+  count_other_in_dyad <- sum(df_updated$DyadResponse == "Other")
   
   # Return the updated dataframe and number of rows changed
-  return(list(df_updated, total_rows_changed))
+  return(list(df_updated, total_rows_changed, count_other_in_dyad))
 }
 
-# Process the dataframe to update rows 286, 300, 304, and 1484
-result_286_300_304_1484 <- update_rows_286_300_304_1484(BexClean)
+# Process the dataframe to update rows 286, 300, 304, 1484, and 1741
+result_286_300_304_1484_1741 <- update_rows_286_300_304_1484_1741(BexClean)
 
-# Extract the updated dataframe and rows changed
-BexClean_286_300_304_1484 <- result_286_300_304_1484[[1]]
-rows_changed_286_300_304_1484 <- result_286_300_304_1484[[2]]
+# Extract the updated dataframe, rows changed, and count of "Other" in DyadResponse
+BexClean_286_300_304_1484_1741 <- result_286_300_304_1484_1741[[1]]
+rows_changed_286_300_304_1484_1741 <- result_286_300_304_1484_1741[[2]]
+count_other_in_dyad <- result_286_300_304_1484_1741[[3]]
 
 # Display the number of rows changed
-cat("Number of rows changed for 286, 300, 304, and 1484: ", rows_changed_286_300_304_1484, "\n")
+cat("Number of rows changed for 286, 300, 304, 1484, and 1741: ", rows_changed_286_300_304_1484_1741, "\n")
+
+# Display the count of occurrences of "Other" in DyadResponse
+cat("Occurrences of 'Other' in DyadResponse: ", count_other_in_dyad, "\n")
 
 # View the updated rows to ensure correctness
-updated_rows_286_300_304_1484 <- BexClean_286_300_304_1484 %>%
+updated_rows_286_300_304_1484_1741 <- BexClean_286_300_304_1484_1741 %>%
   filter(MaleID == "Kom" & FemaleID == "Oort" & DyadResponse == "Tolerance")
-print(updated_rows_286_300_304_1484)
-
+print(updated_rows_286_300_304_1484_1741)
 
 
 
@@ -2124,8 +2139,7 @@ print(updated_rows_286_300_304_1484)
 
 
 
-```{r chunk for problmeatic rows in DyadResponse Other, echo=FALSE}
-
+```{r chunk for problematic rows in DyadResponse Other, echo=FALSE}
 
 
 
