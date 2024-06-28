@@ -1985,7 +1985,7 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   
   -First lets remember that all of these **DyadResponse** contain **Other** which will make their identification easier
   - Row 39: Since there were No Response as "Other" I will **Delete Row 39** (Buk	Ndaw	No Response)
-  - Row 286: In **DyadResponse** instread of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in **GotCorn** I will       put **No;Oort** (Kom	Oort	Ooet scream while at the box and Kom get the corm of both)
+  - Row 286: In **DyadResponse** instead of **Other** I will put **Tolerance** and in **SpecialBehaviour** I will put **Kom;Ap;Sf;Oort,Oort;Rt;Sc** and in **GotCorn** I will       put **No;Oort** (Kom	Oort	Ooet scream while at the box and Kom get the corm of both)
   - Row 300: In **DyadResponse** I will put **Tolerance** as both individual were at their box at the same time (300	Kom	Oort	Both at boxes; Kom touching the box of Oort)
   - Row 304: In **DyadResponse** I will remove **Other** as ther was already Tolerance. Also I will put **Oort;Ap;After30** in **SpecialBehaviour** (Kom	Oort	Kom touching         Oort’s box. Oort came after 30 sec to her own box.)
   - Row 700: Since ther were No Response as "Other" I will **Delete Row 700** (	Nge	Oerw	No Response)
@@ -2003,13 +2003,11 @@ kable(other_occurrences_df, col.names = c("Line", "MaleID", "FemaleID", "OtherRe
   - Row 2184: As both individual did not approach and **Not approaching** is already in DyadResponse, I will just remove **Other** from **DyadResponse**Xia	Piep	Neither ID         approach (Xia	Piep	Neither ID approach)
   - Row 2729:	As there was a mistake in **Row 2729** I will delete this line: **Delete Row 2729** (Xin	Ouli	opened for oerw)
   - Finally I will delete all the occurences of **Other** in DyadResponse
-  
-# UPDATES FROM HERE
+
+* First I will remove the lines with the combinations **Other & No Response**
 
 ```{r DyadResponse Others Treatment Other&NoResponse -, echo=FALSE}
 
-# Load required libraries
-library(dplyr)
 
 # Function to find, count, and remove specific combinations in the dataframe
 find_and_remove_other_no_response <- function(df) {
@@ -2030,43 +2028,96 @@ find_and_remove_other_no_response <- function(df) {
   # Count the number of rows changed
   rows_changed <- nrow(df) - nrow(df_updated)
   
-  # Return updated dataframe, row numbers, count of combinations, and number of rows changed
-  return(list(df_updated, row_numbers, count_combinations, rows_changed))
+  # Count the remaining occurrences of 'Other' in DyadResponse
+  remaining_other_count <- sum(grepl("Other", df_updated$DyadResponse))
+  
+  # Return updated dataframe, row numbers, count of combinations, number of rows changed, and remaining 'Other' occurrences
+  return(list(df_updated, row_numbers, count_combinations, rows_changed, remaining_other_count))
 }
 
 # Assuming BexClean is your dataframe
 result <- find_and_remove_other_no_response(BexClean)
 
-# Extract the updated dataframe, row numbers, count of combinations, and rows changed
+# Extract the updated dataframe, row numbers, count of combinations, rows changed, and remaining 'Other' occurrences
 BexClean_updated <- result[[1]]
 row_numbers <- result[[2]]
 count_combinations <- result[[3]]
 rows_changed <- result[[4]]
+remaining_other_count <- result[[5]]
 
 # Display the results
 cat("Number of combinations with 'Other' in DyadResponse and 'No Response' in OtherResponse: ", count_combinations, "\n")
 cat("Row numbers: ", paste(row_numbers, collapse = ", "), "\n")
 cat("Number of rows that have been changed: ", rows_changed, "\n")
-
-# You can now use BexClean_updated for further analysis
-
-```
-
-```{r DyadResponse Others Treatment2 - Deletion, echo=FALSE}
-
-
+cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_count, "\n")
 
 
 
 ```
 
-```{r DyadResponse Others Treatment3 - Check, echo=FALSE}
+
+# UPDATES FROM HERE
+
+* Then I will treat the remaining 13 lines according to the rules I explained
+
+```{r DyadResponse Others Treatment - Rows to Change, echo=FALSE}
 
 
+# Function to update specific rows in the dataframe for rows 286 and 300
+update_specific_rows_286_300 <- function(df) {
+  # Define the criteria to find specific rows
+  criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & tolower(df$DyadResponse) == "other" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
+  criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & tolower(df$DyadResponse) == "other" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
 
+  # Update the specific rows
+  df_updated <- df %>%
+    mutate(
+      DyadResponse = ifelse(criteria_286, "Tolerance", 
+                     ifelse(criteria_300, "Tolerance", DyadResponse)),
+      SpecialBehaviour = ifelse(criteria_286, "Kom;Ap;Sf;Oort,Oort;Rt;Sc", 
+                        SpecialBehaviour),
+      GotCorn = ifelse(criteria_286, "No;Oort", GotCorn)
+    )
+
+  # Count the number of rows changed
+  rows_changed_286 <- sum(criteria_286)
+  rows_changed_300 <- sum(criteria_300)
+  total_rows_changed <- rows_changed_286 + rows_changed_300
+
+  # Count the remaining occurrences of 'Other' in DyadResponse
+  remaining_other_count <- sum(grepl("Other", df_updated$DyadResponse))
+  
+  # Return the updated dataframe, number of rows changed, and remaining 'Other' occurrences
+  return(list(df_updated, total_rows_changed, remaining_other_count))
+}
+
+# Process the remaining rows after the initial removal
+result <- update_specific_rows_286_300(BexClean_updated)
+
+# Extract the updated dataframe, rows changed, and remaining 'Other' occurrences
+BexClean_final <- result[[1]]
+rows_changed <- result[[2]]
+remaining_other_count <- result[[3]]
+
+# Display the number of rows changed
+cat("Number of rows that have been changed: ", rows_changed, "\n")
+
+# Display the number of occurrences of 'Other' in DyadResponse left
+cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_count, "\n")
+
+# You can now use BexClean_final for further analysis
 
 
 ```
+
+
+
+
+
+
+
+
+
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
 
