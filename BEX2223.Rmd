@@ -2054,14 +2054,10 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 
 ```
-# UPDATES FROM HERE
 
 * Then I will treat the remaining 13 lines according to the rules I explained
 
 ```{r DyadResponse Others Treatment - Rows to Change, echo=FALSE}
-
-library(dplyr)
-library(knitr)
 
 # Function to update specific rows in the dataframe based on given criteria
 update_rows <- function(df) {
@@ -2160,228 +2156,286 @@ print_other_occurrences(BexClean_updated)
 
 
 
+
+# Function to remove 'Other' from DyadResponse and replace different values in OtherResponse
+clean_other_responses <- function(df) {
+  # Remove 'Other' from DyadResponse and count changes
+  df <- df %>%
+    mutate(DyadResponse = gsub("Other", "", DyadResponse))
+  changes_phase_1 <- sum(grepl("Other", BexClean$DyadResponse))
+  
+  # Replace all occurrences different from 'No Response' in OtherResponse and count changes
+  changes_phase_2 <- sum(df$OtherResponse != "No Response")
+  df <- df %>%
+    mutate(OtherResponse = ifelse(OtherResponse != "No Response", "No Response", OtherResponse))
+  
+  # Return updated dataframe and counts of changes
+  return(list(df, changes_phase_1, changes_phase_2))
+}
+
+# Apply the function to clean the dataframe
+result <- clean_other_responses(BexClean_updated)
+
+# Extract the updated dataframe and counts of changes
+BexClean_updated <- result[[1]]
+changes_phase_1 <- result[[2]]
+changes_phase_2 <- result[[3]]
+
+# Display the number of changes made
+cat("Number of occurrences of 'Other' removed from DyadResponse: ", changes_phase_1, "\n")
+cat("Number of occurrences replaced with 'No Response' in OtherResponse: ", changes_phase_2, "\n")
+
+
 ```
-
-
-
+* We now have 0 remaing rows with **Others** in **DyadResponse** and have removed the cases where we had different outputs than **Other Resposne** in the **Other** column
 
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
 
+# UPDATES FROM HERE
+
+
+
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
 
-* If there is **Aggression & Tolerance** I will keep **Agression** as we defined tolerance as the absence of any sign of aggression between individuals of a Dyad. Each Time we wrote tolerance it means that the monkeys touched the boxes at the same time. I will create a variable called **SimulatenousTouch** to record every time the box did the action at the same time. Then I will in every case of aggression and tolerance within a trial keep Aggression: **Aggression > Tolerance**
 
-* If there is **Tolerance & Not approaching** I will keep **Tolerance** as it means that one of the individuals took more than 30 seconds to come at the box and then at the end came. In these cases 
+* **Aggression & Tolerance**: I will keep **Agression** as we defined tolerance as the absence of any sign of aggression between individuals of a Dyad. Each Time we wrote tolerance it means that the monkeys touched the boxes at the same time. I will create a variable called **SimulatenousTouch** to record every time the box did the action at the same time. Then I will in every case of aggression and tolerance within a trial keep Aggression: **Aggression > Tolerance**. (Note that aggression is not yet a variable in itself but instead we have Male aggress female & Female aggress male as occurences of aggression)
+
+```{r DyadResponse Hierarchy Tolerance & Aggression, echo=FALSE}
+
+# Load necessary library
+library(dplyr)
+
+# Function to handle Male aggress female or Female aggress male and Tolerance cases
+handle_aggression_tolerance <- function(df) {
+  # Create SimultaneousTouch variable
+  df <- df %>%
+    mutate(SimultaneousTouch = ifelse(grepl("Male aggress female", DyadResponse) & grepl("Tolerance", DyadResponse) |
+                                      grepl("Female aggress male", DyadResponse) & grepl("Tolerance", DyadResponse), "Yes", "No"))
+  
+  # Count the number of cases with Tolerance & Male aggress female
+  count_tolerance_male_aggression <- sum(grepl("Male aggress female", df$DyadResponse) & grepl("Tolerance", df$DyadResponse))
+  
+  # Count the number of cases with Tolerance & Female aggress male
+  count_tolerance_female_aggression <- sum(grepl("Female aggress male", df$DyadResponse) & grepl("Tolerance", df$DyadResponse))
+  
+  # Remove 'Tolerance' when 'Male aggress female' or 'Female aggress male' is present
+  df <- df %>%
+    mutate(DyadResponse = case_when(
+      grepl("Male aggress female", DyadResponse) & grepl("Tolerance", DyadResponse) ~ gsub("Tolerance", "", DyadResponse),
+      grepl("Female aggress male", DyadResponse) & grepl("Tolerance", DyadResponse) ~ gsub("Tolerance", "", DyadResponse),
+      TRUE ~ DyadResponse
+    ))
+  
+  # Count the number of rows changed
+  rows_changed <- count_tolerance_male_aggression + count_tolerance_female_aggression
+  
+  # Count remaining lines with both Aggression and Tolerance
+  remaining_aggression_tolerance <- sum(grepl("Male aggress female", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)) +
+                                    sum(grepl("Female aggress male", df$DyadResponse) & grepl("Tolerance", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_tolerance_male_aggression, count_tolerance_female_aggression, rows_changed, remaining_aggression_tolerance))
+}
+
+# Apply the function to the dataframe
+result <- handle_aggression_tolerance(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated <- result[[1]]
+count_tolerance_male_aggression <- result[[2]]
+count_tolerance_female_aggression <- result[[3]]
+rows_changed <- result[[4]]
+remaining_aggression_tolerance <- result[[5]]
+
+# Display the results
+cat("Number of cases with Tolerance & Male aggress female: ", count_tolerance_male_aggression, "\n")
+cat("Number of cases with Tolerance & Female aggress male: ", count_tolerance_female_aggression, "\n")
+cat("Number of rows changed: ", rows_changed, "\n")
+cat("Number of lines remaining with both Aggression and Tolerance: ", remaining_aggression_tolerance, "\n")
+
+
+```
+
+
+* **Tolerance & Loosing interest**: I will keep **Tolerance** as it means that the dyad did touch the boxes: **Tolerance > Loosing interest**
+
+
+```{r DyadResponse Hierarchy Tolerance & Loosing interest, echo=FALSE}
+
+# Load necessary library
+library(dplyr)
+
+# Function to handle Tolerance & Losing interest cases
+handle_tolerance_losing_interest <- function(df) {
+  # Count the number of cases with Tolerance & Losing interest
+  count_tolerance_losing_interest <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Losing interest", df$DyadResponse))
+  
+  # Remove 'Losing interest' when 'Tolerance' is present
+  df <- df %>%
+    mutate(DyadResponse = case_when(
+      grepl("Tolerance", DyadResponse) & grepl("Losing interest", DyadResponse) ~ gsub("Losing interest", "", DyadResponse),
+      TRUE ~ DyadResponse
+    ))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count the number of rows changed
+  rows_changed <- count_tolerance_losing_interest
+  
+  # Count remaining lines with both Tolerance and Losing interest
+  remaining_tolerance_losing_interest <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Losing interest", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_tolerance_losing_interest, rows_changed, remaining_tolerance_losing_interest))
+}
+
+# Apply the function to the dataframe
+result_tolerance_losing_interest <- handle_tolerance_losing_interest(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated_losing_interest <- result_tolerance_losing_interest[[1]]
+count_tolerance_losing_interest <- result_tolerance_losing_interest[[2]]
+rows_changed_losing_interest <- result_tolerance_losing_interest[[3]]
+remaining_tolerance_losing_interest <- result_tolerance_losing_interest[[4]]
+
+# Display the results
+cat("Number of cases with Tolerance & Losing interest: ", count_tolerance_losing_interest, "\n")
+cat("Number of rows changed: ", rows_changed_losing_interest, "\n")
+cat("Number of lines remaining with both Tolerance and Losing interest: ", remaining_tolerance_losing_interest, "\n")
+
+
+
+```
+
+* **Tolerance & Intrusion**: I will keep **Tolerance**. Before replacing these occurrences I will created a variable called **Intrusion** the value will be Yes if there was Intrusion in DyadResponse (alone or with another response) and No if there wasn't any Intrusion: **Tolerance > Intrusion**
+
+
+```{r DyadResponse Hierarchy Tolerance & Intrusion, echo=FALSE}
+
+# Function to handle Tolerance & Intrusion cases
+handle_tolerance_intrusion <- function(df) {
+  # Count the number of cases with Tolerance & Intrusion
+  count_tolerance_intrusion <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Intrusion", df$DyadResponse))
+  
+  # Create a variable called Intrusion
+  df <- df %>%
+    mutate(Intrusion = ifelse(grepl("Intrusion", DyadResponse), "Yes", "No"))
+  
+  # Remove 'Intrusion' when 'Tolerance' is present
+  df <- df %>%
+    mutate(DyadResponse = case_when(
+      grepl("Tolerance", DyadResponse) & grepl("Intrusion", DyadResponse) ~ gsub("Intrusion", "", DyadResponse),
+      TRUE ~ DyadResponse
+    ))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count the number of rows changed
+  rows_changed <- count_tolerance_intrusion
+  
+  # Count remaining lines with both Tolerance and Intrusion
+  remaining_tolerance_intrusion <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Intrusion", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_tolerance_intrusion, rows_changed, remaining_tolerance_intrusion))
+}
+
+# Apply the function to the dataframe
+result_tolerance_intrusion <- handle_tolerance_intrusion(BexClean_updated_losing_interest)
+
+# Extract the updated dataframe and counts
+BexClean_updated_intrusion <- result_tolerance_intrusion[[1]]
+count_tolerance_intrusion <- result_tolerance_intrusion[[2]]
+rows_changed_intrusion <- result_tolerance_intrusion[[3]]
+remaining_tolerance_intrusion <- result_tolerance_intrusion[[4]]
+
+# Display the results
+cat("Number of cases with Tolerance & Intrusion: ", count_tolerance_intrusion, "\n")
+cat("Number of rows changed: ", rows_changed_intrusion, "\n")
+cat("Number of lines remaining with both Tolerance and Intrusion: ", remaining_tolerance_intrusion, "\n")
+
+```
+
+* **Not approaching & Loosing interest**: I will keep both as **Not approaching = looking box but not coming to it ** while **Loosing interest = not paying attention to the box and not coming to it**
+
+* **Intrusion & Loosing interest**: I will keep Intrusion: **Intrusion > Loosing interest**
+
+* **Intrusion & Not approaching**: I will keep Intrusion: **Intrusion > Not approaching**
+
+* **Not approaching & Distracted**: I will keep **Not approaching**: **Not approaching > Distracted**
+
+* **Aggression & Not Approaching**: I will keep both Aggression > Not approaching
+
+* **Male aggress male** and **Female aggress male**: create a variable called **Aggression** and put **Yes** for every occurrences of Female and Male aggression and **No** when there wasn't
+
+* **Tolerance & Not approaching**: I will keep **Tolerance** as it means that one of the individuals took more than 30 seconds to come at the box and then at the end came. In these cases 
 I will create a variable called **Hesistant** to count the frequency of times where the monkey took more time to approach than in the usual trials. Once the variable is created based on all the occurence of tolerance and not approaching, I will replace all the occurences of not approaching and tolerance with tolerance: **Tolerance > No approaching**
 
-* If there is **Tolerance & Loosing interest** I will keep **Tolerance** as it means that the dyad did touch the boxes: **Tolerance > Loosing interest**
-
-* If there is **Tolerance & Intrusion** I will keep **Tolerance**. Before replacing these occurrences I will created a variable called **Intrusion** the value will be Yes if there was Intrusion in DyadResponse (alone or with another response) and No if there wasn't any Intrusion: **Tolerance > Intrusion**
-
-* If there is **Not approaching & Loosing interest** I will keep both as **Not approaching = looking box but not coming to it ** while **Loosing interest = not paying attention to the box and not coming to it**
-
-* If there is **Intrusion & Loosing interest** I will keep Intrusion: **Intrusion > Loosing interest**
-
-* If there is **Intrusion & Not approaching** I will keep Intrusion: **Intrusion > Not approaching**
-
-* If there is **Not approaching & Distracted** I will keep **Not approaching**: **Not approaching > Distracted**
-
-* If there is **Aggression & Not Approaching** I will keep both Aggression > Not approaching
-
-* For all occurrences of **Male aggress male** and **Female aggress male** create a variable called **Aggression** and put **Yes** for every occurrences of Female and Male aggression and **No** when there wasn't
 
 
+```{r Implementation of Hierarchy in DyadResponse, echo=FALSE}
+
+# Function to create a hierarchy for DyadResponse and create new variables
+create_hierarchy <- function(df) {
+  # Create necessary variables
+  df <- df %>%
+    mutate(SimultaneousTouch = ifelse(grepl("Tolerance", DyadResponse), "Yes", "No"),
+           Hesitant = ifelse(grepl("Not approaching", DyadResponse) & grepl("Tolerance", DyadResponse), "Yes", "No"),
+           Intrusion = ifelse(grepl("Intrusion", DyadResponse), "Yes", "No"),
+           Aggression = ifelse(grepl("Female aggress male|Male aggress female", DyadResponse), "Yes", "No"))
+
+  # Count occurrences before modifications
+  count_before <- nrow(df)
+  
+  # Apply the hierarchy
+  df <- df[!(grepl("Tolerance", df$DyadResponse) & grepl("Female aggress male|Male aggress female", df$DyadResponse)), ]
+  df <- df[!(grepl("Not approaching", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
+  df <- df[!(grepl("Losing interest", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
+  df <- df[!(grepl("Intrusion", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
+  df <- df[!(grepl("Losing interest", df$DyadResponse) & grepl("Intrusion", df$DyadResponse)), ]
+  df <- df[!(grepl("Not approaching", df$DyadResponse) & grepl("Intrusion", df$DyadResponse)), ]
+  df <- df[!(grepl("Distracted", df$DyadResponse) & grepl("Not approaching", df$DyadResponse)), ]
+
+  # Count occurrences after modifications
+  count_after <- nrow(df)
+
+  # Display the number of rows changed
+  cat("Number of rows changed: ", count_before - count_after, "\n")
+
+  return(df)
+}
+
+# Apply the hierarchy function to the data
+BexClean <- create_hierarchy(BexClean)
+
+# Function to create dichotomous variables for specific behaviors
+create_dichotomous_variables <- function(df) {
+  df$IDIndividual1[is.na(df$IDIndividual1)] <- "No individual"
+
+  df$MultipleResponses <- ifelse(
+    df$IDIndividual1 != "No individual" & grepl("[;,] ?", df$DyadResponse),
+    ">1 Response",
+    "Single Response"
+  )
+
+  cat("Variables created: MultipleResponses\n")
+  return(df)
+}
 
 
+
+
+
+
+
+```
 
 ##### 3.9.3.d 
   
   
-* Define distracted
-
-
-# 3.9.4 Implementing changes in DyadResponse and Implementing Hierarchy
-# Helper function to remove specific combinations
-remove_combinations <- function(df, keep, remove) {
-  df <- df[!(grepl(remove, df$DyadResponse) & grepl(keep, df$DyadResponse)), ]
-  return(df)
-}
-
-# 1. Aggression > Tolerance
-BexClean <- remove_combinations(BexClean, "Female aggress male", "Tolerance")
-BexClean <- remove_combinations(BexClean, "Male aggress female", "Tolerance")
-
-# 2. Tolerance > Not approaching
-BexClean <- remove_combinations(BexClean, "Tolerance", "Not approaching")
-
-# 3. Tolerance > Losing interest
-BexClean <- remove_combinations(BexClean, "Tolerance", "Losing interest")
-
-# 4. Tolerance > Intrusion
-BexClean <- remove_combinations(BexClean, "Tolerance", "Intrusion")
-
-# 5. Intrusion > Losing interest
-BexClean <- remove_combinations(BexClean, "Intrusion", "Losing interest")
-
-# 6. Intrusion > Not approaching
-BexClean <- remove_combinations(BexClean, "Intrusion", "Not approaching")
-
-# 7. Not approaching > Looks at partner
-BexClean$DyadResponse <- gsub("Looks at partner", "Not approaching", BexClean$DyadResponse)
-
-# 8. Not approaching > Distracted
-BexClean <- remove_combinations(BexClean, "Not approaching", "Distracted")
-
-# 9. Other > Look case by case and categorize depending on behavior
-# This step requires manual inspection and categorization
-
-# Final clean-up and reporting
-knitr::kable(BexClean, col.names = colnames(BexClean), caption = "Cleaned DyadResponse Data")
-
-
-
-
-
-
-
-
- 6. Male agress female > Not approaching : Remove Not approaching if there is Male aggress female (2x)
-```{r Male agress female > Intrusion, echo=FALSE}
-# Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-# 6. Remove rows with 'Not approaching' if 'Male aggress female' is present
-BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Male aggress female", BexClean$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary6 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Male aggress female > Not approaching): ", after_summary6 - beforesummary, "\n")
-```
-
- 7. Tolerance > Distracted: Remove Distracted if there is tolerance (3x)
-
-```{r Tolerance > Distracted, echo=FALSE}
-
-# Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-
-# Tolerance & Distracted: 7.Remove Distracted if there is tolerance
-BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Distracted", BexClean$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary7 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk Tolerance > Distracted: ", after_summary7 - beforesummary, "\n")
-
-```
-
-8.Female agress male > Tolerance: Remove Tolerance if there is Female agress male (23x)
- 
-```{r Female agress male > Tolerance, echo=FALSE}
-# Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-
-# 8. Remove rows with 'Tolerance' if 'Female aggress male' is present
-BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Female aggress male", BexClean$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary8 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Female aggress male): ", after_summary8 - beforesummary, "\n")
-
-```
-
-
-
- 9.Tolerance > Loosing interest: Remove Losing interest if there is Tolerance (13x)
-```{r Tolerance > Loosing interest, echo=FALSE}
-# Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-
-# Count occurrences after modification
-after_summary9 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Losing interest): ", after_summary9 - beforesummary, "\n")
-
-
-```
- 10.Male agress female > Tolerance : Remove Tolerance if there is Male agress male (31)
-```{r Male agress female > Tolerance, echo=FALSE}
- # Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-
-# 10. Remove rows with 'Tolerance' if 'Male aggress female' is present
-BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & grepl("Male aggress female", BexClean$DyadResponse)), ]
-
-# Count occurrences after modification
-after_summary10 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for the Chunk (Tolerance & Male aggress female): ", after_summary10 - beforesummary, "\n")
-
-```
- 11.Tolerance > Not approaching: Remove Not approaching if there is tolerance (6x)
-```{r Tolerance > Not approaching, echo=FALSE}
-# Count occurrences before modifications
-beforesummary <- nrow(BexClean)
-
-# 11. Remove rows with 'Not approaching' if 'Tolerance' is present
-BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
-
-
-# Count occurrences after modification
-after_summary11 <- nrow(BexClean)
-
-# Display the change in occurrences
-cat("Change in Occurrences for teh Chunk (Tolerance & Not approaching): ", after_summary11 - beforesummary, "\n")
-```
-
-* Looks at partner &  Other 1                  - Display line for detailed check (1x)
- * Not approaching &  Losing interest 46        - Keep both, I will consider doing a detailled check
- * Not approaching &  Distracted 7              - Display line for detailed check
- * Not approaching &  Other  1                  - Display line for detailed check
- * Tolerance &  Other        8                  - Display line for detailed check
-
-
-SEE WHEN AND HOW TO Put ThIS CODE TO REPLACE PREIVOSU NUMBERS:
-
-
-# 1. Aggression > Tolerance
-BexClean <- BexClean[!(grepl("Tolerance", BexClean$DyadResponse) & (grepl("Female aggress male", BexClean$DyadResponse) | grepl("Male aggress female", BexClean$DyadResponse))), ]
-
-# 2. Tolerance > Not approaching
-BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
-
-# 3. Tolerance > Loosing interest
-BexClean <- BexClean[!(grepl("Losing interest", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
-
-# 4. Tolerance > Intrusion
-BexClean <- BexClean[!(grepl("Intrusion", BexClean$DyadResponse) & grepl("Tolerance", BexClean$DyadResponse)), ]
-
-# 5. Intrusion > Loosing interest
-BexClean <- BexClean[!(grepl("Losing interest", BexClean$DyadResponse) & grepl("Intrusion", BexClean$DyadResponse)), ]
-
-# 6. Intrusion > Not approaching
-BexClean <- BexClean[!(grepl("Not approaching", BexClean$DyadResponse) & grepl("Intrusion", BexClean$DyadResponse)), ]
-
-# 7. Not approaching > Looks at partner
-# Code every look at partner as not approaching and keep the count of looks at partner as additional information
-
-# 8. Define distracted
-# Not approaching > Distracted
-BexClean <- BexClean[!(grepl("Distracted", BexClean$DyadResponse) & grepl("Not approaching", BexClean$DyadResponse)), ]
-
-# 9. Other > Look case by case and categorize depending on behavior
-
-# Final clean-up and reporting
-knitr::kable(BexClean, col.names = colnames(BexClean), caption = "Cleaned DyadResponse Data")
-
-* Code to display rows numbers and the response in DyadResponse that have mroe than one entry
 
 
 
