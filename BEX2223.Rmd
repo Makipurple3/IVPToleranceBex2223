@@ -2060,7 +2060,6 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 ```{r DyadResponse Others Treatment - Rows to Change, echo=FALSE}
 
-
 library(dplyr)
 library(knitr)
 
@@ -2069,7 +2068,7 @@ update_rows <- function(df) {
   # Define criteria for specific rows
   criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
   criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
-  criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Kom touching Oort’s box. Oort came after 30 sec to her own box.")
+  criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Kom touching Oort's box. Oort came after 30 sec to her own box.")
   criteria_1484 <- (df$MaleID == "Sey" & df$FemaleID == "Sirk" & df$OtherResponse == "wait for her. moved back and waited for sirk to approach and came back")
   criteria_1741 <- (df$MaleID == "Sho" & df$FemaleID == "Ginq" & df$OtherResponse == "Sho took one of her corn")
   criteria_2102 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "Xia ate corn from both boxes")
@@ -2119,7 +2118,7 @@ update_rows <- function(df) {
       )
     ) %>%
     filter(!(criteria_delete | DyadResponse == "Delete"))
-
+  
   # Count the number of rows changed
   rows_changed <- sum(criteria_286 | criteria_300 | criteria_304 | criteria_1484 | criteria_1741 |
                       criteria_2102 | criteria_2103 | criteria_2104 | criteria_2105 | criteria_2170 | criteria_2184 |
@@ -2165,11 +2164,6 @@ print_other_occurrences(BexClean_updated)
 
 
 
-```{r chunk for problematic rows in DyadResponse Other, echo=FALSE}
-
-
-
-```
 
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
