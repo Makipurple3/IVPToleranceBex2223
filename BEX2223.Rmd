@@ -2062,77 +2062,6 @@ cat("Number of occurrences of 'Other' in DyadResponse left: ", remaining_other_c
 
 
 
-# Function to update specific rows in the dataframe for rows 286, 300, 304, 1484, and 1741
-update_rows_286_300_304_1484_1741 <- function(df) {
-  # Define keywords for specific rows
-  keywords_1484 <- c("wait for her. moved back and waited for sirk to approach and came back")
-  keywords_1741 <- c("Sho stole corn to Ginq")
-  
-  # Define the criteria to find specific rows
-  criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
-  criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
-  criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & grepl("Kom touching Oort's box", df$OtherResponse))
-  criteria_1484 <- grepl(paste(keywords_1484, collapse = "|"), df$OtherResponse)
-  criteria_1741 <- grepl(paste(keywords_1741, collapse = "|"), df$OtherResponse)
-  
-  # Update the specific rows
-  df_updated <- df %>%
-    mutate(
-      DyadResponse = case_when(
-        criteria_286 | criteria_300 ~ "Tolerance",
-        criteria_304 ~ "Tolerance",  # Adjust based on actual requirement for row 304
-        criteria_1484 ~ "Tolerance", # Adjust based on actual requirement for row 1484
-        criteria_1741 ~ "Other",     # Adjust based on actual requirement for row 1741
-        TRUE ~ DyadResponse
-      ),
-      SpecialBehaviour = case_when(
-        criteria_286 ~ "Kom;Ap;Sf;Oort,Oort;Rt;Sc",
-        criteria_304 ~ "Oort;Ap;After30",
-        criteria_1484 ~ "Sirk;ApproachWithPartner",  # Adjust based on actual requirement for row 1484
-        criteria_1741 ~ "Sho;Sf;Ginq",               # Adjust based on actual requirement for row 1741
-        TRUE ~ SpecialBehaviour
-      ),
-      GotCorn = case_when(
-        criteria_286 ~ "No;Oort",
-        criteria_1741 ~ "No;Ginq",  # Adjust based on actual requirement for row 1741
-        TRUE ~ GotCorn
-      )
-    )
-  
-  # Count the number of rows changed
-  rows_changed_286 <- sum(criteria_286)
-  rows_changed_300 <- sum(criteria_300)
-  rows_changed_304 <- sum(criteria_304)
-  rows_changed_1484 <- sum(criteria_1484)
-  rows_changed_1741 <- sum(criteria_1741)
-  total_rows_changed <- rows_changed_286 + rows_changed_300 + rows_changed_304 + rows_changed_1484 + rows_changed_1741
-  
-  # Count occurrences of "Other" in DyadResponse
-  count_other_in_dyad <- sum(df_updated$DyadResponse == "Other")
-  
-  # Return the updated dataframe and number of rows changed
-  return(list(df_updated, total_rows_changed, count_other_in_dyad))
-}
-
-# Process the dataframe to update rows 286, 300, 304, 1484, and 1741
-result_286_300_304_1484_1741 <- update_rows_286_300_304_1484_1741(BexClean)
-
-# Extract the updated dataframe, rows changed, and count of "Other" in DyadResponse
-BexClean_286_300_304_1484_1741 <- result_286_300_304_1484_1741[[1]]
-rows_changed_286_300_304_1484_1741 <- result_286_300_304_1484_1741[[2]]
-count_other_in_dyad <- result_286_300_304_1484_1741[[3]]
-
-# Display the number of rows changed
-cat("Number of rows changed for 286, 300, 304, 1484, and 1741: ", rows_changed_286_300_304_1484_1741, "\n")
-
-# Display the count of occurrences of "Other" in DyadResponse
-cat("Occurrences of 'Other' in DyadResponse: ", count_other_in_dyad, "\n")
-
-# View the updated rows to ensure correctness
-updated_rows_286_300_304_1484_1741 <- BexClean_286_300_304_1484_1741 %>%
-  filter(MaleID == "Kom" & FemaleID == "Oort" & DyadResponse == "Tolerance")
-print(updated_rows_286_300_304_1484_1741)
-
 
 
 ```
@@ -2141,6 +2070,111 @@ print(updated_rows_286_300_304_1484_1741)
 
 ```{r chunk for problematic rows in DyadResponse Other, echo=FALSE}
 
+library(dplyr)
+library(knitr)
+
+# Function to update specific rows in the dataframe based on given criteria
+update_rows <- function(df) {
+  # Define criteria for specific rows
+  criteria_286 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Ooet scream while at the box and Kom get the corm of both")
+  criteria_300 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Both at boxes; Kom touching the box of Oort")
+  criteria_304 <- (df$MaleID == "Kom" & df$FemaleID == "Oort" & df$OtherResponse == "Kom touching Oort’s box. Oort came after 30 sec to her own box.")
+  criteria_1484 <- (df$MaleID == "Sey" & df$FemaleID == "Sirk" & df$OtherResponse == "wait for her. moved back and waited for sirk to approach and came back")
+  criteria_1741 <- (df$MaleID == "Sho" & df$FemaleID == "Ginq" & df$OtherResponse == "Sho took one of her corn")
+  criteria_2102 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "Xia ate corn from both boxes")
+  criteria_2103 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "Xia stolen some pieces from piep box")
+  criteria_2104 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "Xia immediately go for piep box and eat her corn then eat his.")
+  criteria_2105 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "piep got 2 pieces out of 3. Xia took one corn")
+  criteria_2170 <- (df$MaleID == "Piep" & df$FemaleID == "Xia" & df$OtherResponse == "fem ag male")
+  criteria_2184 <- (df$MaleID == "Xia" & df$FemaleID == "Piep" & df$OtherResponse == "Neither ID approach")
+  
+  # Delete rows with 'Other' in DyadResponse and 'No Response' in OtherResponse
+  criteria_delete <- (df$OtherResponse == "No Response")
+
+  # Update the specific rows
+  df_updated <- df %>%
+    mutate(
+      DyadResponse = case_when(
+        criteria_286 ~ "Tolerance",
+        criteria_300 ~ "Tolerance",
+        criteria_304 ~ "Tolerance",
+        criteria_1484 ~ "Tolerance",
+        criteria_1741 ~ "Tolerance",
+        criteria_2102 ~ "Tolerance",
+        criteria_2103 ~ "Tolerance",
+        criteria_2104 ~ "Tolerance",
+        criteria_2105 ~ "Tolerance",
+        criteria_2170 ~ "Female aggress male",
+        criteria_2184 ~ "Not approaching",
+        TRUE ~ DyadResponse
+      ),
+      SpecialBehaviour = case_when(
+        criteria_286 ~ "Kom;Ap;Sf;Oort,Oort;Rt;Sc",
+        criteria_304 ~ "Oort;Ap;After30",
+        criteria_1484 ~ "Sirk;ApproachWithPartner",
+        criteria_1741 ~ "Sho;Sf;Ginq",
+        (criteria_2102 | criteria_2103 | criteria_2104 | criteria_2105) ~ "Xia;Sf;Piep",
+        TRUE ~ SpecialBehaviour
+      ),
+      GotCorn = case_when(
+        criteria_286 ~ "No;Oort",
+        criteria_1741 ~ "No;Ginq",
+        (criteria_2102 | criteria_2103 | criteria_2104 | criteria_2105) ~ "No;Piep",
+        TRUE ~ GotCorn
+      )
+    ) %>%
+    filter(!criteria_delete)
+
+  # Count the number of rows changed
+  rows_changed <- sum(criteria_286 | criteria_300 | criteria_304 | criteria_1484 | criteria_1741 |
+                      criteria_2102 | criteria_2103 | criteria_2104 | criteria_2105 | criteria_2170 | criteria_2184)
+  
+  # Count occurrences of "Other" in DyadResponse
+  count_other_in_dyad <- sum(df_updated$DyadResponse == "Other")
+  
+  # Return the updated dataframe and number of rows changed
+  return(list(df_updated, rows_changed, count_other_in_dyad))
+}
+
+# Process the dataframe to update rows based on criteria
+result <- update_rows(BexClean)
+
+# Extract the updated dataframe, rows changed, and count of "Other" in DyadResponse
+BexClean_updated <- result[[1]]
+rows_changed <- result[[2]]
+count_other_in_dyad <- result[[3]]
+
+# Display the number of rows changed
+cat("Number of rows changed: ", rows_changed, "\n")
+
+# Display the count of occurrences of 'Other' in DyadResponse
+cat("Occurrences of 'Other' in DyadResponse: ", count_other_in_dyad, "\n")
+
+# Function to print rows where 'Other' is present in DyadResponse and additional information
+print_other_occurrences <- function(df) {
+  # Filter rows where DyadResponse contains 'Other'
+  other_rows <- df %>%
+    filter(grepl("Other", DyadResponse))
+  
+  # Print the filtered rows using kable
+  if (nrow(other_rows) > 0) {
+    cat("Rows with 'Other' in DyadResponse:\n")
+    print(kable(other_rows, col.names = colnames(df),
+                caption = "Rows with 'Other' in DyadResponse"))
+    
+    # Display the number of remaining rows with 'Other' in DyadResponse
+    cat("\nNumber of rows with 'Other' in DyadResponse: ", nrow(other_rows), "\n")
+    
+    # Display the row numbers of the remaining rows with 'Other' in DyadResponse
+    remaining_row_numbers <- which(grepl("Other", df$DyadResponse))
+    cat("Row numbers with 'Other' in DyadResponse: ", paste(remaining_row_numbers, collapse = ", "), "\n")
+  } else {
+    cat("No rows found with 'Other' in DyadResponse.\n")
+  }
+}
+
+# Print rows with 'Other' in DyadResponse
+print_other_occurrences(BexClean_updated)
 
 
 ```
