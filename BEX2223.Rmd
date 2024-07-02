@@ -2192,9 +2192,6 @@ cat("Number of occurrences replaced with 'No Response' in OtherResponse: ", chan
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
 
-# UPDATES FROM HERE
-
-
 
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
 
@@ -2361,70 +2358,212 @@ cat("Number of lines remaining with both Tolerance and Intrusion: ", remaining_t
 
 * **Not approaching & Loosing interest**: I will keep both as **Not approaching = looking box but not coming to it ** while **Loosing interest = not paying attention to the box and not coming to it**
 
-* **Intrusion & Loosing interest**: I will keep Intrusion: **Intrusion > Loosing interest**
+
+```{r DyadResponse Hierarchy Intrusion & Loosing interest, echo=FALSE}
+
+# Function to count and ensure both 'Not approaching' and 'Losing interest' are kept in DyadResponse
+count_and_keep_not_approaching_losing_interest <- function(df) {
+  # Count the number of cases with Not approaching & Losing interest
+  count_not_approaching_losing_interest <- sum(grepl("Not approaching", df$DyadResponse) & grepl("Losing interest", df$DyadResponse))
+  
+  # Return the count
+  return(count_not_approaching_losing_interest)
+}
+
+# Apply the function to the dataframe
+count_not_approaching_losing_interest <- count_and_keep_not_approaching_losing_interest(BexClean)
+
+# Display the result
+cat("Number of cases with Not approaching & Losing interest: ", count_not_approaching_losing_interest, "\n")
+
+
+```
+
+
+
+
+
+
 
 * **Intrusion & Not approaching**: I will keep Intrusion: **Intrusion > Not approaching**
 
+```{r DyadResponse Hierarchy Intrusion & not Approaching , echo=FALSE}
+
+
+
+# Function to count the number of cases with Intrusion & Not approaching
+count_intrusion_not_approaching <- function(df) {
+  count_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  return(count_intrusion_not_approaching)
+}
+
+# Apply the function to the dataframe
+count_intrusion_not_approaching <- count_intrusion_not_approaching(BexClean)
+
+# Display the result
+cat("Number of cases with Intrusion & Not approaching: ", count_intrusion_not_approaching, "\n")
+
+# Function to remove 'Not Approaching' when both 'Intrusion' and 'Not Approaching' are present in DyadResponse
+remove_not_approaching_with_intrusion <- function(df) {
+  # Count the number of cases with Intrusion & Not approaching
+  count_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Remove 'Not Approaching' when both are present
+  df <- df %>%
+    mutate(DyadResponse = ifelse(grepl("Intrusion", DyadResponse) & grepl("Not approaching", DyadResponse), 
+                                 gsub("Not approaching", "", DyadResponse), 
+                                 DyadResponse))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count the remaining lines with both Intrusion and Not Approaching
+  remaining_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_intrusion_not_approaching, remaining_intrusion_not_approaching))
+}
+
+# Apply the function to the dataframe
+result_remove_intrusion <- remove_not_approaching_with_intrusion(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated <- result_remove_intrusion[[1]]
+changes_made <- result_remove_intrusion[[2]]
+remaining_intrusion_not_approaching <- result_remove_intrusion[[3]]
+
+# Display the count of changes made and remaining occurrences
+cat("Number of changes made to remove 'Not Approaching' with 'Intrusion': ", changes_made, "\n")
+cat("Number of remaining cases with both Intrusion and Not approaching: ", remaining_intrusion_not_approaching, "\n")
+
+
+
+```
+
 * **Not approaching & Distracted**: I will keep **Not approaching**: **Not approaching > Distracted**
 
-* **Aggression & Not Approaching**: I will keep both Aggression > Not approaching
+```{r DyadResponse Hierarchy Not approaching & Distracted , echo=FALSE}
 
-* **Male aggress male** and **Female aggress male**: create a variable called **Aggression** and put **Yes** for every occurrences of Female and Male aggression and **No** when there wasn't
+# Function to count the number of cases with Not approaching & Distracted
+count_not_approaching_distracted <- function(df) {
+  count_not_approaching_distracted <- sum(grepl("Not approaching", df$DyadResponse) & grepl("Distracted", df$DyadResponse))
+  return(count_not_approaching_distracted)
+}
 
-* **Tolerance & Not approaching**: I will keep **Tolerance** as it means that one of the individuals took more than 30 seconds to come at the box and then at the end came. In these cases 
-I will create a variable called **Hesistant** to count the frequency of times where the monkey took more time to approach than in the usual trials. Once the variable is created based on all the occurence of tolerance and not approaching, I will replace all the occurences of not approaching and tolerance with tolerance: **Tolerance > No approaching**
+# Apply the function to the dataframe
+count_not_approaching_distracted <- count_not_approaching_distracted(BexClean)
 
+# Display the result
+cat("Number of cases with Not approaching & Distracted: ", count_not_approaching_distracted, "\n")
 
-
-```{r Implementation of Hierarchy in DyadResponse, echo=FALSE}
-
-# Function to create a hierarchy for DyadResponse and create new variables
-create_hierarchy <- function(df) {
-  # Create necessary variables
-  df <- df %>%
-    mutate(SimultaneousTouch = ifelse(grepl("Tolerance", DyadResponse), "Yes", "No"),
-           Hesitant = ifelse(grepl("Not approaching", DyadResponse) & grepl("Tolerance", DyadResponse), "Yes", "No"),
-           Intrusion = ifelse(grepl("Intrusion", DyadResponse), "Yes", "No"),
-           Aggression = ifelse(grepl("Female aggress male|Male aggress female", DyadResponse), "Yes", "No"))
-
-  # Count occurrences before modifications
-  count_before <- nrow(df)
+# Function to remove 'Distracted' when both 'Not approaching' and 'Distracted' are present in DyadResponse
+remove_distracted_with_not_approaching <- function(df) {
+  # Count the number of cases with Not approaching & Distracted
+  count_not_approaching_distracted <- sum(grepl("Not approaching", df$DyadResponse) & grepl("Distracted", df$DyadResponse))
   
-  # Apply the hierarchy
-  df <- df[!(grepl("Tolerance", df$DyadResponse) & grepl("Female aggress male|Male aggress female", df$DyadResponse)), ]
-  df <- df[!(grepl("Not approaching", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
-  df <- df[!(grepl("Losing interest", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
-  df <- df[!(grepl("Intrusion", df$DyadResponse) & grepl("Tolerance", df$DyadResponse)), ]
-  df <- df[!(grepl("Losing interest", df$DyadResponse) & grepl("Intrusion", df$DyadResponse)), ]
-  df <- df[!(grepl("Not approaching", df$DyadResponse) & grepl("Intrusion", df$DyadResponse)), ]
-  df <- df[!(grepl("Distracted", df$DyadResponse) & grepl("Not approaching", df$DyadResponse)), ]
-
-  # Count occurrences after modifications
-  count_after <- nrow(df)
-
-  # Display the number of rows changed
-  cat("Number of rows changed: ", count_before - count_after, "\n")
-
-  return(df)
+  # Remove 'Distracted' when both are present
+  df <- df %>%
+    mutate(DyadResponse = ifelse(grepl("Not approaching", DyadResponse) & grepl("Distracted", DyadResponse), 
+                                 gsub("Distracted", "", DyadResponse), 
+                                 DyadResponse))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count the remaining lines with both Not Approaching and Distracted
+  remaining_not_approaching_distracted <- sum(grepl("Not approaching", df$DyadResponse) & grepl("Distracted", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_not_approaching_distracted, remaining_not_approaching_distracted))
 }
 
-# Apply the hierarchy function to the data
-BexClean <- create_hierarchy(BexClean)
+# Apply the function to the dataframe
+result_remove_distracted <- remove_distracted_with_not_approaching(BexClean)
 
-# Function to create dichotomous variables for specific behaviors
-create_dichotomous_variables <- function(df) {
-  df$IDIndividual1[is.na(df$IDIndividual1)] <- "No individual"
+# Extract the updated dataframe and count of changes
+BexClean_updated <- result_remove_distracted[[1]]
+changes_made <- result_remove_distracted[[2]]
+remaining_not_approaching_distracted <- result_remove_distracted[[3]]
 
-  df$MultipleResponses <- ifelse(
-    df$IDIndividual1 != "No individual" & grepl("[;,] ?", df$DyadResponse),
-    ">1 Response",
-    "Single Response"
-  )
+# Display the count of changes made and remaining occurrences
+cat("Number of changes made to remove 'Distracted' with 'Not approaching': ", changes_made, "\n")
+cat("Number of remaining cases with both Not approaching and Distracted: ", remaining_not_approaching_distracted, "\n")
 
-  cat("Variables created: MultipleResponses\n")
-  return(df)
+
+
+
+```
+
+* **Male Aggress Female / Female Aggress Female** and **Not Approaching**: I will keep both Aggression > Not approaching
+
+```{r DyadResponse Hierarchy Male Aggress Female & Female Aggress male with Not Approaching, echo=FALSE}
+
+
+
+
+# Function to count the number of cases with Aggression & Not Approaching
+count_aggression_not_approaching <- function(df) {
+  count_male_aggress_female_not_approaching <- sum(grepl("Male aggress female", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  count_female_aggress_male_not_approaching <- sum(grepl("Female aggress male", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  total_count <- count_male_aggress_female_not_approaching + count_female_aggress_male_not_approaching
+  return(list(count_male_aggress_female_not_approaching, count_female_aggress_male_not_approaching, total_count))
 }
 
+# Apply the function to the dataframe
+counts_aggression_not_approaching <- count_aggression_not_approaching(BexClean)
+
+# Extract counts
+count_male_aggress_female_not_approaching <- counts_aggression_not_approaching[[1]]
+count_female_aggress_male_not_approaching <- counts_aggression_not_approaching[[2]]
+total_aggression_not_approaching <- counts_aggression_not_approaching[[3]]
+
+# Display the result
+cat("Number of cases with Male Aggress Female & Not Approaching: ", count_male_aggress_female_not_approaching, "\n")
+cat("Number of cases with Female Aggress Male & Not Approaching: ", count_female_aggress_male_not_approaching, "\n")
+cat("Total number of cases with Aggression & Not Approaching: ", total_aggression_not_approaching, "\n")
+
+# Function to remove 'Not Approaching' when both 'Aggression' (Male/Female aggress) and 'Not Approaching' are present in DyadResponse
+remove_not_approaching_with_aggression <- function(df) {
+  # Remove 'Not Approaching' when Male aggress female is present
+  changes_made_male <- sum(grepl("Male aggress female", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  df <- df %>%
+    mutate(DyadResponse = ifelse(grepl("Male aggress female", DyadResponse) & grepl("Not approaching", DyadResponse), 
+                                 gsub("Not approaching", "", DyadResponse), 
+                                 DyadResponse))
+  
+  # Remove 'Not Approaching' when Female aggress male is present
+  changes_made_female <- sum(grepl("Female aggress male", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  df <- df %>%
+    mutate(DyadResponse = ifelse(grepl("Female aggress male", DyadResponse) & grepl("Not approaching", DyadResponse), 
+                                 gsub("Not approaching", "", DyadResponse), 
+                                 DyadResponse))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count remaining lines with both Aggression (Male/Female aggress) and Not Approaching
+  remaining_male_aggress_female_not_approaching <- sum(grepl("Male aggress female", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  remaining_female_aggress_male_not_approaching <- sum(grepl("Female aggress male", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, changes_made_male, changes_made_female, remaining_male_aggress_female_not_approaching, remaining_female_aggress_male_not_approaching))
+}
+
+# Apply the function to the dataframe
+result_remove_not_approaching <- remove_not_approaching_with_aggression(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated <- result_remove_not_approaching[[1]]
+changes_made_male <- result_remove_not_approaching[[2]]
+changes_made_female <- result_remove_not_approaching[[3]]
+remaining_male_aggress_female_not_approaching <- result_remove_not_approaching[[4]]
+remaining_female_aggress_male_not_approaching <- result_remove_not_approaching[[5]]
+
+# Display the count of changes made and remaining occurrences
+cat("Number of changes made to remove 'Not Approaching' with 'Male aggress female': ", changes_made_male, "\n")
+cat("Number of changes made to remove 'Not Approaching' with 'Female aggress male': ", changes_made_female, "\n")
+cat("Number of remaining cases with Male Aggress Female & Not Approaching: ", remaining_male_aggress_female_not_approaching, "\n")
+cat("Number of remaining cases with Female Aggress Male & Not Approaching: ", remaining_female_aggress_male_not_approaching, "\n")
 
 
 
@@ -2433,13 +2572,105 @@ create_dichotomous_variables <- function(df) {
 
 ```
 
-##### 3.9.3.d 
+* **Male aggress Female** and **Female aggress male**: create a variable called **Aggression** and put **Yes** for every occurrences of Female and Male aggression and **No** when there wasn't
+
+```{r DyadResponse Hierarchy Aggression, echo=FALSE}
+
+
+# Function to create Aggression variable based on occurrences of Male and Female aggression
+create_aggression_variable <- function(df) {
+  # Create Aggression variable
+  df <- df %>%
+    mutate(Aggression = ifelse(grepl("Male aggress female", DyadResponse) | grepl("Female aggress male", DyadResponse), "Yes", "No"))
+  
+  # Count occurrences of Male aggress female and Female aggress male
+  count_male_aggress_female <- sum(grepl("Male aggress female", df$DyadResponse))
+  count_female_aggress_male <- sum(grepl("Female aggress male", df$DyadResponse))
+  total_aggression_count <- sum(df$Aggression == "Yes")
+  
+  # Return updated dataframe and counts
+  return(list(df, count_male_aggress_female, count_female_aggress_male, total_aggression_count))
+}
+
+# Apply the function to the dataframe
+result_aggression <- create_aggression_variable(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated_aggression <- result_aggression[[1]]
+count_male_aggress_female <- result_aggression[[2]]
+count_female_aggress_male <- result_aggression[[3]]
+total_aggression_count <- result_aggression[[4]]
+
+# Display the results
+cat("Number of cases with Male aggress female: ", count_male_aggress_female, "\n")
+cat("Number of cases with Female aggress male: ", count_female_aggress_male, "\n")
+cat("Total number of aggression cases: ", total_aggression_count, "\n")
+
+
+```
+
+* **Tolerance & Not approaching**: I will keep **Tolerance** as it means that one of the individuals took more than 30 seconds to come at the box and then at the end came. In these cases 
+I will create a variable called **Hesistant** to count the frequency of times where the monkey took more time to approach than in the usual trials. Once the variable is created based on all the occurence of tolerance and not approaching, I will replace all the occurences of not approaching and tolerance with tolerance: **Tolerance > No approaching**
+
+```{r DyadResponse Hierarchy Tolerance & Not Approaching  , echo=FALSE}
+
+# Function to handle Tolerance & Not Approaching cases
+handle_tolerance_not_approaching <- function(df) {
+  # Count the number of cases with Tolerance & Not Approaching
+  count_tolerance_not_approaching <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Create a variable called Hesitant
+  df <- df %>%
+    mutate(Hesitant = ifelse(grepl("Tolerance", DyadResponse) & grepl("Not approaching", DyadResponse), "Yes", "No"))
+  
+  # Remove 'Not approaching' when 'Tolerance' is present
+  df <- df %>%
+    mutate(DyadResponse = case_when(
+      grepl("Tolerance", DyadResponse) & grepl("Not approaching", DyadResponse) ~ gsub("Not approaching", "", DyadResponse),
+      TRUE ~ DyadResponse
+    ))
+  
+  # Trim any extra whitespace that might have been introduced
+  df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count the number of rows changed
+  rows_changed <- count_tolerance_not_approaching
+  
+  # Count remaining lines with both Tolerance and Not Approaching
+  remaining_tolerance_not_approaching <- sum(grepl("Tolerance", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Return updated dataframe and counts
+  return(list(df, count_tolerance_not_approaching, rows_changed, remaining_tolerance_not_approaching))
+}
+
+# Apply the function to the dataframe
+result_tolerance_not_approaching <- handle_tolerance_not_approaching(BexClean)
+
+# Extract the updated dataframe and counts
+BexClean_updated_tolerance_not_approaching <- result_tolerance_not_approaching[[1]]
+count_tolerance_not_approaching <- result_tolerance_not_approaching[[2]]
+rows_changed_tolerance_not_approaching <- result_tolerance_not_approaching[[3]]
+remaining_tolerance_not_approaching <- result_tolerance_not_approaching[[4]]
+
+# Display the results
+cat("Number of cases with Tolerance & Not Approaching: ", count_tolerance_not_approaching, "\n")
+cat("Number of rows changed: ", rows_changed_tolerance_not_approaching, "\n")
+cat("Number of lines remaining with both Tolerance and Not Approaching: ", remaining_tolerance_not_approaching, "\n")
+
+
+
+```
+
+
+
+
+# 4.Visualizing the data
+#UPDATES FROM HERE
+
+
   
   
 
-
-
-* Other Reponse - DEtailed cleaning to delete the column
 * Audience - Creation of Amount Audience and Density
 * ID Individua1 - Not sure yet
 * Intruder ID 
@@ -2507,6 +2738,11 @@ cat("Occurrences of '1' in 'LosingInterest':", count_LosingInterest_1, "\n")
 cat("Occurrences of '1' in 'Distracted':", count_Distracted_1, "\n")
 
 ```
+
+
+
+
+### Update of Dataframe BexClean with revelant variables
 
 
 
@@ -2727,7 +2963,7 @@ unique_female_ids <- unique(Bex$FemaleID)
 
 ## 3. Describing the data
 
-## 4.Visualizing the data
+
 
 ## 5.Research question & Hypothesis
 
