@@ -2201,19 +2201,12 @@ cat("Number of occurrences replaced with 'No Response' in OtherResponse: ", chan
   - **Tolerance**: the variable called **SimulteanousTouch** records all the occurences where we recorded tolerance but actually recorded monkeys touching the boxes at the same time since sometimes other behaviours occured. Since Tis column has already been created I dont have to do anything more for Tolerance
   - **Not approaching** & **Loosing interest** will be used to creat two columns: **Not approaching ID** that will tak the ID of each individual that did not approach and **Losing Interest ID** taking the ID of eahc individual that lost interest. This will allow me to replace these occurrences when implementing the hierarchy hierarchy without loosing any information.
 
-  
-```{r DyadResponse Dichotomic Variables Before Hierarchy Not Approaching, echo=FALSE}
 
 
-```
+```{r DyadResponse Dichotomic Variables Before Hierarchy Not Approaching and Losig interest, echo=FALSE}
 
 
-### Part 2: Selecting Relevant Rows, Counting, and Error Identification
-
-This part handles selecting relevant rows, renaming columns, counting final occurrences, and identifying rows with potential errors.
-
-
-```{r DyadResponse Dichotomic Variables Before Hierarchy Final Steps, echo=FALSE}
+ 
 
 # Load necessary libraries
 library(dplyr)
@@ -2309,13 +2302,8 @@ if (nrow(error_rows) > 0) {
 
 
 
+
 ```
-
-
-
-
-
-
 
 * **Aggression & Tolerance**: I will keep **Agression** as we defined tolerance as the absence of any sign of aggression between individuals of a Dyad. Each Time we wrote tolerance it means that the monkeys touched the boxes at the same time. I will create a variable called **SimulatenousTouch** to record every time the box did the action at the same time. Then I will in every case of aggression and tolerance within a trial keep Aggression: **Aggression > Tolerance**. (Note that aggression is not yet a variable in itself but instead we have Male aggress female & Female aggress male as occurences of aggression)
 
