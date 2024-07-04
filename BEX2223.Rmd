@@ -1686,6 +1686,8 @@ print(plot_proximity_freq)
 
 ### 3.9 Dyad Response - Corrections and detailed cleaning
 
+#### 3.9.1
+
 * Reminder: The different behaviors that are coded in **DyadResponse** are: **Distracted**, **Female aggress male**, **Male aggress female**, **Intrusion**, **Loosing interest**, **Not approaching**, **Tolerance** and **Other**
     * I will change the columns associated to each behavior (i.e. Response) of  **DyadResponse**  into dichotomic variables in order to         see the frequency of each behaviour
     * This will allow me to see which behavior occurred more than others, and what differences are between dyads 
@@ -1699,8 +1701,9 @@ print(plot_proximity_freq)
 
 * Also I will create the hierarchy before implementing in the dataset
     
-##### 3.9.2 Dyad Response description
+#### 3.9.2 Dyad Response description
   
+
 * I need to know how many different combinations exist within DyadResponse and how many occurrences/cells have more than one response per cell. I need the code to not take in account the order but rather the responses in themselves
 * I want one table for the Different combinations and one showing the differernt combinations for only ONE response per cell, in a second table
 
@@ -1952,7 +1955,7 @@ BexClean$DyadResponse_original <- NULL
 
 ##### 3.9.3.b DyadResponse Hierarchy - Other
 
-* I will print the amount of **Other** occurrencess in DyadResposne and treat them to remove some multiple combinations
+* I will print the amount of **Other** occurrencess in DyadResponse and treat them to remove some multiple combinations
 
 ```{r DyadResponse Others, echo=FALSE}
 
@@ -2192,16 +2195,131 @@ cat("Number of occurrences replaced with 'No Response' in OtherResponse: ", chan
 
 ##### 3.9.3.c Decision making for Dyad Response Hierarchy
 
-
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
+
+* Before that I will create some new variables from the output of DyadResponse putting 1 when a behavior occurred and 0 when it did not, and this for the following behaviours: **Tolerance, Not approaching ,Male aggress female, Intrusion, Losing interest, Female aggress male*
+  - **Tolerance**: the variable called **SimulteanousTouch** records all the occurences where we recorded tolerance but actually recorded monkeys touching the boxes at the same time since sometimes other behaviours occured. Since Tis column has already been created I dont have to do anything more for Tolerance
+  - **Not approaching** & **Loosing interest** will be used to creat two columns: **Not approaching ID** that will tak the ID of each individual that did not approach and **Losing Interest ID** taking the ID of eahc individual that lost interest. This will allow me to replace these occurrences when implementing the hierarchy hierarchy without loosing any information.
+
+  
+```{r DyadResponse Dichotomic Variables Before Hierarchy Not Approaching, echo=FALSE}
+
+
+```
+
+
+### Part 2: Selecting Relevant Rows, Counting, and Error Identification
+
+This part handles selecting relevant rows, renaming columns, counting final occurrences, and identifying rows with potential errors.
+
+
+```{r DyadResponse Dichotomic Variables Before Hierarchy Final Steps, echo=FALSE}
+
+# Load necessary libraries
+library(dplyr)
+library(knitr)
+
+# Define behaviors of interest
+behaviors <- c("Not approaching", "Losing interest")
+
+# Count initial occurrences of each behavior
+initial_counts <- sapply(behaviors, function(behavior) {
+  sum(grepl(behavior, BexClean$DyadResponse))
+})
+cat("Initial counts:\n")
+print(initial_counts)
+
+# Create columns for each behavior
+for (behavior in behaviors) {
+  BexClean[[paste0("Behavior_", gsub(" ", "_", behavior))]] <- ""
+}
+
+# Function to assign names based on behavior position
+assign_names_to_behaviors <- function(df, behaviors) {
+  for (i in seq_len(nrow(df))) {
+    dyad_responses <- unlist(strsplit(df$DyadResponse[i], "; "))
+    id_individuals <- unlist(strsplit(df$IDIndividual1[i], "; "))
+    
+    if (length(id_individuals) > length(dyad_responses)) {
+      dyad_responses <- rep(dyad_responses, length.out = length(id_individuals))
+    } else if (length(dyad_responses) > length(id_individuals)) {
+      id_individuals <- rep(id_individuals, length.out = length(dyad_responses))
+    }
+    
+    for (j in seq_along(dyad_responses)) {
+      behavior <- dyad_responses[j]
+      individual <- id_individuals[j]
+      
+      for (b in behaviors) {
+        if (grepl(b, behavior)) {
+          behavior_col <- paste0("Behavior_", gsub(" ", "_", b))
+          df[i, behavior_col] <- ifelse(df[i, behavior_col] == "", individual, paste(df[i, behavior_col], individual, sep = "; "))
+        }
+      }
+    }
+  }
+  return(df)
+}
+
+# Apply the function to the dataset
+BexClean <- assign_names_to_behaviors(BexClean, behaviors)
+
+# Fill empty behavior columns with "Other Behavior"
+BexClean <- BexClean %>%
+  mutate(across(starts_with("Behavior_"), ~ ifelse(. == "", "Other Behavior", .)))
+
+
+
+
+# Select relevant rows where any behavior of interest is present
+relevant_rows <- BexClean %>%
+  filter(Behavior_Not_approaching != "Other Behavior" | Behavior_Losing_interest != "Other Behavior") %>%
+  select(DyadResponse, IDIndividual1, IntruderID, 
+         Behavior_Not_approaching, Behavior_Losing_interest)
+
+# Rename columns for clarity
+relevant_rows <- relevant_rows %>%
+  rename(`Not approaching ID` = Behavior_Not_approaching,
+         `Losing Interest ID` = Behavior_Losing_interest)
+
+# Count the number of rows in each behavior ID column
+not_approaching_count <- sum(relevant_rows$`Not approaching ID` != "Other Behavior")
+losing_interest_count <- sum(relevant_rows$`Losing Interest ID` != "Other Behavior")
+
+# Print final counts
+cat("Count of rows in 'Not approaching ID':", not_approaching_count, "\n")
+cat("Count of rows in 'Losing Interest ID':", losing_interest_count, "\n")
+
+# Display the head of relevant rows in a knitr table
+knitr::kable(head(relevant_rows), caption = "Relevant Rows with Behaviors")
+
+# Identify rows with potential errors
+error_rows <- BexClean %>%
+  filter((Behavior_Not_approaching == "Other Behavior" & grepl("Not approaching", DyadResponse)) |
+         (Behavior_Losing_interest == "Other Behavior" & grepl("Losing interest", DyadResponse)))
+
+if (nrow(error_rows) > 0) {
+  cat("Rows with potential errors:\n")
+  print(knitr::kable(error_rows, caption = "Rows with Potential Errors"))
+} else {
+  cat("No rows with potential errors found.\n")
+}
+
+
+
+
+
+```
+
+
+
+
+
 
 
 * **Aggression & Tolerance**: I will keep **Agression** as we defined tolerance as the absence of any sign of aggression between individuals of a Dyad. Each Time we wrote tolerance it means that the monkeys touched the boxes at the same time. I will create a variable called **SimulatenousTouch** to record every time the box did the action at the same time. Then I will in every case of aggression and tolerance within a trial keep Aggression: **Aggression > Tolerance**. (Note that aggression is not yet a variable in itself but instead we have Male aggress female & Female aggress male as occurences of aggression)
 
 ```{r DyadResponse Hierarchy Tolerance & Aggression, echo=FALSE}
-
-# Load necessary library
-library(dplyr)
 
 # Function to handle Male aggress female or Female aggress male and Tolerance cases
 handle_aggression_tolerance <- function(df) {
@@ -2259,9 +2377,6 @@ cat("Number of lines remaining with both Aggression and Tolerance: ", remaining_
 
 
 ```{r DyadResponse Hierarchy Tolerance & Loosing interest, echo=FALSE}
-
-# Load necessary library
-library(dplyr)
 
 # Function to handle Tolerance & Losing interest cases
 handle_tolerance_losing_interest <- function(df) {
@@ -2389,8 +2504,6 @@ cat("Number of cases with Not approaching & Losing interest: ", count_not_approa
 
 ```{r DyadResponse Hierarchy Intrusion & not Approaching , echo=FALSE}
 
-
-
 # Function to count the number of cases with Intrusion & Not approaching
 count_intrusion_not_approaching <- function(df) {
   count_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
@@ -2489,17 +2602,11 @@ remaining_not_approaching_distracted <- result_remove_distracted[[3]]
 cat("Number of changes made to remove 'Distracted' with 'Not approaching': ", changes_made, "\n")
 cat("Number of remaining cases with both Not approaching and Distracted: ", remaining_not_approaching_distracted, "\n")
 
-
-
-
 ```
 
 * **Male Aggress Female / Female Aggress Female** and **Not Approaching**: I will keep both Aggression > Not approaching
 
 ```{r DyadResponse Hierarchy Male Aggress Female & Female Aggress male with Not Approaching, echo=FALSE}
-
-
-
 
 # Function to count the number of cases with Aggression & Not Approaching
 count_aggression_not_approaching <- function(df) {
@@ -2564,10 +2671,6 @@ cat("Number of changes made to remove 'Not Approaching' with 'Male aggress femal
 cat("Number of changes made to remove 'Not Approaching' with 'Female aggress male': ", changes_made_female, "\n")
 cat("Number of remaining cases with Male Aggress Female & Not Approaching: ", remaining_male_aggress_female_not_approaching, "\n")
 cat("Number of remaining cases with Female Aggress Male & Not Approaching: ", remaining_female_aggress_male_not_approaching, "\n")
-
-
-
-
 
 
 ```
