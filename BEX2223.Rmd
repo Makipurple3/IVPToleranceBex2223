@@ -2197,57 +2197,76 @@ cat("Number of occurrences replaced with 'No Response' in OtherResponse: ", chan
 
 *  I will create a **Hierarchy for DyadResponse** in order to treat cases where multiple behaviours were produced within a trial in order to reduce the amount of responses and clear any discrepancies that could be found
 
-* Before that I will create some new variables from the output of DyadResponse putting 1 when a behavior occurred and 0 when it did not, and this for the following behaviours: **Tolerance, Not approaching ,Male aggress female, Intrusion, Losing interest, Female aggress male*
+* Before that I will create some new variables from the output of DyadResponse putting 1 when a behavior occurred and 0 when it did not, and this for the following behaviours: **Not approaching ,Intrusion, Losing interest**
   - **Tolerance**: the variable called **SimulteanousTouch** records all the occurences where we recorded tolerance but actually recorded monkeys touching the boxes at the same time since sometimes other behaviours occured. Since Tis column has already been created I dont have to do anything more for Tolerance
   - **Not approaching** & **Loosing interest** will be used to creat two columns: **Not approaching ID** that will tak the ID of each individual that did not approach and **Losing Interest ID** taking the ID of eahc individual that lost interest. This will allow me to replace these occurrences when implementing the hierarchy hierarchy without loosing any information.
 
 
+#OTHER UPDATES FROM HERE
 
 ```{r DyadResponse Dichotomic Variables Before Hierarchy Not Approaching and Losig interest, echo=FALSE}
 
 
- 
 
-# Load necessary libraries
 library(dplyr)
+library(tidyr)
 library(knitr)
 
+# Assuming BexClean is your actual dataset, load it here
+# For example, if it's a CSV file, you would use:
+# BexClean <- read.csv("path_to_your_dataset.csv")
+
 # Define behaviors of interest
-behaviors <- c("Not approaching", "Losing interest")
+behaviors <- c("Not approaching", "Losing interest", "Distracted")
 
 # Count initial occurrences of each behavior
 initial_counts <- sapply(behaviors, function(behavior) {
-  sum(grepl(behavior, BexClean$DyadResponse))
+  sum(grepl(behavior, BexClean$DyadResponse, ignore.case = TRUE))
 })
 cat("Initial counts:\n")
 print(initial_counts)
 
 # Create columns for each behavior
 for (behavior in behaviors) {
-  BexClean[[paste0("Behavior_", gsub(" ", "_", behavior))]] <- ""
+  behavior_col <- paste0("Behavior_", gsub(" ", "_", behavior))
+  BexClean[[behavior_col]] <- NA  # Initialize columns with NA
 }
 
 # Function to assign names based on behavior position
 assign_names_to_behaviors <- function(df, behaviors) {
   for (i in seq_len(nrow(df))) {
-    dyad_responses <- unlist(strsplit(df$DyadResponse[i], "; "))
-    id_individuals <- unlist(strsplit(df$IDIndividual1[i], "; "))
+    dyad_responses <- unlist(strsplit(as.character(df$DyadResponse[i]), "; "))
+    id_individuals <- unlist(strsplit(as.character(df$IDIndividual1[i]), "; "))
     
+    # Ensure equal lengths by padding shorter list
     if (length(id_individuals) > length(dyad_responses)) {
       dyad_responses <- rep(dyad_responses, length.out = length(id_individuals))
     } else if (length(dyad_responses) > length(id_individuals)) {
       id_individuals <- rep(id_individuals, length.out = length(dyad_responses))
     }
     
+    # Initialize a list to store assignments
+    assignments <- list()
+    
     for (j in seq_along(dyad_responses)) {
       behavior <- dyad_responses[j]
       individual <- id_individuals[j]
       
       for (b in behaviors) {
-        if (grepl(b, behavior)) {
+        if (grepl(b, behavior, ignore.case = TRUE)) {
           behavior_col <- paste0("Behavior_", gsub(" ", "_", b))
-          df[i, behavior_col] <- ifelse(df[i, behavior_col] == "", individual, paste(df[i, behavior_col], individual, sep = "; "))
+          assignments[[behavior_col]] <- c(assignments[[behavior_col]], individual)
         }
+      }
+    }
+    
+    # Assign individuals to behavior columns or mark as "Other Behavior"
+    for (b in behaviors) {
+      behavior_col <- paste0("Behavior_", gsub(" ", "_", b))
+      if (is.null(assignments[[behavior_col]])) {
+        df[i, behavior_col] <- "Other Behavior"
+      } else {
+        df[i, behavior_col] <- paste(unique(assignments[[behavior_col]]), collapse = "; ")
       }
     }
   }
@@ -2259,47 +2278,51 @@ BexClean <- assign_names_to_behaviors(BexClean, behaviors)
 
 # Fill empty behavior columns with "Other Behavior"
 BexClean <- BexClean %>%
-  mutate(across(starts_with("Behavior_"), ~ ifelse(. == "", "Other Behavior", .)))
-
-
-
+  mutate(across(starts_with("Behavior_"), ~ ifelse(is.na(.), "Other Behavior", .)))
 
 # Select relevant rows where any behavior of interest is present
 relevant_rows <- BexClean %>%
-  filter(Behavior_Not_approaching != "Other Behavior" | Behavior_Losing_interest != "Other Behavior") %>%
+  filter(Behavior_Not_approaching != "Other Behavior" | 
+         Behavior_Losing_interest != "Other Behavior" |
+         Behavior_Distracted != "Other Behavior") %>%
   select(DyadResponse, IDIndividual1, IntruderID, 
-         Behavior_Not_approaching, Behavior_Losing_interest)
+         Behavior_Not_approaching, Behavior_Losing_interest, Behavior_Distracted)
 
 # Rename columns for clarity
 relevant_rows <- relevant_rows %>%
   rename(`Not approaching ID` = Behavior_Not_approaching,
-         `Losing Interest ID` = Behavior_Losing_interest)
+         `Losing Interest ID` = Behavior_Losing_interest,
+         `Distracted ID` = Behavior_Distracted)
 
 # Count the number of rows in each behavior ID column
 not_approaching_count <- sum(relevant_rows$`Not approaching ID` != "Other Behavior")
 losing_interest_count <- sum(relevant_rows$`Losing Interest ID` != "Other Behavior")
+distracted_count <- sum(relevant_rows$`Distracted ID` != "Other Behavior")
 
 # Print final counts
 cat("Count of rows in 'Not approaching ID':", not_approaching_count, "\n")
 cat("Count of rows in 'Losing Interest ID':", losing_interest_count, "\n")
+cat("Count of rows in 'Distracted ID':", distracted_count, "\n")
 
 # Display the head of relevant rows in a knitr table
 knitr::kable(head(relevant_rows), caption = "Relevant Rows with Behaviors")
 
-# Identify rows with potential errors
+# Improved Error Checking: Identify rows with potential errors
 error_rows <- BexClean %>%
-  filter((Behavior_Not_approaching == "Other Behavior" & grepl("Not approaching", DyadResponse)) |
-         (Behavior_Losing_interest == "Other Behavior" & grepl("Losing interest", DyadResponse)))
+  mutate(row_number = row_number()) %>%
+  filter((Behavior_Not_approaching == "Other Behavior" & grepl("Not approaching", DyadResponse, ignore.case = TRUE)) |
+         (Behavior_Losing_interest == "Other Behavior" & grepl("Losing interest", DyadResponse, ignore.case = TRUE)) |
+         (Behavior_Distracted == "Other Behavior" & grepl("Distracted", DyadResponse, ignore.case = TRUE)) |
+         (grepl(";", `Behavior_Not_approaching`) & grepl(";", `Behavior_Losing_interest`) & grepl(";", `Behavior_Distracted`)))
 
 if (nrow(error_rows) > 0) {
-  cat("Rows with potential errors:\n")
-  print(knitr::kable(error_rows, caption = "Rows with Potential Errors"))
+  cat("Rows with potential errors (line numbers included):\n")
+  print(knitr::kable(error_rows %>% select(row_number, everything()), caption = "Rows with Potential Errors"))
 } else {
   cat("No rows with potential errors found.\n")
 }
 
-
-
+# Display the entire dataset in the View window
 
 
 
@@ -2798,7 +2821,7 @@ if (!"MultipleResponses" %in% names(BexClean)) {
 )
 
   
-  View(BexClean)
+  (BexClean)
 } else {
   cat("The 'MultipleResponses' column already exists. No changes made.\n")
 }
@@ -3323,6 +3346,27 @@ experiments made
 
 
 #########
+
+
+# Key cognitive skilly that may be involved in the box experiment
+* Problem solving
+* Memory
+* Conflict resolution
+
+# Key idea to develop & insghts
+* Inter sexual food competition/or tolerance: which type of adaptation
+* Tolerance
+* Adaptation to a new context (box experiment setting and repeated encounters with a specific individual)
+* Evolution of tolerance in competitive context
+* Social cognition > meaning influence of the group or audience on the choice of an individual of a Dyad
+
+* Foundation of tolerance, solving of competition related to food, mechanisms underlying male-female vervet relationships, dyadic interactions
+* Insights on the evolution of complex decision making in a social context and adaptive mechanisms related to food competition x
+
+
+In summary, studying dyadic interactions, particularly between males and females in vervet monkeys, not only enhances our understanding of evolutionary origins and adaptive advantages of complex cognition but also provides valuable insights into human social behavior, cooperation, and cognitive foundations shared across species. These studies bridge the gap between animal behavior research and cognitive science, offering interdisciplinary perspectives on the complexities of social interactions and their implications for both animal and human societies.
+
+
 
 # Glossary
 * **Tolerance**: Tolerance: An individual has an encounter with a conspecific and
