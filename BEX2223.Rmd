@@ -3015,6 +3015,8 @@ print(faceted_monthly_plot_with_lines)
 ```
 
 
+```{Gra}
+
 ```{r daily graph2, echo=FALSE}
 
 # 1. Improved Overall Male vs Female Aggression Plot
@@ -3068,60 +3070,7 @@ print(dyad_aggression_plot)
 
 ```
   
-  
 
-```{r aggression temporary graphs, echo=FALSE}
-
-
-# 1. Improved Overall Male vs Female Aggression Plot
-
-# Calculate overall aggression counts
-overall_aggression <- BexClean %>%
-  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
-  group_by(DyadResponse) %>%
-  summarise(Count = n(), .groups = 'drop')
-
-# Calculate the mean number of aggressions for display
-mean_agg <- mean(overall_aggression$Count)
-
-# Create the plot
-overall_aggression_plot <- ggplot(data = overall_aggression, aes(x = DyadResponse, y = Count, fill = DyadResponse)) +
-  geom_bar(stat = "identity", width = 0.5) +
-  geom_text(aes(label = Count), vjust = -0.5, size = 5) +  # Add count on top of bars
-  theme_minimal(base_size = 15) +
-  labs(x = "Aggression Type", y = "Count", title = "Overall Male vs Female Aggression") +
-  scale_fill_manual(values = c("Male aggress female" = "blue", "Female aggress male" = "red")) +
-  theme(legend.position = "none") +
-  geom_hline(aes(yintercept = mean_agg), linetype = "dashed", color = "gray") +  # Add mean line
-  annotate("text", x = 1.5, y = mean_agg + 3, label = paste("Mean =", round(mean_agg, 2)), color = "gray", size = 5)
-
-# Print the overall aggression plot
-print(overall_aggression_plot)
-
-# 2. Improved Proportion of Aggression by Dyad Plot
-
-# Calculate proportions
-dyad_aggression <- BexClean %>%
-  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
-  group_by(Dyad, DyadResponse) %>%
-  summarise(Count = n(), .groups = 'drop') %>%
-  group_by(Dyad) %>%
-  mutate(Proportion = Count / sum(Count))  # Calculate proportion
-
-# Horizontal bar plot to improve readability
-dyad_aggression_plot <- ggplot(data = dyad_aggression, aes(x = Proportion, y = reorder(Dyad, Proportion), fill = DyadResponse)) +
-  geom_bar(stat = "identity", position = "fill", width = 0.7) +
-  theme_minimal(base_size = 15) +
-  labs(x = "Proportion", y = "Dyad", title = "Proportion of Male vs Female Aggression by Dyad") +
-  scale_fill_manual(values = c("Male aggress female" = "blue", "Female aggress male" = "red")) +
-  theme(axis.text.y = element_text(angle = 0, hjust = 1))
-
-# Print the dyad aggression proportion plot
-print(dyad_aggression_plot)
-
-
-
-```
 
 * Check amount of audience link with aggression occurences per sex
 
@@ -3166,7 +3115,7 @@ print(audience_aggression_plot)
 
 
 
-`````{r aggression and not approaching, echo=FALSE}
+```{r aggression and not approaching, echo=FALSE}
 
 
 
