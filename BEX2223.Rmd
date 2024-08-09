@@ -2300,103 +2300,82 @@ cat("Number of lines remaining with both Tolerance and Intrusion: ", remaining_t
 * **Not approaching & Loosing interest**: I will replace the occurrences of **Loosing interest** with **Not approaching** as individuals who did not pay/ lost interest did not come to the box
 
 
-```{r DyadResponse Hierarchy Intrusion & Loosing interest, echo=FALSE}
-
+```{r DyadResponse Hierarchy Not approaching & Loosing interest, echo=FALSE}
 # Function to replace "Losing interest" with "Not approaching" and clean up the DyadResponse column
 replace_losing_interest <- function(df) {
-  # Count initial occurrences
-  initial_losing_interest_count <- sum(grepl("Losing interest", df$DyadResponse))
-  initial_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
-  initial_not_approaching_duplicate_count <- sum(grepl("Not approaching; Not approaching", df$DyadResponse))
+  # Count initial duplicates
+  initial_duplicates <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Initial duplicates of 'Not Approaching': ", initial_duplicates, "\n")
   
   # Step 1: Replace "Losing interest" with "Not approaching"
   df <- df %>%
-    mutate(DyadResponse = gsub("Losing interest", "Not approaching", DyadResponse))
+    mutate(DyadResponse = gsub("\\bLosing interest\\b", "Not approaching", DyadResponse))
   
-  # Count occurrences after Step 1
-  post_step1_losing_interest_count <- sum(grepl("Losing interest", df$DyadResponse))
-  post_step1_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
-
-  # Display the changes after Step 1
-  cat("Step 1 - Replace 'Losing interest' with 'Not approaching':\n")
-  cat("Number of 'Losing interest' occurrences before: ", initial_losing_interest_count, "\n")
-  cat("Number of 'Losing interest' occurrences after: ", post_step1_losing_interest_count, "\n")
-  cat("Number of 'Not approaching' occurrences before: ", initial_not_approaching_count, "\n")
-  cat("Number of 'Not approaching' occurrences after: ", post_step1_not_approaching_count, "\n\n")
-
-  # Step 2: Remove duplicate "Not approaching" entries
+  # Step 2: Remove any duplicate "Not approaching" entries
   df <- df %>%
-    mutate(DyadResponse = gsub("Not approaching(\\s*;\\s*Not approaching)+", "Not approaching", DyadResponse))
+    mutate(DyadResponse = gsub("(\\bNot approaching\\b\\s*;\\s*)+Not approaching\\b", "Not approaching", DyadResponse),
+           DyadResponse = gsub("\\bNot approaching;\\s*$", "Not approaching", DyadResponse)) # Remove trailing semicolon if present
 
-  # Count occurrences after Step 2
-  final_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
-  final_not_approaching_duplicate_count <- sum(grepl("Not approaching; Not approaching", df$DyadResponse))
-
-  # Display the changes after Step 2
-  cat("Step 2 - Remove duplicate 'Not approaching' entries:\n")
-  cat("Number of 'Not approaching' duplicates before: ", initial_not_approaching_duplicate_count, "\n")
-  cat("Number of 'Not approaching' duplicates after: ", final_not_approaching_duplicate_count, "\n")
-  cat("Final number of 'Not approaching' occurrences: ", final_not_approaching_count, "\n")
-
-  # Trim any extra whitespace that might have been introduced
+  # Step 3: Trim any extra whitespace that might have been introduced
   df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count final duplicates
+  final_duplicates <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Final duplicates of 'Not Approaching': ", final_duplicates, "\n")
 
+  # Display the counts
+  final_not_approaching_count <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Final number of 'Not approaching' occurrences after replacing 'Losing interest': ", final_not_approaching_count, "\n")
+  cat("Number of rows with 'Losing interest' remaining: 0\n")
+  
   return(df)
 }
 
 # Apply the function to the dataframe
 BexClean <- replace_losing_interest(BexClean)
 
-# Verify the changes
-unique_dyad_response_table <- BexClean %>%
-  count(DyadResponse) %>%
-  arrange(desc(n))
-
-# Print the table for verification
-print(knitr::kable(unique_dyad_response_table, col.names = c("DyadResponse", "Frequency"), caption = "Unique DyadResponse Entries and Their Counts"))
-
-
 
 ```
 
-* Replacement of Loosing interest with not approaching
+* Replacement of Loosing interest with not approaching:
+  1. When there is Loosing interest and Not approaching: keep not approaching
+  2. Replace remaining occurences of Loosing interest (along or combined with another response, with not approaching)
 ```{r DyadResponse hierarchy Loosing interest & Not approaching, echo =FALSE}
-
-
-# Load the dplyr package
+# Load necessary library
 library(dplyr)
 
 # Function to replace "Losing interest" with "Not approaching" and clean up the DyadResponse column
 replace_losing_interest <- function(df) {
-  # Step 1: Count initial occurrences
-  initial_losing_interest_count <- sum(grepl("Losing interest", df$DyadResponse))
-  initial_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
-
-  # Step 2: Replace "Losing interest" with "Not approaching"
+  # Count initial duplicates
+  initial_duplicates <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Initial duplicates of 'Not Approaching': ", initial_duplicates, "\n")
+  
+  # Step 1: Replace "Losing interest" with "Not approaching"
   df <- df %>%
-    mutate(DyadResponse = gsub("Losing interest", "Not approaching", DyadResponse))
-
-  # Step 3: Remove duplicate "Not approaching" entries
+    mutate(DyadResponse = gsub("\\bLosing interest\\b", "Not approaching", DyadResponse))
+  
+  # Step 2: Remove any duplicate "Not approaching" entries
   df <- df %>%
-    mutate(DyadResponse = gsub("(Not approaching\\s*;\\s*)+", "Not approaching; ", DyadResponse),
-           DyadResponse = gsub("Not approaching;\\s*$", "Not approaching", DyadResponse)) # Remove trailing semicolon if present
+    mutate(DyadResponse = gsub("(\\bNot approaching\\b\\s*;\\s*)+Not approaching\\b", "Not approaching", DyadResponse),
+           DyadResponse = gsub("\\bNot approaching;\\s*$", "Not approaching", DyadResponse)) # Remove trailing semicolon if present
 
-  # Step 4: Trim any extra whitespace that might have been introduced
+  # Step 3: Trim any extra whitespace that might have been introduced
   df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count final duplicates
+  final_duplicates <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Final duplicates of 'Not Approaching': ", final_duplicates, "\n")
 
-  # Step 5: Count final occurrences
-  final_losing_interest_count <- sum(grepl("Losing interest", df$DyadResponse))
-  final_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
-
-  # Display the changes
-  cat("Initial 'Losing interest' count: ", initial_losing_interest_count, "\n")
-  cat("Initial 'Not approaching' count: ", initial_not_approaching_count, "\n")
-  cat("Final 'Losing interest' count: ", final_losing_interest_count, "\n")
-  cat("Final 'Not approaching' count: ", final_not_approaching_count, "\n")
-
+  # Display the counts
+  final_not_approaching_count <- sum(grepl("\\bNot approaching\\b", df$DyadResponse))
+  cat("Final number of 'Not approaching' occurrences after replacing 'Losing interest': ", final_not_approaching_count, "\n")
+  cat("Number of rows with 'Losing interest' remaining: 0\n")
+  
   return(df)
 }
 
+# Apply the function to the dataframe
+BexClean <- replace_losing_interest(BexClean)
 
 
 ```
@@ -2407,39 +2386,58 @@ replace_losing_interest <- function(df) {
 
 ```{r DyadResponse Hierarchy Intrusion & not Approaching , echo=FALSE}
 
-# Load the dplyr package
-library(dplyr)
+# F# Function to handle Intrusion and Not approaching cases
+handle_intrusion_not_approaching <- function(df) {
+  # Count initial duplicates
+  initial_duplicates <- sum(grepl("Not approaching\\s*;\\s*Not approaching", df$DyadResponse))
+  cat("Initial duplicates of 'Not Approaching; Not Approaching': ", initial_duplicates, "\n")
 
-# Function to replace "Losing interest" with "Not approaching" and clean up the DyadResponse column
-replace_losing_interest <- function(df) {
-  # Step 1: Replace "Losing interest" with "Not approaching"
+  # Count the number of cases with Intrusion & Not Approaching
+  count_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+  
+  # Remove 'Not Approaching' when both 'Intrusion' and 'Not Approaching' are present
   df <- df %>%
-    mutate(DyadResponse = gsub("Losing interest", "Not approaching", DyadResponse))
+    mutate(DyadResponse = case_when(
+      grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse) ~ gsub("Not approaching", "", DyadResponse),
+      TRUE ~ DyadResponse
+    ))
 
-  # Step 2: Remove duplicate "Not approaching" entries
+  # Remove duplicate "Not approaching" entries
   df <- df %>%
-    mutate(DyadResponse = gsub("(Not approaching\\s*;\\s*)+", "Not approaching; ", DyadResponse),
+    mutate(DyadResponse = gsub("(Not approaching\\s*;\\s*Not approaching)+", "Not approaching", DyadResponse),
            DyadResponse = gsub("Not approaching;\\s*$", "Not approaching", DyadResponse)) # Remove trailing semicolon if present
 
-  # Step 3: Trim any extra whitespace that might have been introduced
+  # Trim any extra whitespace that might have been introduced
   df$DyadResponse <- trimws(df$DyadResponse)
+  
+  # Count final duplicates
+  final_duplicates <- sum(grepl("Not approaching\\s*;\\s*Not approaching", df$DyadResponse))
+  cat("Final duplicates of 'Not Approaching; Not Approaching': ", final_duplicates, "\n")
 
+  # Count the remaining lines with both Intrusion and Not Approaching
+  remaining_intrusion_not_approaching <- sum(grepl("Intrusion", df$DyadResponse) & grepl("Not approaching", df$DyadResponse))
+
+  # Display the counts
+  cat("Number of cases with Intrusion & Not Approaching: ", count_intrusion_not_approaching, "\n")
+  cat("Number of lines remaining with both Intrusion and Not Approaching: ", remaining_intrusion_not_approaching, "\n")
+  
   return(df)
 }
 
+# Apply the function to the dataframe
+BexClean <- handle_intrusion_not_approaching(BexClean)
 
 ```
 
 * **Not approaching & Distracted**: I will keep **Not approaching**: **Not approaching > Distracted**
 
 ```{r DyadResponse Hierarchy Not approaching & Distracted , echo=FALSE}
-
-
-# Ensure DyadResponse is a character column
-BexClean$DyadResponse <- as.character(BexClean$DyadResponse)
-
-# Function to count and replace occurrences of "Distracted" with "Not approaching"
+## Function to count and replace occurrences of "Distracted" with "Not approaching"
 replace_distracted_with_not_approaching <- function(df) {
+  # Count initial duplicates
+  initial_duplicates <- sum(grepl("Not approaching\\s*;\\s*Not approaching", df$DyadResponse))
+  cat("Initial duplicates of 'Not Approaching; Not Approaching': ", initial_duplicates, "\n")
+
   # Count initial occurrences
   initial_distracted_count <- sum(grepl("Distracted", df$DyadResponse))
   initial_not_approaching_count <- sum(grepl("Not approaching", df$DyadResponse))
@@ -2450,10 +2448,14 @@ replace_distracted_with_not_approaching <- function(df) {
 
   # Ensure no duplicate "Not approaching" entries
   df <- df %>%
-    mutate(DyadResponse = gsub("Not approaching\\s*;\\s*Not approaching", "Not approaching", DyadResponse))
+    mutate(DyadResponse = gsub("(Not approaching\\s*;\\s*Not approaching)+", "Not approaching", DyadResponse))
 
   # Trim any extra whitespace that might have been introduced
   df$DyadResponse <- trimws(df$DyadResponse)
+
+  # Count final duplicates
+  final_duplicates <- sum(grepl("Not approaching\\s*;\\s*Not approaching", df$DyadResponse))
+  cat("Final duplicates of 'Not Approaching; Not Approaching': ", final_duplicates, "\n")
 
   # Count final occurrences
   final_distracted_count <- sum(grepl("Distracted", df$DyadResponse))
@@ -2463,21 +2465,15 @@ replace_distracted_with_not_approaching <- function(df) {
   distracted_changes <- initial_distracted_count - final_distracted_count
   not_approaching_changes <- final_not_approaching_count - initial_not_approaching_count
 
-  # Return updated dataframe and counts
-  return(list(df, distracted_changes, not_approaching_changes))
+  # Display the counts of changes made
+  cat("Number of changes made to replace 'Distracted' with 'Not approaching': ", distracted_changes, "\n")
+  cat("Number of changes in 'Not approaching' entries: ", not_approaching_changes, "\n")
+
+  return(df)
 }
 
 # Apply the function to the dataframe
-result_replace_distracted <- replace_distracted_with_not_approaching(BexClean)
-
-# Extract the updated dataframe and counts
-BexClean <- result_replace_distracted[[1]]
-distracted_changes <- result_replace_distracted[[2]]
-not_approaching_changes <- result_replace_distracted[[3]]
-
-# Display the counts of changes made
-cat("Number of changes made to replace 'Distracted' with 'Not approaching': ", distracted_changes, "\n")
-cat("Number of changes in 'Not approaching' entries: ", not_approaching_changes, "\n")
+BexClean <- replace_distracted_with_not_approaching(BexClean)
 
 
 ```
@@ -2728,12 +2724,57 @@ cat("Number of lines remaining with both Tolerance and Not Approaching: ", remai
 ```
 
 
-`
+* Treatment of mistake of not apporaching not approaching
 
+```{r not apporaching not approaching treatment, echo=FALSE}
+
+# Count occurrences of all variations of "Not Approaching; Not Approaching"
+count_not_approaching_duplicates <- function(df) {
+  count <- sum(grepl("(?i)\\bNot\\s*approaching\\s*;\\s*Not\\s*approaching\\b", df$DyadResponse, perl=TRUE))
+  cat("Count of 'Not Approaching; Not Approaching': ", count, "\n")
+  return(count)
+}
+
+# Apply the function to count the duplicates
+initial_count <- count_not_approaching_duplicates(BexClean)
+
+
+
+# Function to remove duplicate "Not Approaching" occurrences, handling all variations
+remove_duplicate_not_approaching <- function(df) {
+  # Replace all variations of "Not Approaching; Not Approaching" with a single "Not Approaching"
+  df <- df %>%
+    mutate(DyadResponse = gsub("(?i)\\bNot\\s*approaching\\s*;\\s*Not\\s*approaching\\b", "Not approaching", DyadResponse, perl = TRUE))
+  
+  return(df)
+}
+
+# Apply the function to remove duplicates
+BexClean <- remove_duplicate_not_approaching(BexClean)
+
+
+
+# Check the remaining duplicates after removal
+remaining_count <- count_not_approaching_duplicates(BexClean)
+
+# Final check to confirm all duplicates are removed
+final_check <- function(df) {
+  remaining_count <- count_not_approaching_duplicates(df)
+  if (remaining_count == 0) {
+    cat("Remaining duplicates of 'Not Approaching; Not Approaching': 0\n")
+  } else {
+    cat("There are still", remaining_count, "'Not Approaching; Not Approaching' duplicates remaining.\n")
+  }
+}
+
+# Run the final check
+final_check(BexClean)
+
+
+```
 
 
 ```{r check and state of dyadresponse, echo=FALSE}
-
 
 # Ensure DyadResponse is a character column
 BexClean$DyadResponse <- as.character(BexClean$DyadResponse)
@@ -2744,13 +2785,16 @@ extract_unique_keywords <- function(df) {
   keywords <- trimws(keywords)
   unique_keywords <- table(keywords)
   unique_keywords_df <- as.data.frame(unique_keywords)
-  colnames(unique_keywords_df) <- c("Keyword", "Frequency")
+  colnames(unique_keywords_df) <- c("Keyword", "Frequency")  # Corrected parentheses
   unique_keywords_df <- unique_keywords_df[order(-unique_keywords_df$Frequency), ]
   return(unique_keywords_df)
 }
 
 # Extract unique keywords
 unique_keywords_df <- extract_unique_keywords(BexClean)
+
+# Display the table of unique keywords and their frequencies
+knitr::kable(unique_keywords_df, caption = "Table of Unique Keywords and Their Frequencies in DyadResponse")
 
 # Plot for unique keywords
 keyword_plot <- ggplot(unique_keywords_df, aes(x = reorder(Keyword, -Frequency), y = Frequency, fill = Keyword)) +
@@ -2773,6 +2817,9 @@ unique_dyad_response_table <- BexClean %>%
 filtered_dyad_response_table <- unique_dyad_response_table %>%
   filter(n > 10)
 
+# Display the table of unique DyadResponse entries with more than 10 occurrences
+knitr::kable(filtered_dyad_response_table, caption = "Table of Unique DyadResponse Entries with More Than 10 Occurrences")
+
 # Plot for unique combinations with more than 10 occurrences
 dyad_response_plot <- ggplot(filtered_dyad_response_table, aes(x = reorder(DyadResponse, -n), y = n, fill = DyadResponse)) +
   geom_bar(stat = "identity") +
@@ -2784,6 +2831,8 @@ dyad_response_plot <- ggplot(filtered_dyad_response_table, aes(x = reorder(DyadR
 
 # Print the dyad response plot
 print(dyad_response_plot)
+
+
 
 
 ```
@@ -2798,85 +2847,27 @@ print(dyad_response_plot)
 
 
 
+* First lets print the name of all the variables before reordering them and keeping only the variables of interest
 
-#UPDATES FROM HERE
+```{r Structure of BexClean, echo=FALSE}
 
+str(BexClean)
+
+```
+
+* I will keep the following variables in the next order: Date, Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity, DyadResponse, Intrusion, SpecialBehaviour, Audience, AmountAudience, Context, Special Behaviour
 
   
-  
+```{r Reorganizing BexClean, echo=FALSE}
+# Reordering the columns of BexClean
+BexClean <- BexClean %>%
+  select(Date, Month, Day, Time, Hour, Period, Trial, Male, Female, Dyad, 
+         DyadDistance, Proximity, DyadResponse, Intrusion, SpecialBehaviour, 
+         Audience, AmountAudience, Context, SpecialBehaviour)
+
+glimpse(BexClean)
+```
  
-* Audience - Creation of Amount Audience and Density
-* ID Individua1 - Not sure yet
-* Intruder ID 
-* Remarks - Detailed Cleaning
-* Intrusion
-* Not Approaching
-* Lossing Interest
-* Distracted
-* MultipleResponse
-* Amount Audience
-* DyadDistance
-* Distance
-* No trial
-
-
-#### Code to keep and place again
-# Code to settle 
-
-I also chose to directly create new dichotomic variables for "Not approaching", "Intrusion", "Losing interest", "Distracted", for this I would like the function to
-  1.Check if there is a **value different than "No individual"**
-  2.**If the value ≠"No individual"** then I want it to **take the response found in "DyadResposne"** 
-
-```{r Create dichotomous variables, echo=FALSE}
-# Check if the "MultipleResponses" column already exists
-if (!"MultipleResponses" %in% names(BexClean)) {
-  # Replace NA in IDIndividual1 by "No individual"
-  BexClean$IDIndividual1[is.na(BexClean$IDIndividual1)] <- "No individual"
-
-  # Check for multiple responses
-  BexClean$MultipleResponses <- ifelse(
-  BexClean$IDIndividual1 != "No individual" & grepl("[;,] ?", BexClean$DyadResponse),
-  ">1 Response",
-  "Single Response"
-)
-
-  
-  (BexClean)
-} else {
-  cat("The 'MultipleResponses' column already exists. No changes made.\n")
-}
-```
-
-```{r Check Responses in DyadResponse for Id1, echo=FALSE}
-# Count occurrences of each behavior in DyadResponse
-count_NotApproaching <- sum(grepl("Not approaching", BexClean$DyadResponse))
-count_Intrusion <- sum(grepl("Intrusion", BexClean$DyadResponse))
-count_LosingInterest <- sum(grepl("Losing interest", BexClean$DyadResponse))
-count_Distracted <- sum(grepl("Distracted", BexClean$DyadResponse))
-
-cat("Occurrences of 'Not approaching' in DyadResponse:", count_NotApproaching, "\n")
-cat("Occurrences of 'Intrusion' in DyadResponse:", count_Intrusion, "\n")
-cat("Occurrences of 'Losing interest' in DyadResponse:", count_LosingInterest, "\n")
-cat("Occurrences of 'Distracted' in DyadResponse:", count_Distracted, "\n")
-
-
-# Count the number of '1's in the new variables
-count_NotApproaching_1 <- sum(BexClean$NotApproaching == 1)
-count_Intrusion_1 <- sum(BexClean$Intrusion == 1)
-count_LosingInterest_1 <- sum(BexClean$LosingInterest == 1)
-count_Distracted_1 <- sum(BexClean$Distracted == 1)
-
-cat("Occurrences of '1' in 'NotApproaching':", count_NotApproaching_1, "\n")
-cat("Occurrences of '1' in 'Intrusion':", count_Intrusion_1, "\n")
-cat("Occurrences of '1' in 'LosingInterest':", count_LosingInterest_1, "\n")
-cat("Occurrences of '1' in 'Distracted':", count_Distracted_1, "\n")
-
-```
-
-
-
-
-### Update of Dataframe BexClean with revelant variables
 
 
 
@@ -2890,22 +2881,27 @@ cat("Occurrences of '1' in 'Distracted':", count_Distracted_1, "\n")
 
 ```{r Dyad Distance & Date, echo=FALSE}
 
+BexClean$DyadDistance <- as.numeric(BexClean$DyadDistance)
+
+
 # Check if the DyadDistance column exists
 if("DyadDistance" %in% colnames(BexClean)) {
     # Convert Date column to Date format if it's not already
     BexClean$Date <- as.Date(BexClean$Date)
 
-    # Plot using Date
+    # Plot using Date with y-axis limit set to 5
     plot <- ggplot(data = BexClean, aes(x = Date, y = DyadDistance, group = Dyad, color = Dyad)) +
       geom_smooth(se = FALSE, method = "loess") +
       theme_minimal() +
-      labs(x = "Date", y = "Dyad Distance", title = "Dyad Distance Over Time", color = "Dyad")
+      labs(x = "Date", y = "Dyad Distance", title = "Dyad Distance Over Time", color = "Dyad") +
+      ylim(0, 5)  # Set y-axis limit to range from 0 to 5
 
     # Print the plot
     print(plot)
 } else {
     print("DyadDistance column not found in BexClean dataframe")
 }
+
 
 
 ```
@@ -2936,58 +2932,41 @@ print(daily_plot)
 ```
 
 ```{r daily graph, echo=FALSE}
-library(ggplot2)
+
+#library(ggplot2)
 library(dplyr)
-library(lubridate)
 
-# Ensure Date is in the correct format
-BexClean$Date <- as.Date(BexClean$Date)
-
-# Aggregate data by month and calculate mean and SD
-monthly_stats <- BexClean %>%
-  mutate(Month = floor_date(Date, "month")) %>%
-  group_by(Dyad, Month) %>%
+# Summarize to get overall mean and SD per Dyad
+summary_stats <- BexClean %>%
+  group_by(Dyad) %>%
   summarise(
-    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
+    Overall_Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
     SD_DyadDistance = sd(DyadDistance, na.rm = TRUE)
-  )
+  ) %>%
+  arrange(Overall_Mean_DyadDistance)  # Order by mean distance
 
-# Faceted plot with Mean Points and Error Bars for each month
-faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
-  geom_point(size = 2) +
-  geom_errorbar(aes(y))
-```
+# Reorder Dyad factor based on Overall_Mean_DyadDistance
+summary_stats$Dyad <- factor(summary_stats$Dyad, levels = summary_stats$Dyad)
 
-```{r Monthly graph, echo=FALSE}
-# Load required libraries
-library(ggplot2)
-library(dplyr)
-library(lubridate)
-
-# Ensure Date is in the correct format
-BexClean$Date <- as.Date(BexClean$Date)
-
-# Aggregate data by month and calculate mean and SD
-monthly_stats <- BexClean %>%
-  mutate(Month = floor_date(Date, "month")) %>%
-  group_by(Dyad, Month) %>%
-  summarise(
-    Mean_DyadDistance = mean(DyadDistance, na.rm = TRUE),
-    SD_DyadDistance = sd(DyadDistance, na.rm = TRUE),
-    .groups = 'drop' # This will remove the grouping after summarisation
-  )
-
-# Faceted plot with Mean Points and Error Bars for each month
-faceted_monthly_plot <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad)) +
-  geom_point(size = 2) +
-  geom_errorbar(aes(ymin = Mean_DyadDistance - SD_DyadDistance, ymax = Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
-  facet_wrap(~ Dyad, scales = 'free_y') + # Faceting by Dyad, with free y scales for each facet
+# Single Plot with Mean and Error Bars for Each Dyad
+summary_plot <- ggplot(data = summary_stats, aes(x = Dyad, y = Overall_Mean_DyadDistance, fill = Dyad)) +
+  geom_bar(stat = "identity") +
+  geom_errorbar(aes(ymin = pmax(0, Overall_Mean_DyadDistance - SD_DyadDistance), 
+                    ymax = Overall_Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
+  geom_text(aes(label = round(SD_DyadDistance, 2), y = Overall_Mean_DyadDistance + SD_DyadDistance + 0.3), 
+            size = 4, hjust = 0.5, color = "black") +  # Add SD values above the bars
   theme_minimal() +
-  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance with SD by Dyad", color = "Dyad")
+  labs(x = "Dyad", y = "Overall Mean Dyad Distance", title = "Overall Mean Dyad Distance with Error Bars", fill = "Dyad") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Rotate x-axis labels for better readability
 
-# Print the faceted monthly plot
-print(faceted_monthly_plot)
+# Print the plot
+print(summary_plot)
+
+
+
 ```
+
+
 
 ```{r last test before sleep, echo=FALSE}
 
@@ -3015,16 +2994,23 @@ grand_means <- monthly_stats %>%
 
 # Faceted plot with Mean Points, Error Bars, Lines for each month, and Grand Mean Line
 faceted_monthly_plot_with_lines <- ggplot(data = monthly_stats, aes(x = Month, y = Mean_DyadDistance, color = Dyad, group = Dyad)) +
-  geom_line() +
-  geom_point(size = 2) +
+  geom_line(size = 1) +  # Thicker line for better visibility
+  geom_point(size = 3) +  # Larger points for clarity
   geom_errorbar(aes(ymin = Mean_DyadDistance - SD_DyadDistance, ymax = Mean_DyadDistance + SD_DyadDistance), width = 0.2) +
-  geom_hline(data = grand_means, aes(yintercept = Grand_Mean_DyadDistance, color = Dyad), linetype = "dashed") +
-  facet_wrap(~ Dyad) + # Removed scales = 'free_y' for a uniform scale
-  theme_minimal() +
-  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance with SD by Dyad", color = "Dyad")
+  geom_hline(data = grand_means, aes(yintercept = Grand_Mean_DyadDistance, color = Dyad), linetype = "dashed", size = 1) +  # Thicker dashed line for the grand mean
+  facet_wrap(~ Dyad, ncol = 2) +  # Arrange facets in 2 columns for better use of space
+  theme_minimal(base_size = 15) +  # Increase base font size for better readability
+  labs(x = "Month", y = "Mean Dyad Distance", title = "Monthly Mean Dyad Distance with SD by Dyad", color = "Dyad") +
+  theme(
+    strip.text = element_text(size = 14, face = "bold"),  # Increase and bold facet labels
+    legend.position = "bottom",  # Move legend to bottom for more space
+    plot.title = element_text(hjust = 0.5, size = 18, face = "bold"),  # Center and bold title
+    axis.text.x = element_text(angle = 45, hjust = 1)  # Rotate x-axis labels for better readability
+  )
 
 # Print the faceted monthly plot with lines and grand mean
 print(faceted_monthly_plot_with_lines)
+
 
 ```
 
@@ -3066,6 +3052,62 @@ print(faceted_monthly_plot)
 
 ```
   
+  
+
+```{r aggression temporary graphs, echo=FALSE}
+
+
+# 1. Improved Overall Male vs Female Aggression Plot
+
+# Calculate overall aggression counts
+overall_aggression <- BexClean %>%
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(DyadResponse) %>%
+  summarise(Count = n(), .groups = 'drop')
+
+# Calculate the mean number of aggressions for display
+mean_agg <- mean(overall_aggression$Count)
+
+# Create the plot
+overall_aggression_plot <- ggplot(data = overall_aggression, aes(x = DyadResponse, y = Count, fill = DyadResponse)) +
+  geom_bar(stat = "identity", width = 0.5) +
+  geom_text(aes(label = Count), vjust = -0.5, size = 5) +  # Add count on top of bars
+  theme_minimal(base_size = 15) +
+  labs(x = "Aggression Type", y = "Count", title = "Overall Male vs Female Aggression") +
+  scale_fill_manual(values = c("Male aggress female" = "blue", "Female aggress male" = "red")) +
+  theme(legend.position = "none") +
+  geom_hline(aes(yintercept = mean_agg), linetype = "dashed", color = "gray") +  # Add mean line
+  annotate("text", x = 1.5, y = mean_agg + 3, label = paste("Mean =", round(mean_agg, 2)), color = "gray", size = 5)
+
+# Print the overall aggression plot
+print(overall_aggression_plot)
+
+# 2. Improved Proportion of Aggression by Dyad Plot
+
+# Calculate proportions
+dyad_aggression <- BexClean %>%
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(Dyad, DyadResponse) %>%
+  summarise(Count = n(), .groups = 'drop') %>%
+  group_by(Dyad) %>%
+  mutate(Proportion = Count / sum(Count))  # Calculate proportion
+
+# Horizontal bar plot to improve readability
+dyad_aggression_plot <- ggplot(data = dyad_aggression, aes(x = Proportion, y = reorder(Dyad, Proportion), fill = DyadResponse)) +
+  geom_bar(stat = "identity", position = "fill", width = 0.7) +
+  theme_minimal(base_size = 15) +
+  labs(x = "Proportion", y = "Dyad", title = "Proportion of Male vs Female Aggression by Dyad") +
+  scale_fill_manual(values = c("Male aggress female" = "blue", "Female aggress male" = "red")) +
+  theme(axis.text.y = element_text(angle = 0, hjust = 1))
+
+# Print the dyad aggression proportion plot
+print(dyad_aggression_plot)
+
+
+
+```
+
+
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
