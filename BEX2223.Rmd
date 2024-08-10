@@ -2832,15 +2832,14 @@ print(dyad_response_plot)
 ```
 
 
+
+
 # 4.Visualizing the data
 
-# 4.1 Reordering the variables in Bex
+## 4.1 Reordering the variables in Bex
 
-*Now that all the variables have been treated and cleaned I want to modify thew variables in Bex to keep only the ones I need and to put them in the right order
-
-
-
-
+* Now that all the variables have been treated and cleaned I want to modify thew variables in Bex to keep only the ones I need and to put them in the right order
+ 
 * First lets print the name of all the variables before reordering them and keeping only the variables of interest
 
 ```{r Structure of BexClean, echo=FALSE}
@@ -2852,6 +2851,7 @@ str(BexClean)
 # Summary of NA values per column
 na_summary <- colSums(is.na(BexClean))
 print(na_summary)
+
 
 ```
 
@@ -2865,13 +2865,13 @@ BexClean <- BexClean %>%
          DyadDistance, Proximity, DyadResponse, Intrusion, SpecialBehaviour, 
          Audience, AmountAudience, Context, SpecialBehaviour)
 
-glimpse(BexClean)
+colnames(BexClean)
 ```
  
 
 
 
-### Exploratory Graph (To organise)
+# 4.2Exploratory Graph (To organise)
 
 ####Dyad, Distance & Date
 
@@ -2908,11 +2908,6 @@ if("DyadDistance" %in% colnames(BexClean)) {
 
 
 ```{r Other graphs, echo=FALSE}
-
-
-# Load required libraries
-library(ggplot2)
-library(dplyr)
 
 # Ensure Date is in the correct format
 BexClean$Date <- as.Date(BexClean$Date)
@@ -2970,10 +2965,6 @@ print(summary_plot)
 
 ```{r last test before sleep, echo=FALSE}
 
-library(ggplot2)
-library(dplyr)
-library(lubridate)
-
 # Ensure Date is in the correct format
 BexClean$Date <- as.Date(BexClean$Date)
 
@@ -3014,8 +3005,6 @@ print(faceted_monthly_plot_with_lines)
 
 ```
 
-
-```{Gra}
 
 ```{r daily graph2, echo=FALSE}
 
@@ -3121,8 +3110,143 @@ print(audience_aggression_plot)
 
 ```
 
+## 4.3 Preparation of dataset for importation of life history, elo rating & focal and ad libitum data
 
 
+* Because I will look at the audience and individual factors on the individuals of the dyads i must make a lsit of all the individudals for which I will need to extract information.
+* First lets extract all of the names of individuals in audience 
+
+
+* Step 1: Clean and Process the Audience Data: We first clean the Audience column, ensuring that any "NA" values are replaced with "No audience" and split the combined names. Whitespace around names is also removed.
+
+* Step 2: Recalculate AmountAudience: This step ensures the AmountAudience variable is correctly updated after splitting the Audience column.
+
+* Step 3: Summarize Changes: We count how many times the value "NA" was replaced with "No audience" and display this count using cat().
+
+* Step 4: Categorize Audience Members: We categorize audience members into "Male", "Female", and other relevant categories based on the length of their IDs. Specific identifiers like "unkam", "unkaf", etc., are given appropriate labels.
+
+Step 5: Display Tables by Category: We split the audience count table into sections for "Male", "Female", and other categories, and then display these tables separately. The use of knitr::kable() provides a professional table format that is more suitable for RMarkdown.
+
+
+
+```{r Audience first insghts ID, echo=FALSE}
+
+
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Step 1: Filter out rows with NA in Audience and clean the Audience data
+BexClean_cleaned <- BexClean %>%
+  filter(!is.na(Audience)) %>%
+  mutate(Audience = ifelse(Audience == "NA", "No audience", Audience)) %>%
+  separate_rows(Audience, sep = "[;,.]") %>%
+  mutate(Audience = trimws(Audience)) %>% # Remove leading/trailing whitespace
+  filter(!grepl("BB|Knee scab|Round lips|White dot|PlainJane", Audience)) # Remove unwanted names
+
+# Step 2: Recalculate the AmountAudience variable
+BexClean_cleaned <- BexClean_cleaned %>%
+  group_by(Date, Dyad) %>%
+  mutate(AmountAudience = n_distinct(Audience)) %>%
+  ungroup()
+
+# Step 3: Count the number of times each individual appears in the Audience column
+audience_count <- BexClean_cleaned %>%
+  group_by(Audience) %>%
+  summarise(Count = n()) %>%
+  arrange(desc(Count))
+
+# Reclassify UnkAM and UnkAF as Male and Female, respectively
+audience_count <- audience_count %>%
+  mutate(Category = case_when(
+    nchar(Audience) == 3 ~ "Male",
+    nchar(Audience) == 4 ~ "Female",
+    Audience == "No audience" ~ "No audience",
+    grepl("unkam|UnkAM", Audience, ignore.case = TRUE) ~ "Male",
+    grepl("unkaf|UnkAF", Audience, ignore.case = TRUE) ~ "Female",
+    grepl("unkj", Audience, ignore.case = TRUE) ~ "Unknown Juvenile",
+    TRUE ~ "Unidentified"
+  )) %>%
+  filter(Category %in% c("Male", "Female", "No audience", "Unknown Juvenile", "Unidentified"))
+
+# Step 4: Display the updated table in separate sections for Male, Female, and Other categories
+cat("\nMale Audience Members:\n")
+male_count <- audience_count %>% filter(Category == "Male")
+print(male_count)
+
+cat("\nFemale Audience Members:\n")
+female_count <- audience_count %>% filter(Category == "Female")
+print(female_count)
+
+
+
+# Step 5: Create a refined bar plot for male vs female presence in the audience including special cases
+gender_presence_plot <- audience_count %>%
+  filter(Category %in% c("Male", "Female")) %>%
+  group_by(Category) %>%
+  summarise(Total = sum(Count)) %>%
+  ggplot(aes(x = Category, y = Total, fill = Category)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Total), vjust = -0.5, size = 5) +
+  theme_minimal() +
+  labs(x = "Gender", y = "Total Count", title = "Male vs Female Presence in Audience") +
+  scale_fill_manual(values = c("Male" = "blue", "Female" = "pink"))
+
+# Display the plot
+print(gender_presence_plot)
+
+# Step 6: Plotting the Top 10 Audience Members
+top_10_audience <- audience_count %>% 
+  filter(Category %in% c("Male", "Female")) %>%
+  top_n(10, Count)
+
+top_10_plot <- ggplot(top_10_audience, aes(x = reorder(Audience, -Count), y = Count, fill = Category)) +
+  geom_bar(stat = "identity") +
+  geom_text(aes(label = Count), vjust = -0.5, size = 4) +
+  theme_minimal() +
+  labs(x = "Audience Member", y = "Count", title = "Top 10 Audience Members") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  scale_fill_manual(values = c("Male" = "blue", "Female" = "pink"))
+
+# Display the Top 10 Audience plot
+print(top_10_plot)
+
+
+```
+
+
+
+```{r audience ID per Dyad? test , echo=FALSE}
+# Step 7: Create tables for each dyad showing the top 10 audience members
+
+# Function to generate and display tables for each dyad
+generate_dyad_tables <- function(data, dyad_name) {
+  dyad_data <- data %>%
+    filter(Dyad == dyad_name) %>%
+    count(Audience) %>%
+    arrange(desc(n)) %>%
+    top_n(10, n)
+  
+  cat("\n### Top 10 Audience Members for Dyad:", dyad_name, "\n")
+  print(knitr::kable(dyad_data, col.names = c("Audience Member", "Count"), format = "markdown"))
+}
+
+# List of unique dyads
+dyads <- unique(BexClean_cleaned$Dyad)
+
+# Generate tables for all dyads
+for (dyad in dyads) {
+  generate_dyad_tables(BexClean_cleaned, dyad)
+}
+
+
+```
+
+
+
+
+
+# TO SORT; NOT FINISHED 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
     * I will create a variable called **Session** where **1 session = 1 day**
     * The data has values from the **14th of September 2022** until the **13th of September 2023**
@@ -3152,7 +3276,7 @@ unique_female_ids <- unique(Bex$FemaleID)
 
 # Sections below are here for the organization of my paper and will be worked on once the data cleaning and exploration is done
 
-## 3. Describing the data
+## 5. Describing the data
 
 
 
