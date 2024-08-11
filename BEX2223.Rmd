@@ -2855,14 +2855,15 @@ print(na_summary)
 
 ```
 
-* I will keep the following variables in the next order: Date, Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity, DyadResponse, Intrusion, SpecialBehaviour, Audience, AmountAudience, Context, Special Behaviour
+* I will keep the following variables in the next order: Date, Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity, DyadResponse, Intrusion, IntruderID SpecialBehaviour, Audience, AmountAudience, Context, Special Behaviour
 
   
 ```{r Reorganizing BexClean, echo=FALSE}
 # Reordering the columns of BexClean
+
 BexClean <- BexClean %>%
   select(Date, Month, Day, Time, Hour, Period, Trial, Male, Female, Dyad, 
-         DyadDistance, Proximity, DyadResponse, Intrusion, SpecialBehaviour, 
+         DyadDistance, Proximity, DyadResponse, Intrusion, IntruderID, SpecialBehaviour, 
          Audience, AmountAudience, Context, SpecialBehaviour)
 
 colnames(BexClean)
@@ -3112,7 +3113,7 @@ print(audience_aggression_plot)
 
 ## 4.3 Preparation of dataset for importation of life history, elo rating & focal and ad libitum data
 
-
+### 4.3.1 Intermediate check of audience and extraction of names
 * Because I will look at the audience and individual factors on the individuals of the dyads i must make a lsit of all the individudals for which I will need to extract information.
 * First lets extract all of the names of individuals in audience 
 
@@ -3130,11 +3131,6 @@ Step 5: Display Tables by Category: We split the audience count table into secti
 
 
 ```{r Audience first insghts ID, echo=FALSE}
-
-
-library(dplyr)
-library(tidyr)
-library(ggplot2)
 
 # Step 1: Filter out rows with NA in Audience and clean the Audience data
 BexClean_cleaned <- BexClean %>%
@@ -3169,14 +3165,48 @@ audience_count <- audience_count %>%
   )) %>%
   filter(Category %in% c("Male", "Female", "No audience", "Unknown Juvenile", "Unidentified"))
 
-# Step 4: Display the updated table in separate sections for Male, Female, and Other categories
-cat("\nMale Audience Members:\n")
-male_count <- audience_count %>% filter(Category == "Male")
-print(male_count)
 
-cat("\nFemale Audience Members:\n")
-female_count <- audience_count %>% filter(Category == "Female")
-print(female_count)
+# Step 4: Create and display tables for Male and Female audience members
+
+# Male Audience Members - Top 5
+top_male_count <- audience_count %>%
+  filter(Category == "Male") %>%
+  arrange(desc(Count)) %>%
+  select(Audience, Count) %>%
+  head(5)
+
+# Display Top 5 Male Audience Members Table
+cat("\n**Table: Top 5 Male Audience Members**\n")
+kable(top_male_count, col.names = c("Audience Member", "Count"), align = c("l", "c"), caption = "Top 5 Male Audience Members")
+
+# Female Audience Members - Top 5
+top_female_count <- audience_count %>%
+  filter(Category == "Female") %>%
+  arrange(desc(Count)) %>%
+  select(Audience, Count) %>%
+  head(5)
+
+# Display Top 5 Female Audience Members Table
+cat("\n**Table: Top 5 Female Audience Members**\n")
+kable(top_female_count, col.names = c("Audience Member", "Count"), align = c("l", "c"), caption = "Top 5 Female Audience Members")
+
+# List of all unique Male Audience Members (without counts)
+male_list <- audience_count %>%
+  filter(Category == "Male") %>%
+  select(Audience) %>%
+  distinct()
+
+cat("\n**List: All Male Audience Members**\n")
+cat(paste(male_list$Audience, collapse = ", "))
+
+# List of all unique Female Audience Members (without counts)
+female_list <- audience_count %>%
+  filter(Category == "Female") %>%
+  select(Audience) %>%
+  distinct()
+
+cat("\n**List: All Female Audience Members**\n")
+cat(paste(female_list$Audience, collapse = ", "))
 
 
 
@@ -3243,8 +3273,88 @@ for (dyad in dyads) {
 ```
 
 
+### 4.3.2 Intermediate check of Intrusion, extraction of names
+
+```{r Intruder IDs, echo=FALSE}
 
 
+library(ggplot2)
+library(dplyr)
+
+# Extract the IntruderID column
+intruder_data <- BexClean$IntruderID
+
+# Split the names by semicolons and unlist them into a single vector
+intruder_names <- unlist(strsplit(intruder_data, ";"))
+
+# Trim any leading or trailing white spaces
+intruder_names <- trimws(intruder_names)
+
+# Create a frequency table of intruder names, excluding "No Intrusion"
+intruder_name_freq <- as.data.frame(table(intruder_names))
+colnames(intruder_name_freq) <- c("Name", "Count")
+intruder_name_freq <- intruder_name_freq[intruder_name_freq$Name != "No Intrusion", ]
+
+# Identify 3-letter names for males
+male_names <- grep("^\\w{3}$", intruder_names, value = TRUE)
+
+# Identify 4-letter names for females
+female_names <- grep("^\\w{4}$", intruder_names, value = TRUE)
+
+# Create a new column in the frequency table indicating gender
+intruder_name_freq <- intruder_name_freq %>% 
+  mutate(Gender = case_when(Name %in% male_names ~ "Male",
+                            Name %in% female_names ~ "Female"))
+
+# Plot 1: Amount of Intrusions - Male vs. Female
+gender_summary <- intruder_name_freq %>% 
+  group_by(Gender) %>% 
+  summarise(TotalIntrusions = sum(Count))
+
+ggplot(gender_summary, aes(x = Gender, y = TotalIntrusions, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Total Intrusions by Gender", x = "Gender", y = "Total Intrusions") +
+  theme_minimal()
+
+# Plot 2: All Intruder Names Ordered by Frequency with Gender Indication
+ggplot(intruder_name_freq %>% arrange(desc(Count)), 
+       aes(x = reorder(Name, -Count), y = Count, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Intrusions by Individual (Ordered by Frequency)", x = "Individual", y = "Number of Intrusions") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 90, hjust = 1))
+
+# Plot 3: Intrusion vs. No Intrusion
+intrusion_summary <- data.frame(
+  Category = c("Intrusion", "No Intrusion"),
+  Count = c(nrow(intruder_name_freq), sum(intruder_data == "No Intrusion"))
+)
+
+ggplot(intrusion_summary, aes(x = Category, y = Count, fill = Category)) +
+  geom_bar(stat = "identity") +
+  labs(title = "Intrusion vs. No Intrusion", x = "Category", y = "Count") +
+  theme_minimal()
+
+# Display the ordered unique intruder names
+print("Ordered Unique Intruder Names:")
+print(sort(unique(intruder_names[intruder_names != "No Intrusion"])))
+
+# Display the top 10 most frequent intruder names and their counts
+print("Top 10 Most Frequent Intruder Names:")
+print(head(arrange(intruder_name_freq, desc(Count)), 10))
+
+# Display male names
+print("Male Names (3 letters):")
+print(unique(male_names))
+
+# Display female names
+print("Female Names (4 letters):")
+print(unique(female_names))
+
+
+
+```
+#After comparaison every individual that appearead in intrusion was also in audience except for **Grif** that i may add to the lsit of invididuals of audience before doing elo rating calculations
 
 # TO SORT; NOT FINISHED 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
