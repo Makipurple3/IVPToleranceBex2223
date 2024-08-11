@@ -1,0 +1,35 @@
+---
+title: "Elo Rating Calculations for Vervet Monkeys"
+author: "Your Name"
+date: "`r Sys.Date()`"
+output: html_document
+---
+
+## Introduction
+This document outlines the process of calculating Elo ratings for vervet monkeys based on their social interactions. The `EloRating` package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.
+
+## Loading Required Libraries
+```{r setup, include=FALSE}
+# Set CRAN mirror to avoid errors
+options(repos = c(CRAN = "https://cran.rstudio.com/"))
+
+# Load necessary libraries
+if (!requireNamespace("EloRating", quietly = TRUE)) {
+  install.packages("EloRating")
+}
+library(dplyr)
+library(EloRating)
+```
+
+# Load data into the script
+
+```{r Loading data into the script, include=FALSE}
+interactions <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/Logbook.CSV")
+life_history <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/IVP Life history_260523.csv")
+
+# Check the structure of the data
+head(interactions)
+head(life_history)
+
+```
+
