@@ -6,9 +6,12 @@ output: html_document
 ---
 
 ## Introduction
-This document outlines the process of calculating Elo ratings for vervet monkeys based on their social interactions. The `EloRating` package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.
+* This document outlines the process of c**alculating Elo ratings for vervet monkeys** based on their **social interactions**. The `EloRating` package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.
 
-## Loading Required Libraries
+* I will adapt the process to calculate Elo ratings by focusing on the **Agonistic.CSV** file and the **Male hierarchies.R** script. My goal is to use these resources to compute Elo ratings that reflect the dominance hierarchies among the vervet monkeys in my study. This process will also involve integrating the life history data from **IVP Life history_260523.csv** where relevant.
+
+
+## Loading Required Libraries (dplyr & Elo Rating packages)
 ```{r setup, include=FALSE}
 # Set CRAN mirror to avoid errors
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
@@ -24,12 +27,22 @@ library(EloRating)
 # Load data into the script
 
 ```{r Loading data into the script, include=FALSE}
-interactions <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/Logbook.CSV")
-life_history <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/IVP Life history_260523.csv")
+
+# Load data into the script using the correct paths and file names
+interactions <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Logbook.CSV")
+
+life_history <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/IVP Life history_260523.csv")
+
+affiliative <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Affiliative.CSV")
+
+agonistic <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Agonistic.CSV")
+
+sexual <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Sexual.CSV")
 
 # Check the structure of the data
 head(interactions)
 head(life_history)
+
 
 ```
 
