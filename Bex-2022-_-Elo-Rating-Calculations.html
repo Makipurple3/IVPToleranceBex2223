@@ -9,7 +9,7 @@
 <meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
 
 
-<meta name="author" content="Your Name" />
+<meta name="author" content="Aung Kyaw Michael" />
 
 <meta name="date" content="2024-08-11" />
 
@@ -170,24 +170,70 @@ pre code {
 
 
 <h1 class="title toc-ignore">Elo Rating Calculations for Vervet Monkeys</h1>
-<h4 class="author">Your Name</h4>
+<h4 class="author">Aung Kyaw Michael</h4>
 <h4 class="date">2024-08-11</h4>
 
 </div>
 
 
 <div id="introduction" class="section level2">
-<h2>Introduction</h2>
+<h2>1.Introduction</h2>
 <ul>
 <li><p>This document outlines the process of c<strong>alculating Elo ratings for vervet monkeys</strong> based on their <strong>social interactions</strong>. The <code>EloRating</code> package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.</p></li>
-<li><p>I will adapt the process to calculate Elo ratings by focusing on the <strong>Agonistic.CSV</strong> file and the <strong>Male hierarchies.R</strong> script. My goal is to use these resources to compute Elo ratings that reflect the dominance hierarchies among the vervet monkeys in my study. This process will also involve integrating the life history data from <strong>IVP Life history_260523.csv</strong> where relevant.</p></li>
+<li><p>In my analysis, I will calculate Elo ratings for vervet monkeys based on their social interactions, particularly focusing on dominance hierarchies. This analysis will primarily use the <strong>Agonistic.CSV</strong> file for interactions and the <strong>Male hierarchies.R</strong> script to guide the calculation of these ratings. I will also incorporate life history data from <strong>IVP Life history_260523.csv</strong> to contextualize the Elo ratings with relevant individual characteristics.</p></li>
+</ul>
+<div id="loading-required-libraries-dplyr-elo-rating-packages" class="section level3">
+<h3>1.1 Loading Required Libraries (dplyr &amp; Elo Rating packages)</h3>
+<ul>
+<li>Before processing the data, I need to load the necessary libraries. The <strong>dplyr</strong> package will help with data manipulation, and the <strong>EloRating</strong> package will be used to calculate the Elo ratings.</li>
 </ul>
 </div>
-<div id="loading-required-libraries-dplyr-elo-rating-packages" class="section level2">
-<h2>Loading Required Libraries (dplyr &amp; Elo Rating packages)</h2>
+<div id="load-data-into-the-script" class="section level3">
+<h3>1.2 Load data into the script</h3>
+<ul>
+<li>I will now different relevant datasets concerning:
+<ul>
+<li><strong>Logbook</strong>: Contains general observations and other relevant data.</li>
+<li><strong>Life History</strong>: Contains life history data of individual monkeys.</li>
+<li><strong>Affiliative interactions</strong>: Records of affiliative (friendly) interactions.<br />
+</li>
+<li><strong>Agonistic interactions</strong>: Records of agonistic (conflict) interactions, which will be the primary dataset for calculating Elo ratings.</li>
+<li><strong>Sexual interactions</strong>: Records of sexual interactions, which may provide additional context.</li>
+<li><strong>Male hierarchies</strong> : A script that guides the calculation of Elo ratings based on male dominance hierarchies.</li>
+</ul></li>
+</ul>
+<pre><code>## Warning in file(file, &quot;rt&quot;): impossible d&#39;ouvrir le fichier
+## &#39;C:/Users/josef/OneDrive - unine.ch/Documents/PhD/IVP DATA/Dominance
+## hierarchy/FinalAgonistic.csv&#39; : No such file or directory</code></pre>
+<pre><code>## Error in sourcing the file:/Users/maki/Desktop/Master Thesis/Josies Codes/Male hierarchies.R</code></pre>
+<pre><code>## Error details:impossible d&#39;ouvrir la connexion</code></pre>
 </div>
-<div id="load-data-into-the-script" class="section level1">
-<h1>Load data into the script</h1>
+</div>
+<div id="elo-ratings" class="section level1">
+<h1>Elo ratings</h1>
+<ol style="list-style-type: decimal">
+<li>I have to prepare each files in order to use male hierachies script</li>
+<li>I will prepare the excel file <strong>agonistic.csv</strong> using the following variables:</li>
+</ol>
+<ul>
+<li>Aggressor: The individual who initiated the interaction.</li>
+<li>Victim: The individual who received the interaction.</li>
+<li>AggressorBehavior: The type of behavior exhibited by the aggressor.</li>
+<li>VictimBehavior: The type of behavior exhibited by the victim.</li>
+<li>Date: The date when the interaction occurred.</li>
+</ul>
+<ol start="3" style="list-style-type: decimal">
+<li>Then i will import the file <strong>IVP Life history_26053.csv</strong> using the following variables:</li>
+</ol>
+<ul>
+<li>Sex: The sex of the individual.</li>
+<li>DOB: Date of birth.</li>
+<li>FirstRecorded: The first date the individual was observed.</li>
+<li>DateImmigration1: Date of first immigration (if relevant).</li>
+<li>Date of Pregnancy: (If available)</li>
+<li>Date of Birth of Baby: (If available)</li>
+</ul>
+<p>-Also I will clean the variable by onverting dates to a consistent format (YYYY-MM-DD) and ensure there are no missing or inconsistent values in these key columns.</p>
 </div>
 
 
