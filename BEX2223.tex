@@ -7,7 +7,7 @@
 \title{Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys
 - M.AungKyaw - 2022-2023}
 \author{}
-\date{\vspace{-2.5em}juin 16, 2024 17:46}
+\date{\vspace{-2.5em}août 12, 2024 22:17}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -46,46 +46,6 @@
   pdfcreator={LaTeX via pandoc}}
 \urlstyle{same} % disable monospaced font for URLs
 \usepackage[margin=1in]{geometry}
-\usepackage{color}
-\usepackage{fancyvrb}
-\newcommand{\VerbBar}{|}
-\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
-\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
-% Add ',fontsize=\small' for more characters per line
-\usepackage{framed}
-\definecolor{shadecolor}{RGB}{248,248,248}
-\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
-\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
-\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
-\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\BuiltInTok}[1]{#1}
-\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
-\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
-\newcommand{\ExtensionTok}[1]{#1}
-\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
-\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\ImportTok}[1]{#1}
-\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
-\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
-\newcommand{\NormalTok}[1]{#1}
-\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
-\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
-\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
-\newcommand{\RegionMarkerTok}[1]{#1}
-\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
-\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
-\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
 \usepackage{longtable,booktabs,array}
 \usepackage{calc} % for calculating minipage widths
 % Correct order of tables after \paragraph or \subparagraph
@@ -1511,21 +1471,6 @@ MaleID is Sey - Ouli if MaleID is Xin - Piep if MaleID is Xia - Oerw if
 MaleID is Nge - Oort if MaleID is Kom - Ginq if MaleID is Sho - Ndaw if
 MaleID is Buk
 
-\begin{Shaded}
-\begin{Highlighting}[]
-\FunctionTok{library}\NormalTok{(dplyr)}
-
-\CommentTok{\# Using dplyr to summarize combinations of MaleID and FemaleID}
-\NormalTok{combinations\_summary }\OtherTok{\textless{}{-}}\NormalTok{ Bex }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{group\_by}\NormalTok{(MaleID, FemaleID) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{summarise}\NormalTok{(}\AttributeTok{Count =} \FunctionTok{n}\NormalTok{(), }\AttributeTok{.groups =} \StringTok{\textquotesingle{}drop\textquotesingle{}}\NormalTok{) }\SpecialCharTok{\%\textgreater{}\%}
-  \FunctionTok{arrange}\NormalTok{(}\FunctionTok{desc}\NormalTok{(Count))}
-
-\CommentTok{\# View the results}
-\FunctionTok{print}\NormalTok{(combinations\_summary)}
-\end{Highlighting}
-\end{Shaded}
-
 \begin{verbatim}
 ## # A tibble: 20 x 3
 ##    MaleID FemaleID Count
@@ -2504,12 +2449,12 @@ proximity}\label{dyaddistance---creation-of-proximity}}
 
 \includegraphics{BEX2223_files/figure-latex/Proximity plot-1.pdf}
 
-\hypertarget{updates-from-here}{%
-\section{UPDATES FROM HERE}\label{updates-from-here}}
-
 \hypertarget{dyad-response---corrections-and-detailed-cleaning}{%
 \subsubsection{3.9 Dyad Response - Corrections and detailed
 cleaning}\label{dyad-response---corrections-and-detailed-cleaning}}
+
+\hypertarget{section}{%
+\paragraph{3.9.1}\label{section}}
 
 \begin{itemize}
 \item
@@ -2529,324 +2474,882 @@ cleaning}\label{dyad-response---corrections-and-detailed-cleaning}}
     This will allow me to see which behavior occurred more than others,
     and what differences are between dyads
   \item
-    As multiple response could occur within the same trial, multiple
-    behaviors can be found in a single cell. I will create a hierarchy
-    to reduce the amount of behaviors assigned to each trial (if there
-    is more than one). This will also be complemented with the
-    information found in the column comments
+    As multiple behaviours could occur within the same trial, multiple
+    responses (data entries) can be found in a single cell. I will
+    create a hierarchy to reduce the amount of behaviors assigned to
+    each trial (if there is more than one).
 
     \begin{enumerate}
     \def\labelenumi{\arabic{enumi}.}
     \tightlist
     \item
-      correct any mistakes (ex. if tolerance and aggression are together
+      correct any potential discrepancies (ex. if tolerance and
+      aggression occured within the same trial
       aggression\textgreater tolerance)
     \item
-      assign as few labels per trial
+      assign as few labels per trial, ideally one using a hierarchy
+      among the occuring behaviours to choose which response to keep
     \item
-      get a better View and understanding of the data and the most
-      common behaviours produced by each dyad
+      get a better view and understanding of the data and the most
+      common behaviours produced by each dyad producing plots and tables
     \item
-      create variables that can complement the behaviour found (ex. not
-      approaching + looks at partner would be looks at partner + a new
-      variable called hesistant to see when the did not come but look at
-      the other individual / )
+      if necessary create new variables that can complement redistribute
+      the information initally found in the column
     \end{enumerate}
-
-    \begin{itemize}
-    \item
-      Create a table with each combination existing
-    \item
-      Decide what is more important
-    \end{itemize}
   \end{itemize}
 \item
-  \textbf{Dyad Response Hierarchy} Projection of the hierarchy (changes
-  will be made) - Aggression \textgreater{} Tolerance - Tolerance
-  \textgreater{} Not approaching -\textgreater{} Create a variable
-  called hesistant in addtion to the tolerance count to see frequency of
-  tolerance behaviour that happened after \textgreater{} 1min -
-  Tolerance \textgreater{} Loosing interest - Tolerance \textgreater{}
-  Intrusion\\
-  - Not approaching = looking box but not coming while Loosing interest
-  = not paying attention to the box - Intrusion \textgreater{} Loosing
-  interest - Intrusion \textgreater{} Not approaching - Not approaching
-  \textgreater{} Looks at partner - We can code every look at partner as
-  no approaching and keep the count of looks at partner as additional
-  information\\
-  - Not approaching \textgreater?\textgreater{} Loosing interest ? !! -
-  Define distracted - Not approaching \textgreater{} Distracted -
-  Aggression \textgreater{} Not approaching - Other \textgreater{} Look
-  case by case and categorize depending of behavior\\
-  - Remarks may be used for the same reason
-
-  \begin{itemize}
-  \item
-    First I want to see how many rows in DyadResponse have more than one
-    entry per cell
-
-    \begin{itemize}
-    \tightlist
-    \item
-      And \textbf{if there are more than one value per cell}, report it
-      in a new column called ``MultipleResponses''
-    \end{itemize}
-  \end{itemize}
+  I will create some tables to have a better understanding of the state
+  of the column dyadresponse and the different existing combinations at
+  this point
+\item
+  Also I will create the hierarchy before implementing in the dataset
 \end{itemize}
+
+\hypertarget{dyad-response-description}{%
+\paragraph{3.9.2 Dyad Response
+description}\label{dyad-response-description}}
+
+\begin{itemize}
+\tightlist
+\item
+  I need to know how many different combinations exist within
+  DyadResponse and how many occurrences/cells have more than one
+  response per cell. I need the code to not take in account the order
+  but rather the responses in themselves
+\item
+  I want one table for the Different combinations and one showing the
+  differernt combinations for only ONE response per cell, in a second
+  table
+\end{itemize}
+
+\begin{verbatim}
+## Total number of rows in DyadResponse:  2737
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows with a single entry in DyadResponse:  2466
+\end{verbatim}
 
 \begin{verbatim}
 ## Number of rows with multiple entries in DyadResponse:  271
 \end{verbatim}
 
 \begin{verbatim}
-## Rows with multiple entries in DyadResponse:  3, 4, 13, 53, 58, 64, 68, 71, 72, 84, 88, 89, 97, 98, 113, 133, 137, 192, 194, 244, 275, 277, 278, 284, 289, 298, 302, 304, 318, 322, 326, 327, 328, 331, 341, 346, 347, 367, 368, 387, 388, 391, 397, 409, 454, 468, 469, 482, 497, 510, 511, 522, 529, 536, 597, 600, 626, 629, 687, 696, 706, 711, 713, 726, 740, 748, 749, 757, 760, 761, 763, 768, 769, 780, 786, 818, 829, 841, 843, 845, 861, 866, 877, 888, 892, 898, 912, 919, 934, 937, 938, 954, 955, 962, 973, 997, 1004, 1015, 1027, 1042, 1048, 1060, 1108, 1141, 1143, 1161, 1162, 1190, 1209, 1213, 1217, 1225, 1229, 1236, 1240, 1243, 1245, 1247, 1254, 1267, 1271, 1284, 1288, 1293, 1308, 1310, 1311, 1326, 1327, 1330, 1336, 1341, 1343, 1352, 1378, 1398, 1399, 1407, 1416, 1461, 1464, 1473, 1478, 1484, 1488, 1489, 1495, 1510, 1520, 1521, 1528, 1558, 1595, 1598, 1602, 1607, 1616, 1629, 1630, 1633, 1636, 1639, 1642, 1645, 1654, 1658, 1679, 1708, 1714, 1718, 1724, 1741, 1750, 1752, 1784, 1785, 1788, 1795, 1800, 1801, 1802, 1804, 1805, 1806, 1807, 1808, 1815, 1816, 1819, 1820, 1821, 1822, 1824, 1825, 1828, 1829, 1830, 1831, 1832, 1837, 1843, 1856, 1857, 1858, 1889, 1897, 1968, 1984, 2023, 2066, 2088, 2090, 2091, 2100, 2101, 2102, 2103, 2104, 2105, 2109, 2112, 2113, 2147, 2148, 2149, 2152, 2153, 2166, 2175, 2184, 2185, 2192, 2193, 2194, 2199, 2201, 2202, 2205, 2218, 2226, 2237, 2248, 2257, 2290, 2294, 2343, 2353, 2354, 2359, 2360, 2362, 2363, 2370, 2388, 2395, 2396, 2400, 2465, 2466, 2467, 2493, 2534, 2601, 2609, 2626, 2629, 2630, 2643, 2651, 2657, 2730
+## Number of rows with exactly 2 entries in DyadResponse:  258
 \end{verbatim}
 
-\begin{itemize}
-\item
-  Now that I know that they are 230 rows with multiple entries I will
-  print each combinations to see which one I have to print and also
-  display the combinations once the data is split.
-\item
-  I will make an intermediary summary to see that state of DyadResponse
-  at the moment
-\item
-  A. Summary od DyadResponse
-\item
-  B.Idnetify Rows with more than 1 entry
-\item
-  Step 1: Identify Rows with More than 1 Entry
-  beforesummaryrowswithmultipleentries\_1 \textless-
-  which(sapply(BexClean\$DyadResponse, function(x)
-  length(unlist(strsplit(as.character(x), ``;''))) \textgreater{} 1))
-\end{itemize}
+\begin{verbatim}
+## Number of rows with more than 2 entries in DyadResponse:  13
+\end{verbatim}
 
-Display the rows with more than 1 entry in DyadResponse
-knitr::kable(BexClean{[}beforesummaryrowswithmultipleentries\_1, {]})
+\begin{verbatim}
+## 
+## 
+## Table: Rows with Single Responses in DyadResponse
+## 
+## |DyadResponse        | Frequency|
+## |:-------------------|---------:|
+## |Tolerance           |      1809|
+## |Not approaching     |       465|
+## |Male aggress female |        73|
+## |Intrusion           |        51|
+## |Losing interest     |        37|
+## |Female aggress male |        18|
+## |Other               |         9|
+## |Distracted          |         4|
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and frequencies and plots-1.pdf}
+
+\begin{verbatim}
+## 
+## 
+## Table: Rows with Multiple Responses in DyadResponse
+## 
+## |Combination                                       | Frequency|
+## |:-------------------------------------------------|---------:|
+## |Intrusion;Tolerance                               |        49|
+## |Losing interest;Not approaching                   |        47|
+## |Intrusion;Not approaching                         |        30|
+## |Male aggress female;Tolerance                     |        27|
+## |Looks at partner;Tolerance                        |        23|
+## |Losing interest;Tolerance                         |        22|
+## |Female aggress male;Tolerance                     |        19|
+## |Looks at partner;Not approaching                  |         9|
+## |Other;Tolerance                                   |         7|
+## |Distracted;Not approaching                        |         6|
+## |Not approaching;Tolerance                         |         4|
+## |Distracted;Losing interest                        |         3|
+## |Female aggress male;Male aggress female;Tolerance |         3|
+## |Female aggress male;Not approaching               |         3|
+## |Distracted;Tolerance                              |         2|
+## |Female aggress male;Intrusion;Tolerance           |         2|
+## |Male aggress female;Not approaching               |         2|
+## |Distracted;Intrusion;Not approaching              |         1|
+## |Distracted;Intrusion;Tolerance                    |         1|
+## |Female aggress male;Intrusion                     |         1|
+## |Intrusion;Losing interest                         |         1|
+## |Intrusion;Losing interest;Not approaching         |         1|
+## |Intrusion;Male aggress female                     |         1|
+## |Intrusion;Not approaching;Tolerance               |         1|
+## |Looks at partner;Losing interest;Not approaching  |         1|
+## |Looks at partner;Male aggress female              |         1|
+## |Looks at partner;Male aggress female;Tolerance    |         1|
+## |Looks at partner;Other;Tolerance                  |         1|
+## |Losing interest;Not approaching;Tolerance         |         1|
+## |Not approaching;Other                             |         1|
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and frequencies and plots-2.pdf}
+
+\begin{verbatim}
+## Unique Combinations and Counts for More than 2 Entries:
+## Female aggress male & Male aggress female & Tolerance 3
+## Female aggress male & Intrusion & Tolerance 2
+## Distracted & Intrusion & Not approaching 1
+## Distracted & Intrusion & Tolerance 1
+## Intrusion & Losing interest & Not approaching 1
+## Intrusion & Not approaching & Tolerance 1
+## Looks at partner & Losing interest & Not approaching 1
+## Looks at partner & Male aggress female & Tolerance 1
+## Looks at partner & Other & Tolerance 1
+## Losing interest & Not approaching & Tolerance 1
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 271 x 31
+##    Time     Date                Group   MaleID FemaleID FemaleCorn DyadDistance
+##    <chr>    <dttm>              <chr>   <chr>  <chr>         <dbl>        <dbl>
+##  1 08:37:58 2022-09-29 00:00:00 Ankhase Buk    Ndaw              0            5
+##  2 08:16:30 2022-10-04 00:00:00 Ankhase Buk    Ndaw              3            5
+##  3 08:12:17 2022-10-13 00:00:00 Ankhase Buk    Ndaw              3            1
+##  4 09:02:40 2022-11-10 00:00:00 Ankhase Buk    Ndaw              3            3
+##  5 14:05:56 2022-11-16 00:00:00 Ankhase Buk    Ndaw              0            3
+##  6 14:23:22 2022-11-16 00:00:00 Ankhase Buk    Ndaw              1            2
+##  7 14:25:53 2022-11-17 00:00:00 Ankhase Buk    Ndaw              4            4
+##  8 14:27:38 2022-11-18 00:00:00 Ankhase Buk    Ndaw              0            6
+##  9 08:58:48 2022-11-22 00:00:00 Ankhase Buk    Ndaw              6            6
+## 10 12:47:31 2022-11-24 00:00:00 Ankhase Buk    Ndaw              4            4
+## # i 261 more rows
+## # i 24 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
+## #   Intrusion <dbl>, AmountAudience <dbl>, Context <chr>,
+## #   SpecialBehaviour <chr>, GotCorn <chr>, Period <chr>, Hour <chr>, Day <int>,
+## #   Month <chr>, Male <chr>, Female <chr>, Dyad <chr>, Trial <int>,
+## #   PlacementMale <dbl>, PlacementFemale <dbl>, Proximity <chr>, ...
+\end{verbatim}
+
+\begin{verbatim}
+## Rows with multiple entries in DyadResponse:  3 4 13 53 58 64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469 482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 749 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 912 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1108 1141 1143 1161 1162 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1341 1343 1352 1378 1398 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 1558 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 1806 1807 1808 1815 1816 1819 1820 1821 1822 1824 1825 1828 1829 1830 1831 1832 1837 1843 1856 1857 1858 1889 1897 1968 1984 2023 2066 2088 2090 2091 2100 2101 2102 2103 2104 2105 2109 2112 2113 2147 2148 2149 2152 2153 2166 2175 2184 2185 2192 2193 2194 2199 2201 2202 2205 2218 2226 2237 2248 2257 2290 2294 2343 2353 2354 2359 2360 2362 2363 2370 2388 2395 2396 2400 2465 2466 2467 2493 2534 2601 2609 2626 2629 2630 2643 2651 2657 2730
+\end{verbatim}
+
+\begin{verbatim}
+## Unique Responses and Counts (Sorted Alphabetically):
+\end{verbatim}
+
+\begin{verbatim}
+## Distracted                4
+## Distracted Losing interest 3
+## Female aggress male       18
+## Female aggress male Intrusion 1
+## Female aggress male Not approaching 3
+## Intrusion                 51
+## Losing interest           37
+## Losing interest Intrusion 1
+## Male aggress female       73
+## Male aggress female Intrusion 1
+## Male aggress female Looks at partner 1
+## Male aggress female Not approaching 2
+## Not approaching           465
+## Not approaching Distracted 6
+## Not approaching Distracted Intrusion 1
+## Not approaching Intrusion 30
+## Not approaching Looks at partner 9
+## Not approaching Losing interest 47
+## Not approaching Losing interest Intrusion 1
+## Not approaching Losing interest Looks at partner 1
+## Not approaching Other     1
+## Other                     9
+## Tolerance                 1809
+## Tolerance Distracted      2
+## Tolerance Distracted Intrusion 1
+## Tolerance Female aggress male 19
+## Tolerance Female aggress male Intrusion 2
+## Tolerance Intrusion       49
+## Tolerance Looks at partner 23
+## Tolerance Looks at partner Other 1
+## Tolerance Losing interest 22
+## Tolerance Male aggress female 27
+## Tolerance Male aggress female Female aggress male 3
+## Tolerance Male aggress female Looks at partner 1
+## Tolerance Not approaching 4
+## Tolerance Not approaching Intrusion 1
+## Tolerance Not approaching Losing interest 1
+## Tolerance Other           7
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Dyad Response Unique-1.pdf}
+
+\hypertarget{dyad-response-hierarchy}{%
+\paragraph{3.9.3 Dyad Response
+Hierarchy}\label{dyad-response-hierarchy}}
+
+\hypertarget{a-dyadresponse-hierarchy---looks-at-partner}{%
+\subparagraph{3.9.3.a DyadResponse Hierarchy - Looks at
+partner}\label{a-dyadresponse-hierarchy---looks-at-partner}}
 
 \begin{itemize}
+\tightlist
 \item
-  Print the amount of cells with more than 1 entry and the total number
-  of rows cat(``Number of rows with more than 1 entry in
-  DyadResponse:'', length(beforesummaryrowswithmultipleentries\_1),
-  ``\n'')
-\item
-  C. Identify Rows with more than 2 entry
+  I will delete all the occurences of \textbf{Looks at partner} in
+  **DyadResponse as this data was not collected during the whole period
+  of the experiment and will not be usable for my analysis
 \end{itemize}
 
 \begin{verbatim}
-## Number of rows with more than 1 entry in DyadResponse:  271
+## Number of occurrences of 'Looks at partner' in DyadResponse:  36
 \end{verbatim}
+
+\begin{verbatim}
+## Number of rows that have been changed:  36
+\end{verbatim}
+
+\hypertarget{b-dyadresponse-hierarchy---other}{%
+\subparagraph{3.9.3.b DyadResponse Hierarchy -
+Other}\label{b-dyadresponse-hierarchy---other}}
+
+\begin{itemize}
+\tightlist
+\item
+  I will print the amount of \textbf{Other} occurrencess in DyadResponse
+  and treat them to remove some multiple combinations
+\end{itemize}
+
+\begin{verbatim}
+## Number of 'Other' occurrences in DyadResponse:  18
+\end{verbatim}
+
+\begin{longtable}[]{@{}
+  >{\raggedleft\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.05}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.08}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.10}}
+  >{\raggedright\arraybackslash}p{(\columnwidth - 6\tabcolsep) * \real{0.77}}@{}}
+\caption{Rows with `Other' in DyadResponse}\tabularnewline
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedleft
+Line
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+MaleID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+FemaleID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+OtherResponse
+\end{minipage} \\
+\midrule
+\endfirsthead
+\toprule
+\begin{minipage}[b]{\linewidth}\raggedleft
+Line
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+MaleID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+FemaleID
+\end{minipage} & \begin{minipage}[b]{\linewidth}\raggedright
+OtherResponse
+\end{minipage} \\
+\midrule
+\endhead
+39 & Buk & Ndaw & No Response \\
+286 & Kom & Oort & Ooet scream while at the box and Kom get the corm of
+both \\
+300 & Kom & Oort & Both at boxes; Kom touching the box of Oort \\
+304 & Kom & Oort & Kom touching Oort's box. Oort came after 30 sec to
+her own box. \\
+700 & Nge & Oerw & No Response \\
+815 & Pom & Xian & No Response \\
+826 & Pom & Xian & No Response \\
+1484 & Sey & Sirk & wait for her. moved back and waited for sirk to
+approach and came back \\
+1659 & Sho & Ginq & No Response \\
+1741 & Sho & Ginq & Sho took one of her corn \\
+2101 & Xia & Piep & aggression \\
+2102 & Xia & Piep & Xia ate corn from both boxes \\
+2103 & Xia & Piep & Xia stolen some pieces from piep box \\
+2104 & Xia & Piep & Xia immediately go for piep box and eat her corn
+then eat his. \\
+2105 & Xia & Piep & piep got 2 pieces out of 3. Xia took one corn \\
+2170 & Piep & Xia & fem ag male \\
+2184 & Xia & Piep & Neither ID approach \\
+2729 & Xin & Ouli & opened for oerw \\
+\bottomrule
+\end{longtable}
 
 \begin{itemize}
 \item
-  \begin{enumerate}
-  \def\labelenumi{\Alph{enumi}.}
-  \setcounter{enumi}{3}
+  There are 18 cases where was \textbf{Other} as a Response in the
+  experiment. Here are the modifications I will make for them:
+
+  -First lets remember that all of these \textbf{DyadResponse} contain
+  \textbf{Other} which will make their identification easier
+
+  \begin{itemize}
   \tightlist
   \item
+    Row 39: Since there were No Response as ``Other'' I will
+    \textbf{Delete Row 39} (Buk Ndaw No Response)
+  \item
+    Row 286: In \textbf{DyadResponse} instead of \textbf{Other} I will
+    put \textbf{Tolerance} and in \textbf{SpecialBehaviour} I will put
+    \textbf{Kom;Ap;Sf;Oort,Oort;Rt;Sc} and in \textbf{GotCorn} I will
+    put \textbf{No;Oort} (Kom Oort Ooet scream while at the box and Kom
+    get the corm of both)
+  \item
+    Row 300: In \textbf{DyadResponse} I will put \textbf{Tolerance} as
+    both individual were at their box at the same time (300 Kom Oort
+    Both at boxes; Kom touching the box of Oort)
+  \item
+    Row 304: In \textbf{DyadResponse} I will put
+    \textbf{Oort;Ap;After30} in \textbf{SpecialBehaviour} (Kom Oort Kom
+    touching Oort's box. Oort came after 30 sec to her own box.)
+  \item
+    Row 700: Since ther were No Response as ``Other'' I will
+    \textbf{Delete Row 700} ( Nge Oerw No Response)
+  \item
+    Row 815: Since ther were No Response as ``Other'' I will
+    \textbf{Delete Row 815} (Pom Xian No Response)
+  \item
+    Row 826: Since ther were No Response as ``Other'' I will
+    \textbf{Delete Row 826} (Pom Xian No Response)
+  \item
+    Row 1484: In \textbf{Row 1484} I will replace the
+    \textbf{DyadResponse} occurence \textbf{Other by }Tolerance** and
+    put \textbf{Sirk;ApproachWithPartner} (Sey Sirk wait for her. moved
+    back and waited for sirk to approach and came back)
+  \item
+    Row 1659: Since there were No Response as ``Other'' I will
+    \textbf{Delete Row 1659} (1659 Sho Ginq No Response)
+  \item
+    Row 1741: In \textbf{Row 1174} Sho stole corn to Ginq. I will put
+    \textbf{Sho;Sf;Ginq} in \textbf{SpecialBehaviour} and
+    \textbf{No;Ginq} in \textbf{GotCorn} (Sho Ginq Sho took one of her
+    corn)
+  \item
+    Row 2101: The information in \textbf{Row 2101} stating
+    \textbf{aggression from Pix} is not clear to whom. I will
+    \textbf{delete Row 2101} (Xia Piep aggression)
+  \item
+    Row 2102: In \textbf{Row 2102} Xia stole corn to Piep. I will put
+    \textbf{Tolerance} in \textbf{DyadResponse}, \textbf{Xia;Sf;Piep} in
+    \textbf{SpecialBehvaiour} and \textbf{No;Piep} in \textbf{GotCorn}
+    (Xia Piep Xia ate corn from both boxes)
+  \item
+    Row 2103: In \textbf{Row 2103} Xia stole corn to Piep. I will put
+    \textbf{Tolerance} in \textbf{DyadResponse}, \textbf{Xia;Sf;Piep} in
+    \textbf{SpecialBehvaiour} and \textbf{No;Piep} in \textbf{GotCorn}
+    (Xia Piep Xia stolen some pieces from piep box)
+  \item
+    Row 2104: In \textbf{Row 2104} Xia stole corn to Piep. I will put
+    \textbf{Tolerance} in \textbf{DyadResponse}, \textbf{Xia;Sf;Piep} in
+    \textbf{SpecialBehvaiour} and \textbf{No;Piep} in \textbf{GotCorn}
+    (Xia Piep Xia immediately go for piep box and eat her corn then eat
+    his.)
+  \item
+    Row 2105: In \textbf{Row 2105} Xia stole corn to Piep. I will put
+    \textbf{Tolerance} in \textbf{DyadResponse}, \textbf{Xia;Sf;Piep} iN
+    \textbf{SpecialBehvaiour} and \textbf{No;Piep} in \textbf{GotCorn}
+    (Xia Piep piep got 2 pieces out of 3. Xia took one corn)
+  \item
+    Row 2170: In \textbf{Row 2170} I will replace \textbf{DyadResponse}
+    by \textbf{Female aggress male} (Piep Xia fem ag male)
+  \item
+    Row 2184: As both individual did not approach and \textbf{Not
+    approaching} is already in DyadResponse, I will just remove
+    \textbf{Other} from \textbf{DyadResponse}Xia Piep Neither ID
+    approach (Xia Piep Neither ID approach)
+  \item
+    Row 2729: As there was a mistake in \textbf{Row 2729} I will delete
+    this line: \textbf{Delete Row 2729} (Xin Ouli opened for oerw)
+  \item
+    Finally I will delete all the occurences of \textbf{Other} in
+    DyadResponse
+  \end{itemize}
+\item
+  First I will remove the lines with the combinations \textbf{Other \&
+  No Response}
+\end{itemize}
+
+\begin{verbatim}
+## Number of combinations with 'Other' in DyadResponse and 'No Response' in OtherResponse:  5
+\end{verbatim}
+
+\begin{verbatim}
+## Row numbers:  39, 700, 815, 826, 1659
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows that have been changed:  5
+\end{verbatim}
+
+\begin{verbatim}
+## Number of occurrences of 'Other' in DyadResponse left:  13
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Then I will treat the remaining 13 lines according to the rules I
+  explained
+\end{itemize}
+
+\begin{verbatim}
+## Number of rows changed:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  We now have 0 remaing rows with \textbf{Others} in
+  \textbf{DyadResponse} and have removed the cases where we had
+  different outputs than \textbf{Other Resposne} in the \textbf{Other}
+  column
+\end{itemize}
+
+\hypertarget{c-decision-making-for-dyad-response-hierarchy}{%
+\subparagraph{3.9.3.c Decision making for Dyad Response
+Hierarchy}\label{c-decision-making-for-dyad-response-hierarchy}}
+
+\begin{itemize}
+\item
+  I will create a \textbf{Hierarchy for DyadResponse} in order to treat
+  cases where multiple behaviours were produced within a trial in order
+  to reduce the amount of responses and clear any discrepancies that
+  could be found
+\item
+  \textbf{Aggression \& Tolerance}: I will keep \textbf{Agression} as we
+  defined tolerance as the absence of any sign of aggression between
+  individuals of a Dyad. Each Time we wrote tolerance it means that the
+  monkeys touched the boxes at the same time. I will create a variable
+  called \textbf{SimulatenousTouch} to record every time the box did the
+  action at the same time. Then I will in every case of aggression and
+  tolerance within a trial keep Aggression: \textbf{Aggression
+  \textgreater{} Tolerance}. (Note that aggression is not yet a variable
+  in itself but instead we have Male aggress female \& Female aggress
+  male as occurences of aggression)
+\end{itemize}
+
+\begin{verbatim}
+## Number of cases with Tolerance & Male aggress female:  31
+\end{verbatim}
+
+\begin{verbatim}
+## Number of cases with Tolerance & Female aggress male:  24
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows changed:  55
+\end{verbatim}
+
+\begin{verbatim}
+## Number of lines remaining with both Aggression and Tolerance:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tolerance \& Loosing interest}: I will keep \textbf{Tolerance}
+  as it means that the dyad did touch the boxes: \textbf{Tolerance
+  \textgreater{} Loosing interest}
+\end{itemize}
+
+\begin{verbatim}
+## Number of cases with Tolerance & Losing interest:  23
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows changed:  23
+\end{verbatim}
+
+\begin{verbatim}
+## Number of lines remaining with both Tolerance and Losing interest:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tolerance \& Intrusion}: I will keep \textbf{Tolerance}.
+  Before replacing these occurrences I will created a variable called
+  \textbf{Intrusion} the value will be Yes if there was Intrusion in
+  DyadResponse (alone or with another response) and No if there wasn't
+  any Intrusion: \textbf{Tolerance \textgreater{} Intrusion}
+\end{itemize}
+
+\begin{verbatim}
+## Number of cases with Tolerance & Intrusion:  53
+\end{verbatim}
+
+\begin{verbatim}
+## Number of rows changed:  53
+\end{verbatim}
+
+\begin{verbatim}
+## Number of lines remaining with both Tolerance and Intrusion:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Not approaching \& Loosing interest}: I will replace the
+  occurrences of \textbf{Loosing interest} with \textbf{Not approaching}
+  as individuals who did not pay/ lost interest did not come to the box
+\end{itemize}
+
+\begin{verbatim}
+## Initial duplicates of 'Not Approaching':  571 
+## Final duplicates of 'Not Approaching':  634 
+## Final number of 'Not approaching' occurrences after replacing 'Losing interest':  634 
+## Number of rows with 'Losing interest' remaining: 0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Replacement of Loosing interest with not approaching:
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    When there is Loosing interest and Not approaching: keep not
+    approaching
+  \item
+    Replace remaining occurences of Loosing interest (along or combined
+    with another response, with not approaching)
   \end{enumerate}
 \end{itemize}
 
 \begin{verbatim}
-## Unique Combinations and Counts for More than 1 Entry:
+## Initial duplicates of 'Not Approaching':  634 
+## Final duplicates of 'Not Approaching':  634 
+## Final number of 'Not approaching' occurrences after replacing 'Losing interest':  634 
+## Number of rows with 'Losing interest' remaining: 0
 \end{verbatim}
 
-\begin{verbatim}
-##  Distracted &  Intrusion  2
-##  Female aggress male &  Intrusion 2
-##  Looks at partner &  Other 1
-##  Losing interest &  Intrusion 1
-##  Losing interest &  Looks at partner 1
-##  Male aggress female &  Female aggress male 3
-##  Male aggress female &  Looks at partner 1
-##  Not approaching &  Intrusion 1
-##  Not approaching &  Losing interest 1
-## Distracted &  Losing interest 3
-## Female aggress male &  Intrusion 1
-## Female aggress male &  Not approaching 3
-## Losing interest &  Intrusion 1
-## Male aggress female &  Intrusion 1
-## Male aggress female &  Looks at partner 1
-## Male aggress female &  Not approaching 2
-## Not approaching &  Distracted 7
-## Not approaching &  Intrusion 32
-## Not approaching &  Looks at partner 10
-## Not approaching &  Losing interest 49
-## Not approaching &  Other  1
-## Tolerance &  Distracted   3
-## Tolerance &  Female aggress male 24
-## Tolerance &  Intrusion    53
-## Tolerance &  Looks at partner 25
-## Tolerance &  Losing interest 23
-## Tolerance &  Male aggress female 31
-## Tolerance &  Not approaching 6
-## Tolerance &  Other        8
-\end{verbatim}
-
-\begin{verbatim}
-## Change in Occurrences for the Chunk (Female aggress male > Not approaching):  2731 2737 2737 2478 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2400 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2573 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2718 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2708 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2710 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2702 2737 2737 2737 2732 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2478 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2167 2737 2737 2737 2460 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2720 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2162 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2737 2733 2578 2737 2737 2737 2737 2737 2737
-\end{verbatim}
-
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{5}
+\begin{itemize}
 \tightlist
 \item
-  Male agress female \textgreater{} Not approaching : Remove Not
-  approaching if there is Male aggress female (2x)
-\end{enumerate}
+  \textbf{Replacement of intrusion by not approaching}
+\item
+  \textbf{Intrusion \& Not approaching}: I will keep Intrusion:
+  \textbf{Intrusion \textgreater{} Not approaching}
+\end{itemize}
 
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Male aggress female > Not approaching):  -2
+## Initial duplicates of 'Not Approaching; Not Approaching':  0 
+## Final duplicates of 'Not Approaching; Not Approaching':  0 
+## Number of cases with Intrusion & Not Approaching:  34 
+## Number of lines remaining with both Intrusion and Not Approaching:  0
 \end{verbatim}
 
-\begin{enumerate}
-\def\labelenumi{\arabic{enumi}.}
-\setcounter{enumi}{6}
+\begin{itemize}
 \tightlist
 \item
-  Tolerance \textgreater{} Distracted: Remove Distracted if there is
-  tolerance (3x)
-\end{enumerate}
+  \textbf{Not approaching \& Distracted}: I will keep \textbf{Not
+  approaching}: \textbf{Not approaching \textgreater{} Distracted}
+\end{itemize}
 
 \begin{verbatim}
-## Change in Occurrences for the Chunk Tolerance > Distracted:  -3
+## Initial duplicates of 'Not Approaching; Not Approaching':  0 
+## Final duplicates of 'Not Approaching; Not Approaching':  0 
+## Number of changes made to replace 'Distracted' with 'Not approaching':  17 
+## Number of changes in 'Not approaching' entries:  8
 \end{verbatim}
 
-8.Female agress male \textgreater{} Tolerance: Remove Tolerance if there
-is Female agress male (23x)
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Male Aggress Female / Female Aggress Female} and \textbf{Not
+  Approaching}: I will keep both Aggression \textgreater{} Not
+  approaching
+\end{itemize}
 
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Tolerance & Female aggress male):  -24
+## Number of cases with Male Aggress Female & Not Approaching:  2
 \end{verbatim}
 
-9.Tolerance \textgreater{} Loosing interest: Remove Losing interest if
-there is Tolerance (13x)
-
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Tolerance & Losing interest):  0
+## Number of cases with Female Aggress Male & Not Approaching:  3
 \end{verbatim}
 
-10.Male agress female \textgreater{} Tolerance : Remove Tolerance if
-there is Male agress male (31)
-
 \begin{verbatim}
-## Change in Occurrences for the Chunk (Tolerance & Male aggress female):  -28
+## Total number of cases with Aggression & Not Approaching:  5
 \end{verbatim}
 
-11.Tolerance \textgreater{} Not approaching: Remove Not approaching if
-there is tolerance (6x)
+\begin{verbatim}
+## Number of changes made to remove 'Not Approaching' with 'Male aggress female':  2
+\end{verbatim}
 
 \begin{verbatim}
-## Change in Occurrences for teh Chunk (Tolerance & Not approaching):  -6
+## Number of changes made to remove 'Not Approaching' with 'Female aggress male':  3
+\end{verbatim}
+
+\begin{verbatim}
+## Number of remaining cases with Male Aggress Female & Not Approaching:  0
+\end{verbatim}
+
+\begin{verbatim}
+## Number of remaining cases with Female Aggress Male & Not Approaching:  0
 \end{verbatim}
 
 \begin{itemize}
 \item
-  Looks at partner \& Other 1 - Display line for detailed check (1x)
-\item
-  Not approaching \& Losing interest 46 - Keep both, I will consider
-  doing a detailled check
-\item
-  Not approaching \& Distracted 7 - Display line for detailed check
-\item
-  Not approaching \& Other 1 - Display line for detailed check
-\item
-  Tolerance \& Other 8 - Display line for detailed check
-\item
-  Code to display rows numbers and the response in DyadResponse that
-  have mroe than one entry
-\item
-  Other Reponse - DEtailed cleaning to delete the column
-\item
-  Audience - Creation of Amount Audience and Density
-\item
-  ID Individua1 - Not sure yet
-\item
-  Intruder ID
-\item
-  Remarks - Detailed Cleaning
-\item
-  Intrusion
-\item
-  Not Approaching
-\item
-  Lossing Interest
-\item
-  Distracted
-\item
-  MultipleResponse
-\item
-  Amount Audience
-\item
-  DyadDistance
-\item
-  Distance
-\item
-  No trial
+  \begin{itemize}
+  \tightlist
+  \item
+    \textbf{Male Aggress Female / Female Aggress Female} and
+    \textbf{Tolerance}: I will keep both Tolerance \textgreater{} Male
+    Aggress female/ Female Aggress Male
+  \end{itemize}
 \end{itemize}
 
-\hypertarget{code-to-keep-and-place-again}{%
-\paragraph{Code to keep and place
-again}\label{code-to-keep-and-place-again}}
-
-\hypertarget{code-to-settle}{%
-\section{Code to settle}\label{code-to-settle}}
-
-I also chose to directly create new dichotomic variables for ``Not
-approaching'', ``Intrusion'', ``Losing interest'', ``Distracted'', for
-this I would like the function to 1.Check if there is a \textbf{value
-different than ``No individual''} 2.\textbf{If the value ≠``No
-individual''} then I want it to \textbf{take the response found in
-``DyadResposne''}
-
 \begin{verbatim}
-## Occurrences of 'Not approaching' in DyadResponse: 564
+## Number of cases with Male Aggress Female & Tolerance:  31
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of 'Intrusion' in DyadResponse: 135
+## Number of cases with Female Aggress Male & Tolerance:  24
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of 'Losing interest' in DyadResponse: 112
+## Number of changes made to remove 'Male aggress female' with 'Tolerance':  31
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of 'Distracted' in DyadResponse: 14
+## Number of changes made to remove 'Female aggress male' with 'Tolerance':  24
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: Unknown or uninitialised column: `NotApproaching`.
+## Number of remaining cases with Male Aggress Female & Tolerance:  0
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: Unknown or uninitialised column: `LosingInterest`.
+## Number of remaining cases with Female Aggress Male & Tolerance:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Male aggress Female} and \textbf{Female aggress male}: create
+  a variable called \textbf{Aggression} and put \textbf{Yes} for every
+  occurrences of Female and Male aggression and \textbf{No} when there
+  wasn't
+\end{itemize}
+
+\begin{verbatim}
+## Number of cases with Male aggress female:  77
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: Unknown or uninitialised column: `Distracted`.
+## Number of cases with Female aggress male:  22
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of '1' in 'NotApproaching': 0
+## Total number of aggression cases:  99
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  \textbf{Tolerance \& Not approaching}: I will keep \textbf{Tolerance}
+  as it means that one of the individuals took more than 30 seconds to
+  come at the box and then at the end came. In these cases I will create
+  a variable called \textbf{Hesistant} to count the frequency of times
+  where the monkey took more time to approach than in the usual trials.
+  Once the variable is created based on all the occurence of tolerance
+  and not approaching, I will replace all the occurences of not
+  approaching and tolerance with tolerance: \textbf{Tolerance
+  \textgreater{} No approaching}
+\end{itemize}
+
+\begin{verbatim}
+## Number of cases with Tolerance & Not Approaching:  30
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of '1' in 'Intrusion': 56
+## Number of rows changed:  30
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of '1' in 'LosingInterest': 0
+## Number of lines remaining with both Tolerance and Not Approaching:  0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Treatment of mistake of not apporaching not approaching
+\end{itemize}
+
+\begin{verbatim}
+## Count of 'Not approaching Not approaching':  58
 \end{verbatim}
 
 \begin{verbatim}
-## Occurrences of '1' in 'Distracted': 0
+## Count of 'Not approaching Not approaching':  0
+\end{verbatim}
+
+\begin{verbatim}
+## Count of 'Not approaching Not approaching':  0 
+## Remaining duplicates of 'Not approaching Not approaching': 0
+\end{verbatim}
+
+\begin{longtable}[]{@{}llr@{}}
+\caption{Table of Unique Keywords and Their Frequencies in
+DyadResponse}\tabularnewline
+\toprule
+& Keyword & Frequency \\
+\midrule
+\endfirsthead
+\toprule
+& Keyword & Frequency \\
+\midrule
+\endhead
+10 & Tolerance & 1882 \\
+8 & Not approaching & 572 \\
+4 & Intrusion & 83 \\
+5 & Male aggress female & 74 \\
+12 & Tolerance Intrusion & 49 \\
+13 & Tolerance Not approaching & 29 \\
+1 & Female aggress male & 18 \\
+3 & Female aggress male Not approaching & 3 \\
+11 & Tolerance Intrusion & 3 \\
+7 & Male aggress female Not approaching & 2 \\
+2 & Female aggress male Intrusion & 1 \\
+6 & Male aggress female Intrusion & 1 \\
+9 & Not approaching Intrusion & 1 \\
+14 & Tolerance Not approaching Intrusion & 1 \\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## Warning in RColorBrewer::brewer.pal(n, pal): n too large, allowed maximum for palette Set3 is 12
+## Returning the palette you asked for with that many colors
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf}
+
+\begin{longtable}[]{@{}lr@{}}
+\caption{Table of Unique DyadResponse Entries with More Than 10
+Occurrences}\tabularnewline
+\toprule
+DyadResponse & n \\
+\midrule
+\endfirsthead
+\toprule
+DyadResponse & n \\
+\midrule
+\endhead
+Tolerance & 1882 \\
+Not approaching & 572 \\
+Intrusion & 83 \\
+Male aggress female & 74 \\
+Tolerance Intrusion & 49 \\
+Tolerance Not approaching & 29 \\
+Female aggress male & 18 \\
+\bottomrule
+\end{longtable}
+
+\includegraphics{BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf}
+
+\hypertarget{visualizing-the-data}{%
+\section{4.Visualizing the data}\label{visualizing-the-data}}
+
+\hypertarget{reordering-the-variables-in-bex}{%
+\subsection{4.1 Reordering the variables in
+Bex}\label{reordering-the-variables-in-bex}}
+
+\begin{itemize}
+\item
+  Now that all the variables have been treated and cleaned I want to
+  modify thew variables in Bex to keep only the ones I need and to put
+  them in the right order
+\item
+  First lets print the name of all the variables before reordering them
+  and keeping only the variables of interest
+\end{itemize}
+
+\begin{verbatim}
+## tibble [2,719 x 32] (S3: tbl_df/tbl/data.frame)
+##  $ Time               : chr [1:2719] "08:18:23" "08:37:12" "08:37:58" "08:16:30" ...
+##  $ Date               : chr [1:2719] "2022-09-29" "2022-09-29" "2022-09-29" "2022-10-04" ...
+##  $ Group              : chr [1:2719] "Ankhase" "Ankhase" "Ankhase" "Ankhase" ...
+##  $ MaleID             : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
+##  $ FemaleID           : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
+##  $ FemaleCorn         : chr [1:2719] "0" "0" "0" "3" ...
+##  $ DyadDistance       : chr [1:2719] "5" "5" "5" "5" ...
+##  $ DyadResponse       : chr [1:2719] "Tolerance" "Tolerance" "Intrusion" "Intrusion" ...
+##  $ OtherResponse      : chr [1:2719] "No Response" "No Response" "No Response" "No Response" ...
+##  $ Audience           : chr [1:2719] "Ginq; Gubh" "Ginq; Gubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...
+##  $ IDIndividual1      : chr [1:2719] "No individual" "No individual" "Buk; Ndaw" "Buk" ...
+##  $ IntruderID         : chr [1:2719] "No Intrusion" "No Intrusion" "Ginq; Gubh" "Ginq" ...
+##  $ Remarks            : chr [1:2719] "No Remarks" "No Remarks" "Treated" "Treated" ...
+##  $ MaleCorn           : chr [1:2719] "0" "0" "0" "7" ...
+##  $ Intrusion          : chr [1:2719] "0" "0" "1" "0" ...
+##  $ AmountAudience     : chr [1:2719] "2" "2" "2" "4" ...
+##  $ Context            : chr [1:2719] "NoContext" "NoContext" "NoContext" "NoContext" ...
+##  $ SpecialBehaviour   : chr [1:2719] "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...
+##  $ GotCorn            : chr [1:2719] "Yes" "Yes" "Yes" "Yes" ...
+##  $ Period             : chr [1:2719] "6 to 8" "6 to 8" "6 to 8" "6 to 8" ...
+##  $ Hour               : chr [1:2719] "08:00:00" "08:00:00" "08:00:00" "08:00:00" ...
+##  $ Day                : chr [1:2719] "1" "1" "1" "2" ...
+##  $ Month              : chr [1:2719] "2022-09" "2022-09" "2022-09" "2022-10" ...
+##  $ Male               : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
+##  $ Female             : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
+##  $ Dyad               : chr [1:2719] "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" ...
+##  $ Trial              : chr [1:2719] "1" "2" "3" "4" ...
+##  $ PlacementMale      : chr [1:2719] "0" "0" "0" "7" ...
+##  $ PlacementFemale    : chr [1:2719] "0" "0" "0" "3" ...
+##  $ Proximity          : chr [1:2719] "4-5" "4-5" "4-5" "4-5" ...
+##  $ DyadResponse_sorted: chr [1:2719] "Tolerance" "Tolerance" "Intrusion;Not approaching" "Intrusion;Losing interest" ...
+##  $ MultipleResponses  : chr [1:2719] "Single Response" "Single Response" ">1 Response" ">1 Response" ...
+\end{verbatim}
+
+\begin{verbatim}
+##                Time                Date               Group              MaleID 
+##                   0                   0                   0                   0 
+##            FemaleID          FemaleCorn        DyadDistance        DyadResponse 
+##                   0                   0                   0                   0 
+##       OtherResponse            Audience       IDIndividual1          IntruderID 
+##                   0                   0                   0                   0 
+##             Remarks            MaleCorn           Intrusion      AmountAudience 
+##                   0                   0                   0                   0 
+##             Context    SpecialBehaviour             GotCorn              Period 
+##                   0                   0                   0                   0 
+##                Hour                 Day               Month                Male 
+##                   0                   0                   0                   0 
+##              Female                Dyad               Trial       PlacementMale 
+##                   0                   0                   0                   0 
+##     PlacementFemale           Proximity DyadResponse_sorted   MultipleResponses 
+##                   0                   0                   0                   0
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  I will keep the following variables in the next order: Date, Month,
+  Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity,
+  DyadResponse, Intrusion, IntruderID SpecialBehaviour, Audience,
+  AmountAudience, Context, Special Behaviour
+\end{itemize}
+
+\begin{verbatim}
+##  [1] "Date"             "Month"            "Day"              "Time"            
+##  [5] "Hour"             "Period"           "Trial"            "Male"            
+##  [9] "Female"           "Dyad"             "DyadDistance"     "Proximity"       
+## [13] "DyadResponse"     "IDIndividual1"    "Intrusion"        "IntruderID"      
+## [17] "SpecialBehaviour" "Audience"         "AmountAudience"   "Context"
 \end{verbatim}
 
 \hypertarget{exploratory-graph-to-organise}{%
-\subsubsection{Exploratory Graph (To
+\subsection{4.2 Exploratory Graph (To
 organise)}\label{exploratory-graph-to-organise}}
 
 \#\#\#\#Dyad, Distance \& Date
@@ -2861,6 +3364,10 @@ organise)}\label{exploratory-graph-to-organise}}
 
 \begin{verbatim}
 ## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\begin{verbatim}
+## Warning: Removed 65 rows containing non-finite values (`stat_smooth()`).
 \end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/Dyad Distance \& Date-1.pdf}
@@ -2879,16 +3386,345 @@ organise)}\label{exploratory-graph-to-organise}}
 
 \includegraphics{BEX2223_files/figure-latex/Other graphs-1.pdf}
 
+\includegraphics{BEX2223_files/figure-latex/daily graph-1.pdf}
+
+\includegraphics{BEX2223_files/figure-latex/last test before sleep-1.pdf}
+
+\includegraphics{BEX2223_files/figure-latex/daily graph2-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/daily graph2-2.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  Check amount of audience link with aggression occurences per sex
+\end{itemize}
+
+\includegraphics{BEX2223_files/figure-latex/agression \& audience test grap-1.pdf}
+
+\hypertarget{preparation-of-dataset-for-importation-of-life-history-elo-rating-focal-and-ad-libitum-data}{%
+\subsection{4.3 Preparation of dataset for importation of life history,
+elo rating \& focal and ad libitum
+data}\label{preparation-of-dataset-for-importation-of-life-history-elo-rating-focal-and-ad-libitum-data}}
+
+\hypertarget{intermediate-check-of-audience-and-extraction-of-names}{%
+\subsubsection{4.3.1 Intermediate check of audience and extraction of
+names}\label{intermediate-check-of-audience-and-extraction-of-names}}
+
+\begin{itemize}
+\item
+  Because I will look at the audience and individual factors on the
+  individuals of the dyads i must make a lsit of all the individudals
+  for which I will need to extract information.
+\item
+  First lets extract all of the names of individuals in audience
+\item
+  Step 1: Clean and Process the Audience Data: We first clean the
+  Audience column, ensuring that any ``NA'' values are replaced with
+  ``No audience'' and split the combined names. Whitespace around names
+  is also removed.
+\item
+  Step 2: Recalculate AmountAudience: This step ensures the
+  AmountAudience variable is correctly updated after splitting the
+  Audience column.
+\item
+  Step 3: Summarize Changes: We count how many times the value ``NA''
+  was replaced with ``No audience'' and display this count using cat().
+\item
+  Step 4: Categorize Audience Members: We categorize audience members
+  into ``Male'', ``Female'', and other relevant categories based on the
+  length of their IDs. Specific identifiers like ``unkam'', ``unkaf'',
+  etc., are given appropriate labels.
+\end{itemize}
+
+Step 5: Display Tables by Category: We split the audience count table
+into sections for ``Male'', ``Female'', and other categories, and then
+display these tables separately. The use of knitr::kable() provides a
+professional table format that is more suitable for RMarkdown.
+
+\begin{verbatim}
+## 
+## **Table: Top 5 Male Audience Members**
+\end{verbatim}
+
+\begin{longtable}[]{@{}lc@{}}
+\caption{Top 5 Male Audience Members}\tabularnewline
+\toprule
+Audience Member & Count \\
+\midrule
+\endfirsthead
+\toprule
+Audience Member & Count \\
+\midrule
+\endhead
+Pix & 177 \\
+Oup & 165 \\
+Nko & 123 \\
+Gom & 103 \\
+Ome & 103 \\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## 
+## **Table: Top 5 Female Audience Members**
+\end{verbatim}
+
+\begin{longtable}[]{@{}lc@{}}
+\caption{Top 5 Female Audience Members}\tabularnewline
+\toprule
+Audience Member & Count \\
+\midrule
+\endfirsthead
+\toprule
+Audience Member & Count \\
+\midrule
+\endhead
+Sirk & 241 \\
+Oort & 199 \\
+Oerw & 158 \\
+Piep & 154 \\
+Ginq & 145 \\
+\bottomrule
+\end{longtable}
+
+\begin{verbatim}
+## 
+## **List: All Male Audience Members**
+\end{verbatim}
+
+\begin{verbatim}
+## Pix, Oup, Nko, Gom, Ome, Sey, Nda, Ndl, Gha, Xia, Sig, Xin, Rid, Gib, Gub, Mui, Kom, Dix, Nak, Buk, Aan, Non, Aal, Sho, Guz, Pie, Hee, Pom, Syl, Nuk, App, Gri, Ott, Ree, Gil, Kno, Xar, Goe, Ask, UnkAM, Nuu, Ros, Vla, Xop, Bet, Roc, Hem, Nge, Eis, Umb, Ren, Rim, War, Atj, Gua, Vul, Bob, Nca, Tot, Her, Ram, Dal, Tch, Ris, Vry, Dak, Uls, Flu, Gab, Win
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## **List: All Female Audience Members**
+\end{verbatim}
+
+\begin{verbatim}
+## Sirk, Oort, Oerw, Piep, Ginq, Obse, Ghid, Reen, Gubh, Ndaw, Sitr, Godu, Skem, Ndum, Naal, Ncok, Miel, Gobe, Nkos, Ouli, Ndon, Ndin, Puol, Giji, Lewe, Enge, Papp, Eina, Hond, Rimp, Heer, Sari, Gree, Olyf, Bela, Aapi, Guba, Popp, Oase, Xeni, Nurk, Haai, Rivi, Gran, Misk, Nooi, Prat, Gris, Pikk, Pann, Prai, Riss, Riva, Ekse, Rede, Griv, Regi, UnkJ, Xati, Rooi, Gaya, Prim, Rafa, Udup, Xala, Palm, Xinp, Guat, Reno, Beir, Gese, Grim, UnkA, Gale, Pret, Prag, Prui, Raba, Rioj, UnkAF, Utic
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Audience first insghts ID-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/Audience first insghts ID-2.pdf}
+
+\begin{verbatim}
+## 
+## ### Top 10 Audience Members for Dyad: Buk Ndaw 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |Ginq            |    90|
+## |Ghid            |    62|
+## |No audience     |    59|
+## |Nda             |    47|
+## |Ndl             |    42|
+## |Sho             |    40|
+## |Gha             |    37|
+## |Gom             |    36|
+## |Gubh            |    35|
+## |Godu            |    29|
+## 
+## ### Top 10 Audience Members for Dyad: Kom Oort 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |No audience     |    95|
+## |Sirk            |    51|
+## |Xia             |    50|
+## |Piep            |    47|
+## |Reen            |    35|
+## |Pix             |    29|
+## |Sey             |    29|
+## |Ome             |    25|
+## |Oup             |    22|
+## |Xin             |    21|
+## 
+## ### Top 10 Audience Members for Dyad: Nge Oerw 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |No audience     |    55|
+## |Sirk            |    54|
+## |Oup             |    40|
+## |Pix             |    28|
+## |Sey             |    19|
+## |Sig             |    18|
+## |Obse            |    16|
+## |Sitr            |    13|
+## |Ouli            |    12|
+## |Aan             |    11|
+## 
+## ### Top 10 Audience Members for Dyad: Pom Xian 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |No audience     |   115|
+## |Gri             |    31|
+## |Gree            |    26|
+## |Xar             |    23|
+## |Xeni            |    21|
+## |Gran            |    18|
+## |Xop             |    17|
+## |Prat            |    16|
+## |Gris            |    15|
+## |Miel            |    15|
+## |Roc             |    15|
+## 
+## ### Top 10 Audience Members for Dyad: Sey Sirk 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |No audience     |   250|
+## |Piep            |    63|
+## |Oort            |    51|
+## |Oerw            |    48|
+## |Pix             |    48|
+## |Oup             |    44|
+## |Ome             |    39|
+## |Reen            |    37|
+## |Obse            |    34|
+## |Sitr            |    29|
+## 
+## ### Top 10 Audience Members for Dyad: Sho Ginq 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |Ndaw            |    90|
+## |Gom             |    67|
+## |Gubh            |    61|
+## |No audience     |    59|
+## |Gha             |    54|
+## |Ghid            |    49|
+## |Buk             |    48|
+## |Godu            |    46|
+## |Gib             |    42|
+## |Ndum            |    37|
+## 
+## ### Top 10 Audience Members for Dyad: Xia Piep 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |No audience     |   178|
+## |Sirk            |   124|
+## |Oort            |    90|
+## |Pix             |    56|
+## |Oerw            |    51|
+## |Xin             |    37|
+## |Naal            |    32|
+## |Sitr            |    32|
+## |Obse            |    31|
+## |Dix             |    29|
+## 
+## ### Top 10 Audience Members for Dyad: Xin Ouli 
+## 
+## 
+## |Audience Member | Count|
+## |:---------------|-----:|
+## |Oerw            |    45|
+## |Oort            |    39|
+## |Sey             |    38|
+## |No audience     |    34|
+## |Oup             |    30|
+## |Piep            |    29|
+## |Aal             |    17|
+## |Xia             |    17|
+## |Obse            |    16|
+## |Ott             |    16|
+## |Pix             |    16|
+\end{verbatim}
+
+\hypertarget{intermediate-check-of-intrusion-extraction-of-names}{%
+\subsubsection{4.3.2 Intermediate check of Intrusion, extraction of
+names}\label{intermediate-check-of-intrusion-extraction-of-names}}
+
+\includegraphics{BEX2223_files/figure-latex/Intruder IDs-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/Intruder IDs-2.pdf}
+\includegraphics{BEX2223_files/figure-latex/Intruder IDs-3.pdf}
+
+\begin{verbatim}
+## [1] "Ordered Unique Intruder Names:"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "Buk"  "Ghid" "Ginq" "Godu" "Gran" "Gree" "Gri"  "Grif" "Gris" "Guat"
+## [11] "Gub"  "Gubh" "Guz"  "Hee"  "Kno"  "Kom"  "Nak"  "Nda"  "Nge"  "Non" 
+## [21] "Obse" "Oerw" "Oort" "Ouli" "Oup"  "Piep" "Pix"  "Sey"  "Sho"  "Sirk"
+## [31] "Xia"  "Xin"  "Xop"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Top 10 Most Frequent Intruder Names:"
+\end{verbatim}
+
+\begin{verbatim}
+##    Name Count Gender
+## 1  Oerw    23 Female
+## 2   Sey    19   Male
+## 3  Oort    15 Female
+## 4  Obse    10 Female
+## 5  Ghid     9 Female
+## 6   Buk     5   Male
+## 7  Ginq     5 Female
+## 8  Gubh     5 Female
+## 9   Gri     4   Male
+## 10 Piep     4 Female
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Male Names (3 letters):"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "Guz" "Nda" "Sho" "Sey" "Pix" "Xia" "Oup" "Nak" "Gri" "Xop" "Nge" "Kno"
+## [13] "Kom" "Buk" "Gub" "Xin" "Hee" "Non"
+\end{verbatim}
+
+\begin{verbatim}
+## [1] "Female Names (4 letters):"
+\end{verbatim}
+
+\begin{verbatim}
+##  [1] "Ginq" "Gubh" "Ghid" "Oerw" "Obse" "Piep" "Ouli" "Gree" "Gran" "Gris"
+## [11] "Grif" "Guat" "Sirk" "Oort" "Godu"
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  After comparaison every individual that appearead in intrusion was
+  also in audience except for \textbf{Grif} that i may add to the lsit
+  of invididuals of audience before doing elo rating calculations
+\end{itemize}
+
+\hypertarget{intermediate-check-of-not-approaching-behaviour}{%
+\subsubsection{4.3.3 Intermediate check of Not Approaching
+behaviour}\label{intermediate-check-of-not-approaching-behaviour}}
+
+\includegraphics{BEX2223_files/figure-latex/Intermediate check of not approaching-1.pdf}
+
+\hypertarget{intermediate-check-of-intrusion}{%
+\subsubsection{4.3.4 Intermediate check of
+Intrusion}\label{intermediate-check-of-intrusion}}
+
+\includegraphics{BEX2223_files/figure-latex/Intermediate check of intrusion-1.pdf}
+
 \begin{verbatim}
 ## `summarise()` has grouped output by 'Dyad'. You can override using the
 ## `.groups` argument.
 \end{verbatim}
 
-\includegraphics{BEX2223_files/figure-latex/Monthly graph-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/Intermediate check of intrusion-2.pdf}
 
-\includegraphics{BEX2223_files/figure-latex/last test before sleep-1.pdf}
-
-\includegraphics{BEX2223_files/figure-latex/daily graph2-1.pdf}
+\hypertarget{to-sort-not-finished}{%
+\section{TO SORT; NOT FINISHED}\label{to-sort-not-finished}}
 
 \begin{itemize}
 \tightlist
@@ -2931,10 +3767,7 @@ will be worked on once the data cleaning and exploration is
 done}\label{sections-below-are-here-for-the-organization-of-my-paper-and-will-be-worked-on-once-the-data-cleaning-and-exploration-is-done}}
 
 \hypertarget{describing-the-data}{%
-\subsection{3. Describing the data}\label{describing-the-data}}
-
-\hypertarget{visualizing-the-data}{%
-\subsection{4.Visualizing the data}\label{visualizing-the-data}}
+\subsection{5. Describing the data}\label{describing-the-data}}
 
 \hypertarget{research-question-hypothesis}{%
 \subsection{5.Research question \&
@@ -3330,6 +4163,59 @@ experiments made
 \item
   Conclusion
 \end{itemize}
+
+\hypertarget{key-cognitive-skilly-that-may-be-involved-in-the-box-experiment}{%
+\section{Key cognitive skilly that may be involved in the box
+experiment}\label{key-cognitive-skilly-that-may-be-involved-in-the-box-experiment}}
+
+\begin{itemize}
+\tightlist
+\item
+  Problem solving
+\item
+  Memory
+\item
+  Conflict resolution
+\item
+  Cooperation
+\end{itemize}
+
+\hypertarget{key-idea-to-develop-insghts}{%
+\section{Key idea to develop \&
+insghts}\label{key-idea-to-develop-insghts}}
+
+\begin{itemize}
+\item
+  Inter sexual food competition/or tolerance: which type of adaptation
+\item
+  Tolerance
+\item
+  Adaptation to a new context (box experiment setting and repeated
+  encounters with a specific individual)
+\item
+  Evolution of tolerance in competitive context
+\item
+  Social cognition \textgreater{} meaning influence of the group or
+  audience on the choice of an individual of a Dyad
+\item
+  Primate social structure and dynamics
+\item
+  Foundation of tolerance, solving of competition related to food,
+  mechanisms underlying male-female vervet relationships, dyadic
+  interactions
+\item
+  Insights on the evolution of complex decision making in a social
+  context and adaptive mechanisms related to food competition x
+\end{itemize}
+
+In summary, studying dyadic interactions, particularly between males and
+females in vervet monkeys, not only enhances our understanding of
+evolutionary origins and adaptive advantages of complex cognition but
+also provides valuable insights into human social behavior, cooperation,
+and cognitive foundations shared across species. These studies bridge
+the gap between animal behavior research and cognitive science, offering
+interdisciplinary perspectives on the complexities of social
+interactions and their implications for both animal and human societies.
 
 \hypertarget{glossary}{%
 \section{Glossary}\label{glossary}}

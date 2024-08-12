@@ -1,18 +1,18 @@
 ---
 title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023"
 output:
+  pdf_document:
+    toc: yes
+    toc_depth: 6
+  word_document:
+    toc: yes
+    toc_depth: 6
   html_document:
     df_print: paged
     toc: yes
     toc_depth: 6
     toc_float:
       collapsed: no
-  word_document:
-    toc: yes
-    toc_depth: 6
-  pdf_document:
-    toc: yes
-    toc_depth: 6
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 header-includes:
   - \usepackage[utf8]{inputenc}
@@ -2863,7 +2863,7 @@ print(na_summary)
 
 BexClean <- BexClean %>%
   select(Date, Month, Day, Time, Hour, Period, Trial, Male, Female, Dyad, 
-         DyadDistance, Proximity, DyadResponse, Intrusion, IntruderID, SpecialBehaviour, 
+         DyadDistance, Proximity, DyadResponse,IDIndividual1, Intrusion, IntruderID, SpecialBehaviour, 
          Audience, AmountAudience, Context, SpecialBehaviour)
 
 colnames(BexClean)
@@ -2872,7 +2872,7 @@ colnames(BexClean)
 
 
 
-# 4.2Exploratory Graph (To organise)
+## 4.2 Exploratory Graph (To organise)
 
 ####Dyad, Distance & Date
 
@@ -3105,8 +3105,7 @@ print(audience_aggression_plot)
 
 
 
-```{r aggression and not approaching, echo=FALSE}
-
+```{r Not approaching, echo=FALSE}
 
 
 ```
@@ -3277,10 +3276,6 @@ for (dyad in dyads) {
 
 ```{r Intruder IDs, echo=FALSE}
 
-
-library(ggplot2)
-library(dplyr)
-
 # Extract the IntruderID column
 intruder_data <- BexClean$IntruderID
 
@@ -3354,7 +3349,112 @@ print(unique(female_names))
 
 
 ```
-#After comparaison every individual that appearead in intrusion was also in audience except for **Grif** that i may add to the lsit of invididuals of audience before doing elo rating calculations
+* After comparaison every individual that appearead in intrusion was also in audience except for **Grif** that i may add to the lsit of invididuals of audience before doing elo rating calculations
+
+
+
+### 4.3.3 Intermediate check of Not Approaching behaviour
+```{r Intermediate check of not approaching, echo=FALSE}
+
+ # Load necessary libraries
+library(dplyr)
+library(tidyr)
+library(ggplot2)
+
+# Helper function to categorize the individual by gender
+categorize_individual <- function(individual_ids) {
+  ids <- unlist(strsplit(individual_ids, "; "))
+  genders <- ifelse(nchar(ids) == 3, "Male", ifelse(nchar(ids) == 4, "Female", NA))
+  return(genders)
+}
+
+# Apply the function to create a Gender column based on ID Individual 1
+BexClean_expanded <- BexClean %>%
+  mutate(Gender = sapply(`IDIndividual1`, categorize_individual)) %>%
+  unnest(Gender)
+# Filter for "Not Approaching" occurrences
+not_approaching_data <- BexClean_expanded %>%
+  filter(DyadResponse == "Not Approaching")
+
+# Count occurrences of "Not Approaching" for each gender
+not_approaching_counts <- not_approaching_data %>%
+  group_by(Gender) %>%
+  summarize(Count = n()) %>%
+  filter(!is.na(Gender))  # Filter out any NA values
+
+# Generate the bar plot
+gender_plot <- ggplot(not_approaching_counts, aes(x = Gender, y = Count, fill = Gender)) +
+  geom_bar(stat = "identity") +
+  theme_minimal() +
+  labs(title = "Not Approaching Occurrences by Gender",
+       x = "Gender",
+       y = "Count",
+       fill = "Gender")
+
+# Print the plot
+print(gender_plot)
+
+
+```
+
+
+### 4.3.4 Intermediate check of Intrusion
+
+```{r Intermediate check of intrusion, echo=FALSE}
+
+# Add Gender variable based on IDIndividual1 or IntruderID
+BexClean <- BexClean %>%
+  mutate(Gender = ifelse(nchar(IDIndividual1) == 3, "Male", 
+                         ifelse(nchar(IDIndividual1) == 4, "Female", NA)))
+
+# You can now filter and analyze based on this new Gender variable.
+
+
+library(ggplot2)
+library(dplyr)
+
+# Assuming you've created the Gender variable as above
+
+# Filter out "No Intrusion" cases
+filtered_data <- BexClean %>%
+  filter(IntruderID != "No Intrusion" & !is.na(Gender))
+
+# Overall Intrusion Occurrences by Gender
+intrusion_counts <- filtered_data %>%
+  group_by(Gender) %>%
+  summarize(Count = n())
+
+# Plotting Overall Intrusion Occurrences by Gender
+intrusion_plot <- ggplot(intrusion_counts, aes(x = Gender, y = Count, fill = Gender)) +
+  geom_bar(stat = "identity", width = 0.7) +
+  geom_text(aes(label = Count), vjust = -0.5) +
+  geom_hline(aes(yintercept = mean(Count)), linetype = "dashed", color = "black") +
+  scale_fill_manual(values = c("Male" = "#1f77b4", "Female" = "#ff7f0e")) +
+  labs(title = "Overall Intrusion Occurrences by Gender",
+       x = "Gender", y = "Count", fill = "Gender") +
+  theme_minimal()
+
+print(intrusion_plot)
+
+# Intrusion Occurrences per Dyad by Gender
+dyad_counts <- filtered_data %>%
+  group_by(Dyad, Gender) %>%
+  summarize(Count = n())
+
+# Plotting Intrusion Occurrences per Dyad by Gender
+dyad_plot <- ggplot(dyad_counts, aes(x = Dyad, y = Count, fill = Gender)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.7)) +
+  geom_text(aes(label = Count), vjust = -0.5, position = position_dodge(0.7)) +
+  geom_hline(aes(yintercept = mean(Count)), linetype = "dashed", color = "black") +
+  scale_fill_manual(values = c("Male" = "#1f77b4", "Female" = "#ff7f0e")) +
+  labs(title = "Intrusion Occurrences per Dyad by Gender",
+       x = "Dyad", y = "Count", fill = "Gender") +
+  theme_minimal()
+
+print(dyad_plot)
+
+
+```
 
 # TO SORT; NOT FINISHED 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 

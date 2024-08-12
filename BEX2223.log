@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.28)  16 JUN 2024 17:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.28)  12 AUG 2024 22:17
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -334,83 +334,68 @@ Package: ifvtex 2019/10/25 v1.7 ifvtex legacy package. Use iftex instead.
 \Gm@layouthoffset=\dimen161
 \Gm@layoutvoffset=\dimen162
 \Gm@dimlist=\toks26
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/fancyvrb/fancyvrb.sty
-Package: fancyvrb 2023/01/19 4.5a verbatim text (tvz,hv)
-\FV@CodeLineNo=\count289
-\FV@InFile=\read2
-\FV@TabBox=\box54
-\c@FancyVerbLine=\count290
-\FV@StepNumber=\count291
-\FV@OutFile=\write3
-) (/usr/local/texlive/2023/texmf-dist/tex/latex/framed/framed.sty
-Package: framed 2011/10/22 v 0.96: framed or shaded text with page breaks
-\OuterFrameSep=\skip55
-\fb@frw=\dimen163
-\fb@frh=\dimen164
-\FrameRule=\dimen165
-\FrameSep=\dimen166
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/longtable.sty
 Package: longtable 2021-09-01 v4.17 Multi-page Table package (DPC)
-\LTleft=\skip56
-\LTright=\skip57
-\LTpre=\skip58
-\LTpost=\skip59
-\LTchunksize=\count292
-\LTcapwidth=\dimen167
-\LT@head=\box55
-\LT@firsthead=\box56
-\LT@foot=\box57
-\LT@lastfoot=\box58
-\LT@gbox=\box59
-\LT@cols=\count293
-\LT@rows=\count294
-\c@LT@tables=\count295
-\c@LT@chunks=\count296
+\LTleft=\skip55
+\LTright=\skip56
+\LTpre=\skip57
+\LTpost=\skip58
+\LTchunksize=\count289
+\LTcapwidth=\dimen163
+\LT@head=\box54
+\LT@firsthead=\box55
+\LT@foot=\box56
+\LT@lastfoot=\box57
+\LT@gbox=\box58
+\LT@cols=\count290
+\LT@rows=\count291
+\c@LT@tables=\count292
+\c@LT@chunks=\count293
 \LT@p@ftn=\toks27
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/booktabs/booktabs.sty
 Package: booktabs 2020/01/12 v1.61803398 Publication quality tables
-\heavyrulewidth=\dimen168
-\lightrulewidth=\dimen169
-\cmidrulewidth=\dimen170
-\belowrulesep=\dimen171
-\belowbottomsep=\dimen172
-\aboverulesep=\dimen173
-\abovetopsep=\dimen174
-\cmidrulesep=\dimen175
-\cmidrulekern=\dimen176
-\defaultaddspace=\dimen177
-\@cmidla=\count297
-\@cmidlb=\count298
-\@aboverulesep=\dimen178
-\@belowrulesep=\dimen179
-\@thisruleclass=\count299
-\@lastruleclass=\count300
-\@thisrulewidth=\dimen180
+\heavyrulewidth=\dimen164
+\lightrulewidth=\dimen165
+\cmidrulewidth=\dimen166
+\belowrulesep=\dimen167
+\belowbottomsep=\dimen168
+\aboverulesep=\dimen169
+\abovetopsep=\dimen170
+\cmidrulesep=\dimen171
+\cmidrulekern=\dimen172
+\defaultaddspace=\dimen173
+\@cmidla=\count294
+\@cmidlb=\count295
+\@aboverulesep=\dimen174
+\@belowrulesep=\dimen175
+\@thisruleclass=\count296
+\@lastruleclass=\count297
+\@thisrulewidth=\dimen176
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/array.sty
 Package: array 2022/09/04 v2.5g Tabular extension package (FMi)
-\col@sep=\dimen181
-\ar@mcellbox=\box60
-\extrarowheight=\dimen182
+\col@sep=\dimen177
+\ar@mcellbox=\box59
+\extrarowheight=\dimen178
 \NC@list=\toks28
-\extratabsurround=\skip60
-\backup@length=\skip61
-\ar@cellbox=\box61
+\extratabsurround=\skip59
+\backup@length=\skip60
+\ar@cellbox=\box60
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/tools/calc.sty
 Package: calc 2017/05/25 v4.3 Infix arithmetic (KKT,FJ)
-\calc@Acount=\count301
-\calc@Bcount=\count302
-\calc@Adimen=\dimen183
-\calc@Bdimen=\dimen184
-\calc@Askip=\skip62
-\calc@Bskip=\skip63
+\calc@Acount=\count298
+\calc@Bcount=\count299
+\calc@Adimen=\dimen179
+\calc@Bdimen=\dimen180
+\calc@Askip=\skip61
+\calc@Bskip=\skip62
 LaTeX Info: Redefining \setlength on input line 80.
 LaTeX Info: Redefining \addtolength on input line 81.
-\calc@Ccount=\count303
-\calc@Cskip=\skip64
+\calc@Ccount=\count300
+\calc@Cskip=\skip63
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/footnotehyper/footnotehyper.sty
 Package: footnotehyper 2021/08/13 v1.1e hyperref aware footnote.sty (JFB)
-\FNH@notes=\box62
-\FNH@width=\dimen185
+\FNH@notes=\box61
+\FNH@width=\dimen181
 \FNH@toks=\toks29
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/graphics/graphicx.sty
 Package: graphicx 2021/09/16 v1.2d Enhanced LaTeX Graphics (DPC,SPQR)
@@ -423,8 +408,8 @@ File: graphics.cfg 2016/06/04 v1.11 sample graphics configuration
 )
 Package graphics Info: Driver file: pdftex.def on input line 107.
 )
-\Gin@req@height=\dimen186
-\Gin@req@width=\dimen187
+\Gin@req@height=\dimen182
+\Gin@req@width=\dimen183
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/base/fontenc.sty
 Package: fontenc 2021/04/29 v2.0v Standard LaTeX package
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/underscore/underscore.sty
@@ -435,43 +420,43 @@ LaTeX Info: Redefining \_ on input line 42.
 Package: newunicodechar 2018/04/08 v1.2 Defining Unicode characters
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/l3backend/l3backend-pdftex.def
 File: l3backend-pdftex.def 2023-01-16 L3 backend support: PDF output (pdfTeX)
-\l__color_backend_stack_int=\count304
-\l__pdf_internal_box=\box63
+\l__color_backend_stack_int=\count301
+\l__pdf_internal_box=\box62
 )
 No file BEX2223.aux.
 \openout1 = `BEX2223.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 127.
-LaTeX Font Info:    ... okay on input line 127.
-LaTeX Info: Redefining \microtypecontext on input line 127.
-Package microtype Info: Applying patch `item' on input line 127.
-Package microtype Info: Applying patch `toc' on input line 127.
-Package microtype Info: Applying patch `eqnum' on input line 127.
-Package microtype Info: Applying patch `footnote' on input line 127.
-Package microtype Info: Applying patch `verbatim' on input line 127.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 87.
+LaTeX Font Info:    ... okay on input line 87.
+LaTeX Info: Redefining \microtypecontext on input line 87.
+Package microtype Info: Applying patch `item' on input line 87.
+Package microtype Info: Applying patch `toc' on input line 87.
+Package microtype Info: Applying patch `eqnum' on input line 87.
+Package microtype Info: Applying patch `footnote' on input line 87.
+Package microtype Info: Applying patch `verbatim' on input line 87.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using protrusion set `basicmath'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 127.
+LaTeX Info: Redefining \showhyphens on input line 87.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -480,16 +465,16 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman
 (RS)
 ) (/usr/local/texlive/2023/texmf-dist/tex/context/base/mkii/supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
-\scratchcounter=\count305
-\scratchdimen=\dimen188
-\scratchbox=\box64
-\nofMPsegments=\count306
-\nofMParguments=\count307
+\scratchcounter=\count302
+\scratchdimen=\dimen184
+\scratchbox=\box63
+\nofMPsegments=\count303
+\nofMParguments=\count304
 \everyMPshowfont=\toks30
-\MPscratchCnt=\count308
-\MPscratchDim=\dimen189
-\MPnumerator=\count309
-\makeMPintoPDFobject=\count310
+\MPscratchCnt=\count305
+\MPscratchDim=\dimen185
+\MPnumerator=\count306
+\makeMPintoPDFobject=\count307
 \everyMPtoPDFconversion=\toks31
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/epstopdf-pkg/epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
@@ -499,7 +484,7 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 4
 File: epstopdf-sys.cfg 2010/07/13 v1.3 Configuration of (r)epstopdf for TeX Liv
 e
 ))
-Package hyperref Info: Link coloring OFF on input line 127.
+Package hyperref Info: Link coloring OFF on input line 87.
 *geometry* driver: auto-detecting
 *geometry* detected driver: pdftex
 *geometry* verbose mode - [ preamble ] result:
@@ -534,62 +519,62 @@ Package hyperref Info: Link coloring OFF on input line 127.
 * \@reversemarginfalse
 * (1in=72.27pt=25.4mm, 1cm=28.453pt)
 
-LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 1
-29.
+LaTeX Font Info:    Trying to load font information for OT1+lmr on input line 8
+9.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ot1lmr.fd
 File: ot1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
-LaTeX Font Info:    Trying to load font information for OML+lmm on input line 1
-29.
+LaTeX Font Info:    Trying to load font information for OML+lmm on input line 8
+9.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omllmm.fd
 File: omllmm.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMS+lmsy on input line 
-129.
+89.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omslmsy.fd
 File: omslmsy.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for OMX+lmex on input line 
-129.
+89.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/omxlmex.fd
 File: omxlmex.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <12> on input line 129.
+(Font)              <12> on input line 89.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <8> on input line 129.
+(Font)              <8> on input line 89.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <6> on input line 129.
-LaTeX Font Info:    Trying to load font information for U+msa on input line 129
-.
+(Font)              <6> on input line 89.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 89.
+
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 129
-.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 89.
+
 (/usr/local/texlive/2023/texmf-dist/tex/latex/amsfonts/umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (/usr/local/texlive/2023/texmf-dist/tex/latex/microtype/mt-msb.cfg
 File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 )
 No file BEX2223.toc.
-\tf@toc=\write4
-\openout4 = `BEX2223.toc'.
+\tf@toc=\write3
+\openout3 = `BEX2223.toc'.
 
 LaTeX Font Info:    Trying to load font information for TS1+lmr on input line 1
-46.
+06.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmr.fd
 File: ts1lmr.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for T1+lmtt on input line 1
-70.
+30.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/t1lmtt.fd
 File: t1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 )
 LaTeX Font Info:    Trying to load font information for TS1+lmtt on input line 
-197.
+157.
 (/usr/local/texlive/2023/texmf-dist/tex/latex/lm/ts1lmtt.fd
 File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 ) [1
@@ -598,23 +583,23 @@ File: ts1lmtt.fd 2015/05/01 v1.6.1 Font defs for Latin Modern
 al/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-ec.enc}{/usr/local/texlive/202
 3/texmf-dist/fonts/enc/dvips/lm/lm-ts1.enc}] [2] [3]
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <10> on input line 545.
+(Font)              <10> on input line 505.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <7> on input line 545.
+(Font)              <7> on input line 505.
 LaTeX Font Info:    External font `lmex10' loaded for size
-(Font)              <5> on input line 545.
+(Font)              <5> on input line 505.
 [4{/usr/local/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-mathsy.enc}{/usr/lo
 cal/texlive/2023/texmf-dist/fonts/enc/dvips/lm/lm-rm.enc}] [5] [6]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 1 on input line 783.
+(longtable)                in table 1 on input line 743.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 2 on input line 800.
+(longtable)                in table 2 on input line 760.
 
 [7] [8]
-Overfull \hbox (1892.73811pt too wide) in paragraph at lines 1017--1017
+Overfull \hbox (1892.73811pt too wide) in paragraph at lines 977--977
 []\T1/lmtt/m/n/10 ## Rows with NA values in DyadDistance column: 24, 27, 95, 49
 2, 744, 971, 1113, 1130, 1164, 1261, 1341, 1396, 1491, 1583, 1683, 1693, 1717, 
 1718, 1719, 1724, 1725, 1739, 1755, 1756, 1757, 1764, 1779, 1782, 1792, 1799, 1
@@ -624,12 +609,12 @@ Overfull \hbox (1892.73811pt too wide) in paragraph at lines 1017--1017
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1059--1063
+Underfull \hbox (badness 10000) in paragraph at lines 1019--1023
 
  []
 
 [9] [10] [11] [12]
-Overfull \hbox (1252.23997pt too wide) in paragraph at lines 1409--1409
+Overfull \hbox (1252.23997pt too wide) in paragraph at lines 1369--1369
 []\T1/lmtt/m/n/10 ## Row numbers with missing values in FemaleID:  865 866 867 
 868 869 870 871 872 873 874 875 876 877 878 879 1693 1694 1695 1696 1697 1698 1
 699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710 1808 1809 1810 1811 
@@ -638,20 +623,20 @@ Overfull \hbox (1252.23997pt too wide) in paragraph at lines 1409--1409
  []
 
 
-Overfull \hbox (244.2429pt too wide) in paragraph at lines 1417--1417
+Overfull \hbox (244.2429pt too wide) in paragraph at lines 1377--1377
 []\T1/lmtt/m/n/10 ## Row numbers with missing values in MaleID:  1693 1694 1695
  1696 1697 1698 1699 1700 1701 1702 1703 1704 1705 1706 1707 1708 1709 1710[] 
  []
 
 
-Overfull \hbox (427.99237pt too wide) in paragraph at lines 1429--1429
+Overfull \hbox (427.99237pt too wide) in paragraph at lines 1389--1389
 []\T1/lmtt/m/n/10 ## Row numbers with missing values in both FemaleID and MaleI
 D:  1693, 1694, 1695, 1696, 1697, 1698, 1699, 1700, 1701, 1702, 1703, 1704, 170
 5, 1706, 1707, 1708, 1709, 1710[] 
  []
 
 
-Overfull \hbox (1063.24052pt too wide) in paragraph at lines 1437--1437
+Overfull \hbox (1063.24052pt too wide) in paragraph at lines 1397--1397
 []\T1/lmtt/m/n/10 ## Row numbers with missing values in FemaleID not in MaleID:
   865, 866, 867, 868, 869, 870, 871, 872, 873, 874, 875, 876, 877, 878, 879, 18
 08, 1809, 1810, 1811, 1812, 1813, 1814, 1815, 1816, 1817, 1818, 1819, 1820, 188
@@ -659,22 +644,22 @@ Overfull \hbox (1063.24052pt too wide) in paragraph at lines 1437--1437
  []
 
 [13] [14] [15]
-<BEX2223_files/figure-latex/Remarks Exploration-1.pdf, id=213, 464.73625pt x 31
+<BEX2223_files/figure-latex/Remarks Exploration-1.pdf, id=215, 464.73625pt x 31
 5.1775pt>
 File: BEX2223_files/figure-latex/Remarks Exploration-1.pdf Graphic file (type p
 df)
 <use BEX2223_files/figure-latex/Remarks Exploration-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Remarks Exploration-1.pdf  
-used on input line 1719.
+used on input line 1664.
 (pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
 [16 <./BEX2223_files/figure-latex/Remarks Exploration-1.pdf>]
-Overfull \hbox (34.24352pt too wide) in paragraph at lines 1764--1764
+Overfull \hbox (34.24352pt too wide) in paragraph at lines 1709--1709
 []\T1/lmtt/m/n/10 ## [1] "/Users/maki/Desktop/Master Thesis/BEX 2223 Master The
 sis Maung Kyaw/IVPToleranceBex2223"[] 
  []
 
 
-Overfull \hbox (15.28313pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (15.28313pt too wide) in paragraph at lines 1760--1804
 []\T1/lmr/m/n/10 (-20) b.SpecialBehaviour \T1/lmr/bx/n/10 (-20) Oerw;Vo;Exp\T1/
 lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sey;Ap;AfterOpen\T1/lmr/m/n/10 (-20) ,
  \T1/lmr/bx/n/10 (-20) Oerw;Vo;Exp,Nge;Vo;Exp\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/
@@ -682,7 +667,7 @@ n/10 (-20) Sirk;ApAfter30\T1/lmr/m/n/10 (-20) ,
  []
 
 
-Underfull \hbox (badness 2351) in paragraph at lines 1815--1859
+Underfull \hbox (badness 2351) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Sirk;Av;Oerw\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) 
 Oerw;Lo\T1/lmr/m/n/10 (+20) ,\T1/lmr/bx/n/10 (+20) Sey;Sf;Oort,Oort;At;Kom\T1/l
 mr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Kom;Ap;AfterOpen\T1/lmr/m/n/10 (+20) , 
@@ -690,7 +675,7 @@ mr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Kom;Ap;AfterOpen\T1/lmr/m/n/10 (+20) ,
  []
 
 
-Overfull \hbox (1.53345pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (1.53345pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Xin;Hesitation\T1/lmr/m/n/10 (-20) . \T1/lmr/bx/n/10 (-20
 ) Xia;Sf;Piep\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Pom;Sf;Xian\T1/lmr/m/
 n/10 (-20) ,\T1/lmr/bx/n/10 (-20) Kom;Sf;Oort\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/
@@ -699,7 +684,7 @@ Piep;Sf,XIa\T1/lmr/m/n/10 (-20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1815--1859
+Underfull \hbox (badness 10000) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Oort;At;Kom\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) S
 ey;Rt;Sho;Ap\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Sho;Rt;Ginq;Ap\T1/lmr/
 m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Buk;Sf;Ndaw\T1/lmr/m/n/10 (+20) , \T1/lmr/
@@ -707,7 +692,7 @@ bx/n/10 (+20) Sho;Rt;Ndaw;Ap\T1/lmr/m/n/10 (+20) ,
  []
 
 
-Overfull \hbox (23.68913pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (23.68913pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Xia;Piep;Ap;After30\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10
  (-20) Pom;Bi;Xian\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sho;Ndaw;Av;Buk\
 T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Kom;Sf;Oort\T1/lmr/m/n/10 (-20) , \
@@ -715,7 +700,7 @@ T1/lmr/bx/n/10 (-20) Kom;St;Oort,Oort;St;Kom\T1/lmr/m/n/10 (-20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1815--1859
+Underfull \hbox (badness 10000) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Sey;Hi;Sirk\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) O
 bse;Ap;Piep;Av\T1/lmr/m/n/10 (+20) ,\T1/lmr/bx/n/10 (+20) Piep;Sf;Xia\T1/lmr/m/
 n/10 (+20) , \T1/lmr/bx/n/10 (+20) Sirk;ApWhenPartnerLeft\T1/lmr/m/n/10 (+20) ,
@@ -723,7 +708,7 @@ n/10 (+20) , \T1/lmr/bx/n/10 (+20) Sirk;ApWhenPartnerLeft\T1/lmr/m/n/10 (+20) ,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 1815--1859
+Underfull \hbox (badness 10000) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Pom;Sf;Xian\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) N
 daw;ApWhenPartnerLeft\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Xian;At;Pom,G
 aya;Su\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Xian;Sf;Pom\T1/lmr/m/n/10 (+
@@ -731,7 +716,7 @@ aya;Su\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Xian;Sf;Pom\T1/lmr/m/n/10 (+
  []
 
 
-Overfull \hbox (4.64256pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (4.64256pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Xian;Hesitation\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-2
 0) Xia;ApWhenPartnerLeft\T1/lmr/m/n/10 (-20) ,\T1/lmr/bx/n/10 (-20) Sirk;Hesita
 tion\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Ginq;Hesitation\T1/lmr/m/n/10 
@@ -739,7 +724,7 @@ tion\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Ginq;Hesitation\T1/lmr/m/n/10
  []
 
 
-Underfull \hbox (badness 3557) in paragraph at lines 1815--1859
+Underfull \hbox (badness 3557) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Oort;Sc;Kom\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) X
 ian; Pom\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Pom;Ap;Xian\T1/lmr/m/n/10 
 (+20) , \T1/lmr/bx/n/10 (+20) Pom;Ap;Xian,Xian;Rt\T1/lmr/m/n/10 (+20) , \T1/lmr
@@ -747,7 +732,7 @@ ian; Pom\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Pom;Ap;Xian\T1/lmr/m/n/10
  []
 
 
-Overfull \hbox (39.64249pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (39.64249pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Sey;St;Sirk;Ig\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20
 ) Xia;Asf;Piep\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Piep;ApWhenPartnerLe
 ft\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sho;Ap;After30\T1/lmr/m/n/10 (-2
@@ -755,7 +740,7 @@ ft\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sho;Ap;After30\T1/lmr/m/n/10 (-2
  []
 
 
-Overfull \hbox (9.76532pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (9.76532pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Pom;Sf;Xian;Sf;Pom\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 
 (-20) Xian;ApWhenPartnerLeft\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Piep;C
 h;Sirk\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sey;St;Sirk\T1/lmr/m/n/10 (-
@@ -763,7 +748,7 @@ h;Sirk\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Sey;St;Sirk\T1/lmr/m/n/10 (-
  []
 
 
-Overfull \hbox (16.66362pt too wide) in paragraph at lines 1815--1859
+Overfull \hbox (16.66362pt too wide) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (-20) Xian;Ap;After30\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-2
 0) Xian;St;Prai\T1/lmr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Pom;Sf;Xian;Vc\T1/l
 mr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Kom;Ap;After30\T1/lmr/m/n/10 (-20) , \T
@@ -771,7 +756,7 @@ mr/m/n/10 (-20) , \T1/lmr/bx/n/10 (-20) Kom;Ap;After30\T1/lmr/m/n/10 (-20) , \T
  []
 
 
-Underfull \hbox (badness 4886) in paragraph at lines 1815--1859
+Underfull \hbox (badness 4886) in paragraph at lines 1760--1804
 \T1/lmr/bx/n/10 (+20) Ndaw;Hesitation\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+2
 0) Oerw;Hesitation\T1/lmr/m/n/10 (+20) , \T1/lmr/bx/n/10 (+20) Oerw;ApWhenPartn
 erLeft\T1/lmr/m/n/10 (+20) . \T1/lmr/bx/n/10 (+20) Piep;Ap;After30\T1/lmr/m/n/1
@@ -781,180 +766,303 @@ erLeft\T1/lmr/m/n/10 (+20) . \T1/lmr/bx/n/10 (+20) Piep;Ap;After30\T1/lmr/m/n/1
 [17] [18]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 3 on input line 2084.
+(longtable)                in table 3 on input line 2029.
 
 [19]
-Overfull \hbox (133.99323pt too wide) in paragraph at lines 2098--2098
+Overfull \hbox (133.99323pt too wide) in paragraph at lines 2043--2043
 []\T1/lmtt/m/n/10 ## Unique Dyads: Sey Sirk Sho Ginq Xia Piep Nge Oerw Xin Ouli
  Buk Ndaw Buk Ginq Kom Oort Pom Xian Pom Guat Xin Oort[] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 4 on input line 2117.
+(longtable)                in table 4 on input line 2062.
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2160--2162
+Underfull \hbox (badness 10000) in paragraph at lines 2105--2107
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2107--2109
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2109--2111
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2111--2113
+
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 2113--2115
 
  []
 
 [20]
-Underfull \hbox (badness 10000) in paragraph at lines 2162--2164
+Underfull \hbox (badness 10000) in paragraph at lines 2115--2117
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2164--2166
+Underfull \hbox (badness 10000) in paragraph at lines 2117--2119
 
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 2166--2168
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2168--2170
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2170--2172
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2172--2174
-
- []
-
-
-Underfull \hbox (badness 10000) in paragraph at lines 2174--2176
+Underfull \hbox (badness 10000) in paragraph at lines 2119--2121
 
  []
 
 [21]
-Overfull \hbox (128.74324pt too wide) in paragraph at lines 2288--2288
+Overfull \hbox (128.74324pt too wide) in paragraph at lines 2233--2233
 []\T1/lmtt/m/n/10 ## Unique Dyads after correction: Sey Sirk Sho Ginq Xia Piep 
 Nge Oerw Xin Ouli Buk Ndaw Kom Oort Pom Xian Pom Guat[] 
  []
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 5 on input line 2305.
+(longtable)                in table 5 on input line 2250.
 
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 2356.
+(longtable)                in table 6 on input line 2301.
+
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 7 on input line 2328.
 
 [22]
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 7 on input line 2383.
-
-<BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf, id=289, 459.7175pt x 30
+<BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf, id=288, 459.7175pt x 30
 9.155pt>
 File: BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf Graphic file (type 
 pdf)
 <use BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf 
- used on input line 2385.
+ used on input line 2330.
 (pdftex.def)             Requested size: 459.74442pt x 309.1731pt.
-<BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf, id=290, 459.7175pt x 30
+<BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf, id=289, 459.7175pt x 30
 9.155pt>
 File: BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf Graphic file (type 
 pdf)
 <use BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf 
- used on input line 2386.
+ used on input line 2331.
 (pdftex.def)             Requested size: 459.74442pt x 309.1731pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2385--2387
+Underfull \hbox (badness 10000) in paragraph at lines 2330--2332
 [][]
  []
 
 [23 <./BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf>]
-<BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf, id=302, 459.7175pt 
+<BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf, id=301, 459.7175pt 
 x 312.16624pt>
 File: BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf Graphic file (t
 ype pdf)
 <use BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.
-pdf  used on input line 2429.
+pdf  used on input line 2374.
 (pdftex.def)             Requested size: 459.72337pt x 312.17024pt.
-<BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf, id=303, 459.7175pt 
+<BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf, id=302, 459.7175pt 
 x 312.16624pt>
 File: BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf Graphic file (t
 ype pdf)
 <use BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.
-pdf  used on input line 2430.
+pdf  used on input line 2375.
 (pdftex.def)             Requested size: 459.72337pt x 312.17024pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2429--2431
+Underfull \hbox (badness 10000) in paragraph at lines 2374--2376
 [][]
  []
 
 [24 <./BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf>] [25 <./BEX2223_f
 iles/figure-latex/PlacementMaleFemale Plot-1.pdf> <./BEX2223_files/figure-latex
 /PlacementMaleFemale Plot-2.pdf>]
-<BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf, id=338, 464.7362
+<BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf, id=337, 464.7362
 5pt x 315.1775pt>
 File: BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf Graphic file
  (type pdf)
 <use BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/DyadDistance Frequency Plot
--1.pdf  used on input line 2481.
+-1.pdf  used on input line 2426.
 (pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
 [26 <./BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf>]
-<BEX2223_files/figure-latex/Proximity plot-1.pdf, id=352, 459.7175pt x 315.1775
+<BEX2223_files/figure-latex/Proximity plot-1.pdf, id=351, 459.7175pt x 315.1775
 pt>
 File: BEX2223_files/figure-latex/Proximity plot-1.pdf Graphic file (type pdf)
 <use BEX2223_files/figure-latex/Proximity plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Proximity plot-1.pdf  used 
-on input line 2505.
+on input line 2450.
 (pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
 [27 <./BEX2223_files/figure-latex/Proximity plot-1.pdf>]
-Overfull \hbox (7720.22118pt too wide) in paragraph at lines 2603--2603
-[]\T1/lmtt/m/n/10 ## Rows with multiple entries in DyadResponse:  3, 4, 13, 53,
- 58, 64, 68, 71, 72, 84, 88, 89, 97, 98, 113, 133, 137, 192, 194, 244, 275, 277
-, 278, 284, 289, 298, 302, 304, 318, 322, 326, 327, 328, 331, 341, 346, 347, 36
-7, 368, 387, 388, 391, 397, 409, 454, 468, 469, 482, 497, 510, 511, 522, 529, 5
-36, 597, 600, 626, 629, 687, 696, 706, 711, 713, 726, 740, 748, 749, 757, 760, 
-761, 763, 768, 769, 780, 786, 818, 829, 841, 843, 845, 861, 866, 877, 888, 892,
- 898, 912, 919, 934, 937, 938, 954, 955, 962, 973, 997, 1004, 1015, 1027, 1042,
- 1048, 1060, 1108, 1141, 1143, 1161, 1162, 1190, 1209, 1213, 1217, 1225, 1229, 
-1236, 1240, 1243, 1245, 1247, 1254, 1267, 1271, 1284, 1288, 1293, 1308, 1310, 1
-311, 1326, 1327, 1330, 1336, 1341, 1343, 1352, 1378, 1398, 1399, 1407, 1416, 14
-61, 1464, 1473, 1478, 1484, 1488, 1489, 1495, 1510, 1520, 1521, 1528, 1558, 159
-5, 1598, 1602, 1607, 1616, 1629, 1630, 1633, 1636, 1639, 1642, 1645, 1654, 1658
-, 1679, 1708, 1714, 1718, 1724, 1741, 1750, 1752, 1784, 1785, 1788, 1795, 1800,
- 1801, 1802, 1804, 1805, 1806, 1807, 1808, 1815, 1816, 1819, 1820, 1821, 1822, 
-1824, 1825, 1828, 1829, 1830, 1831, 1832, 1837, 1843, 1856, 1857, 1858, 1889, 1
-897, 1968, 1984, 2023, 2066, 2088, 2090, 2091, 2100, 2101, 2102, 2103, 2104, 21
-05, 2109, 2112, 2113, 2147, 2148, 2149, 2152, 2153, 2166, 2175, 2184, 2185, 219
-2, 2193, 2194, 2199, 2201, 2202, 2205, 2218, 2226, 2237, 2248, 2257, 2290, 2294
-, 2343, 2353, 2354, 2359, 2360, 2362, 2363, 2370, 2388, 2395, 2396, 2400, 2465,
- 2466, 2467, 2493, 2534, 2601, 2609, 2626, 2629, 2630, 2643, 2651, 2657, 2730[]
- 
+<BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and f
+requencies and plots-1.pdf, id=377, 459.7175pt x 315.1775pt>
+File: BEX2223_files/figure-latex/DyadResponse unique and multiple combinations 
+and frequencies and plots-1.pdf Graphic file (type pdf)
+<use BEX2223_files/figure-latex/DyadResponse unique and multiple combinations a
+nd frequencies and plots-1.pdf>
+Package pdftex.def Info: BEX2223_files/figure-latex/DyadResponse unique and mul
+tiple combinations and frequencies and plots-1.pdf  used on input line 2562.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[28] [29 <./BEX2223_files/figure-latex/DyadResponse unique and multiple combina
+tions and frequencies and plots-1.pdf>]
+<BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and f
+requencies and plots-2.pdf, id=396, 464.73625pt x 315.1775pt>
+File: BEX2223_files/figure-latex/DyadResponse unique and multiple combinations 
+and frequencies and plots-2.pdf Graphic file (type pdf)
+<use BEX2223_files/figure-latex/DyadResponse unique and multiple combinations a
+nd frequencies and plots-2.pdf>
+Package pdftex.def Info: BEX2223_files/figure-latex/DyadResponse unique and mul
+tiple combinations and frequencies and plots-2.pdf  used on input line 2603.
+(pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
+[30 <./BEX2223_files/figure-latex/DyadResponse unique and multiple combinations
+ and frequencies and plots-2.pdf>]
+Overfull \hbox (6302.7253pt too wide) in paragraph at lines 2644--2644
+[]\T1/lmtt/m/n/10 ## Rows with multiple entries in DyadResponse:  3 4 13 53 58 
+64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 
+304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469
+ 482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 74
+9 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 9
+12 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1108 1141 
+1143 1161 1162 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267
+ 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1341 1343 1352 1378 139
+8 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 15
+58 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1
+708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 
+1806 1807 1808 1815 1816 1819 1820 1821 1822 1824 1825 1828 1829 1830 1831 1832
+ 1837 1843 1856 1857 1858 1889 1897 1968 1984 2023 2066 2088 2090 2091 2100 210
+1 2102 2103 2104 2105 2109 2112 2113 2147 2148 2149 2152 2153 2166 2175 2184 21
+85 2192 2193 2194 2199 2201 2202 2205 2218 2226 2237 2248 2257 2290 2294 2343 2
+353 2354 2359 2360 2362 2363 2370 2388 2395 2396 2400 2465 2466 2467 2493 2534 
+2601 2609 2626 2629 2630 2643 2651 2657 2730[] 
+ []
+
+[31]
+<BEX2223_files/figure-latex/Dyad Response Unique-1.pdf, id=413, 459.7175pt x 31
+5.1775pt>
+File: BEX2223_files/figure-latex/Dyad Response Unique-1.pdf Graphic file (type 
+pdf)
+<use BEX2223_files/figure-latex/Dyad Response Unique-1.pdf>
+Package pdftex.def Info: BEX2223_files/figure-latex/Dyad Response Unique-1.pdf 
+ used on input line 2691.
+(pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
+[32 <./BEX2223_files/figure-latex/Dyad Response Unique-1.pdf>] [33]
+Overfull \hbox (18.49356pt too wide) in paragraph at lines 2883--2883
+[]\T1/lmtt/m/n/10 ## Number of combinations with \TS1/lmtt/m/n/10 '\T1/lmtt/m/n
+/10 Other\TS1/lmtt/m/n/10 ' \T1/lmtt/m/n/10 in DyadResponse and \TS1/lmtt/m/n/1
+0 '\T1/lmtt/m/n/10 No Response\TS1/lmtt/m/n/10 ' \T1/lmtt/m/n/10 in OtherRespon
+se:  5[] 
+ []
+
+[34] [35]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 9 on input line 3230.
+
+
+Overfull \hbox (49.99347pt too wide) in paragraph at lines 3235--3235
+[]\T1/lmtt/m/n/10 ## Warning in RColorBrewer::brewer.pal(n, pal): n too large, 
+allowed maximum for palette Set3 is 12[] 
+ []
+
+<BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf, id=448, 453.
+695pt x 320.19624pt>
+File: BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf Graphic 
+file (type pdf)
+<use BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf>
+Package pdftex.def Info: BEX2223_files/figure-latex/check and state of dyadresp
+onse-1.pdf  used on input line 3237.
+(pdftex.def)             Requested size: 453.6939pt x 320.19545pt.
+[36]
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 10 on input line 3258.
+
+<BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf, id=454, 464.
+73625pt x 315.1775pt>
+File: BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf Graphic 
+file (type pdf)
+<use BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf>
+Package pdftex.def Info: BEX2223_files/figure-latex/check and state of dyadresp
+onse-2.pdf  used on input line 3260.
+(pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
+[37 <./BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf>]
+Overfull \hbox (28.99353pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ Date               : chr [1:2719] "2022-09-29" "2022-09
+-29" "2022-09-29" "2022-10-04" ...[] 
  []
 
 
-Overfull \hbox (48.17311pt too wide) in paragraph at lines 2624--2626
-[]\T1/lmr/m/n/10 (-20) Display the rows with more than 1 en-try in DyadResponse
- knitr::kable(BexClean[beforesummaryrowswithmultipleentries_-
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ DyadResponse       : chr [1:2719] "Tolerance" "Toleranc
+e" "Intrusion" "Intrusion" ...[] 
  []
 
-! Undefined control sequence.
-l.2632   ``\n
-             '') 
+
+Overfull \hbox (49.99347pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ OtherResponse      : chr [1:2719] "No Response" "No Res
+ponse" "No Response" "No Response" ...[] 
+ []
+
+
+Overfull \hbox (81.49338pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ Audience           : chr [1:2719] "Ginq; Gubh" "Ginq; G
+ubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...[] 
+ []
+
+
+Overfull \hbox (18.49356pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ IDIndividual1      : chr [1:2719] "No individual" "No i
+ndividual" "Buk; Ndaw" "Buk" ...[] 
+ []
+
+
+Overfull \hbox (18.49356pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ IntruderID         : chr [1:2719] "No Intrusion" "No In
+trusion" "Ginq; Gubh" "Ginq" ...[] 
+ []
+
+
+Overfull \hbox (7.99359pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ Context            : chr [1:2719] "NoContext" "NoContex
+t" "NoContext" "NoContext" ...[] 
+ []
+
+[38 <./BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf>]
+Overfull \hbox (196.99304pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ SpecialBehaviour   : chr [1:2719] "NoSpecialBehaviour" 
+"NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...[] 
+ []
+
+
+Overfull \hbox (175.9931pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ DyadResponse_sorted: chr [1:2719] "Tolerance" "Toleranc
+e" "Intrusion;Not approaching" "Intrusion;Losing interest" ...[] 
+ []
+
+
+Overfull \hbox (91.99335pt too wide) in paragraph at lines 3313--3313
+[]\T1/lmtt/m/n/10 ##  $ MultipleResponses  : chr [1:2719] "Single Response" "Si
+ngle Response" ">1 Response" ">1 Response" ...[] 
+ []
+
+! Missing endcsname inserted.
+<to be read again> 
+                   &
+l.3373 ...igure-latex/Dyad Distance \& Date-1.pdf}
+                                                   
 Here is how much of TeX's memory you used:
- 14915 strings out of 476025
- 238583 string characters out of 5790017
- 1875388 words of memory out of 5000000
- 34710 multiletter control sequences out of 15000+600000
- 566773 words of font info for 165 fonts, out of 8000000 for 9000
+ 14501 strings out of 476025
+ 233991 string characters out of 5790017
+ 1877388 words of memory out of 5000000
+ 34255 multiletter control sequences out of 15000+600000
+ 567101 words of font info for 171 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 77i,6n,81p,1574b,744s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 77i,7n,81p,1304b,744s stack positions out of 10000i,1000n,20000p,200000b,200000s
 
 !  ==> Fatal error occurred, no output PDF file produced!
