@@ -1388,6 +1388,7 @@ cat("Number of rows changed to Kom Oort:", length(rows_to_correct_kom), "\n")
   
 ```{r Dyad & Date: Trial, Experiment, DaysSinceStart Dyad, echo=FALSE}
 
+<<<<<<< Updated upstream
 # Step 1: Ensure dates are treated as Date objects and Sort Data by Date
 BexClean <- BexClean %>%
   mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
@@ -1409,13 +1410,43 @@ BexClean <- BexClean %>%
 
 # Step 5: Create the Trial variable - Each trial has a unique identifier within each dyad, starting from 1
 # Group by Dyad to correctly calculate Trial
+=======
+library(dplyr)
+
+# Step 1: Ensure dates are treated as Date objects
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format="%Y-%m-%d"))
+
+# Step 2: Calculate DaysSinceStart: Difference in days from the earliest date (including gaps)
+BexClean <- BexClean %>%
+  mutate(DaysSinceStart = as.numeric(difftime(Date, min(Date, na.rm = TRUE), units = "days")) + 1)
+
+
+# Step 3: Calculate ExperimentDay: Assign a unique day number to each unique date across the dataset
+# Calculate ExperimentDay: Starts at 1 and increments by 1 each time the date changes
+BexClean <- BexClean %>%
+  arrange(Date) %>%  # Ensure the data is ordered by Date
+  mutate(ExperimentDay = cumsum(Date != lag(Date, default = first(Date))))
+
+# Ensure the first ExperimentDay starts from 1 instead of 0
+BexClean$ExperimentDay <- BexClean$ExperimentDay + 1
+
+
+
+# Step 4: Create the Trial variable: Each trial has a unique identifier within each dyad, starting from 1
+# We can now group by Dyad to correctly calculate Trial
+>>>>>>> Stashed changes
 BexClean <- BexClean %>%
   group_by(Dyad) %>%
   arrange(Date, Time, .by_group = TRUE) %>%
   mutate(Trial = row_number()) %>%
   ungroup()
 
+<<<<<<< Updated upstream
 # Step 6: Create the DyadDay variable - Counts the number of unique experiment days for each dyad separately
+=======
+# Step 5: Create the DyadDay variable: Counts the number of unique experiment days for each dyad separately
+>>>>>>> Stashed changes
 # We use dense_rank here within each Dyad to account for the unique experiment days for each dyad
 BexClean <- BexClean %>%
   group_by(Dyad) %>%
@@ -1423,15 +1454,35 @@ BexClean <- BexClean %>%
   mutate(DyadDay = dense_rank(Date)) %>%
   ungroup()
 
+<<<<<<< Updated upstream
 
 
+=======
+# Step 6: Ensure that the Dyad column is still present and inspect the structure of the data
+if (!"Dyad" %in% colnames(BexClean)) {
+  stop("Error: 'Dyad' column is missing after processing.")
+}
+
+# Check the structure and correctness of the final dataset
+str(BexClean)
+
+
+head((BexClean$ExperimentDay))
+unique(BexClean$ExperimentDay)
+head((BexClean$DaysSinceStart))
+
+>>>>>>> Stashed changes
 
 
 ```
 4. Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals
 ```{r Dyad and Day Summary, echo=FALSE}
 
+<<<<<<< Updated upstream
 # Summary of Trials and Days per Dyad
+=======
+# Step 1: Summarize the Trials and Days
+>>>>>>> Stashed changes
 summary_trial <- BexClean %>%
   group_by(Dyad) %>%
   summarise(Num_Trials = max(Trial)) %>%
@@ -1440,15 +1491,32 @@ summary_trial <- BexClean %>%
 summary_Day <- BexClean %>%
   group_by(Dyad) %>%
   summarise(Num_Days = max(DyadDay)) %>%
+<<<<<<< Updated upstream
   arrange(desc(Num_Days))
 
 # Combined Summary
+=======
+  arrange(desc(Num_Days))  # Sort by Num_Days in descending order
+
+# Combined Summary for both Trials and Days
+>>>>>>> Stashed changes
 combined_summary <- summary_trial %>%
   left_join(summary_Day, by = "Dyad") %>%
   arrange(desc(Num_Trials), desc(Num_Days))
 
+<<<<<<< Updated upstream
 # Print Summary
 cat("Total Number of Unique Experiment Days:", n_distinct(BexClean$Date), "\n")
+=======
+# Step 2: Print the tables with better presentation
+# Calculate the total number of unique experiment days
+total_experiment_days <- n_distinct(BexClean$Date)
+
+# Print the total number of experiment days
+cat("Total Number of Unique Experiment Days:", total_experiment_days, "\n")
+
+
+>>>>>>> Stashed changes
 cat("\nCombined Summary:\n")
 kable(combined_summary, col.names = c("Dyad", "Amount of Trials", "Number of Days"), caption = "Summary of Trials and Days")
 
@@ -1478,11 +1546,21 @@ plot_days <- ggplot(summary_Day, aes(x = reorder(Dyad, -Num_Days), y = Num_Days,
   theme(legend.position = "bottom", legend.title = element_blank(), text = element_text(size = 12), axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set1")
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 # Step 4: Display the plots
 print(plot_trials)
 print(plot_days)
 
 
+<<<<<<< Updated upstream
+=======
+
+
+>>>>>>> Stashed changes
 ```
 
 
@@ -3671,6 +3749,7 @@ print(dyad_plot)
 ```
 
 
+<<<<<<< Updated upstream
 # 5.Checkpoint - Export Data as Rds and Xlslx
 ```{r test organization export rds and xlsx, echo=FALSE}
 
@@ -3678,6 +3757,12 @@ BexClean <- BexClean %>%
   mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
   arrange(Date)
 
+=======
+#OTHER / TEST
+
+```{r test organization export rds and xlsx, echo=FALSE}
+
+>>>>>>> Stashed changes
 
 
 # Install the writexl package if not already installed
@@ -3697,6 +3782,7 @@ saveRDS(BexClean, file = "BexClean.rds")
 ```
 
 
+<<<<<<< Updated upstream
 # 6. Preparation of life history
 
 * I will prepare the life-history file to have information about dyads and audience and import it
@@ -3782,6 +3868,8 @@ ggplot(tolerance_boxplot, aes(x = Month, y = MeanDistance, color = Dyad, group =
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+=======
+>>>>>>> Stashed changes
 
 
 

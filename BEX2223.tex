@@ -7,7 +7,7 @@
 \title{Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys
 - M.AungKyaw - 2022-2023}
 \author{}
-\date{\vspace{-2.5em}août 12, 2024 22:17}
+\date{\vspace{-2.5em}août 14, 2024 16:33}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -3722,6 +3722,21 @@ Intrusion}\label{intermediate-check-of-intrusion}}
 \end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/Intermediate check of intrusion-2.pdf}
+
+\#OTHER / TEST
+
+install.packages(``writexl'') library(writexl)
+
+\hypertarget{export-to-excel-file}{%
+\section{Export to Excel file}\label{export-to-excel-file}}
+
+write\_xlsx(BexClean, ``BexClean.xlsx'')
+
+\hypertarget{export-to-rds-file}{%
+\section{Export to RDS file}\label{export-to-rds-file}}
+
+saveRDS(BexClean, ``BexClean.rds'') BexClean \textless-
+readRDS(``BexClean.rds'')
 
 \hypertarget{to-sort-not-finished}{%
 \section{TO SORT; NOT FINISHED}\label{to-sort-not-finished}}
