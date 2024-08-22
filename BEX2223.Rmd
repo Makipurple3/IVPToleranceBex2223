@@ -3703,8 +3703,10 @@ saveRDS(BexClean, file = "BexClean.rds")
 
 ```{r Life History, echo =FALSE}
 library(readxl)
-life_history <- read_xlsx("/path/to/Bex Life history.xlsx")
+lifehistory <- read_xlsx("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/Bex Life history.xlsx")
 
+
+head(lifehistory)
 
 ```
 # 7. EDA TESTING ; EXPLORATION and TESTS
