@@ -1,0 +1,892 @@
+﻿Nb,Individual,Code,Nicknames,Sex,EarMark,DOB,FirstRecorded,DateAdult,PresentGp,BirthGp,Mother,Father,DepartureNatalGp,ImmigrationGp1,DateImmigration1,LastSeen1,ImmigrationGp2,DateImmigration2,LastSeen2,ImmigrationGp3,DateImmigration3,LastSeen3,ImmigrationGp4,DateImmigration4,LastSeen4,ReliableData,Comments
+1,Afrikaans,Afr,NA,M,NA,19/10/2010,19/10/2010,NA,NA,BD,Asis,NA,25/06/2015,AK,29/06/2015,16/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+2,Pompon,NA,NA,M,NA,2009,26/10/2010,NA,NA,RC,NA,NA,01/11/2011,NA,NA,01/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2009
+3,Niese,Nies,NA,F,30,31/10/2010,31/10/2010,NA,NA,BD,Numbies,NA,NA,NA,NA,14/12/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+4,Gugu,Gugu,NA,F,NA,02/11/2010,02/11/2010,NA,NA,AK,Gagasa,NA,NA,NA,NA,18/03/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Body found floating on the second dam on the 18/03/2021
+5,Hibe,Hib,NA,M,12,02/11/2010,02/11/2010,NA,NA,AK,Hamba,Sanbonani,15/05/2015,NA,NA,15/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+6,Ifu,Ifu,NA,M,NA,02/11/2010,02/11/2010,NA,NA,AK,Isilonda,NA,30/03/2015,NA,NA,30/03/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+7,Mvula,Mvu,NA,M,NA,02/11/2010,02/11/2010,NA,NA,AK,Mamoobi,Sanbonani,NA,BD,13/06/2015,17/12/2016,CR,29/12/2016,23/02/2018,NA,NA,NA,NA,NA,NA,NA,
+8,Guyaquil,Guy,NA,M,NA,05/11/2010,05/11/2010,NA,NA,NH,Geneva,NA,22/04/2015,NA,NA,22/04/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+9,2nd MJ,NA,NA,M,NA,NA,08/11/2010,NA,NA,NA,NA,NA,NA,RC,NA,08/11/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+10,Dublin,Dub,NA,M,NA,NA,08/11/2010,NA,NA,NA,NA,NA,NA,NH,08/11/2010,27/10/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Seen once more in NH on 2013/01/25, unclear if error or not, date of immigration is likely just first seen date"
+11,Milano,Mil,NA,M,4,NA,08/11/2010,NA,NA,NA,NA,NA,NA,NH,08/11/2010,30/03/2011,NH,20/10/2011,30/09/2013,BD,28/04/2014,02/05/2015,NA,NA,NA,NA,"Not seen at noha for 5 months then returned, date of immigration is likely just first seen date, seen in BD v infrequently in months before final seen date"
+12,Napoli,Nap,NA,M,NA,NA,08/11/2010,NA,NA,NA,NA,NA,NA,NH,08/11/2010,24/01/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+13,Paris,Pari,NA,F,20,NA,08/11/2010,NA,NA,NH,NA,NA,NA,NA,NA,18/08/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,dead body found on 18/08/15
+14,Roma,Roma,NA,F,60,NA,08/11/2010,NA,NA,NH,NA,NA,NA,NA,NA,17/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"UNK birth date 17-02-18 to 23-02-18 roma missing ; Found weak but alive with massive injuries on the 8th of feb 2021, seen once since then."
+15,Troia,Troi,NA,F,NA,NA,08/11/2010,NA,NA,NH,NA,NA,13/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date + Split group
+16,Uppsala,Upps,NA,F,1,NA,08/11/2010,NA,NH,NH,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+17,Zara,Zara,NA,F,2,NA,08/11/2010,NA,NA,NH,NA,NA,25/05/2016,Zfamily,NA,25/05/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Went in Split group Zfamily not followed
+18,Adonis,Ado,NA,M,NA,NA,09/11/2010,NA,NA,NA,NA,NA,NA,BD,09/11/2010,08/02/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Unclear if immigration date is just first seen date, seen regularly until 31-12-10 and then seen once on last seen date"
+19,Babelas,Bab,M30,M,30,2009,09/11/2010,NA,NA,BD,NA,NA,15/05/2014,NH,19/05/2014,19/04/2016,LT,24/06/2019,07/04/2021,LT,17/06/2022,30/06/2022,NA,NA,NA,NA,Born in 2009. He was captured and collared 21/06/2022 in Lemon Tree. 
+20,Boks,Bok,NA,M,NA,NA,09/11/2010,NA,NA,NA,NA,NA,NA,BD,09/11/2010,24/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Unclear if immigration date is just first seen date
+21,Foei,Foei,NA,F,NA,NA,09/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,19/04/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown - split gp?
+22,Kaiki,Kaik,NA,F,NA,NA,09/11/2010,NA,NA,BD,NA,NA,15/11/2012,InBetweeners,NA,30/08/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Formed new group Inbetweeners
+23,Lekker,Lek,NA,M,NA,NA,09/11/2010,NA,NA,NA,NA,NA,NA,BD,09/11/2010,23/04/2012,NH,28/04/2012,18/05/2012,BD,19/05/2012,12/02/2015,NA,NA,NA,NA,Some days in May-June 2012 where he is back and forth between NH and BD
+24,Little Skollie,NA,NA,M,NA,2009,09/11/2010,NA,NA,BD,NA,NA,15/05/2014,NH,19/05/2014,16/06/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009, seen with unhabituated group in NH sleep1 short time (~weeks-months) after departure from NH"
+25,Mooi,Mooi,NA,F,NA,NA,09/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,26/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Last seen looking almost ""drugged"", vey weak, presumed dead. Recorded a few times after last seen date, but likely errors"
+26,Numbies,Numb,NA,F,20,NA,09/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,08/04/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+27,Oulik,Ouli,NA,F,2,NA,09/11/2010,NA,BD,BD,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+28,Pik,Pik,NA,M,NA,NA,09/11/2010,NA,NA,NA,NA,NA,NA,BD,09/11/2010,21/09/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Unclear if immigration date is just first seen date
+29,Prinses,Prin,NA,F,1,NA,09/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,18/05/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Recorded twice after official last seen but likely a mistake
+30,Skollie,Sko,NA,M,NA,NA,09/11/2010,NA,NA,NA,NA,NA,NA,BD,09/11/2010,07/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Unclear if immigration date is just first seen date
+31,Feekie,Feek,NA,F,NA,NA,10/11/2010,NA,NA,BD,Foei,NA,13/11/2012,InBetweeners,NA,01/02/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2008/2009?. Formed new group Inbetweeners
+32,Nkosikasi,Nkos,NA,F,3,NA,11/11/2010,NA,AK,AK,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born between 2005-2006
+33,Xoxocotla,Xox,NA,M,NA,15/11/2010,15/11/2010,NA,NA,NH,XaiXai,NA,24/02/2014,NA,NA,24/02/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,dead - unclear if body found
+34,Heerlik,Heer,NA,F,NA,11.201,16/11/2010,NA,BD,BD,Hakie,Auckland,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,DOB unconfirmed
+35,Mielies,Miel,NA,F,NA,11.201,16/11/2010,NA,BD,BD,Mooi,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,DOB unconfirmed
+36,Yster,Yst,NA,M,NA,NA,17/11/2010,NA,NA,NA,NA,NA,NA,BD,NA,12/02/2011,AK,17/08/2011,18/12/2013,NA,NA,NA,NA,NA,NA,No,Possibly not Yster in AK but BD male. 
+37,Jinka,Jink,NA,F,1,22/11/2010,22/11/2010,NA,NA,NH,Jakarta,NA,13/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Split group
+38,Xai,Xai,NA,M,NA,NA,22/11/2010,NA,NA,RC,NA,NA,01/11/2011,NA,NA,01/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Name conflicts with XaiXai NH
+39,Beminde,Bemi,NA,F,NA,2007,23/11/2010,NA,NA,BD,NA,NA,05/01/2014,Intaka,NA,15/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2007, formed IN with Wiet, Vrou"
+40,Hakie,Haki,NA,F,3,NA,23/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,12/02/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+41,Kies,Kie,NA,M,NA,23/11/2010,23/11/2010,NA,NA,BD,Kaiki,NA,17/07/2015,AK,20/07/2015,24/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen once more in AK the Jan after leaving
+42,Tannie,Tann,NA,F,NA,NA,26/11/2010,NA,NA,BD,NA,NA,NA,NA,NA,24/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown - split gp?
+43,Dwergie,Dwe,NA,M,NA,2010,01/12/2010,NA,NA,BD,Dagga,Auckland,19/01/2016,AK,26/01/2016,23/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2010, Seen in AK twice after leaving date (approx 1 and 2 months after)"
+44,Pannekoekie,Pann,NA,F,10,2010,01/12/2010,NA,BD,BD,Snortjie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2010, mistakenly assumed Princes was mother (hence P name), but genetics shows Snor is mother"
+45,Wolfie,Wol,NA,M,NA,2010,01/12/2010,NA,NA,BD,Wietnie,NA,17/07/2015,AK,20/07/2015,24/05/2018,NH,29/05/2018,19/12/2018,NA,NA,NA,NA,NA,NA,NA,Born in 2010
+46,Xai-Xai,Xaix,NA,F,NA,NA,03/12/2010,NA,NA,NH,NA,NA,NA,NA,NA,27/10/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,dead body found 27/10/15
+47,Little Napoli,NA,NA,M,NA,NA,04/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,13/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+48,Gigolo,Gig,NA,M,NA,NA,07/12/2010,NA,NA,NA,NA,NA,NA,BD,07/12/2010,07/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Individual seen just once
+49,Michael Jackson,Mic,NA,M,NA,NA,08/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,11/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+50,Mfolozi,Mfo,Hunchback,M,NA,2007,12/12/2010,NA,NA,AK,Mamoobi,NA,02/05/2012,LT,16/05/2012,21/10/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born in 2007; described as ""hunchback"" or ""hunchback juv"" early on in records"
+51,Black tits,NA,NA,F,NA,NA,13/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,13/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+52,Drew,Drew,NA,F,NA,2008,13/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,01/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2008
+53,Little Balls,NA,NA,M,NA,NA,13/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,13/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Only recorded once
+54,Mini MJ,NA,NA,F,NA,2009,13/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,01/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2009
+55,Pink,Pink,NA,F,20,NA,13/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+56,Radja,Rad,NA,M,NA,NA,13/12/2010,NA,NA,RC,NA,NA,25/11/2011,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+57,Skin,Skin,NA,F,NA,NA,13/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,13/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+58,Istanbul,Ist,NA,M,NA,NA,15/12/2010,NA,NA,NH,NA,NA,09/01/2012,NA,NA,09/01/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+59,Quito,Qui,Santiago,M,NA,NA,15/12/2010,NA,NA,NH,NA,Rusk,19/11/2011,LT,19/11/2011,12/11/2015,AK,08/05/2012,28/10/2013,LT,25/02/2014,12/11/2015,LTsplit,04/02/2016,NA,NA,Left AK between march and april 2013.
+60,Guns and Roses,Gun,NA,M,NA,NA,18/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,18/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Only recorded once
+61,Hamba,Hamb,NA,F,NA,NA,18/12/2010,NA,NA,AK,NA,NA,NA,NA,NA,22/08/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared - body not found
+62,Isilonda,Isil,NA,F,NA,NA,18/12/2010,NA,NA,AK,NA,NA,29/02/2016,IFamily,29/04/2016,07/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"29.02.2016 Last time w/ rest of AK, 07.04.2017 = last recorded date of Ifamily"
+63,SMA,SMA,NA,M,NA,2006,18/12/2010,NA,NA,AK,NA,NA,NA,BD,NA,25/01/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Probably born in 2006, fate unknown"
+64,Ulaka,Ulak,NA,F,2,NA,18/12/2010,NA,NA,AK,NA,NA,NA,NA,NA,14/09/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born between 2006-2007, Presumed dead, no body found"
+65,Elvis Presley,Elv,NA,M,NA,NA,24/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,11/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+66,Gino,Gin,NA,M,NA,2007,24/12/2010,NA,NA,RC,NA,NA,25/11/2011,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2007
+67,Jimmy Hendricks,Jim,NA,M,3,NA,24/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+68,Karen Zoid,Kare,NA,F,NA,NA,24/12/2010,NA,NA,RC,NA,NA,NA,NA,NA,24/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+69,Oom,Oom,NA,M,NA,NA,24/12/2010,NA,NA,NA,NA,NA,NA,BD,24/12/2010,19/11/2012,InBetweeners,NA,NA,NA,NA,NA,NA,NA,NA,NA,Formed new group Inbetweeners with three BD females
+70,Pat Lansky,Pat,NA,M,NA,NA,28/12/2010,NA,NA,NA,NA,NA,NA,RC,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+71,Geneva,Gene,NA,F,1,NA,13/01/2011,NA,NA,NH,NA,NA,NA,NA,NA,23/07/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date
+72,Bryan,Bry,NA,M,NA,NA,16/01/2011,NA,NA,NA,NA,NA,NA,LT,16/01/2011,01/05/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Only seen twice after Sept 2011
+73,Gagasa,Gaga,NA,F,NA,NA,18/01/2011,NA,NA,AK,NA,NA,NA,NA,NA,03/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Died in BGE/by poaching dog (see BGE/alarm forms)
+74,Jakarta,Jaka,NA,F,1,NA,18/01/2011,NA,NA,NH,NA,NA,14/04/2016,Iceland,NA,14/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date + Split group
+75,Mamoobi,Mamo,NA,F,NA,NA,18/01/2011,NA,NA,AK,NA,NA,NA,NA,NA,30/04/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found, in logbook as seen on 09/05/19 but likely a mistake"
+76,Okucane,Oku,Dot,M,NA,2007,18/01/2011,NA,NA,AK,NA,Sanbonani,15/02/2013,BD,19/02/2013,08/09/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2007
+77,Yaounde,Yaou,NA,F,NA,NA,18/01/2011,NA,NA,NH,NA,NA,NA,NA,NA,20/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date + dead
+78,Queen,Quee,NA,F,1,NA,19/01/2011,NA,NA,RC,NA,NA,NA,NA,NA,19/01/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born between 2005-2006
+79,William,Wil,NA,M,NA,NA,19/01/2011,NA,NA,NA,NA,NA,NA,LT,19/01/2011,14/02/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen once on 2012/05/17 in LT after official departure date
+80,James,Jam,NA,M,21,NA,28/01/2011,NA,NA,NA,NA,NA,NA,LT,28/01/2011,08/06/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+81,Lizz,Lizz,NA,F,1,NA,28/01/2011,NA,LT,LT,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+82,Asis,Asis,NA,F,22,NA,19/02/2011,NA,NA,BD,NA,NA,NA,NA,NA,27/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+83,Diana,Dian,NA,F,NA,NA,19/02/2011,NA,LT,LT,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+84,Venezia,Vene,NA,F,NA,NA,19/02/2011,NA,NA,NH,NA,NA,NA,NA,NA,31/10/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+85,Bogota,Bogo,NA,F,30,NA,05/03/2011,NA,NA,NH,NA,NA,13/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date + Split group
+86,Lausanne,Laus,NA,F,1,NA,05/03/2011,NA,NA,NH,NA,NA,NA,NA,NA,21/01/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Last seen during BGE, by BD observers"
+87,Little Blind,NA,JL,F,NA,2009,24/03/2011,NA,NA,BD,NA,NA,NA,NA,NA,12/03/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009, last seen in BD on 12/03/2021, presumed dead."
+88,Dagga,Dagg,NA,F,11,NA,07/04/2011,NA,NA,BD,NA,NA,29/11/2012,InBetweeners,NA,23/12/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Formed new group IB. Found dead 23/12/2013
+89,Donsig,Don,NA,M,NA,2009,07/04/2011,NA,NA,BD,Dagga,Pik,15/01/2015,LT,03/04/2015,16/11/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born in 2009, seen twice in LT in March 2019"
+90,Engel,Enge,Chouchou;JC,F,14,2009,07/04/2011,NA,BD,BD,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2009
+91,Ertjies,Ert,JA;Small balls,M,NA,NA,07/04/2011,NA,NA,BD,NA,NA,26/04/2012,NH,26/04/2012,11/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+92,Grote,Gro,JI;Big balls,M,NA,NA,07/04/2011,NA,NA,BD,NA,NA,21/03/2012,NH,01/05/2012,25/01/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+93,Nam nam,Namn,NA,F,20,2009,07/04/2011,NA,NA,BD,Numbies,Pik,NA,NA,NA,22/08/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009, likely died from miscarriage 2 weeks earlier"
+94,Gesels,Gese,Little boks;JG,F,15,2009,12/04/2011,NA,BD,BD,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2009
+95,Snortjie,Snor,NA,F,NA,NA,19/04/2011,NA,NA,BD,NA,NA,NA,NA,NA,07/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared during big draughts. Probably dead. Collar or carcas never found.
+96,Bingo,Bin,JM,M,NA,2009,25/04/2011,NA,NA,BD,NA,NA,15/01/2015,NA,NA,15/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2009 - confused with another AK male  - kommunis big mess but not the same monkey - write here whether other form data has been affected
+97,Rissiepit,Riss,NA,F,NA,2006,26/04/2011,NA,BD,BD,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2006
+98,Tipies,Tipi,NA,F,20,2007,26/04/2011,NA,NA,BD,NA,NA,13/11/2012,InBetweeners,NA,31/01/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2007. Formed new group Inbetweeners
+99,Vroutjie,Vrou,NA,F,NA,NA,26/04/2011,NA,NA,BD,NA,NA,05/01/2014,Intaka,NA,15/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Formed IN with Wiet, Bemi"
+100,Wietnie,Wiet,NA,F,NA,NA,09/05/2011,NA,NA,BD,NA,NA,05/01/2014,Intaka,NA,15/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Formed IN with Bemi, Vrou"
+101,Hamlet,Ham,SMA,M,20,2007,14/05/2011,NA,NA,LT,NA,NA,07/05/2013,AK,24/05/2013,14/05/2014,BD,28/05/2014,26/05/2015,CR,18/08/2015,24/10/2015,NA,NA,NA,NA,"Probably born in 2007, left AK between 14th March and 20th April 2014, seen once more in CR in Jan 2016"
+102,Suzy,Suzy,NA,F,NA,NA,01/06/2011,NA,NA,LT,NA,NA,10/03/2015,FirstLTsplinter,NA,01/09/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen in splinter group in september 2015
+103,Rusk,Rus,NA,M,NA,NA,04/06/2011,NA,NA,NA,NA,NA,NA,BD,06/06/2011,16/12/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded one more time in BD 11/03/2014, unclear if mistake or not"
+104,Elton,Elt,SMB,M,13,2006,09/06/2011,NA,NA,LT,NA,NA,04/02/2012,AK,28/01/2012,18/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born in 2006, recorded 12/6/12 in LT, unclear if error or not, seen once more in AK on 27/02/16, after first sighting in AK not sighted again until 08/5/12"
+105,Harry,Har,NA,M,NA,NA,09/06/2011,NA,NA,NA,NA,NA,NA,LT,09/06/2011,28/08/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,First noted in LT logbook 11/06/09
+106,Tunis,Tun,NA,M,NA,2010,25/06/2011,NA,NA,NH,Troia,NA,26/11/2011,NA,NA,26/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+107,Newton,New,NA,M,NA,NA,09/07/2011,NA,NA,NA,NA,NA,NA,LT,09/07/2011,25/01/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Only seen twice since Nov 2013
+108,Jackie,Jac,Little Jackie;JD,M,NA,2009,03/08/2011,NA,NA,LT,NA,NA,20/06/2014,NA,NA,20/06/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2009;fate unknown
+109,Merlin,Mer,Little Merlin;JF,M,NA,2009,03/08/2011,NA,NA,LT,NA,NA,11/12/2014,NA,NA,11/12/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Probably born in 2009, fate unknown…. Mixed with Mercury?"
+110,Mousse,Mou,JG,M,NA,2009,03/08/2011,NA,NA,LT,NA,NA,03/06/2014,NA,NA,03/06/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born in 2009, fate unknown. Maybe seen once more on 20.06.14 but maybe error?"
+111,Theodore,The,NA,M,21,NA,09/08/2011,NA,NA,NA,NA,NA,NA,LT,09/08/2011,09/02/2012,AK,17/04/2012,18/01/2013,NA,NA,NA,NA,NA,NA,NA,"Seen 3 times in LT in June 2012, noted first time in LT logbook on 2011/08/09, seen once in AK in March 2012"
+112,Hwahwaza,Hwa,NA,M,NA,16/09/2011,16/09/2011,NA,NA,AK,Hamba,Sanbonani,04/06/2016,BD,08/06/2016,11/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen once more in BD in Jan 2018
+113,Amy Winehouse,Amyw,NA,F,NA,NA,29/09/2011,NA,NA,RC,NA,NA,NA,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+114,Bruce Springsteen,Bru,NA,M,NA,NA,29/09/2011,NA,NA,NA,NA,NA,NA,RC,NA,29/09/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Only one record of him
+115,SF1,NA,NA,F,NA,NA,29/09/2011,NA,NA,RC,NA,NA,NA,NA,NA,26/10/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+116,Spotted,Spo,NA,M,NA,2008,29/09/2011,NA,NA,RC,NA,NA,25/11/2011,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born in 2008
+117,Vasco Rossi,Vas,NA,M,2,NA,29/09/2011,NA,NA,NA,NA,NA,NA,RC,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+118,Vincent,Vin,Darkface,M,NA,10.2011,01/10/2011,NA,NA,LT,Victoria,Voldemort,22/12/2016,BD,13/02/2017,19/11/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in Oct 2011
+119,Giya,Giy,NA,M,NA,07/10/2011,07/10/2011,NA,NA,AK,Gagasa,Sanbonani,18/09/2013,NA,NA,18/09/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably dead
+120,Spook,Spo,NA,M,NA,10.2011,18/10/2011,NA,NA,BD,Snortjie,Pik,16/06/2016,CR,23/06/2016,07/04/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,DOB unconfirmed
+121,Cindy Lauper,Cind,NA,F,NA,NA,26/10/2011,NA,NA,RC,NA,NA,NA,NA,NA,11/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+122,Noktober,Nok,NA,M,NA,26/10/2011,26/10/2011,NA,NA,BD,Numbies,Pik,11/06/2016,CR,15/06/2016,04/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared from CR, probably migrated, "
+123,Lome,Lom,NA,M,NA,27/10/2011,27/10/2011,NA,NA,NH,Lausanne,NA,31/05/2016,5males,14/07/2016,14/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen 14/07/2016 in gp of 5 sub males
+124,Upside down,NA,NA,M,NA,NA,28/10/2011,NA,NA,RC,NA,NA,31/10/2011,NA,NA,31/10/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+125,Modjadji,Modj,NA,F,NA,31/10/2011,31/10/2011,NA,NA,AK,Mamoobi,NA,NA,NA,NA,26/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably dead, in logbook 2 months later but probably an error"
+126,Bamako,Bam,NA,M,NA,01/11/2011,01/11/2011,NA,NA,NH,Bogota,NA,21/02/2013,NA,NA,21/02/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+127,Evanescence,Evan,NA,F,NA,NA,01/11/2011,NA,NA,RC,NA,NA,NA,NA,NA,25/11/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+128,Ogies,Ogi,NA,M,22,02/11/2011,02/11/2011,NA,NA,BD,Oulik,Lekker,03/06/2016,CR,10/06/2016,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded a few more times in BD months after official dept date, but maybe errors, seen on last day CR followed 2018/07/20"
+129,Arthur,Art,NA,M,NA,NA,03/11/2011,NA,NA,NA,NA,NA,NA,LT,03/11/2011,14/02/2012,AK,19/04/2012,30/04/2012,BD,25/07/2012,20/05/2014,NA,NA,NA,NA,"Immigrated from LT to AK between 14/02/2012-20/04, seen in LT on 22/05/12 & 02/07/12, was only officially recorded in AK twice…"
+130,Nil,Nil,NA,M,2,NA,05/11/2011,NA,NA,NA,NA,NA,NA,KB,05/11/2011,17/11/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+131,Akkedis,Akk,NA,M,NA,07/11/2011,07/11/2011,NA,NA,BD,Asis,Lekker,28/05/2016,CR,10/06/2016,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+132,Idwala,Idwa,NA,F,NA,10/11/2011,10/11/2011,NA,NA,AK,Isilonda,Sanbonani,29/02/2016,IFamily,NA,29/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen with Ifamily
+133,Poeding,Poe,NA,M,NA,11/11/2011,11/11/2011,NA,NA,BD,Prinses,Lekker,11/06/2016,CR,15/06/2016,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recordmany times in BD after dept date, unclear if errors (almost all by same observer), seen on last day CR followed 2018/07/20"
+134,Gaya,Gaya,NA,F,NA,14/11/2011,14/11/2011,NA,NH,NH,Geneva,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+135,Vakie,Vak,NA,M,NA,17/11/2011,17/11/2011,NA,NA,BD,Vroutjie,NA,11/03/2017,NA,NA,11/03/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+136,Juneau,Jun,NA,M,NA,20/11/2011,20/11/2011,NA,NA,NH,Jakarta,NA,12/04/2016,Ifamily,14/04/2016,25/10/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Last seen in Ifamily, no data on exactly when he left, but before April 2017"
+137,Byron,Byr,SMC;Mini-Elton,M,NA,2007,21/11/2011,NA,NA,LT,NA,NA,22/10/2013,NA,NA,22/10/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2007
+138,Charles,Cha,Little Charles;JB,M,NA,2008,21/11/2011,NA,NA,LT,NA,NA,09/12/2013,NA,NA,09/12/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2008
+139,Reva,Reva,NA,F,NA,21/11/2011,21/11/2011,NA,NA,NH,Roma,Milano,NA,Rfamily,NA,23/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared with Rennes, Roslin and Lima"
+140,Ububhibhi,Ubu,NA,M,NA,21/11/2011,21/11/2011,NA,NA,AK,Ulaka,NA,24/05/2016,BD,28/05/2016,06/06/2020,CR,16/06/2020,NA,NA,NA,NA,NA,NA,NA,NA,He was recorded in Cr on the 16/06/2020 (not sure about the exact immigration date into cr because cr was not followed regularly
+141,Baby Hak 2011,BHak11,NA,M,NA,22/11/2011,22/11/2011,NA,NA,BD,Hakie,NA,05/12/2011,NA,NA,05/12/2011,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+142,Ngubu,Ngu,NA,M,NA,26/11/2011,26/11/2011,NA,NA,AK,Nkosikasi,NA,06/07/2013,NA,NA,06/07/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably dead
+143,Xeres,Xer,NA,M,NA,29/11/2011,29/11/2011,NA,NA,NH,XaiXai,NA,07/04/2016,NA,NA,07/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+144,Ulundi,Ulu,NA,M,NA,01/12/2011,01/12/2011,NA,NA,NH,Uppsala,NA,14/05/2016,5males,14/07/2016,14/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen 14/07/2016 in gp of 5 sub males
+145,Zion,Zio,NA,M,1,02/12/2011,02/12/2011,NA,NA,NH,Zara,NA,24/02/2016,NA,NA,24/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+146,Talinn,Tal,NA,M,20,04/12/2011,04/12/2011,NA,NA,NH,Troia,Milano,21/04/2016,Iceland,NA,21/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Split group
+147,Rooikat,Roo,NA,M,NA,05/12/2011,05/12/2011,NA,NA,BD,Rissiepit,NA,27/04/2017,CR,10/05/2017,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded once more in BD after dept date, unclear if error, seen on last day CR followed 2018/07/20"
+148,Koninging,Koni,NA,F,NA,12.2011,09/12/2011,NA,NA,BD,Kaiki,NA,07/01/2013,InBetweeners,NA,30/08/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Formed new group Inbetweeners
+149,Watnou,Watn,NA,F,NA,2011,09/12/2011,NA,NA,BD,Wietnie,NA,NA,NA,NA,24/01/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2011, Presumed dead"
+150,Brasilia,Bras,NA,F,NA,2010,16/12/2011,NA,NA,NH,Bogota,NA,13/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,UNK birth date + Split group
+151,Emma,Emma,NA,F,NA,NA,16/12/2011,NA,NA,LT,NA,NA,NA,NA,NA,04/07/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+152,Lhassa,Lhas,NA,F,NA,2009,16/12/2011,NA,NA,NH,Lausanne,NA,04/04/2016,Iceland,NA,25/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Split group
+153,Neuchatel,Neu,M10,M,10,2009,16/12/2011,NA,NA,NH,NA,NA,08/05/2014,BD,09/06/2014,14/12/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+154,Pretoria,Pret,NA,F,3,2009,16/12/2011,NA,NH,NH,Paris,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+155,Rio,Rio,NA,M,NA,2010,16/12/2011,NA,NA,NH,Roma,NA,30/11/2015,NA,NA,30/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+156,Toronto,Tor,NA,M,1,2009,16/12/2011,NA,NA,NH,Troia,NA,11/06/2014,BD,16/06/2014,13/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+157,Victoria,Vict,NA,F,NA,NA,16/12/2011,NA,NA,LT,NA,NA,09/04/2015,FirstLTsplinter,NA,01/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen in splinter group in november 2015
+158,Zeerust,Zee,NA,M,16,2010,16/12/2011,NA,NA,NH,Zara,NA,24/02/2015,NA,NA,24/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+159,Zurich,Zur,NA,M,20,2009,16/12/2011,NA,NA,NH,Zara,Milano,26/05/2014,BD,03/06/2014,15/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+160,Puerto,Pue,NA,M,NA,27/12/2011,27/12/2011,NA,NA,NH,Paris,NA,21/06/2016,5males,14/07/2016,14/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen 14/07/2016 in gp of 5 sub males
+161,Baby Moo 2011,BMoo11,NA,NA,NA,23/01/2012,23/01/2012,NA,NA,BD,Mooi,NA,NA,NA,NA,06/02/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+162,Bongani,Bon,NA,M,NA,NA,28/01/2012,NA,NA,NA,NA,NA,NA,AK,NA,25/04/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+163,Ghangaan,Ghan,NA,F,NA,2009,28/01/2012,NA,NA,AK,Gagasa,Sanbonani,NA,NA,NA,06/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009;last seen crossing fence with newborn, presumed dead"
+164,Govu,Gov,NA,M,NA,2008,28/01/2012,NA,NA,AK,Gagasa,Sanbonani,19/12/2013,Intaka,31/01/2014,13/06/2014,NH,20/06/2014,27/02/2017,CR,01/03/2017,23/03/2017,NA,NA,NA,NA,"Probably born in 2008, seen once in CR in Dec 2016, recorded once more in IN in Sept 14"
+165,Hleka,Hlek,NA,F,NA,2009,28/01/2012,NA,NA,AK,Hamba,NA,NA,NA,NA,16/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2009; probably dead body not found
+166,Inhlanhla,Inhl,NA,F,NA,2009,28/01/2012,NA,IF,AK,Isilonda,Sanbonani,29/02/2016,IFamily,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009, last seen in Ifamily 29/06/2016 . Occassionally seen during encounter. On the 07/2022 I-F was followed again."
+167,Izulu,Izu,NA,M,NA,2008,28/01/2012,NA,NA,AK,Isilonda,NA,23/03/2013,NA,NA,23/03/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2008
+168,Mnandi,Mna,NA,M,NA,2009,28/01/2012,NA,NA,AK,Mamoobi,Sanbonani,14/01/2015,LT,19/01/2015,07/06/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2009, seen once in LT on 05/01/15 before official migration date"
+169,Voldemort,Vol,NA,M,NA,NA,03/02/2012,NA,NA,NA,NA,NA,NA,LT,03/02/2012,03/06/2014,AK,09/06/2014,30/12/2015,NA,NA,NA,NA,NA,NA,NA,Unclear if 1st seen is same as immigrated
+170,Ahekinkinga,Ahe,NA,M,NA,NA,18/12/2010,NA,NA,NA,NA,NA,NA,AK,18/12/2010,24/02/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+171,Auckland,Auc,NA,M,NA,NA,27/02/2012,NA,NA,NA,NA,NA,NA,NH,27/02/2012,25/09/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"2012/04/04 is first time officially recorded in NH in logbook (as ""soft n fluffy"")"
+172,Amazon,Amaz,NA,F,10,NA,13/03/2012,NA,NA,KB,NA,NA,NA,NA,NA,25/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+173,Tanganika,Tang,NA,F,20,NA,13/03/2012,NA,NA,KB,NA,NA,NA,NA,NA,22/10/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Body not found, presumed dead"
+174,Curaco,Cur,Spot,M,NA,2010,14/04/2012,NA,NA,KB,NA,NA,14/04/2012,NA,NA,14/04/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born 2010; also unclearif mistaken for another juvenile - would NOT recommend using his data\
+175,Styx,Sty,Little Evil,M,NA,2009,14/04/2012,NA,NA,KB,NA,NA,12/05/2014,NH,24/05/2014,29/03/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,Probably born 2009; left NH with split to form Iceland
+176,Nala,Nala,NA,F,NA,2008,18/04/2012,NA,NA,LT,NA,NA,NA,NA,NA,04/07/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably born 2008, fate unknown, presumed dead"
+177,Tweed,Twe,Fluffy,M,3,12.201,20/04/2012,NA,NA,KB,NA,NA,10/05/2014,NH,24/05/2014,06/09/2019,AK,02/04/2020,01/10/2020,NA,NA,NA,NA,NA,NA,NA,Probably born Dec 2010.
+178,Chernobyl,Che,NA,M,NA,NA,28/04/2012,NA,NA,NA,NA,NA,NA,NH,28/04/2012,26/05/2014,BD,09/06/2014,06/08/2016,NA,NA,NA,NA,NA,NA,NA,"Seen once in NH on 2014/07/29, unclear if error or not, 2012/05/08 is first time recorded officially in NH in logbook; seen 3 times after official BD dept date but over 5 months so unclear if errors or not  "
+179,Amur,Amur,NA,F,NA,12.2011,09/05/2012,NA,NA,KB,Amazon,NA,NA,NA,NA,08/12/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born Dec 2011; Probably dead, body not found."
+180,Medjerda,Med,NA,M,NA,NA,09/05/2012,NA,NA,NA,NA,NA,NA,KB,NA,19/06/2013,KB,20/02/2014,15/12/2015,NA,NA,NA,NA,NA,NA,No,"left KB for unk group then later returned, briefly named ""Oo"" before recognised as Med, disappeared with 'Z' matriline and 'Pearl' (LAlm), presumably to form new split group"
+181,Pikito,Pik,NA,M,NA,2009,09/05/2012,NA,NA,KB,NA,NA,28/01/2014,NA,NA,28/01/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2009
+182,Zambezi,Zam,NA,M,NA,12.2011,09/05/2012,NA,NA,KB,Zeia,Nile,22/06/2015,NA,NA,22/06/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born Dec 2011; likely migrated to unk group
+183,Gelosi,Gel,NA,M,NA,2007,14/05/2012,NA,NA,AK,Gagasa,NA,01/06/2012,LT,04/06/2012,28/10/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2007
+184,Heleza,Hele,NA,F,NA,2008,14/05/2012,NA,NA,AK,Hamba,Sanbonani,NA,NA,NA,01/11/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Prob born in 2008; disappeared with fresh wounds (broken tail), no body found, presumed dead"
+185,Mpukuvane,Mpu,NA,M,NA,2008,14/05/2012,NA,NA,AK,Mamoobi,NA,16/05/2013,NA,NA,16/05/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2008
+186,Danube,Dan,NA,M,10,NA,25/05/2012,NA,NA,NA,NA,NA,NA,KB,NA,12/05/2014,BD,28/05/2014,30/08/2014,IN,08/09/2014,20/06/2015,AK,24/06/2015,13/10/2015,NA,
+187,Shakespeare,Sha,Ouagadougou,M,NA,NA,08/06/2012,NA,NA,NA,NA,NA,NA,LT,08/06/2012,23/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Unclear if 1st seen is same as immigrated. Oua was originally called Shakespeare in tablet - an ID error - he is not Shakespeare from LT
+188,Edward,Edw,NA,M,NA,NA,12/06/2012,NA,NA,NA,NA,NA,NA,LT,12/06/2012,12/11/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Unclear if 1st seen is same as immigrated
+189,Tugela,Tug,NA,M,NA,12.2011,03/07/2012,NA,NA,KB,Tanganika,Danube,23/07/2015,NA,NA,23/07/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born Dec 2011; likely migrated to unk group
+190,Darwin,Dar,Zazoo,M,NA,2010,31/07/2012,NA,NA,LT,NA,NA,02/09/2016,NA,NA,02/09/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2010
+191,Nessie,Ness,NA,F,NA,12.2011,01/08/2012,NA,NA,KB,NA,NA,NA,NA,NA,23/09/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born Dec 2011, died Sep2020. posssibly by Caracal"
+192,Uvac,Uva,NA,M,NA,NA,01/08/2012,NA,NA,NA,NA,NA,NA,KB,NA,13/02/2015,Intaka,19/02/2015,15/06/2016,NA,NA,NA,NA,NA,NA,NA,"May have remained with Intaka longer, but group not followed"
+193,Selenge,Sel,NA,M,NA,NA,10/08/2012,NA,NA,NA,NA,NA,NA,KB,NA,03/04/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+194,Double Spot,Dou,NA,M,NA,2009,13/08/2012,NA,NA,KB,NA,NA,10/05/2014,NA,NA,10/05/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born Dec 2009
+195,Zeia,Zeia,Jucar,F,NA,NA,31/08/2012,NA,NA,KB,NA,NA,15/12/2015,KBSplit,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Had baby in 2015 but it died- carried for >/= 1day
+196,Hola,Hol,NA,M,NA,11/09/2012,11/09/2012,NA,NA,AK,Hamba,Sanbonani,15/02/2018,NA,NA,10/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+197,Lennon,Len,NA,M,NA,19/09/2012,19/09/2012,NA,NA,LT,Lizz,NA,10/02/2018,NA,NA,10/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+198,Yoogali,Yoog,NA,F,20,22/09/2012,22/09/2012,NA,NA,NH,Yaounde,NA,19/04/2016,Iceland,NA,25/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Split group
+199,Valerie,Vale,Squishy,F,NA,24/09/2012,24/09/2012,NA,NA,LT,Victoria,NA,NA,NA,NA,21/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+200,Baby Dag 2012,BDag12,NA,M,NA,25/09/2012,25/09/2012,NA,NA,BD,Dagga,NA,29/11/2012,InBetweeners,NA,29/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumably was in new split group with mother
+201,Baby Cam 2012,BCam12,NA,NA,NA,29/09/2012,29/09/2012,NA,NA,LT,Camilla,NA,NA,NA,NA,07/05/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+202,Geleza,Gele,NA,F,NA,29/09/2012,29/09/2012,NA,NA,AK,Gagasa,Yster,NA,NA,NA,23/01/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Gele was eaten by rock python 22nd-23rd Jan 
+203,Bullebak,Bul,NA,M,NA,01/10/2012,01/10/2012,NA,NA,BD,Beminde,NA,07/12/2017,NA,NA,07/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded a few more times in BD months after official dept date, but maybe errors"
+204,Nurks,Nurk,NA,F,NA,01/10/2012,01/10/2012,NA,BD,BD,Numbies,Pik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+205,Siele,Siel,NA,F,NA,01/10/2012,01/10/2012,NA,NA,BD,Snortjie,Pik,NA,NA,NA,13/04/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+206,Baby Emm 2012,BEmm12,NA,M,NA,08/10/2012,08/10/2012,NA,NA,LT,Emma,NA,22/05/2013,NA,NA,22/05/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+207,Delilah,Deli,Rainbow,F,NA,08/10/2012,08/10/2012,NA,LT,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+208,Baby Tip 2012,BTip12,NA,NA,NA,09/10/2012,09/10/2012,NA,NA,BD,Tipies,NA,13/11/2012,InBetweeners,NA,13/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumably was in new split group with mother
+209,Ijinja,Iji,NA,M,NA,09/10/2012,09/10/2012,NA,NA,AK,Isilonda,Sanbonani,03/03/2016,Ifamily,NA,29/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,29.06.2016 = last recorded date of IFamily
+210,Garoua,Gar,NA,M,20,11/10/2012,11/10/2012,NA,NA,NH,Geneva,NA,23/06/2016,5males,14/07/2016,14/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen 14/07/2016 in gp of 5 sub males
+211,Tirroan,Tir,NA,M,NA,11/10/2012,11/10/2012,NA,NA,NH,Troia,Auckland,30/12/2017,NA,NA,30/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen again in NH 04/01/2018 being chased by NH mon
+212,Heyi,Hey,NA,M,NA,15/10/2012,15/10/2012,NA,NA,AK,Heleza,Yster,24/04/2017,NA,NA,24/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+213,Jillin,Jill,NA,F,NA,15/10/2012,15/10/2012,NA,NA,NH,Jakarta,NA,19/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Split group
+214,Mungunya,Mun,NA,M,NA,15/10/2012,15/10/2012,NA,NA,AK,Mamoobi,Arthur,09/01/2016,NA,NA,09/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"probably dead, body not found"
+215,Baby Bog 2012,BBog12,NA,F,NA,18/10/2012,18/10/2012,NA,NA,NH,Bogota,NA,NA,NA,NA,10/12/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Baby not seen after grp encounter with BD
+216,Wurm,Wur,NA,M,NA,18/10/2012,18/10/2012,NA,NA,BD,Wietnie,Rusk,31/05/2018,NA,NA,31/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded a few more times in BD months after official dept date, but maybe errors"
+217,Baby Upp 2012,BUpp12,NA,M,NA,19/10/2012,19/10/2012,NA,NA,NH,Uppsala,NA,03/11/2012,NA,NA,03/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, no body"
+218,Onbeskof,Onb,NA,M,NA,19/10/2012,19/10/2012,NA,NA,BD,Oulik,Pik,11/03/2016,NA,NA,11/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+219,Hippie,Hipp,NA,F,NA,22/10/2012,22/10/2012,NA,NA,BD,Hakie,Pik,NA,NA,NA,07/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,assume that she died
+220,Nyoni,Nyo,NA,M,NA,22/10/2012,22/10/2012,NA,NA,AK,Nkosikasi,Yster,16/05/2017,BD,16/05/2017,19/11/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+221,Unwabo,Unw,NA,M,NA,22/10/2012,22/10/2012,NA,NA,AK,Ulaka,Yster,03/05/2017,BD,04/05/2017,07/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+222,Alsiende,Alsi,NA,F,NA,23/10/2012,23/10/2012,NA,NA,BD,Asis,NA,NA,NA,NA,21/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+223,Rheban,Rhe,NA,M,1,27/10/2012,27/10/2012,NA,NA,NH,Roma,Auckland,05/12/2017,BD,05/12/2017,27/09/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Went back to NH a few times shortly after migration
+224,Baby Lau 2012,BLau12,NA,NA,NA,29/10/2012,29/10/2012,NA,NA,NH,Lausanne,NA,NA,NA,NA,12/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+225,Mevrou,Mevr,NA,F,NA,29/10/2012,29/10/2012,NA,NA,BD,Mooi,NA,NA,NA,NA,07/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded a few more times in BD months after official last seen, but maybe errors, likely dead"
+226,Baby Kai 2012,BKai12,NA,NA,NA,02/07/1905,01/11/2012,NA,NA,BD,Kaiki,NA,15/11/2012,InBetweeners,NA,15/11/2012,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumably was in new split group with mother
+227,Ndonsa,Ndon,NA,F,NA,`2010``,02/11/2012,NA,AK,AK,Nkosikasi,Sanbonani,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+228,Zhengzhou,Zhe,NA,M,NA,02/11/2012,02/11/2012,NA,NA,NH,Zara,NA,02/08/2013,NA,NA,02/08/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+229,Ghozololo,Gho,NA,M,NA,05/11/2012,05/11/2012,NA,NA,AK,Ghangaan,Yster,28/01/2016,NA,NA,28/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Maybe migrated, but probably died"
+230,Xian,Xian,NA,F,NA,05/11/2012,05/11/2012,NA,NH,NH,XaiXai,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+231,Ruby,Ruby,NA,F,NA,`2010,08/11/2012,NA,NA,LT,Roxanne,NA,21/02/2018,LTSplit,21/02/2018,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,her last seen in LM which is the 03/03/2018
+232,Laurel,Laur,NA,F,NA,2010,12/11/2012,NA,NA,LT,Lizz,NA,NA,NA,NA,03/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born in 2010, fate unknown. Presumed dead."
+233,Vulkaan,Vul,NA,M,NA,14/11/2012,14/11/2012,NA,NH,BD,Vroutjie,Pik,06/06/2018,NH,16/04/2020,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded a few more times in BD months after official dept date, but maybe errors. Recorded in NH logbook in May 2020 as ""Oslo"" and before that as male with left ear almost off."
+234,Bushy,Bush,NA,F,NA,2009,15/11/2012,NA,NA,LT,NA,NA,02/03/2015,FirstLTsplinter,NA,01/07/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen in splinter group in July 2015
+235,India,Indi,NA,F,NA,2009,15/11/2012,NA,NA,LT,Diana,NA,NA,NA,NA,19/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in 2009. Died on the 19/12/2017.
+236,Rakker,Rak,NA,M,NA,16/11/2012,16/11/2012,NA,NA,BD,Rissiepit,NA,08/05/2018,NA,NA,08/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded once more in BD, but maybe an error"
+237,Hlokoloza,Hlo,Hlebe,M,NA,23/12/2012,23/12/2012,NA,NA,AK,Hleka,Yster,16/05/2017,BD,16/05/2017,20/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+238,Pieperig,Piep,NA,F,NA,2012,18/01/2013,NA,BD,BD,Prinses,Rusk,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Data missing on the birth - first recorded found as 1yo in logbook
+239,Yenissei,Yeni,NA,F,NA,NA,28/01/2013,NA,NA,KB,NA,NA,NA,NA,NA,26/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+240,Kaya,Kaya,NA,F,NA,07/02/2013,07/02/2013,NA,NA,LT,NA,NA,21/02/2018,LTsplit,21/02/2018,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,LTSplit not followed
+241,Aare,Aare,NA,F,NA,2012,08/02/2013,NA,KB,KB,Amazon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+242,Little Z,NA,NA,M,NA,2009,08/02/2013,NA,NA,KB,NA,NA,20/09/2013,NA,NA,20/09/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably born Dec 2009; Unclear if actually existed or mistaken for another juvenile; would NOT recommend using his data
+243,Zaire,Zair,NA,F,NA,2012,08/02/2013,NA,NA,KB,Zeia,NA,15/12/2015,KBSplit,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"KB split, not seen again"
+244,Andrew,And,NA,M,NA,2009,09/02/2013,NA,NA,LT,NA,NA,12/04/2014,NA,NA,12/04/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+245,Noah,Noa,NA,M,NA,2012,09/02/2013,NA,NA,LT,Nala,NA,20/02/2018,LTsplit,NA,20/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Migrated on the same day LT split, recorded once in May 2018 in LT, likely an error"
+246,Yalu,Yalu,NA,F,NA,2012,09/02/2013,NA,NA,KB,Yenissei,NA,NA,NA,NA,15/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,collar signal points to a rock Pyton 18/01/2021
+247,Pearl,Pear,Little Almond,F,NA,2009,24/04/2013,NA,NA,KB,NA,Nile,15/12/2015,KBSplit,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Prob born Dec 2009; renamed Pearl (2015); left with KB split, not seen again"
+248,Mara,Mara,Spotty arm,F,NA,NA,06/05/2013,NA,NA,KB,NA,NA,NA,NA,NA,05/11/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,likely called spotty arm early on - Iding of her before May 2013 likely unreliable
+249,Fudu,Fud,NA,M,NA,NA,11/06/2013,NA,NA,NA,NA,NA,NA,AK,11/06/2013,11/09/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+250,Cancun,Can,NA,M,NA,NA,28/06/2013,NA,NA,NA,NA,NA,NA,NH,28/06/2013,25/02/2016,AK,14/03/2016,16/02/2017,NH,30/05/2017,17/12/2018,NH,17/06/2019,27/01/2021,NA,Recorded once in AK on 2017/03/24
+251,Baby Ham 2013,BHam13,NA,F,NA,03/10/2013,03/10/2013,NA,NA,AK,Hamba,NA,NA,NA,NA,10/11/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Found dead on 10/11/2013
+252,Baby Beminde 2013,BBem13,NA,NA,NA,22/10/2013,22/10/2013,NA,NA,BD,Beminde,NA,NA,NA,NA,24/10/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Baby found dead
+253,Baby Gaga 2013,BGag13,NA,F,NA,24/10/2013,24/10/2013,NA,NA,AK,Gagasa,NA,NA,NA,NA,06/12/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen on 6/12/13
+254,Boston,Bos,NA,M,NA,28/10/2013,28/10/2013,NA,NA,NH,Bogota,NA,23/05/2018,NA,NA,23/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+255,Jixi,Jix,NA,M,1,31/10/2013,31/10/2013,NA,NA,NH,Jakarta,Chernobyl,30/05/2018,NA,NA,08/06/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+256,Uji,Uji,NA,M,NA,31/10/2013,31/10/2013,NA,NA,NH,Uppsala,Milano,18/05/2018,Jacaranda,26/05/2018,26/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen 26th of May 2018 unhabituated gr Jakaranda
+257,Ilonga,Ilon,NA,F,NA,04/11/2013,04/11/2013,NA,NA,AK,Isilonda,Quito,22/01/2016,IFamily,NA,29/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"22/01/2016 Last time w/ rest of AK, 29.06.2016 = last recorded date of Ifamily"
+258,Aapie,Aapi,NA,F,NA,11/11/2013,11/11/2013,NA,BD,BD,Asis,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+259,Avon,Avo,Appy,M,NA,11/11/2013,11/11/2013,NA,NA,KB,Amazon,Nile,06/04/2018,NH,14/05/2018,12/06/2018,Ifamily,12/06/2018,16/06/2020,NA,NA,NA,NA,NA,NA,NA,"Named Appy until 14/12/14 After leaving NH, Ifamily, seen once more in KB after dept date on 2018/05/01,  seen in bge with NH on 08.12.2018 and in Ifamil on 2/2/19; seen on 16/06/20"
+260,Zankara,Zank,NA,F,NA,11/11/2013,11/11/2013,NA,NA,KB,Zeia,NA,15/12/2015,KBSplit,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,KB split
+261,Baby Wietnie 2013,BWie13,NA,F,NA,12/11/2013,12/11/2013,NA,NA,BD,Wietnie,NA,NA,NA,NA,12/11/2013,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Baby found dead, genetic sample taken"
+262,Glastonbury,Gla,NA,M,NA,12/11/2013,12/11/2013,NA,NA,NH,Geneva,Ertjies,14/05/2018,Jacaranda,28/05/2018,28/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen 26th of May 2018 unhabituated gr Jakaranda
+263,Mbazwane,Mba,NA,M,NA,15/11/2013,15/11/2013,NA,NA,AK,Mamoobi,Elton,16/01/2016,Ifamily,NA,16/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"16/01/2016 - last time w/ AK, stayed with I family but gp not followed"
+264,Rennes,Renn,NA,F,NA,15/11/2013,15/11/2013,NA,NA,NH,Roma,Milano,NA,Rfamily,NA,23/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared with Reva, Roslin and Lima"
+265,Inkwazi,Inkw,NA,F,NA,18/11/2013,18/11/2013,NA,NA,AK,Inhlanhla,Yster,22/01/2016,IFamily,NA,29/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"22/01/2016 Last time w/ rest of AK, 29.06.2016 = last recorded date of IFamily"
+266,Praia,Prai,NA,F,NA,19/11/2013,19/11/2013,NA,NH,NH,Pretoria,Ertjies,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+267,Xalapa,Xala,NA,F,NA,20/11/2013,20/11/2013,NA,NH,NH,XaiXai,Milano,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+268,Potjie,Potj,NA,F,NA,23/11/2013,23/11/2013,NA,NA,BD,Prinses,Okucane,NA,NA,NA,21/04/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+269,Zanzibar,Zan,NA,M,NA,25/11/2013,25/11/2013,NA,NA,NH,Zara,NA,28/05/2018,NA,NA,28/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Maybe seen one more time 08.06.2018 but maybe error?
+270,Camilla,Cami,NA,F,22,NA,27/11/2013,NA,NA,LT,NA,NA,NA,FirstLTsplinter,2.2015,06/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"First recorded 2011? OldCamilla? In splinter group at least since february 2015, unclear which data is hers and which is Jenny's "
+271,Mississipi,Mis,NA,M,NA,27/11/2013,27/11/2013,NA,NA,KB,Mara,NA,16/06/2018,NA,NA,16/06/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born during the night. VERY shy, not seen in group until 2013/05/06"
+272,Digby,Digb,Rhiannon,F,NA,2011,08/01/2014,NA,LT,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+273,Yangtze,Yan,NA,M,NA,2013,27/01/2014,NA,NA,KB,Yenissei,NA,01/05/2018,NH,14/05/2018,27/01/2020,AK,04/03/2020,22/11/2021,NA,NA,NA,NA,NA,NA,NA,
+274,Shitface,Shi,NA,M,NA,2011,28/01/2014,NA,NA,LT,NA,NA,24/01/2017,NA,NA,24/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in 2011
+275,Oliver,Oli,NA,M,NA,2009,04/02/2014,NA,NA,LT,NA,NA,03/06/2014,NA,NA,03/06/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+276,Rose-Mary,Rose,Daria,F,NA,2011,11/02/2014,NA,NA,LT,NA,NA,21/02/2018,LTsplit,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2011
+277,Moonie,Moon,Baby Tang 2012,F,NA,2012,28/02/2014,NA,NA,KB,Mara,Danube,NA,NA,NA,13/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"probably dead, body not found, probably referred to as baby Tang 2012 before Mara was discovered and we realised it was her baby"
+278,Jagerbomb,Jag,NA,M,NA,NA,08/05/2014,NA,NA,NA,NA,NA,NA,BD,08/05/2014,10/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+279,DownLip,Dow,NA,M,NA,NA,28/05/2014,NA,NA,NA,NA,NA,NA,LT,28/05/2014,09/07/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+280,Tere,Tere,F10,F,NA,2009,30/05/2014,NA,NA,LT,NA,NA,NA,NA,NA,10/03/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+281,Lefty,Lef,NA,M,NA,2010,31/05/2014,NA,NA,LT,NA,NA,16/01/2017,NA,NA,16/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+282,Umzali,Umz,NA,M,NA,NA,09/06/2014,NA,NA,NA,NA,NA,NA,AK,09/06/2014,12/09/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+283,Dapper,Dap,NA,M,NA,NA,01/07/2014,NA,NA,NA,NA,NA,NA,BD,01/07/2014,27/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+284,Adam,Ada,Uplip,M,NA,NA,14/08/2014,NA,NA,NA,NA,NA,NA,LT,14/08/2014,14/11/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Not clear if he appeared before official date, nothing in logbook/remarks to say first seen"
+285,Kenneth,Ken,Joe,M,NA,2013,15/08/2014,NA,NA,LT,Kaya,NA,18/11/2015,NA,NA,18/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Mixed between Joe/Kenneth? no records between May and Spet 2015 - was this just an error?  - unclear if this has been rectified in the scan data or not
+286,Liam,Lia,NA,M,NA,2013,15/08/2014,NA,NA,LT,NA,NA,07/12/2018,NA,NA,07/12/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Mother = Jenny? Tbc with DNA - Unknown fate - scan data collected with Liam name for Kenneth/Joe??
+287,Iggy,Igg,NA,M,NA,2013,18/08/2014,NA,NA,LT,India,NA,15/03/2019,NA,NA,15/03/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+288,Jenny,Jenn,OldCamilla,F,NA,NA,16/11/2011,NA,NA,LT,NA,NA,20/02/2018,LTSplit,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Unclear when switch from Cami to Jenny happened -  OldCamilla = Jenny
+289,Daisy,Dais,NA,F,NA,2013,26/08/2014,NA,LT,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+290,Joe,Joe,NA,M,NA,2013,18/09/2014,NA,NA,LT,NA,NA,07/12/2018,NA,NA,07/12/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Mother = Kaya? Probably scanned as Liam from april 2015 - unclear if this has been rectified in the scan data or not
+291,Vance,Van,NA,M,NA,2013,20/09/2014,NA,NA,LT,Victoria,NA,05/11/2015,NA,NA,05/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Fate unknown, seen v sporadically in last months in LT (unclear if errors or not)"
+292,Humusha,Hum,NA,M,NA,22/09/2014,22/09/2014,NA,NA,AK,Hamba,NA,21/05/2016,NA,NA,21/05/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+293,Zinkwazi,Zink,NA,F,NA,01/10/2014,01/10/2014,NA,NA,KB,Zeia,Yster,NA,KBSplit,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"KB split, not seen again"
+294,Madagascar,Mad,NA,M,NA,NA,08/10/2014,NA,NA,NA,NA,NA,NA,CR,08/10/2014,NA,BD,01/09/2014,07/03/2017,NA,NA,NA,NA,NA,NA,NA,"Was recognised in BD as from CR, but no CR data for him -> check broken tail male"
+295,Baby Yaou 2014,BYao14,NA,NA,NA,09/10/2014,09/10/2014,NA,NA,NH,Yaounde,NA,NA,NA,NA,17/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+296,Baby Suzy 2014,BSuz14,NA,NA,NA,11/10/2014,11/10/2014,NA,NA,LT,Suzy,NA,NA,NA,NA,25/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+297,Arno,Arn,NA,M,NA,17/10/2014,17/10/2014,NA,NA,KB,Amazon,NA,13/05/2019,NA,NA,13/05/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+298,Baby Nala 2014,BNal14,NA,NA,NA,18/10/2014,18/10/2014,NA,NA,LT,Nala,NA,NA,NA,NA,31/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+299,Eina,Eina,NA,F,NA,18/10/2014,18/10/2014,NA,BD,BD,Engel,Okucane,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+300,Ginqinka,Ginq,NA,F,NA,18/10/2014,18/10/2014,NA,AK,AK,Gagasa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+301,Halfy,Hal,NA,M,NA,NA,18/10/2014,NA,NA,LT,NA,NA,NA,FirstLTsplinter,NA,7.2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Only mentioned once on first recorded date and no other data, seen in splinter group July 2015 "
+302,Hluhluwe,Hlu,NA,M,NA,18/10/2014,18/10/2014,NA,NA,AK,Hleka,NA,27/02/2020,NA,NA,27/02/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+303,Rupert,Rup,NA,M,NA,18/10/2014,18/10/2014,NA,NA,LT,Roxanne,NA,21/02/2018,LTsplit,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+304,Baby Jenn 2014,BJen14,NA,NA,NA,20/10/2014,20/10/2014,NA,NA,LT,Jenny,NA,NA,NA,NA,23/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,presumed dead
+305,Gaaf,Gaa,NA,M,NA,20/10/2014,20/10/2014,NA,NA,BD,Gesels,Okucane,08/06/2019,CR,NA,18/06/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Immigration date is not clear but last seen was  2019/06/18 during an encounter with BD and he was still with crossing and after that he has no records with crossing.
+306,Plesier,Ples,NA,F,NA,20/10/2014,20/10/2014,NA,NA,BD,Prinses,NA,NA,NA,NA,27/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found."
+307,Mathimula,Mat,NA,M,NA,21/10/2014,21/10/2014,NA,NA,AK,Mamoobi,NA,17/02/2020,BD,17/02/2020,30/01/2021,BD,24/02/2021,29/10/2021,NA,NA,NA,NA,NA,NA,NA,last seen in BD 30/01/2021 then reappeared in BD after an encounter with CR on 24/02/2021
+308,BabyTere (F10) 2014,BF1014,NA,NA,NA,22/10/2014,22/10/2014,NA,NA,LT,Tere (F10),NA,NA,NA,NA,20/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+309,Baby Mielies 2014,BMie14,NA,NA,NA,27/10/2014,27/10/2014,NA,NA,BD,Mielies,NA,NA,NA,NA,03/11/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+310,Jeddah,Jed,NA,M,NA,27/10/2014,27/10/2014,NA,NA,NH,Jakarta,NA,08/03/2017,NA,NA,08/03/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Bottom injuries bleeding, very weak, injuries appeared several months before last sighting"
+311,Meerkat,Mee,NA,M,NA,27/10/2014,27/10/2014,NA,NA,BD,Mooi,Arthur,24/11/2016,NA,NA,24/11/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found. Recorded 3 times in months after official last seen date - probably errors"
+312,Baby Vict 2014,BVic14,NA,M,NA,28/10/2014,28/10/2014,NA,NA,LT,Victoria,NA,16/01/2015,NA,NA,16/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+313,Faroe,Far,NA,M,NA,28/10/2014,28/10/2014,NA,NA,CR,Formentera,NA,30/01/2016,NA,NA,30/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, Dead 2016 - prob error logbook as last seen date = 2017 there"
+314,Formentera,Form,NA,F,NA,NA,28/10/2014,NA,NA,CR,NA,NA,NA,SplitCR,12/01/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+315,Kangaroo,NA,NA,NA,NA,28/10/2014,28/10/2014,NA,NA,CR,Krakatoa,NA,NA,NA,NA,04/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, Dead, unclear if body found"
+316,Krakatoa,Krak,NA,F,NA,NA,28/10/2014,NA,NA,CR,NA,NA,NA,SplitCR,12/01/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+317,Lancey,Lanc,NA,F,NA,29/10/2014,29/10/2014,NA,LT,LT,Laurel,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+318,Roxanne,Roxa,NA,F,2,NA,30/10/2014,NA,NA,LT,NA,NA,21/02/2018,LTsplit,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably dominant female in split group
+319,Toulouse,Tou,NA,M,1,30/10/2014,30/10/2014,NA,NA,NH,Troia,Ertjies,14/04/2016,NA,NA,25/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Split group, recorded in logbook month after in NH but likely a mistake"
+320,Ghida,Ghid,NA,F,NA,31/10/2014,31/10/2014,NA,AK,AK,Ghangaan,Elton,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+321,Heilweis,Hei,NA,M,NA,31/10/2014,31/10/2014,NA,NA,BD,Heerlik,NA,08/06/2019,CR,01/04/2021,08/12/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen with CR but date of immigration might not be exact as gp not habituated/not followed when he probably moved there
+322,Nyanga,Nyan,NA,F,NA,31/10/2014,31/10/2014,NA,NA,AK,Nkosikasi,Elton,NA,NA,NA,04/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+323,Gubha,Gubh,NA,F,NA,01/11/2014,01/11/2014,NA,AK,AK,Gugu,Elton,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+324,Ndiza,Ndi,NA,M,20,01/11/2014,01/11/2014,NA,NA,AK,Ndonsa,NA,05/03/2020,NA,NA,05/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+325,Baby Bushy 2014,BBus14,NA,NA,NA,03/11/2014,03/11/2014,NA,NA,LT,Bushy,NA,NA,NA,NA,25/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+326,Baby Jink 2014,BJin14,NA,NA,NA,03/11/2014,03/11/2014,NA,NA,NH,Jinka,NA,NA,NA,NA,03/11/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Baby Found dead
+327,Baby Pannekoekie 2014,BPan14,NA,NA,NA,03/11/2014,03/11/2014,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,11/12/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+328,Ihlane,Ihl,NA,M,NA,03/11/2014,03/11/2014,NA,NA,AK,Isilonda,NA,29/02/2016,IFamily,29/04/2016,07/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Ifamily not followed regurlarly
+329,Safari,Safa,NA,F,NA,03/11/2014,03/11/2014,NA,NA,BD,Snortjie,NA,NA,NA,NA,28/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+330,Lima,Lima,NA,F,NA,04/11/2014,04/11/2014,NA,NA,NH,Lhassa,Auckland,NA,RFamily,NA,23/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"she gave birth to a baby F on the 04/11/2014 who died on 14/03/2019. Disappeared with Rennes, Roslin and Reva."
+331,Riyadh,Riy,NA,M,NA,04/11/2014,04/11/2014,NA,NA,NH,Roma,NA,15/12/2015,NA,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Last seen looking very unwell, crooked swollen neck, presumed dead"
+332,Asseblief,Ass,NA,M,NA,05/11/2014,05/11/2014,NA,NA,BD,Asis,NA,30/05/2019,CR,01/06/2019,18/04/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Date of imigration is unknown since he joined crossing during the time they were not followed
+333,Redelik,Rede,NA,F,1,10/11/2014,10/11/2014,NA,NA,BD,Rissiepit,NA,NA,NA,NA,19/04/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+334,Baby Niese 2014,BNie14,NA,M,NA,11/11/2014,11/11/2014,NA,NA,BD,Niese,NA,26/12/2014,NA,NA,26/12/2014,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+335,Greenland,NA,NA,NA,NA,12/11/2014,12/11/2014,NA,NA,CR,Galapagos,NA,NA,NA,NA,25/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, presumed dead "
+336,Teddibeer,Ted,Christmas;Blinky,M,NA,12/11/2014,12/11/2014,NA,LT,CR,Chiloe,NA,20/07/2018,BD,25/05/2019,19/05/2022,LT,11/06/2022,Still present,NA,NA,NA,NA,NA,NA,Yes,"seen on last day CR followed 2018/07/20. Think Christmas is Teddibeer in BD, tbc with DNA."
+337,Xinyi,Xiny,NA,F,NA,14/11/2014,14/11/2014,NA,NA,NH,XaiXai,NA,NA,NA,NA,28/03/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+338,Obelisk,Obe,NA,M,NA,15/11/2014,15/11/2014,NA,NA,BD,Oulik,Chernobyl,13/06/2019,CR,06/08/2020,22/02/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably immigrated earlier but gp not habituated/not followed so immigration date might not be exact
+339,Propriano,Pro,NA,M,NA,19/11/2014,19/11/2014,NA,CR,NH,Pretoria,Cancun,01/06/2019,BD,13/07/2019,16/04/2022,CR,03/05/2022,Still present,NA,NA,NA,NA,NA,NA,NA,
+340,Thames,Tha,NA,M,NA,NA,19/11/2014,NA,NA,NA,NA,NA,NA,KB,19/11/2014,26/08/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+341,Kyle,Kyl,NA,M,NA,24/11/2014,24/11/2014,NA,NA,LT,Kaya,NA,21/02/2018,NA,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+342,Intaba,Int,NA,M,NA,27/11/2014,27/11/2014,NA,NA,AK,Inhlanhla,NA,29/02/2016,IFamily,NA,09/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Ifamily not followed regurlarly
+343,Nooiens,Nooi,NA,F,NA,28/11/2014,28/11/2014,NA,BD,BD,Numbies,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+344,Bela-Bela,Bela,NA,F,1,29/11/2014,29/11/2014,NA,NH,NH,Bogota,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+345,Granada,Gran,NA,F,NA,08/12/2014,08/12/2014,NA,NH,NH,Geneva,Auckland,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+346,Umtata,Umt,NA,M,NA,08/12/2014,08/12/2014,NA,NA,NH,Uppsala,Govu,04/01/2020,NA,NA,04/01/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+347,Malawi,Mal,NA,M,NA,12.2014,14/12/2014,NA,NA,KB,Mara,Medjerda,17/05/2019,NA,NA,17/05/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born before but 1st time seen in december
+348,Mercury,Mer,NA,M,NA,2012,18/12/2014,NA,NA,LT,NA,NA,NA,FirstLTsplinter,NA,09/07/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Unclear if data in logbook is for Mercury or Merlin…: 2015/07/09 - last date Mercury (lennon moustace?) recorded
+349,Cone,Con,NA,M,NA,2011,30/12/2014,NA,NA,CR,NA,NA,22/07/2015,NA,NA,22/07/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2011, may have migrated"
+350,Curious,NA,NA,M,NA,2011,30/12/2014,NA,NA,CR,NA,NA,06/11/2015,NA,NA,06/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2011, may have migrated"
+351,Ellesmere,Elle,NA,F,12,NA,30/12/2014,NA,NA,CR,NA,NA,NA,NA,NA,19/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+352,Iceland,Icel,NA,F,NA,NA,30/12/2014,NA,NA,CR,NA,NA,NA,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+353,Japan,Jap,NA,M,NA,NA,30/12/2014,NA,NA,NA,NA,NA,NA,CR,20/11/2014,15/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+354,Kergelen,Ker,NA,M,2,NA,30/12/2014,NA,NA,NA,NA,NA,NA,CR,30/12/2014,26/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+355,Pale,Pal,NA,M,1,2012,30/12/2014,NA,NA,CR,NA,NA,01/12/2016,BD,07/12/2016,01/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, seen in CR twice in the 1-2 months after migration"
+356,Pizza,Piz,NA,M,NA,2013,30/12/2014,NA,NA,CR,NA,NA,11/04/2017,NA,NA,11/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2013, Disappeared, probably migrated"
+357,Solomon,Sol,NA,M,NA,NA,30/12/2014,NA,NA,NA,NA,NA,NA,CR,30/12/2014,28/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared, probably migrated"
+358,Antarctica,Anta,NA,F,NA,NA,31/12/2014,NA,NA,CR,NA,NA,NA,SplitCR,12/02/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+359,Mackanzie,Mack,Asiatic,F,NA,2012,31/12/2014,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2012
+360,Bocold,Boc,NA,M,NA,NA,31/12/2014,NA,NA,NA,NA,NA,NA,CR,31/12/2014,21/01/2017,BD,31/01/2017,04/05/2019,AK,15/05/2019,30/10/2019,NA,NA,NA,NA,Migrated or dead. 
+361,Handi,Han,NA,M,NA,2012,31/12/2014,NA,NA,CR,NA,NA,29/04/2017,BD,06/05/2017,04/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2012
+362,Helmet,Hel,NA,M,NA,2012,31/12/2014,NA,NA,CR,NA,NA,03/02/2018,NA,NA,03/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, likely migrated"
+363,Inner,Inn,NA,M,NA,2012,31/12/2014,NA,NA,CR,NA,NA,31/01/2017,NA,NA,31/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, Disappeared, probably migrated"
+364,Lionel,Lion,NA,F,NA,2011,31/12/2014,NA,NA,CR,NA,NA,NA,NA,NA,07/04/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2011
+365,Macedonia,Mac,NA,M,NA,NA,31/12/2014,NA,NA,NA,NA,NA,NA,CR,31/12/2014,20/05/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared
+366,Samoa,Samo,NA,F,NA,NA,31/12/2014,NA,NA,CR,NA,NA,NA,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+367,Seychelles,Sey,NA,M,NA,2014,31/12/2014,NA,BD,CR,Samoa,NA,NA,BD,21/05/2019,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2014
+368,The Mask,NA,NA,F,NA,2012,31/12/2014,NA,NA,CR,NA,NA,NA,SplitCR,12/02/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Name conflicts with Theodore from LT, born 2012"
+369,Chiloe,Chil,NA,F,NA,NA,06/01/2015,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+370,Cuba,Cuba,kinktail,F,NA,2012,06/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably dead, originally called ""kinktail"", born 2012"
+371,Flatty,Fla,NA,M,NA,2011,06/01/2015,NA,NA,CR,NA,NA,24/04/2017,NA,NA,24/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2011, disappeared/ migrated in new group?"
+372,Galapagos,Gala,NA,F,NA,NA,06/01/2015,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+373,Henderson,Hen,NA,M,NA,NA,06/01/2015,NA,NA,NA,NA,NA,NA,CR,06/01/2015,26/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+374,Tonga,Tong,NA,F,NA,NA,06/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,14/02/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Dead
+375,Whiskers,Whis,NA,F,NA,2012,06/01/2015,NA,NA,CR,NA,NA,NA,SplitCR,12/02/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2012
+376,Xiushan,Xiu,Decoloured,M,NA,NA,06/01/2015,NA,BD,NA,NA,NA,NA,CR,13/11/2015,03/04/2023,BD,18/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,"seen on last day CR followed 2018/07/20 but still present in dec21- in logbook first as juvenile  ""decoloured"", then later changed to adult and Xiushan….?"
+377,Symetric,Sym,Simetric,M,NA,2014,09/01/2015,NA,NA,CR,NA,NA,21/03/2018,NA,NA,21/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2014
+378,Lohihi,Lohi,NA,F,NA,NA,10/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+379,Huge,Huge,NA,F,NA,2012,12/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,14/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, fate unknown"
+380,Oahu,Oahu,NA,F,10,NA,12/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+381,Pointy,Poi,NA,M,NA,NA,12/01/2015,NA,NA,CR,NA,NA,26/04/2017,NA,NA,26/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared, probably migrated"
+382,Sumbawa,Sumb,NA,F,NA,2011,19/01/2015,NA,NA,CR,NA,NA,NA,NA,NA,24/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+383,Umnak,Umna,NA,F,NA,NA,11/02/2015,NA,NA,CR,NA,NA,NA,NA,NA,17/02/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Dead
+384,Base,Bas,NA,M,NA,NA,25/02/2015,NA,NA,CR,NA,NA,29/04/2017,BD,05/05/2017,19/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen in BD on 19/02/2021
+385,Olona,Olo,Bumpy head male,M,NA,NA,03/04/2015,NA,NA,NA,NA,NA,NA,KB,03/04/2015,25/05/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Described initially as 'bumpy head male', seen with group across river on 29th June 15"
+386,Atitlan,Ati,Male with bright eyerings,M,NA,NA,28/04/2015,NA,NA,NA,NA,NA,NA,KB,28/04/2015,25/01/2016,AK,03/03/2016,25/02/2020,NA,NA,NA,NA,NA,NA,NA,"Described initially as male with bright eyerings, moved between AK and KB in months before immigration date"
+387,Liffey,Lif,NA,M,NA,NA,28/04/2015,NA,NA,NA,NA,NA,NA,KB,28/04/2015,31/05/2021,NH,01/06/2021,12/09/2022,NA,NA,NA,NA,NA,NA,NA,Described initially as heart shape male. Found dead on KB open hill on 19/08/2022 by Loic. Brain was extracted
+388,Okavango,Oka,NA,M,NA,NA,04/05/2015,NA,NA,NA,NA,NA,NA,KB,04/05/2015,29/10/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Had large wound before last seen
+389,Wesley,Wes,NA,M,NA,20/05/2015,20/05/2015,NA,NA,NA,NA,NA,NA,LT,20/05/2015,20/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Seen once more in LT on 2018/03/03
+390,Colorado,Col,NA,M,NA,NA,25/05/2015,NA,NA,NA,NA,NA,NA,KB,25/05/2015,11/05/2016,IFamily,29/04/2016,14/09/2016,NA,NA,NA,NA,NA,NA,NA,Seen once more in KB in June 16 after departure date and once in Ifamily in April 16
+391,Smashy,Smas,Mous,F,NA,NA,16/06/2015,NA,NA,CR,NA,NA,NA,NA,NA,07/04/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Name Conflict with SMA & Small Eyes, fate unknown"
+392,Tortuga,Tort,broken finger,F,NA,2012,22/07/2015,NA,NA,CR,NA,NA,NA,NA,NA,18/07/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"born 2012, previously called broken finger when juv, collar found on the ground with a lot of fur. Presumed dead."
+393,Daenerys,Daen,NA,F,NA,2014,20/08/2015,NA,LT,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+394,Vancouver,Van,NA,M,20,NA,01/09/2015,NA,NA,NA,NA,NA,NA,CR,01/09/2015,28/05/2018,BD,29/05/2018,29/11/2019,NA,NA,NA,NA,NA,NA,NA,Name conflicts with Vance from LT
+395,Pianosa,Pia,NA,M,NA,NA,26/09/2015,NA,NA,NA,NA,NA,NA,CR,26/09/2015,15/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared
+396,Robben,Robb,NA,F,NA,NA,29/09/2015,NA,NA,CR,NA,NA,NA,NA,NA,22/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+397,Martinique,Mart,NA,F,NA,NA,07/10/2015,NA,NA,CR,NA,NA,NA,NA,NA,07/10/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Only ever recorded once in logbook, presumed dead?"
+398,Barbados,Barb,NA,F,NA,NA,08/10/2015,NA,NA,CR,NA,NA,NA,SplitCR,NA,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+399,Dulcina,Dulc,NA,F,NA,NA,08/10/2015,NA,NA,CR,NA,NA,NA,NA,NA,08/10/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Only recorded on one day, presumed dead"
+400,Baby Zeia 2015,BZei15,NA,NA,NA,15/10/2015,15/10/2015,NA,NA,KB,Zeia,NA,NA,NA,NA,03/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,already dead when last seen (carried >/=1 day)
+401,Lilly,Lill,NA,F,NA,16/10/2015,16/10/2015,NA,LT,LT,Lizz,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+402,Baby Troi 2015,BTro15,NA,M,33,22/10/2015,22/10/2015,NA,NA,NH,Troia,NA,11/12/2015,NA,NA,11/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"seen with head injury 19/11/15, presumed dead"
+403,Galati,Gala,NA,F,NA,23/10/2015,23/10/2015,NA,NA,NH,Gaya,NA,NA,NA,NA,18/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"dead, says seen a month later in logbook but likely mistake"
+404,Baby Amur 2015,BAmu15,NA,NA,NA,10.2015,25/10/2015,NA,NA,KB,Amur,NA,NA,NA,NA,04/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,approx. birthdate; presumed dead no body
+405,Zave,Zav,NA,M,NA,NA,28/10/2015,NA,NA,NA,NA,NA,NA,CR,28/10/2015,17/02/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared, migrated from CR to unk group?"
+406,Johannesburg,Joha,NA,F,NA,30/10/2015,30/10/2015,NA,NA,NH,Jakarta,NA,13/04/2016,Iceland,NA,25/06/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Split group, last seen in Iceland"
+407,Baby Isil 2015,BIsi15,NA,NA,NA,05/11/2015,05/11/2015,NA,NA,AK,Isilonda,NA,NA,NA,NA,04/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,no body found but presumed dead.
+408,Baby Ghan 2015,BGha15,NA,NA,NA,06/11/2015,06/11/2015,NA,NA,AK,Ghangaan,NA,NA,NA,NA,06/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+409,Baby Snortjie 2015,BSno15,NA,NA,NA,06/11/2015,06/11/2015,NA,NA,BD,Snortjie,NA,NA,NA,NA,06/11/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+410,Nirtjies,Nirt,NA,F,NA,06/11/2015,06/11/2015,NA,NA,BD,Numbies,NA,NA,NA,NA,25/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+411,Ireland,Ire,NA,M,NA,2014,08/11/2015,NA,NA,CR,Iceland,NA,12/02/2015,NA,NA,12/02/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, presumed dead"
+412,Baby Ness 2015,BNes15,NA,F,NA,09/11/2015,09/11/2015,NA,NA,KB,Nessie,NA,NA,NA,NA,29/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"not brand new on birthdate, presumed dead, no body"
+413,Jiamusi,Jia,NA,M,NA,09/11/2015,09/11/2015,NA,NA,NH,Jinka,NA,13/04/2016,Iceland,NA,12/07/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Split group, lsat seen in Iceland"
+414,Middag,Midd,NA,F,NA,09/11/2015,09/11/2015,NA,NA,BD,Mielies,NA,NA,NA,NA,20/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found"
+415,Brisbane,Bri,NA,M,NA,10/11/2015,10/11/2015,NA,NA,NH,Brasilia,NA,13/04/2016,Iceland,NA,13/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Prob split group? Not ID'd in Iceland after split
+416,Baby Mamo 2015,BMam15,NA,NA,NA,11/11/2015,11/11/2015,NA,NA,AK,Mamoobi,NA,NA,NA,NA,22/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, approximate date"
+417,Baby Aare 2015,BAar15,NA,M,NA,12/11/2015,12/11/2015,NA,NA,KB,Aare,NA,13/02/2016,NA,NA,13/02/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, no body"
+418,Baby Nkos 2015,BNko15,NA,NA,NA,12/11/2015,12/11/2015,NA,NA,AK,Nkosikasi,NA,NA,NA,NA,07/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, approximate date"
+419,Papsak,Pap,NA,NA,NA,12/11/2015,12/11/2015,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,29/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found"
+420,Richard,Ric,NA,M,NA,12/11/2015,12/11/2015,NA,NA,LT,Roxanne,NA,27/09/2016,NA,NA,27/09/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+421,Raspberry,Rasp,NA,F,NA,2011,13/11/2015,NA,NA,CR,NA,NA,NA,SplitCR,12/01/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2011
+422,Everest,Eve,NA,M,40,NA,14/11/2015,NA,NA,RL,NA,NA,NA,NA,14/11/2015,07/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Released in BD; found dead 7/12/2015 outside farm
+423,Kilimanjaro,Kil,NA,M,6,NA,14/11/2015,NA,NA,RL,NA,NA,NA,NA,14/11/2015,15/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Released in BD with Eve on 14/11/2015
+424,Baby Gugu 2015,BGug15,NA,NA,NA,16/11/2015,16/11/2015,NA,NA,AK,Gugu,NA,NA,NA,NA,02/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,no body- prob dead. Gugu badly injured
+425,Ulaanbaatar,Ula,NA,M,NA,16/11/2015,16/11/2015,NA,NA,NH,Uppsala,NA,30/11/2020,IFamily,09/12/2020,15/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+426,Zhukovsky,Zhu,NA,M,NA,16/11/2015,16/11/2015,NA,NA,NH,Zara,NA,08/03/2016,NA,NA,08/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"dead, unclear if body found"
+427,Baby Diana 2015,BDia15,NA,M,NA,17/11/2015,17/11/2015,NA,NA,LT,Diana,NA,19/01/2016,NA,NA,19/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,last seen w/ wound on back unable to walk properly
+428,Lawrence,Law,NA,M,NA,17/11/2015,17/11/2015,NA,NA,LT,Laurel,NA,12/04/2016,NA,NA,12/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+429,Baby Idwa 2015,BIdw15,NA,NA,NA,18/11/2015,18/11/2015,NA,NA,AK,Idwala,NA,NA,NA,NA,05/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,no body - presumed dead
+430,Bari,Bari,NA,F,NA,18/11/2015,18/11/2015,NA,NA,NH,Bogota,NA,13/04/2016,Iceland,NA,13/04/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Prob Split group? not ID'd in Iceland after split
+431,Hasie,Has,NA,M,NA,19/11/2015,19/11/2015,NA,NA,BD,Heerlik,NA,17/05/2016,NA,NA,17/05/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Don't have the real Last seen Date, approximation, presumed dead"
+432,Oortjies,Oort,NA,F,NA,20/11/2015,20/11/2015,NA,BD,BD,Oulik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+433,Adder,Add,NA,M,NA,23/11/2015,23/11/2015,NA,NA,BD,Asis,NA,04/10/2021,NA,NA,04/10/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+434,Pruszkow,Pru,NA,M,NA,23/11/2015,23/11/2015,NA,KB,NH,Pretoria,NA,30/11/2020,IFamily,09/12/2020,22/12/2020,KB,14/05/2022,Still present,NA,NA,NA,NA,NA,NA,NA,"11.11.2021 seen during BGE with AK (only male seen, not seen anyone else from Ifamily). 22/06/2022 he was captured and sent to the WATCH Santuary, he spent 4 weeks recoverying from the broken leg. 27/07/2022 He was realised back to the field and he rejoined KB."
+435,Reykjavik,Rey,NA,M,1,23/11/2015,23/11/2015,NA,NA,NH,Reva,Govu,30/11/2020,IFamily,09/12/2020,22/05/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Rey pops out in every encounter between AK and Ifamily and Noha and Ifamily. He is with Ifamily. And regularly seen during an encounter.
+436,Roslin,Rosl,NA,F,NA,23/11/2015,23/11/2015,NA,NA,NH,Roma,Babelas,NA,RFamily,NA,23/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"female instead of male 30/10/17 - recorded as Ros until then. Disappeared with Rennes, Reva and Lima"
+437,Baby Gaga 2015,BGag15,NA,NA,NA,26/11/2015,26/11/2015,NA,NA,AK,Gagasa,NA,NA,NA,NA,07/03/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen dead (gele carrying) on 07/03/16
+438,Baby Tonga 2015,BTon15,NA,M,NA,27/11/2015,27/11/2015,NA,NA,CR,Tonga,NA,27/12/2015,NA,NA,27/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2015, presumed dead unclear if body found "
+439,Jalitah,NA,NA,NA,NA,2015,27/11/2015,NA,NA,CR,Brownie,NA,NA,NA,NA,29/09/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2015, presumed dead"
+440,Baby Umnak 2015,BUmn15,NA,M,NA,28/11/2015,28/11/2015,NA,NA,CR,Umnak,NA,13/01/2016,NA,NA,13/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2015, presumed dead unclear if body found "
+441,Kauai,Kau,NA,M,NA,NA,28/11/2015,NA,NA,NA,NA,NA,NA,CR,28/11/2015,04/01/2017,BD,15/05/2017,02/03/2018,NA,NA,NA,NA,NA,NA,NA,Mispelling Kuaui in logbook < 2017
+442,Yell,Yel,NA,M,NA,NA,28/11/2015,NA,NA,NA,NA,NA,NA,CR,28/11/2015,03/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared, migrated from CR to unk group?"
+443,Ratel,Rat,NA,M,NA,30/11/2015,30/11/2015,NA,LT,BD,Rissiepit,NA,29/04/2021,LT,21/05/2021,18/12/2021,LT,17/03/2022,Still present,NA,NA,NA,NA,NA,NA,NA,"Last seen in BD on 29/04/2021,  went issing from the 18/12/2021 and came back on the 17/03/2022 with a short tail and scars"
+444,Baby Pearl 2015,BPear15,NA,NA,NA,03/12/2015,03/12/2015,NA,NA,KB,Pearl,NA,NA,KBSplit,NA,10/12/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Mother left group with KB split, After the split the is no records of the baby"
+445,Kate,Kate,NA,F,NA,09/12/2015,09/12/2015,NA,NA,LT,Kaya,NA,21/02/2018,NA,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+446,Dion,Dio,NA,M,NA,12/12/2015,12/12/2015,NA,NA,LT,Digby,NA,23/03/2021,NA,NA,23/03/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+447,Baby Oahu 2015,BOah15,NA,NA,NA,2015,17/12/2015,NA,NA,CR,Oahu,NA,NA,NA,NA,14/01/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2015, presumed dead unclear if body found "
+448,Puolka,Puol,NA,F,NA,28/12/2015,28/12/2015,NA,BD,BD,Prinses,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Change of name from Polka to Puolka March 2018
+449,Alcatraz,Alc,NA,M,NA,2014,14/01/2016,NA,NA,CR,Antarctica,NA,20/07/2018,NA,Jacaranda,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, seen on last day CR followed 2018/07/20. Mistakenly identified in BD from immigration date in 2019 until Nov 2020 - it was actually Umbrella - changed in database on 10/11/2020"
+450,Jane,Jane,NA,F,NA,15/01/2016,15/01/2016,NA,NA,LT,Jenny,NA,21/02/2018,LTsplit,21/02/2018,21/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,LTSplit not followed
+451,Ndawonya,Ndaw,NA,F,NA,08/02/2016,08/02/2016,NA,AK,AK,Ndonsa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+452,Manhattan,Manh,NA,F,NA,2014,11/02/2016,NA,NA,CR,Martinique,NA,NA,NA,NA,21/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, Dead"
+453,Schnauzli,Schn,NA,F,NA,NA,11/02/2016,NA,NA,CR,NA,NA,NA,NA,NA,07/04/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unknown
+454,Bermuda,Ber,NA,M,NA,2014,29/02/2016,NA,NA,CR,Barbados,NA,12/02/2017,SplitCR,12/02/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2014
+455,Java,Java,NA,F,NA,2012,28/03/2016,NA,NA,CR,Jamaica,NA,NA,NA,NA,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, had first baby 27/11/2015, seen on last day CR followed 2018/07/20"
+456,Umbrella,Umb,NA,M,NA,2014,19/10/2016,NA,BD,CR,Umnak,NA,NA,BD,27/05/2019,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, seen on last day CR followed 2018/07/20. Was mistakenly called Alc when seen in BD but mistake realised in Nov 2020 - changed in database 10/11/2020."
+457,Robin,Rob,NA,M,NA,20/10/2016,20/10/2016,NA,NA,LT,Rose-Mary,NA,17/04/2021,NA,NA,17/04/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+458,Reindeer,Rein,NA,F,NA,2014,01/11/2016,NA,NA,CR,Raspberry,NA,12/02/2017,SplitCR,12/02/2017,10/04/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2014
+459,Renee,Rene,NA,F,NA,01/11/2016,01/11/2016,NA,NA,LT,Roxanne,NA,14/08/2018,LTsplit,NA,21/08/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Did she join LT split? 
+460,Baby Amur 2016,BAmu16,NA,NA,NA,03/11/2016,03/11/2016,NA,NA,KB,Amur,NA,NA,NA,NA,15/12/2016,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"deceased, body not found"
+461,Louise,Loui,NA,F,NA,09/11/2016,09/11/2016,NA,LT,LT,Lizz,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+462,Yukon,Yuko,NA,F,NA,09/11/2016,09/11/2016,NA,KB,KB,Yenissei,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+463,Gabillou,Gabi,NA,F,NA,14/11/2016,14/11/2016,NA,NA,NH,Gaya,NA,NA,NA,NA,08/06/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+464,Nahoon,Nah,NA,M,NA,14/11/2016,14/11/2016,NA,NA,KB,Nessie,NA,30/05/2019,NA,NA,30/05/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably dead
+465,Xiashan,Xia,NA,M,NA,14/11/2016,14/11/2016,NA,BD,NH,Xian,NA,27/11/2021,BD,14/02/2022,14/06/2022,BD,09/08/2022,Still present,NA,NA,NA,NA,NA,NA,NA,He was last seen in BD on the 13/06/2022.on the 30/06/2022 he was darted and collared when they were baiting Crossing. He was also seen with an unhabituated troop after.
+466,Aaragon,Aara,NA,F,NA,16/11/2016,16/11/2016,NA,KB,KB,Aare,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+467,Gunya,Guny,NA,F,2,16/11/2016,16/11/2016,NA,NA,AK,Gugu,NA,NA,NA,NA,31/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+468,Mhaori,Mhao,NA,F,NA,17/11/2016,17/11/2016,NA,NA,KB,Mara,NA,NA,NA,NA,30/12/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+469,Ngenakubo,Nge,NA,M,NA,18/11/2016,18/11/2016,NA,NA,AK,Nkosikasi,NA,12/11/2021,BD,07/02/2022,01/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+470,Guatemala,Guat,NA,F,NA,22/11/2016,22/11/2016,NA,NH,NH,Geneva,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+471,Rabat,Raba,NA,F,NA,23/11/2016,23/11/2016,NA,NH,NH,Roma,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+472,Yamuna,Yamu,NA,F,NA,23/11/2016,23/11/2016,NA,KB,KB,Yalu,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+473,Hondjie,Hond,NA,F,NA,11.2016,29/11/2016,NA,BD,BD,Heerlik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DOB approx, born before 01/12/2016"
+474,Baby Siele 2016,BSie16,NA,NA,NA,30/11/2016,30/11/2016,NA,NA,BD,Siele,NA,NA,NA,NA,1.2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Died start 2017, body not found"
+475,Hibiscus,Hibi,NA,F,NA,11.2016,30/11/2016,NA,NA,BD,Hippie,NA,NA,NA,NA,28/02/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"DOB approx, born before 30/11/2016"
+476,Dillon,Dil,NA,M,NA,05/12/2016,05/12/2016,NA,NA,LT,Digby,NA,11/12/2021,NA,NA,11/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+477,Luan,Lua,NA,M,NA,19/12/2016,19/12/2016,NA,NA,LT,India,NA,16/01/2017,NA,NA,16/01/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Mother (India) died, left behind by group, taken to the sanctuary (16/01/17) and named Luan."
+478,Whidbey,Whid,NA,F,NA,NA,2016,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,No data found but described in description file 2016
+479,Dewey,Dewe,NA,F,NA,04/01/2017,04/01/2017,NA,LT,LT,Delilah,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+480,Tyler,Tyl,Garry,M,NA,NA,22/05/2017,NA,NA,NA,NA,NA,NA,LT,22/05/2017,07/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,first named garry then changed for tyler 12/08/17 - was the data changed or still as Gar in some forms?
+481,New male (look like Rio),NA,NA,M,NA,NA,22/06/2017,NA,NA,NA,NA,NA,NA,LT,22/06/2017,07/07/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"first apparition 22/06/2017, sure since 7/07/2017 - dif male to that recorded 24th May onwards?"
+482,Dokos,Dok,Denmark,M,NA,2014,22/08/2017,NA,NA,CR,Duclina,NA,20/07/2018,BD,30/05/2019,21/07/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2014, seen on last day CR followed 2018/07/20. In BD for three years but found dead in the purgatory on 15/08/2022 by Loic."
+483,Feniks,Fen,NA,M,NA,NA,01/09/2017,NA,NA,NA,NA,NA,NA,BD,01/09/2017,10/01/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+484,Kommunis,Kom,NA,M,NA,NA,04/09/2017,NA,BD,NA,NA,NA,NA,AK,09/10/2019,09/10/2019,BD,12/11/2019,14/12/2022,BD,20/01/2022,NA,NA,NA,NA,NA,"Named Bingo until 2018, but isnt the original Bing - NEED MORE DETAIL. Dissapeared fro Baie dankie fro the 14/12/2021 and appeared agin on the 01/18/2022"
+485,Baby Numbies 2017,BNum17,NA,NA,NA,25/09/2017,25/09/2017,NA,NA,BD,Numbies,NA,NA,NA,NA,09/10/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"presumed dead, no body found"
+486,Sari,Sari,NA,F,NA,30/09/2017,30/09/2017,NA,BD,BD,Snortjie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+487,Baby Little Blind 2017,BLBl17,NA,NA,NA,03/10/2017,03/10/2017,NA,NA,BD,Little Blind,NA,NA,NA,NA,06/10/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared on the 06/10/2017
+488,Baby Digby 2017,BDig17,NA,NA,NA,NA,05/10/2017,NA,NA,LT,Digby,NA,NA,NA,NA,09/10/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Probably dead, noted missing on 2017/10/09"
+489,Cameron,Cam,NA,M,NA,2016,05/10/2017,NA,NA,CR,Chiloe,NA,NA,NA,NA,26/01/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born 2016
+490,Aarhus,Aar,NA,M,NA,09/10/2017,09/10/2017,NA,IF,KB,Aare,NA,30/01/2023,IFamily,30/01/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+491,Amgoun,Amg,NA,M,NA,09/10/2017,09/10/2017,NA,NA,KB,Amur,NA,27/02/2019,NA,NA,27/02/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,found his body the 27th of February
+492,Baby Gese 2017,BGes17,NA,NA,NA,09/10/2017,09/10/2017,NA,NA,BD,Gesels,NA,NA,NA,NA,12/10/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, no body found"
+493,Goduka,Godu,NA,F,NA,09/10/2017,09/10/2017,NA,AK,AK,Geleza,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+494,Rocky,Rocky,NA,M,NA,NA,09/10/2017,NA,NA,LT,Rose-Mary,NA,21/02/2018,LTsplit,21/02/2018,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+495,Uranium City,Ura,NA,M,NA,NA,09/10/2017,NA,NA,NH,Uppsala,NA,12/02/2019,NA,NA,12/02/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"dead, we did not seen him since the 12/02/2019"
+496,Baby Oahu 2017,BOah17,NA,NA,NA,10/10/2017,10/10/2017,NA,NA,CR,Oahu,NA,NA,NA,NA,10/10/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Was born dead and the mother was carring the body
+497,Goose,Goos,NA,F,NA,NA,10/10/2017,NA,NA,CR,Galapagos,NA,NA,NA,NA,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+498,Lavander,Lava,NA,F,NA,11/10/2017,11/10/2017,NA,NA,LT,Laurel,NA,NA,NA,NA,27/09/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+499,Baby Pann 2017,BPan17,NA,M,NA,12/10/2017,12/10/2017,NA,NA,BD,Pannekoekie,NA,21/12/2017,NA,NA,21/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Died on 21/12/2017, seen with injuries on leg and died shortly afterwards"
+500,Baby Lionel 2017,BLio17,NA,NA,NA,NA,13/10/2017,NA,NA,CR,Lionel,NA,NA,NA,NA,17/11/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+501,Mokcha,Mokc,NA,F,NA,13/10/2017,13/10/2017,NA,NA,KB,Mara,NA,NA,NA,NA,04/09/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+502,Baby Roxanne 2017,BRox17,NA,M,NA,16/10/2017,16/10/2017,NA,NA,LT,Roxanne,NA,19/02/2018,NA,NA,19/02/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Not clear if baby joined split with mother or disappeared few days before
+503,Ischia,Isc,NA,M,NA,NA,16/10/2017,NA,NA,CR,Iceland,NA,18/07/2018,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+504,Ndiki,Ndik,NA,F,NA,16/10/2017,16/10/2017,NA,NA,AK,Ndonsa,NA,NA,NA,NA,20/04/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+505,Nuuskierig,Nuu,NA,M,NA,16/10/2017,16/10/2017,NA,NA,BD,Nurks,NA,06/03/2023,NA,NA,06/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+506,Timber,Timb,NA,F,NA,16/10/2017,16/10/2017,NA,CR,CR,Tortuga,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+507,Aantreklik,Aan,NA,M,NA,17/10/2017,17/10/2017,NA,BD,BD,Aapie,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,may be mistaken about the fact that his mom is Aapi. Due to observation he maybe Asis son - to check with genetics!
+508,Jelly,Jell,NA,F,NA,19/10/2017,19/10/2017,NA,NA,LT,Jenny,NA,21/02/2018,LTsplit,NA,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+509,Pomelo,Pom,NA,M,NA,19/10/2017,19/10/2017,NA,NH,BD,Potjie,NA,16/12/2022,NH,20/02/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,He left BD but Jonas could still download data from him when he is behind Mpakana
+510,Xinji,Xin,NA,M,NA,2017,20/10/2017,NA,BD,NH,Xian,NA,15/07/2022,BD,16/07/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+511,Rustig,Rust,NA,F,NA,21/10/2017,21/10/2017,NA,NA,BD,Rissiepit,NA,NA,NA,NA,28/05/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Noted several months after in logbook, likely an error"
+512,Sirkus,Sirk,NA,F,NA,21/10/2017,21/10/2017,NA,BD,BD,Siele,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+513,Pyeongchang,Pye,NA,M,NA,23/10/2017,23/10/2017,NA,NA,NH,Pretoria,NA,24/02/2020,NA,NA,24/02/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Most likely killed by dogs
+514,Obsessie,Obse,NA,F,NA,24/10/2017,24/10/2017,NA,BD,BD,Oulik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+515,Margarita,Mar,NA,M,NA,NA,25/10/2017,NA,NA,CR,Mackenzie,NA,17/11/2017,NA,NA,17/11/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+516,Jersey,Jers,NA,F,NA,NA,26/10/2017,NA,NA,CR,Java,NA,NA,NA,NA,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+517,Moya,Moya,NA,F,NA,26/10/2017,26/10/2017,NA,NA,AK,Mamoobi,NA,NA,NA,NA,16/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead. Body not found
+518,Heelal,Hee,NA,M,NA,30/10/2017,30/10/2017,NA,NA,BD,Heerlik,NA,20/01/2023,NA,NA,20/01/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+519,Baby Gugu 2017,BGug17,NA,M,NA,31/10/2017,31/10/2017,NA,NA,AK,Gugu,NA,11/01/2018,NA,NA,11/01/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead but no body
+520,Nakhu,Nak,NA,M,NA,31/10/2017,31/10/2017,NA,BD,AK,Nkosikasi,NA,05/05/2022,BD,06/05/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+521,Daartagnan,Daa,NA,M,NA,02/11/2017,02/11/2017,NA,NA,LT,Daisy,NA,NA,NA,NA,06/06/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+522,Nantucket,Nan,NA,M,NA,NA,02/11/2017,NA,NA,CR,Nihau,NA,18/07/2018,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+523,Baby Ruby 2017,BRub17,NA,NA,NA,03/11/2017,03/11/2017,NA,NA,LT,Ruby,NA,NA,NA,NA,17/12/2017,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, unclear if body found"
+524,Rioja,Rioj,NA,F,NA,03/11/2017,03/11/2017,NA,NH,NH,Roma,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+525,Baby Kaya 2017,BKay17,NA,M,NA,04/11/2017,04/11/2017,NA,NA,LT,Kaya,NA,21/02/2018,LTsplit,21/02/2018,03/03/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,LTSplit not followed
+526,Nihau,Niha,NA,F,NA,2012,06/11/2017,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born 2012, first recorded seems late - was she called something else first? Last seen few days before CR last followed"
+527,Yara,Yara,NA,F,NA,NA,11/11/2017,NA,KB,KB,Yalu,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+528,Gangtok,Gan,NA,M,NA,13/11/2017,13/11/2017,NA,NA,NH,Gaya,NA,24/12/2021,Na,NA,24/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+529,Revdanda,Rev,NA,M,NA,16/11/2017,16/11/2017,NA,NA,NH,Rennes,NA,28/01/2019,NA,NA,28/01/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Body found eaten by poachers' dogs
+530,Xaltepec,Xal,NA,M,NA,18/11/2017,18/11/2017,NA,NA,NH,Xalapa,NA,12/03/2020,NA,NA,12/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Never identified again after Rebekka snd Varun left
+531,Yzeron,Yze,NA,M,NA,NA,20/11/2017,NA,NA,KB,Yenissei,NA,18/09/2018,NA,NA,18/09/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably dead
+532,Dexter,Dext,NA,F,NA,30/11/2017,30/11/2017,NA,NA,LT,Delilah,NA,NA,NA,NA,04/06/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+533,Corfu,NA,NA,NA,NA,NA,23/12/2017,NA,NA,CR,Chiloe,NA,NA,NA,NA,02/06/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Confusion between observers as to whether Corfu exists or not, never reconciled"
+534,Baby Mielies 2017,BMie17,NA,NA,NA,27/12/2017,27/12/2017,NA,NA,BD,Mielies,NA,NA,NA,NA,15/01/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+535,Doreen,Dore,NA,F,NA,29/12/2017,29/12/2017,NA,LT,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+536,Baby Mackenzie 2017,BMac17,Baby Schnauzli 2017,NA,NA,2017,14/02/2018,NA,NA,CR,Mackenzie,NA,NA,NA,NA,07/04/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Fate unclear
+537,Puntag,Pun,NA,M,NA,02/03/2018,02/03/2018,NA,NA,NA,NA,NA,NA,BD,02/03/2018,24/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Recorded one time months after departure in BD, may be a mistake"
+538,Bali,Bali,NA,F,NA,NA,09/04/2018,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+539,Easter,East,Smashy;Mous,F,NA,NA,09/04/2018,NA,NA,CR,NA,NA,NA,NA,NA,12/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+540,Fiji,Fiji,NA,F,NA,NA,12/04/2018,NA,NA,CR,NA,NA,NA,NA,NA,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+541,Kodiak,Kodi,Schnauzli,F,NA,NA,12/04/2018,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed 2018/07/20
+542,Kookoolegit,Koo,NA,M,NA,NA,12/04/2018,NA,NA,CR,Kodiak,NA,18/07/2018,NA,NA,18/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen few days before CR last followed
+543,Blup blup,Blu,NA,M,NA,NA,18/04/2018,NA,NA,CR,Bali,NA,NA,NA,NA,20/07/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen on last day CR followed 2018/07/20
+544,Cusco,Cus,NA,M,NA,NA,21/05/2018,NA,NA,NA,NA,NA,NA,NH,21/05/2018,17/12/2018,NH,21/05/2019,30/11/2020,NA,NA,NA,NA,NA,NA,NA,"Could be Ijinja from Ifamily, but unsure without genetics"
+545,Oscar,Osc,Dumbledore,M,NA,NA,07/06/2018,NA,NA,NA,NA,NA,NA,LT,07/06/2018,06/02/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Previously named Dumbledore
+546,Benedict,Ben,NA,M,NA,NA,08/06/2018,NA,NA,NA,NA,NA,NA,LT,08/06/2018,18/07/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Migrated in the group that owns the owners dam 
+547,Laila,Lail,NA,F,NA,11/06/2018,11/06/2018,26/10/2022,LT,LT,Laurel,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+548,Aathabasca,Aat,NA,M,NA,2018,26/10/2018,NA,KB,KB,Aare,NA,28/03/2023,NA,NA,28/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born earlier than first seen date
+549,Goed,Goe,NA,M,NA,26/10/2018,26/10/2018,NA,BD,BD,Gesels,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+550,Hiasint,Hia,NA,M,NA,26/10/2018,26/10/2018,NA,NA,BD,Hippie,NA,08/04/2021,NA,NA,08/04/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen in BD is 08/04/2021 according to logbook but more likely 03/04/2021. 
+551,Lewe,Lewe,NA,F,NA,26/10/2018,26/10/2018,26/10/2022,BD,BD,Little Blind,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA
+552,Mimiek,Mimi,NA,F,NA,26/10/2018,26/10/2018,NA,NA,BD,Mielies,NA,NA,NA,NA,19/08/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Disappeared and no body but assumed to have died. Lots of predator response and hypervigilance in recent days. And group split a few days around disappearance.
+553,Naaldekoker,Naal,NA,F,NA,26/10/2018,26/10/2018,NA,BD,BD,Numbies,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+554,Xinpu,Xinp,NA,F,NA,28/10/2018,28/10/2018,26/10/2022,NH,NH,Xian,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+555,Guzunga,Guz,NA,M,NA,10.2018,01/11/2018,NA,IF,AK,Gugu,NA,13/05/2023,IFamily,22/05/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born few days earlier
+556,Rochdale,Roc,NA,M,NA,10.2018,01/11/2018,NA,NH,NH,Reva,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born earlier than first seen date
+557,Skemer,Skem,NA,F,NA,01/11/2018,01/11/2018,26/10/2022,BD,BD,Snortjie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+558,Spampounkoeki,Spam,NA,F,NA,01/11/2018,01/11/2018,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,03/12/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Disappeared, probaby dead"
+559,Ulsan,Uls,NA,M,NA,10.2018,01/11/2018,NA,NH,NH,Uppsala,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born earlier than first seen date
+560,Ncoko,Ncok,NA,F,NA,02/11/2018,02/11/2018,26/10/2022,AK,AK,Nkosikasi,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+561,Ndanda,Nda,NA,M,NA,03/11/2018,03/11/2018,NA,AK,AK,Ndonsa,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,probably born the day before
+562,Baby Geneva 2018,BGen18,NA,NA,NA,05/11/2018,05/11/2018,NA,NA,NH,Geneva,NA,NA,NA,NA,05/11/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born dead
+563,Mbila,Mbil,NA,F,NA,05/11/2018,05/11/2018,NA,NA,AK,Mamoobi,NA,NA,NA,NA,16/12/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Presumed dead, body not found"
+564,Puy-merl,Puym,NA,F,NA,07/11/2018,07/11/2018,NA,NA,NH,Pretoria,NA,NA,NA,NA,29/07/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born on the first seen date
+565,Oerwoud,Oerw,NA,F,NA,09/11/2018,09/11/2018,NA,BD,BD,Oulik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+566,Rambouillet,Ram,NA,M,NA,09/11/2018,09/11/2018,NA,NH,NH,Roma,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born in between 08/11/18 and 09/11/18
+567,Sigaret,Sig,NA,M,NA,09/11/2018,09/11/2018,NA,BD,BD,Siele,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+568,Dixon,Dix,NA,M,NA,11/11/2018,11/11/2018,NA,BD,LT,Digby,NA,23/04/2023,BD,25/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+569,Ghidigidi,Ghi,NA,M,20,12/11/2018,12/11/2018,NA,NA,AK,Ghida,NA,21/01/2021,NA,NA,21/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,probably born the day before (Sunday)
+570,Mass,Mas,NA,M,NA,11.2018,12/11/2018,NA,NA,KB,Mara,NA,06/02/2023,NA,NA,06/02/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born before first seen date
+571,Baby Eina 2018,BEin18,NA,M,NA,13/11/2018,13/11/2018,NA,NA,BD,Eina,NA,26/11/2018,NA,NA,26/11/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead
+572,Baby Nurks 2018,BNur18,NA,F,NA,14/11/2018,14/11/2018,NA,NA,BD,Nurks,NA,NA,NA,NA,04/02/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Dead on the 4th of February. Nurks was still carrying it in the morning. There has been a big storm the previous night
+573,Ridder,Rid,NA,M,NA,14/11/2018,14/11/2018,NA,BD,BD,Rissiepit,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+574,Yazoo,Yaz,NA,M,NA,14/11/2018,14/11/2018,NA,KB,KB,Yalu,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+575,Ardig,Ard,NA,M,NA,15/11/2018,15/11/2018,NA,NA,BD,Asis,NA,01/10/2020,NA,NA,01/10/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+576,Regina,Regi,NA,F,NA,15/11/2018,15/11/2018,26/10/2022,NH,NH,Rennes,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+577,Pratella,Prat,NA,F,NA,17/11/2018,17/11/2018,26/10/2022,NH,NH,Praia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+578,Gilane,Gil,NA,M,NA,20/11/2018,20/11/2018,NA,IF,AK,Ginqika,NA,13/05/2023,IFamily,22/05/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+579,Nonnitgie,Non,NA,M,NA,22/11/2018,22/11/2018,NA,BD,BD,Nooiens ,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+580,Dunston,NA,NA,NA,NA,24/11/2018,24/11/2018,NA,NA,LT,Diana,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Died of head injury sustained days earlier
+581,Gubane,Guba,NA,F,NA,25/11/2018,25/11/2018,26/10/2022,NA,AK,Gubha,NA,NA,NA,NA,07/02/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"1/12/2020 she dissapeared and after few days of not being seen she was taken out from the files and forms`, after 6 six weeks she appeared again in the group and had a very large wound on the chick."
+582,Aalwyn,Aal,NA,M,NA,27/11/2018,27/11/2018,NA,BD,BD,Aapie,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+583,Dalton,Dal,NA,M,NA,28/11/2018,28/11/2018,26/10/2022,BD,LT,Daenerys,NA,14/04/2023,BD,25/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+584,Baby Lima 2018,BLim18,NA,F,NA,29/11/2018,29/11/2018,NA,NA,NH,Lima,NA,NA,NA,NA,18/03/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,seen dead on the 18/03/19
+585,Beirut,Beir,NA,F,NA,03/12/2018,03/12/2018,26/10/2022,NH,NH,Bela-Bela,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+586,Yelowstone,Yelo,NA,F,NA,04/12/2018,04/12/2018,26/10/2022,KB,KB,Yenissei,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+587,Reenboog,Reen,NA,F,NA,12/12/2018,12/12/2018,26/10/2022,BD,BD,Redelik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+588,Griselles,Gris,NA,F,NA,13/12/2018,13/12/2018,26/10/2022,NH,NH,Granada,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+589,Larry,Lar,NA,M,NA,15/12/2018,15/12/2018,NA,NA,LT,Lancey,NA,18/07/2020,NA,NA,18/07/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Presumed dead.
+590,Pixsel,Pix,NA,M,NA,20/12/2018,20/12/2018,NA,BD,BD,Pieperig,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+591,Baby Gaya 2018,BGay18,NA,M,NA,24/12/2018,24/12/2018,NA,NA,NH,Gaya,NA,21/01/2019,NA,NA,21/01/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Died and being carried by the mom the all day, no sign of the mom the day after nore of him when she came back"
+592,Baby Nyanga 2018,BNya18,NA,NA,NA,24/12/2018,24/12/2018,NA,NA,AK,Nyanga,NA,NA,NA,NA,24/12/2018,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,probably born the day before. Was dead when seen. Nyanga carried the dead baby around the whole day. Was not seen anymore on the 27th
+593,Baby Xalapa 2018,BXal18,NA,NA,NA,21/01/2019,21/01/2019,NA,NA,NH,Xalapa,NA,NA,NA,NA,21/01/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born dead and carried by the mom during 2 days
+594,George,Geo,NA,M,NA,NA,18/03/2019,NA,NA,NA,NA,NA,NA,LT,18/03/2019,18/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+595,Washington Babylon,Was,NA,M,NA,NA,18/03/2019,NA,NA,NA,NA,NA,NA,NH,18/03/2019,26/02/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen by Rebekka in NH on 26/02/2020
+596,Fluister,Flu,Jack,M,NA,NA,30/04/2019,NA,NA,NA,NA,NA,NA,BD,30/04/2019,13/01/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"previously known as Jack, until sept 2019"
+597,Kekeke,Kek,NA,M,NA,NA,31/05/2019,NA,NA,NA,NA,NA,NA,AK,31/05/2019,18/04/2020,NH,09/05/2020,12/11/2020,NA,NA,NA,NA,NA,NA,NA,
+598,Lipsy,Lip,NA,M,NA,NA,01/06/2019,NA,NA,NA,NA,NA,NA,NH,01/06/2019,17/08/2020,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Some suspect he is Dwergie from BD, unconfirmed until genetics. He left NH in August 2020 and is assumed to be in Crossing now."
+599,Ouagadougou,Oua,Shakespeare,M,NA,NA,03/06/2019,NA,NA,NA,NA,NA,NA,NH,03/06/2019,30/11/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Was originally called Shakespeare in tablet - an ID error - he is not Shakespeare from LT
+600,Baby Numbies 2019 ,BNum19,NA,NA,NA,03/10/2019,03/10/2019,NA,NA,BD,Numbies,NA,NA,NA,NA,03/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born dead and carried by the mother for 1 h
+601,Baby Bela-Bela 2019,BBel19,NA,NA,NA,14/10/2019,14/10/2019,NA,NA,NH,Bela-Bela,NA,NA,NA,NA,14/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born dead, very immature.Not carried by the mother"
+602,Baby Gaya 2019,BGay19,NA,M,NA,14/10/2019,14/10/2019,NA,NA,NH,Gaya,NA,26/10/2019,NA,NA,26/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,died on the weekend of November 3rd. Sexed by only one observer
+603,Baby Redelik 2019,BRed19,NA,M,NA,19/10/2019,19/10/2019,NA,NA,BD,Redelik,NA,19/10/2019,NA,NA,19/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born dead, very immature.Not carried by the mother"
+604,Baby Mara 2019,BMar19,NA,M,NA,21/10/2019,21/10/2019,NA,NA,KB,Mara,NA,24/10/2019,NA,NA,24/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead between the 22th of October and the 24th of october, 2 observers sexed him"
+605,Baby Digby 2019,BDig19,NA,NA,NA,22/10/2019,22/10/2019,NA,NA,LT,Digby,NA,NA,NA,NA,24/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, no body found"
+606,Baby Lima 2019,BLim19,NA,F,NA,22/10/2019,22/10/2019,NA,NA,NH,Lima,NA,NA,NA,NA,26/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,died on the weekend of November 3rd
+607,Baby Puolka 2019,BPuo19,NA,NA,NA,22/10/2019,22/10/2019,NA,NA,BD,Puolka,NA,NA,NA,NA,23/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born small and weak. It died the day after. Mother carried it for less than a day.
+608,Baby Reva 2019,BRev19,NA,M,NA,23/10/2019,23/10/2019,NA,NA,NH,Reva,NA,26/10/2019,NA,NA,26/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+609,Baby Nessie 2019,BNes19,NA,M,NA,24/10/2019,24/10/2019,NA,NA,KB,Nessie,NA,24/10/2019,NA,NA,24/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born dead. One observer said it's a male
+610,Baby Xian 2019,BXia19,NA,NA,NA,24/10/2019,24/10/2019,NA,NA,NH,Xian,NA,NA,NA,NA,26/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,died on the weekend of November 3rd
+611,Baby Potjie 2019 ,BPot19,NA,F,NA,25/10/2019,25/10/2019,NA,NA,BD,Potjie,NA,NA,NA,NA,29/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,found hanging on the tree
+612,Baby Heer 2019,BHee19,NA,M,NA,28/10/2019,28/10/2019,NA,NA,BD,Heerlik,NA,28/01/2020,NA,NA,28/01/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, carried by mother. Body recovered for brain extraction."
+613,Baby Diana 2019,BDia19,NA,NA,NA,10.2019,29/10/2019,NA,NA,LT,Diana,NA,NA,NA,NA,29/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, no body found"
+614,Baby Xalapa 2019,BXal19,NA,NA,NA,30/10/2019,30/10/2019,NA,NA,NH,Xalapa,NA,NA,NA,NA,30/10/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born dead, immature. Not carried by the mother"
+615,Baby Mielies 2019,BMie19,NA,NA,NA,31/10/2019,31/10/2019,NA,NA,BD,Mielies,NA,NA,NA,NA,03/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"died a few days after been born, from beginning looking rather weak and not suckling enough"
+616,Dastard,Das,NA,M,NA,NA,01/11/2019,NA,LT,LT,Daenerys,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+617,Baby Delilah 2019,BDel19,NA,NA,NA,11.2019,04/11/2019,NA,NA,LT,Delilah,NA,NA,NA,NA,07/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, no body found"
+618,Baby Pannekoekie 2019,BPan19,NA,NA,NA,NA,04/11/2019,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,05/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+619,Nuclides,Nucl,NA,F,NA,04/11/2019,04/11/2019,NA,NA,BD,Nurks,NA,NA,NA,NA,30/06/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,She was last seen on the 30/06/2021. Nucl was the only surviving baby from BD for the 2019/20 season.
+620,Baby Pretoria 2019,BPre19,NA,F,NA,06/11/2019,06/11/2019,NA,NA,NH,Pretoria,NA,NA,NA,NA,06/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,not seen after
+621,Greenbay,Gree,NA,F,NA,06/11/2019,06/11/2019,NA,NH,NH,Granada,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+622,Lampshade,Lamp,NA,F,NA,NA,07/11/2019,NA,NA,LT,Laurel,NA,NA,NA,NA,10/04/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Dead, no body found"
+623,Baby Gugu 2019,BGug19,NA,M,NA,09/11/2019,09/11/2019,NA,NA,AK,Gugu,NA,04/03/2020,NA,NA,04/03/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Sexed by only 2 observers
+624,Reno,Ren,NA,M,NA,12/11/2019,12/11/2019,NA,NH,NH,Rennes,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+625,Tasty flavours,Tas,NA,M,1;10,NA,04/12/2019,NA,NA,NA,NA,NA,NA,LT,04/12/2019,23/11/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+626,Tambacounda,Tam,NA,M,NA,NA,15/05/2020,NA,NA,NA,NA,NA,NA,NH,15/05/2020,03/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Nickname was EarNotchGuy before he was named but the data should not be used because he was confused with Utrecht for some time. Like Utrecht he was only seen very rarely before August 2020 and was not very consistent after that until January 2021.
+627,Utrecht,Utr,NA,M,NA,NA,15/05/2020,NA,NH,NA,NA,NA,NA,NH,02/06/2020,15/10/2020,NH,26/11/2020,Still present,NA,NA,NA,NA,NA,NA,Yes,Nickname was EarNotchGuy before he was named but the data should not be used because he might have been confused with Tambacounda for some time. He was only occasionally seen (less than once per week) from May 2020 until August 2020. He then completely disappeared in october 2020. We thought he was only around for mating season of that year. Very unhabituated and almost never seen. He then came back after one month and he has been seen again on the 26.11.2020 by Lukas (only observer who could recognise him at this point since jose had left). After that he has been consistantly around since December 2020 (Lukas had 2 weeks vacation between end of November-middle december) and became habituated since. It is unlcear whether he was consistenlty around before his return in November 2020.
+628,Vladivostok,Vla,NA,M,NA,NA,28/05/2020,NA,NA,NA,NA,NA,NA,NH,28/05/2020,11/06/2021,AK,11/06/2021,07/02/2023,NA,NA,NA,NA,NA,NA,NA,Nickname was PointyEarsGuy before he was named
+629,Flensburg,Fle,NA,M,NA,NA,16/06/2020,NA,NA,NA,NA,NA,NA,NH,31/07/2020,04/11/2021,NH,18/01/2022,06/05/2023,NA,NA,NA,NA,NA,NA,NA,Nickname was RedCoatGuy before he was named
+630,Warnemünde,War,NA,M,NA,NA,24/08/2020,NA,CR,NA,NA,NA,NA,NH,23/09/2020,20/12/2021,BD,06/06/2022,06/05/2023,CR,23/05/2023,Still present,NA,NA,NA,NA,"Nickname was Greyface, Grey Face and Grey muzzle before he was named. May be written warnemuende in some data."
+631,Aaalva,Aaa,Aalva,M,NA,2019,08/10/2020,NA,KB,KB,Aare,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born into KB late 2019.Not recorded. Name changed from Aalva to Aaalva.
+632,Shongololo,Sho,NA,M,NA,NA,13/10/2020,NA,AK,NA,NA,NA,NA,AK,13/10/2020,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+633,Diamond,Dia,NA,M,NA,10.202,29/10/2020,NA,LT,LT,Diana,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born between the 22nd and the 29th of October 2020 according to logbook entries.
+634,Light,Lig,NA,M,NA,10.202,29/10/2020,NA,LT,LT,Lilly,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born between the 22nd and the 29th of October 2020 according to logbook entries.
+635,Awash,Awa,NA,M,NA,03/11/2020,03/11/2020,NA,KB,KB,Aare,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in the night from the 2nd to the 3rd of November 2020
+636,Baby Rosl 2020,BRos20,NA,F,NA,03/11/2020,03/11/2020,NA,NA,NH,Roslin,NA,NA,NA,NA,13/12/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in the night from the 2nd to the 3rd of November 2020. On the 10 Dec 2020 we found Rosl with her baby half attach. It was still alive but probably paralyzed. 
+637,Appel,App,NA,M,NA,04/11/2020,04/11/2020,NA,BD,BD,Aapie,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+638,Papp,Papp,NA,F,NA,04/11/2020,04/11/2020,NA,BD,BD,Potjie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born in the night from the 3rd to the 4th morning of November 2020 
+639,Gibela,Gib,NA,M,NA,12/11/2020,12/11/2020,NA,AK,AK,Ginqika,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Probably born during the night
+640,Poppie,Popp,NA,F,NA,12/11/2020,12/11/2020,NA,NA,BD,Puolka,NA,NA,NA,NA,31/01/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born either night of 11/11/2020 or early monring of 12/11/2020
+641,Yonne,Yon,NA,M,NA,12/11/2020,12/11/2020,NA,NA,KB,Yalu,NA,15/01/2021,NA,NA,15/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+642,Oupa,Oup,NA,M,NA,2020.11,13/11/2020,NA,BD,BD,Oulik,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+643,Gusha,Gus,NA,M,NA,16/11/2020,16/11/2020,NA,NA,AK,Gugu,NA,11/03/2021,NA,NA,11/03/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,last seen on the 11/03/2021 and his mom was later on found floating on the second dam 18.03.21 but not sure what happened to him
+644,Ndumiso,Ndum,NA,F,NA,16/11/2020,16/11/2020,NA,AK,AK,Ndonsa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+645,Riversdale,Riv,NA,M,NA,2020.11,16/11/2020,NA,NA,NH,Reva,NA,20/02/2021,NA,NA,20/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Born between 12 & 16.11.2020. Dead. Broken skull (bite) since 18/02, still moving/alive the 20/02, but disappeared the 21/02 and never seen again, Reva seen alone."
+646,Baby Digby 2020,BDig20,NA,NA,NA,17/11/2020,17/11/2020,NA,NA,LT,Digby,NA,NA,NA,NA,30/12/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+647,Ghandaghanda,Gha,NA,M,NA,17/11/2020,17/11/2020,NA,AK,AK,Ghida,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+648,Ouma,Ouma,NA,F,NA,18/11/2020,18/11/2020,NA,NA,BD,Oortjies,NA,NA,NA,NA,08/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born at 15:22 on Beach of BD on 18/11/2020. Birth witnessed and recorded by No.
+649,Helikopter,Heli,NA,F,NA,19/11/2020,19/11/2020,NA,NA,BD,Heerlik,NA,NA,NA,NA,14/09/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born during the night of 18/11/20. Dissappeared on 14 or 15 sept (BD not followed on the 15th).
+650,Nkunzi,Nkun,NA,F,NA,19/11/2020,19/11/2020,NA,NA,AK,Nkosikasi,NA,NA,NA,NA,13/01/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+651,Roeslare,Roes,NA,F,NA,19/11/2020,19/11/2020,NA,NA,NH,Roma,NA,NA,NA,NA,09/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Seen with massive injury, back almost fully open. Was being walked to sleeping site by Roc-Ram-utrecht. Not found the next day. Most likely dead."
+652,Dazzle,Dazz,NA,F,NA,20/11/2020,20/11/2020,NA,LT,LT,Daisy,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+653,Eish,Eis,NA,M,NA,21/11/2020,21/11/2020,NA,BD,BD,Eina,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+654,Baby Renn 2020,BRen20,NA,M,NA,22/11/2020,23/11/2020,NA,NA,NH,Rennes,NA,29/12/2020,NA,NA,29/12/2020,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Dead
+655,Griffin,Gri,NA,M,NA,23/11/2020,23/11/2020,NA,NH,NH,Granada,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+656,Xopo,Xop,NA,M,NA,23/11/2020,23/11/2020,NA,NH,NH,Xalapa,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Born during the night 
+657,Moesa,Moes,NA,F,NA,2020.11,24/11/2020,NA,KB,KB,Mara,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,She was was sexed as a male and later realised that she was a female
+658,Reenval,Ree,NA,M,NA,24/11/2020,24/11/2020,NA,BD,BD,Redelik,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Until the 27/07/2021 the sex was wrong
+659,Rivier,Rivi,NA,F,NA,24/11/2020,24/11/2020,NA,BD,BD,Rissiepit,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+660,Spanspek,Span,NA,F,NA,24/11/2020,24/11/2020,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,18/05/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Last seen on the 18/05/2021. Presumed dead. 
+661,Sylinder,Syl,NA,M,NA,24/11/2020,24/11/2020,NA,BD,BD,Siele,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+662,Muis,Mui,NA,M,NA,25/11/2020,25/11/2020,NA,BD,BD,Mielies,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+663,Bangalore,Bang,NA,F,NA,26/11/2020,26/11/2020,NA,NA,NH,Bela-Bela,NA,NA,NA,NA,20/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Found dying. Bela was injured as well. Bite injuries. Confirmed dead 2 days after.
+664,Baby Guat 2020,BGua20,NA,NA,NA,02/12/2020,02/12/2020,NA,NA,NH,Guatemala,NA,NA,NA,NA,02/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Found dead, carried by Guat."
+665,Deja,Deja,NA,F,NA,2020,07/12/2020,NA,LT,LT,Delilah,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+666,Loki,Loki,NA,F,NA,2021.12,07/12/2020,NA,LT,LT,Louise,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Baby born between the 4th and 7th of december
+667,Delta,Delt,NA,F,NA,2020.12,11/12/2020,NA,LT,LT,Dewe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+668,Gubudu,Gub,NA,M,NA,2020.12,11/12/2020,NA,AK,AK,Gubha,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+669,Palmela,Palm,NA,F,NA,2021.12,17/12/2020,NA,NH,NH,Pretoria,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,born btw 15 and 17/12/2020
+670,Lugano,Lug,NA,M,NA,2021.12,21/12/2020,NA,NA,NH,Lima,NA,18/02/2021,NA,NA,18/02/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"born between 19-21.12.20 . injured the 16th, found dead on the 18th."
+671,Naartjie,Naa,NA,M,NA,2021.12,21/12/2020,NA,NA,BD,Nooiens ,NA,NA,NA,NA,12/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,born between 19 and 21/12/2020 but First recorded and seen on 21 Dec 2020
+672,Ndondo,Ndo,NA,M,NA,`2020``,04/01/2021,NA,NA,AK,Ndawonya,NA,NA,NA,NA,27/11/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+673,Sion,Sio,NA,M,NA,NA,06/01/2021,NA,NA,NA,NA,NA,NA,NH,15/01/2021,22/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Called ""lip injury guy"", ""tooth guy"", ""jacaranda guy"" before being named. Most likely comes from jakaranda gp. Has been around for a few weeks. Got chased by a noha male on the 14th, but found sleeping with 2 noha males on the 15th of january, thus 15th taken as immigration date. Fully in since mid-january.  Dominant since march-april,lost dominance near end of may"
+674,Rimini,Rim,NA,M,NA,2021.01,11/01/2021,NA,NH,NH,Rabat,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+675,Udupi,Udup,NA,F,NA,19/01/2021,19/01/2021,NA,NH,NH,Uppsala,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,born between 19:10 on the 18th and 05:00 on the 19th
+677,DodgyKnee,Dodg,NA,F,NA,NA,16/04/2021,NA,NA,CR,NA,NA,NA,NA,NA,03/01/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+678,Tchakalaka,Tch,NA,M,NA,NA,11/05/2021,NA,IF,NA,NA,NA,NA,AK,11/05/2021,17/03/2022,NH,02/06/2022,11/05/2023,IF,03/05/2023,Still present,NA,NA,NA,Yes,probably born in Iceland. 
+679,Bukubuku,Buk,NA,M,NA,NA,11/05/2021,NA,AK,NA,NA,NA,NA,AK,11/05/2021,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+680,Cayman,Cay,Little Cameron,M,NA,NA,19/05/2021,NA,CR,CR,NA,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+681,WavyEars,WavyEars,NA,M,NA,NA,21/05/2021,NA,CR,CR,NA,NA,18/04/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Prior to his addition as individual and first ticked in log book on 21/05/2021 wavy ears will be present in remarks/other individuals, but at this time may have been confused with pointy ears another 3 year old Juv."
+682,Goose,Goos,CrazyEyes,F,NA,NA,25/05/2021,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+683,Duckie,Duc,NA,M,NA,NA,27/05/2021,NA,CR,CR,NA,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+684,Okefenokee,Oke,NA,M,NA,NA,31/05/2021,NA,IF,NA,NA,NA,NA,KB,31/05/2021,28/01/2023,IF,24/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,
+685,Tevere,Tev,NA,M,NA,NA,31/05/2021,NA,KB,NA,NA,NA,NA,KB,31/05/2021,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+686,Zuni,Zuni,Fleshy,F,NA,NA,01/06/2021,NA,NA,CR,NA,NA,NA,NA,NA,16/04/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Prior to Fleshy was called ""Injured leg female"""
+687,Holey,Hole,NA,F,NA,NA,01/06/2021,NA,CR,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+688,PointyEars,PointyEars,NA,M,NA,NA,01/06/2021,NA,CR,CR,NA,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"Prior to his addition as individual and first ticked in log book on 01/06/2021 PointyEars will be present in remarks/other individuals, but at this time may have been confused with WavyEars another 3 year old Juv."
+689,Etosha,Eto,NA,M,NA,NA,02/06/2021,NA,NA,NA,NA,NA,NA,KB,02/06/2021,10/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,First recorded date in Jun 21
+690,Apa,Apa,NA,M,NA,NA,04/06/2021,NA,NA,NA,NA,NA,NA,LT,04/06/2021,25/07/2022,BD,27/07/2022,14/09/2022,LT,22/09/2022,10/01/2023,NA,NA,NA,NA,Moved from LT to BD for a couple of weeks. Moved back to LT after approx. 2 month stay in BD. 
+691,Momo,Mom,NA,M,NA,NA,04/06/2021,NA,NA,NA,NA,NA,NA,LT,04/06/2021,19/12/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+692,BigEars,NA,NA,M,NA,NA,06/06/2021,NA,CR,CR,NA,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+693,PlainJane,PlainJane,Kap,M,NA,NA,14/06/2021,NA,BD,CR,NA,NA,28/02/2023,BD,01/03/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+694,Baby Dian 2021,BDia21,NA,NA,NA,29/09/2021,29/09/2021,NA,NA,LT,Diana,NA,NA,NA,NA,29/09/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,born dead and she carried until the 01/1/2021. Born deformed the head was unusual and the forehead was big
+695,Baby Pret 2021,BPre21,NA,NA,NA,10.2021,05/10/2021,NA,NA,NH,Pretoria,NA,NA,NA,NA,05/10/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,found dead and last seen on the 2021/10/05
+696,Nul,Nul,NA,M,NA,06/10/2021,06/10/2021,NA,NA,BD,Numbies,NA,NA,NA,NA,22/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+697,Baby Ouli 2021,BOul21,NA,M,NA,09/10/2021,09/10/2021,NA,NA,BD,Oulik,NA,NA,NA,NA,09/10/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Born dead, was still pink"
+698,Amstel,Amst,NA,F,NA,2021.1,12/10/2021,NA,KB,KB,Aaragon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,probably born on between the 7 to the 12 october 2021
+699,Nukke,Nuk,NA,M,NA,2021.1,18/10/2021,NA,BD,BD,Nurks,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,probably born 16 or 17 of October 2021 
+700,Piesang,Pie,NA,M,NA,2021.1,18/10/2021,NA,BD,BD,Pieperig,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,probably born 16 or 17 of October 2021 
+701,Baby Cam 2011,BCam11,NA,NA,NA,2011,NA,NA,NA,LT,Camilla,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Born in 2011, so is this actually baby Jenny?"
+702,Baby Daisy 2019,BDai19,NA,NA,NA,NA,NA,NA,NA,LT,Daisy,NA,NA,NA,NA,07/11/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Dead, no body found"
+703,Bug Eyes,NA,NA,NA,NA,2013,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2013
+704,Collin,Col,NA,M,NA,2012,NA,NA,NA,LT,Camilla,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Probably renamed as Impostor
+705,Fergie,Ferg,NA,F,NA,NA,NA,NA,NA,RC,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+706,Gollum,NA,NA,NA,NA,2011,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2011
+707,Gosh,NA,NA,NA,NA,2014,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2014
+708,Heart,NA,NA,NA,NA,2014,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2014
+709,Imposter,Imp,Lennon Imposter,M,NA,2012,NA,NA,NA,LT,NA,NA,22/05/2017,LTsplit,NA,NA,LT,23/11/2017,07/02/2018,LTsplit2,NA,NA,NA,NA,NA,No,"Returned LT, dissappeared & then joined Split_2 LT"
+710,Jamaica,Jama,NA,F,NA,NA,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Only recorded once, date on logbook is incorrect (2005)"
+711,Kurt Cubain,Kur,NA,M,NA,NA,NA,NA,NA,NA,NA,NA,NA,RC,NA,11/12/2010,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+712,Little Notch,NA,NA,NA,2,2012,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2012
+713,Madonna,Mado,NA,F,10,NA,NA,NA,NA,RC,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+714,Nostrils,NA,NA,NA,NA,2012,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2012
+715,Pitcairn,Pit,NA,M,NA,NA,NA,NA,NA,NA,NA,NA,NA,CR,NA,01/03/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Disappeared, probably migrated, no data found in logbook to check dates"
+716,Red Hot,Red,NA,M,NA,NA,NA,NA,NA,NA,NA,NA,NA,RC,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+717,SF2,NA,NA,F,NA,NA,NA,NA,NA,RC,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+718,Small Eyes,NA,NA,M,10,NA,NA,NA,NA,NA,NA,NA,NA,CR,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Name conflict with SMA & Smachy
+719,Tasmania,Tasmania,NA,NA,NA,2014,NA,NA,NA,CR,Tonga,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,Born 2014
+720,Wierdo,Wier,NA,F,NA,NA,NA,NA,NA,RC,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+721,Zanzibar,Zan,NA,M,NA,NA,NA,NA,NA,NA,NA,NA,NA,CR,01/01/2015,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,"Only seen once at a corn exp in Jan15, unclear if shy or disappeared, very ripped right ear (1 picture in CR description file Feb 2015)"
+722,Ndlovu,Ndl,NA,M,NA,02/11/2021,02/11/2021,NA,AK,AK,Ndonsa,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+723,Nkomo,Nko,NA,M,NA,04/11/2021,04/11/2021,NA,AK,AK,Nkosikasi,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+724,Gomonqo,Gom,NA,M,NA,03/11/2021,03/11/2021,NA,AK,AK,Ginqika,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+725,Gobela,Gobe,NA,F,NA,12/11/2021,12/11/2021,NA,AK,AK,Goduka,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+726,Nyala,Nyal,NA,F,NA,05/11/2021,05/11/2021,NA,NA,AK,Nyanga,NA,NA,NA,NA,06/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+727,Baby Ndaw 2021,BNda21,NA,NA,NA,18/11/2021,18/11/2021,NA,NA,AK,Ndawonya,NA,NA,NA,NA,20/11/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,"Presume dead, the baby was seen for two days alive"
+728,Askies,Ask,NA,M,NA,27/10/2021,27/10/2021,NA,BD,BD,Asis,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+729,Padkos,Padk,NA,F,NA,27/10/2021,27/10/2021,NA,NA,BD,Potjie,NA,NA,NA,NA,06/05/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+730,Eier,Eie,NA,M,NA,02/11/2021,02/11/2021,NA,NA,BD,Eina,NA,NA,NA,NA,16/02/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+731,Haaigranaat,Haai,NA,F,NA,04/11/2021,04/11/2021,NA,BD,BD,Hondjie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+732,Hemel,Hem,NA,M,NA,04/11/2021,04/11/2021,NA,BD,BD,Heerlik,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+733,Omelet,Ome,NA,M,NA,04/11/2021,04/11/2021,NA,BD,BD,Oortjies,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+734,Purper,Pur,NA,M,NA,05/11/2021,05/11/2021,NA,NA,BD,Puolka,NA,NA,NA,NA,16/02/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+735,Nooit,Noo,NA,M,NA,09/11/2021,09/11/2021,NA,NA,BD,Nooiens ,NA,NA,NA,NA,16/02/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+736,Slang,Sla,NA,M,NA,09/11/2021,09/11/2021,NA,NA,BD,Siele,NA,NA,NA,NA,27/04/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+737,Renoster,Reno,NA,F,NA,2021.11,15/11/2021,NA,NA,BD,Redelik,NA,NA,NA,NA,25/11/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Probably born between 13-15 November 2021
+738,Rimpel,Rimp,NA,F,NA,18/11/2021,18/11/2021,NA,BD,BD,Rissiepit,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+739,Sampion,Samp,NA,F,NA,2021.11,22/11/2021,NA,NA,BD,Sari,NA,NA,NA,NA,19/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Probaby born between 20-22 November 2021
+740,Sitrus,Sitr,NA,F,NA,18/11/2021,18/11/2021,NA,BD,BD,Sirkus,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+741,Miskien,Misk,NA,F,NA,19/11/2021,19/11/2021,NA,BD,BD,Mielies,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+742,Spek,Spe,NA,M,NA,13/11/2021,13/11/2021,NA,NA,BD,Pannekoekie,NA,NA,NA,NA,2022/11/31,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+743,Baby Oerw 2021,BOer21,NA,M,NA,2021.12,06/12/2021,NA,NA,BD,Oerwoud,NA,NA,NA,NA,12/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,"Born very smal, was not clinging on the mother and not suckling"
+744,Grive,Griv,NA,F,NA,03/11/2021,03/11/2021,NA,NH,NH,Granada,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+745,Galeria,Gale,NA,F,NA,05/11/2021,05/11/2021,NA,NH,NH,Gaya,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+746,Baby Guat 2021,BGua21,NA,M,NA,02/11/2021,02/11/2021,NA,NA,NH,Guatemala,NA,NA,NA,NA,03/11/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Name conflict with SMA & Smachy.two observers found the baby after she let go and observed the sex
+747,Xihau,Xih,NA,M,NA,21/10/2021,21/10/2021,NA,NA,NH,Xian,NA,08/02/2023,NA,NA,08/02/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Probably dead
+748,Xarès,Xar,NA,M,NA,2021.11,08/11/2021,NA,NH,NH,Xalapa,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+749,Bethlehem,Bet,NA,M,NA,2021.11,08/11/2021,NA,NH,NH,Bela-Bela,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+750,Utica,Utic,NA,M,NA,06/11/2021,06/11/2021,NA,NA,NH,Uppsala,NA,11/05/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+751,Rivas,Riva,NA,F,NA,2021.11,08/11/2021,NA,NH,NH,Rioja,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+752,Rafaela,Rafa,NA,F,NA,02/11/2021,02/11/2021,NA,NH,NH,Rabat,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+754,Bougainville,Bou,Goldie,M,NA,NA,24/03/2021,NA,CR,CR,NA,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,he was born in 2018. it not certain it observation done in the field.
+754,Yamp,Yam,Baby Yuko 2021/ Yamp,M,NA,2021.11,16/11/2021,NA,KB,KB,Yamuna,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,for a while it was thought that yamu had a miscarrage and she was having Yuko baby until Yuko baby was born Yamu baby was called baby Yukon
+755,Yodo,Yodo,Yaq,F,NA,2021,03/10/2021,NA,KB,KB,Yara,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+756,Montreal,Mon,NA,M,`2021,2021,25/10/2021,NA,CR,CR,mackenzie,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+757,Gasket,Gas,NA,M,NA,2021,25/10/2021,NA,CR,CR,Galapagos,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+758,Baby DodgyKnee 2021,BBDod21,NA,NA,NA,2021,03/12/2021,NA,NA,CR,DodgyKnee,NA,NA,NA,NA,03/01/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+759,Baby Kodi 2021,BBKodi21,NA,NA,NA,2021,03/12/2021,NA,CR,CR,Kodiak,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+760,Tiki,Tik,NA,M,NA,2021,30/11/2021,NA,NA,CR,Timber,NA,NA,NA,NA,26/07/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+761,Baby Zuni  2021,BBFZuni21,Baby Fleshy 2021,M,NA,2021,11/11/2021,NA,NA,CR,Zuni,NA,NA,NA,NA,16/04/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+762,Baby Goose 2021,BBGoo21,Baby CrazeyEyes 2021,NA,NA,2021,11/11/2021,NA,NA,CR,Goose,NA,NA,NA,NA,30/11/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+763,Bahamas,Baha,NA,F,NA,2021,27/11/2021,NA,CR,CR,Bali,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+764,Nihiru,Nihi,NA,F,NA,2021,09/11/2021,NA,CR,CR,Nihau,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+765,Clarence,Clar,NA,F,NA,2020,28/07/2021,NA,CR,CR,Chiloe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+766,Barry,Barr,NA,F,NA,2020,28/07/2021,NA,CR,CR,Bali,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+767,Nora,Nora,NA,F,NA,2020,28/07/2021,NA,CR,CR,Nihau,NA,NA,Na,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+768,Disco,Dis,NA,M,NA,21/11/2021,21/11/2021,NA,NA,LT,Digby,NA,NA,NA,NA,09/03/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+769,Danielle,Dani,NA,F,NA,22/11/2021,22/11/2021,NA,LT,LT,Daenerys,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+770,Delux,Del,NA,M,NA,2021,11/12/2021,NA,LT,LT,Delilah,NA,Still present,Na,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+771,Baby Dewe 2021,BBDew21,NA,NA,NA,16/11/2021,16/11/2021,NA,NA,LT,Dewe,NA,NA,NA,NA,28/12/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+772,Derrick,Der,NA,M,NA,2021,11/12/2021,NA,NA,LT,Dexter,NA,NA,NA,NA,04/06/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+773,Daila,Dail,NA,F,NA,20/11/2021,20/11/2021,NA,LT,LT,Daisy,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+774,Lola,Lola,NA,F,NA,2021,03/12/2021,NA,LT,LT,Louise,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+775,Lucifer,Luc,NA,M,NA,2021,11/12/2021,NA,LT,LT,Lilly,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+776,Yub,Yub,Yuk/ Yuki,M,NA,21/12/2021,21/12/2021,NA,KB,KB,Yukon,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+777,Elbar,Elba,NA,F,NA,2020,28/07/2021,NA,NA,CR,Easter,NA,NA,NA,NA,03/09/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Was classified as a one year old.
+778,Skhumbuzo,Skh,NA,M,NA,NA,15/06/2021,NA,SO,NA,NA,NA,NA,NA,NA,19/06/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,"the male is still preent in Sonic, it followed Ak for a while then Baie Dankie and he got his name while he was following Ak and he went back to Sonic"
+779,Nugget,Nug,NA,M,NA,NA,26/10/2021,NA,NA,KB,Nessie,NA,NA,NA,NA,27/05/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+780,Xenia,Xeni,NA,F,NA,03/11/2020,03/11/2020,NA,NH,NH,Xian,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+781,Pofferthie,Poff,NA,F,NA,26/10/2018,26/10/2018,NA,NA,BD,Potjie,NA,NA,NA,NA,04/12/2019,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+782,Capri,Cap,NA,M,NA,2021,28/03/2022,NA,CR,CR,Chiloe,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Was seen last year late 2021 but never been recorded on the logbook until the 01/02/22.
+783,Baby Nyanga 2020,BNya20,NA,NA,NA,21/11/2020,21/11/2020,NA,NA,AK,Nyanga,NA,NA,NA,NA,16/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+784,Baby Yalu 2020,Byalu,NA,NA,NA,NA,01/12/2020,NA,NA,KB,Yalu,NA,NA,NA,NA,15/01/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+785,Baby Kodiak 2020,Bkod20,NA,NA,NA,NA,16/04/2021,NA,NA,KB,Kodiak,NA,NA,NA,NA,14/08/2021,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,
+786,Primavera,Prim,NA,F,NA,2021.1,28/10/2021,NA,NH,NH,Praia,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,NA,
+787,Furry Glen,Fur,Blackbelly,M,10,NA,19/03/2022,NA,KB,NA,NA,NA,NA,KB,19/03/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,he is called by the nickname until they figure out who is he. He is very much habituated
+788,Nelson,Nel,NA,M,NA,NA,17/03/2022,NA,LT,NA,NA,NA,NA,LT,17/03/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+790,Vryheid,Vry,NewMale06.22,M,NA,NA,10/06/2022,NA,NH,NA,NA,NA,NA,NH,10/06/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,"Very habituated may be one of the known male, still to confirm"
+791,Ermelo,Erm,NewMale02,M,NA,NA,16/06/2022,NA,NA,NA,NA,NA,NA, NH,16/06/2022,09/09/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+792,NewMale3,NewMale3,NewMale3,M,NA,NA,16/06/2022,NA,NA,NA,NA,NA,NA,NH,16/06/2022,06/08/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+793,Eivissa,Eiv,NewMale090622,M,NA,NA,09/06/2022,NA,CR,NA,NA,NA,NA,CR,09/06/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+794,Hawai,Haw,NewMale110622/Formentera,M,NA,NA,11/06/2022,NA,CR,NA,NA,NA,NA,CR,11/06/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+795,Ryan,Rya,NA,M,NA,NA,06/07/2022,NA,NA,NA,NA,NA,NA,LT,06/06/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+796,Zeus,Zeu,Collared Male,M,NA,NA,28/06/2022,NA,IF,NA,NA,NA,NA,IF,NA,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,"Very habituated may be one of the known male, still to confirm"
+797,Hera,Hera,NA,F,NA,NA,28/06/2022,NA,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+798,Medusa,Medu,NA,F,NA,NA,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+799,Freyja,Frey,NA,F,NA,NA,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+800,Athena,Athe,NA,F,NA,NA,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+801,Circe,Circ,NA,F,NA,NA,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+802,Pandora,Pand,NA,F,NA,NA,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,YES,
+803,Dakar,Dak,NA,M,NA,NA,10/09/2022,NA,NH,NA,NA,NA,NA,NH,10/09/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+804,Stanley,Sta,NA,M,NA,NA,29/07/2022,NA,LT,NA,NA,NA,NA,LT,29/07/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+805,BBCirc21,BBCirc21,NA,NA,NA,2021,28/06/2022,NA,IF,IF,Circe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+806,BBInhl21,BBInhl21,NA,NA,NA,2021,28/06/2022,NA,IF,IF,Inhlanhla,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+807,JUV1,JUV1,JUV1,NA,NA,2021,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+808,JUV2,JUV2,JUV2,NA,NA,2021,28/06/2022,NA,IF,IF,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+809,Mandy,Man,NewMale0922,M,NA,NA,22/09/2022,NA,LT,NA,NA,NA,NA,LT,22/09/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+810,Knysna,Kny,NA,M,NA,NA,17/10/2022,NA,NH,NA,NA,NA,NA,NH,17/10/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+811,BBXian22,BBXian22,NA,M,NA,21/10/2022,21/10/2022,NA,NA,NH,Xian,NA,NA,NA,NA,21/10/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,"Genetic ear sample were taken. Baby sexed by Nokubonga and Josefien, both agree it looks like a male. Skull seemed to be not fully formed, very soft on the back of the head. Born dead, carried around by Xian for less than a day."
+812,Angara,Ang,NA,M,NA,26/10/2022,26/10/2022,NA,KB,KB,Aaragon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+813,Alabama,Alab,NA,F,NA,2022.1,31/10/2022,NA,KB,KB,Aare,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+814,Grimsby,Grim,NA,F,NA,04/11/2022,04/11/2022,NA,NH,NH,Grisselles,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+815,Gloed,Glo,NA,M,NA,04/11/2022,04/11/2022,NA,NA,BD,Gesels,NA,NA,NA,NA,29/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+816,BBInhl22,BBInhl22,NA,NA,NA,2022,04/11/2022,NA,IF,IF,Inhlanhla,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+817,BBDigb22,BBDigb22,NA,NA,NA,2022.11,04/11/2022,NA,NA,LT,Digby,NA,NA,NA,NA,10/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,No,
+817,BBMara22,BBMara22,NA,NA,NA,2022.11,05/11/2022,NA,NA,KB,Mara,NA,NA,NA,NA,05/11/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,"Presume dead, last seen the day mara went missing"
+819,Yentna,Yent,NA,F,NA,2022.11,14/11/2022,NA,KB,KB,Yelostone,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+820,Guadalajara,Gua,NA,M,NA,08/11/2022,08/11/2022,NA,NH,NH,Guatemala,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+821,BBOort22,BBOort22,NA,M,NA,2022.11,15/11/2022,NA,NA,NH,Oortjies,NA,NA,NA,NA,17/11/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,"we found BBOort22 dead (MALE) in the beginning of the shift. oort was carrying for 4 hours aprox. the baby was falling from her but she kept taking it. sometimes she was grooming or eating and the baby was on the ground, but when the group was moving she was taking the baby with her. she was also grooming and smelling the baby.other monkeys like reen or oerw was were also smekling and even handling the baby. oerw was specially focused in thr baby and also  in Oort, following her and grooming her. after this time she left the baby on the ground and every 5 or 10 minutes was coming back, touching the baby and smelling it while self scratching a lot. The last times she was visiting the baby it was every 20 or 30 minutes until she didint come back again,"
+822,BBDian22,BBDian22,NA,NA,NA,2022.11,10/11/2022,NA,NA,LT,Diana,NA,NA,NA,NA,10/11/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+823,BBDewe22,BBDewe22,NA,NA,NA,2022.11,18/11/2022,NA,LT,LT,Dewe,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+824,Yakima,Yaki,NA,F,NA,2022.11,17/11/2022,NA,KB,KB,Yamuna,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+825,Yuba,Yuba,NA,F,NA,2022.11,19/11/2022,NA,KB,KB,Yukon,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+826,Olyf,Olyf,NA,F,NA,2022.11,15/11/2022,NA,BD,BD,Oulik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+827,Atjar,Atj,NA,M,NA,18/11/2022,18/11/2022,NA,BD,BD,Aapie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+828,BBBali22,BBBali22,NA,M,NA,2022.11,06/12/2022,NA,CR,CR,Bali,NA,NA,NA,NA,23/03/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+829,BBMedu22,BBMedu22,NA,NA,NA,2022.11,11/11/2022,NA,IF,IF,Medusa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+830,Apollo,Apo,NA,NA,NA,2022.11,17/11/2022,NA,IF,IF,Athena,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+831,BBGran22,BBGran22,NA,NA,NA,2022.11,21/11/2022,NA,NA,NH,Granada,NA,NA,NA,NA,16/12/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,Gran left the baby near the 4Gs alive but not moving only twitching
+832,Oase,Oase,NA,F,NA,19/11/2022,19/11/2022,NA,BD,BD,Obsessie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+833,Pruin,Prui,NA,F,NA,2022.11,22/11/2022,NA,BD,BD,Puolka,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+834,Prague,Prag,NA,F,NA,26/11/2022,26/11/2022,NA,NH,NH,Pretoria,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+835,Persephone,Pers,NA,F,NA,2022.11,25/11/2022,NA,IF,IF,Pandora,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+836,Nagapie,Naga,NA,NA,NA,29/11/2022,29/11/2022,NA,NA,BD,Nooiens ,NA,NA,NA,NA,10/05/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+837,Udine,Udi,Upland,M,NA,30/11/2022,30/11/2022,NA,NH,NH,Uppsala,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+838,Knoffel,Kno,NA,M,NA,NA,07/11/2022,NA,BD,NA,NA,NA,NA,BD,07/11/2022,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+839,Ncane,Nca,NA,M,NA,2022.11,01/12/2022,NA,AK,AK,Ncoko,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+840,BBNdaw22,BBNdaw22,NA,NA,NA,2022.12,03/12/2022,NA,NA,AK,Ndawonya,NA,NA,NA,NA,06/01/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+841,Ndini,Ndin,NA,F,NA,2022.12,03/12/2022,NA,AK,AK,Ndonsa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+842,BBDaen22,BBDaen22,NA,NA,NA,2022.11,24/11/2022,NA,NA,LT,Daenerys,NA,NA,NA,NA,14/12/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,last seen the baby was not grabing or holding very well
+843,Ekse,Ekse,NA,NA,NA,07/12/2022,07/12/2022,NA,BD,BD,Eina,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+844,Herskep,Her,NA,M,NA,07/12/2022,07/12/2022,NA,BD,BD,Heerlik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+845,Galiano,Gal,NA,M,NA,2022,02/12/2022,NA,CR,CR,Galapagos,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+846,Madeline,Made,NA,F,NA,2022,02/12/2022,NA,CR,CR,mackenzie,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+847,BBNiha22,BBNiha22,NA,NA,NA,2022,02/12/2022,NA,NA,CR,Nihau,NA,NA,NA,NA,20/01/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+848,Rosyn,Ros,NA,M,NA,2022.12,07/12/2022,NA,BD,BD,Redelik,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+849,Goat,Goa,NA,M,NA,2022.12,08/12/2022,NA,CR,CR,Goose,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+850,Luna,Luna,NA,F,NA,2022.12,06/12/2022,NA,LT,LT,Lancey,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+851,Xativa,Xati,NA,F,NA,07/12/2022,07/12/2022,NA,NH,NH,Xalapa,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+852,Rishikesh,Ris,NA,M,NA,14/12/2022,14/12/2022,NA,NH,NH,Rioja,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+853,Gabaroni,Gab,NA,M,NA,15/12/2022,15/12/2022,NA,NH,NH,Gaya,NA,NA,N,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+854,Rooibos,Rooi,NA,F,NA,17/12/2022,17/12/2022,NA,BD,BD,Rissiepit,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+855,Gijima,Giji,NA,F,NA,2022.12,29/12/2022,NA,AK,AK,Ghida,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+856,Otter,Ott,Ottline,M,NA,2022.12,26/12/2022,NA,BD,BD,Oerwoud,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+857,Lotus,Lotu,NA,F,NA,2022.12,22/12/2022,NA,LT,LT,Louise,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+858,Vesuvio,Ves,NA,M,NA,,,NA,NA,NA,NA,NA,NA,NA,NA,08/12/2022,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+859,BBHera22,BBHera22,NA,NA,NA,2023.01,18/01/2023,NA,IF,IF,Hera,NA,NA,N,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+860,Bobjaan,Bob,Roundlips/Mr Overbite,M,NA,NA,08/04/2023,NA,BD,NA,NA,NA,NA,BD,08/04/2023,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+861,Pikkewyn,Pikk,NA,F,NA,2022.12,10/12/2022,NA,BD,BD,Pieperig,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+862,Cairo,Cai,NA,M,NA,NA,25/03/2023,NA,NH,NA,NA,NA,NA,NH,25/03/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+863,Havana,Hav,FakeGeorge,M,NA,NA,25/03/2023,NA,NH,NA,NA,NA,NA,NH,25/03/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA, Yes,
+864,Sango,San,Na,M,NA,NA,10/04/2023,NA,IF,NA,NA,NA,NA,IF,10/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+865,Thor,Tho,Half Tailed Guy,M,NA,NA,24/04/2023,NA,IF,NA,NA,NA,NA,IF,14/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+866,Totsiens,Tot,White dot,M,NA,NA,14/04/2023,NA,BD,NA,NA,NA,NA,BD,14/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+867,Winter,Win,Fluffy,M,NA,NA,15/04/2023,NA,BD,NA,NA,NA,NA,BD,15/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+868,Braai,Bra,Cheseled nose,M,NA,NA,17/04/2023,NA,BD,NA,NA,NA,NA,BD,17/04/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+869,Traingular Face,,Traingular Face,M,NA,NA,10/05/2023,NA,BD,NA,NA,NA,NA,BD,10/05/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,Yes,
+870,New Male May23,,New Male May23 ,M,NA,NA,05/05/2023,NA,CR,NA,NA,NA,NA,CR,05/05/2023,Still present,NA,NA,NA,NA,NA,NA,NA,NA,NA,NO,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,,,,,,,,,
+,,,,,,,,,,,,,,,,,,,N,,,,,,,,

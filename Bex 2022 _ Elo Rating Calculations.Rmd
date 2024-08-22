@@ -1,151 +1,33 @@
 ---
 title: "Elo Rating Calculations for Vervet Monkeys"
-author: "Aung Kyaw Michael"
+author: "Your Name"
 date: "`r Sys.Date()`"
 output: html_document
 ---
 
-## 1.Introduction
-* This document outlines the process of c**alculating Elo ratings for vervet monkeys** based on their **social interactions**. The `EloRating` package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.
+## Introduction
+This document outlines the process of calculating Elo ratings for vervet monkeys based on their social interactions. The `EloRating` package in R will be used, and data from agonistic and affiliative exchanges will be analyzed.
 
-* In my analysis, I will calculate Elo ratings for vervet monkeys based on their social interactions, particularly focusing on dominance hierarchies. This analysis will primarily use the **Agonistic.CSV** file for interactions and the **Male hierarchies.R** script to guide the calculation of these ratings. I will also incorporate life history data from **IVP Life history_260523.csv** to contextualize the Elo ratings with relevant individual characteristics.
-
-
-### 1.1 Loading Required Libraries (dplyr & Elo Rating packages)
-
-* Before processing the data, I need to load the necessary libraries. The **dplyr** package will help with data manipulation, and the **EloRating** package will be used to calculate the Elo ratings.
-
+## Loading Required Libraries
 ```{r setup, include=FALSE}
 # Set CRAN mirror to avoid errors
 options(repos = c(CRAN = "https://cran.rstudio.com/"))
 
 # Load necessary libraries
-if (!requireNamespace("EloRating", quietly = TRUE)) {
-  install.packages("EloRating")
-}
+install.packages("EloRating", type = "binary")
 library(dplyr)
 library(EloRating)
 ```
 
-### 1.2 Load data into the script
+# Load data into the script
 
-* I will now different relevant datasets concerning: 
-  - **Logbook**: Contains general observations and other relevant data.
-  - **Life History**: Contains life history data of individual monkeys. 
-  - **Affiliative interactions**: Records of affiliative (friendly) interactions.  
-  - **Agonistic interactions**: Records of agonistic (conflict) interactions, which will be the primary dataset for calculating Elo ratings.
-  - **Sexual interactions**: Records of sexual interactions, which may provide additional context.
-  - **Male hierarchies** : A script that guides the calculation of Elo ratings based on male dominance hierarchies.
+```{r Loading data into the script, include=FALSE}
+interactions <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/Logbook.CSV")
+life_history <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/IVP Life history_260523.cscuv")
 
-```{r Loading datasets into the script, include=FALSE}
-
-# Define file paths
-logbook_path <- "/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Logbook.CSV"
-life_history_path <- "/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/IVP Life history_260523.csv"
-affiliative_path <- "/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Affiliative.CSV"
-agonistic_path <- "/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Agonistic.CSV"
-sexual_path <- "/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Sexual.CSV"
-
-# Function to safely read CSV files with error handling
-safe_read_csv <- function(file_path) {
-  tryCatch({
-    read.csv(file_path, stringsAsFactors = FALSE, check.names = TRUE)
-  }, error = function(e) {
-    message(paste("Error in loading CSV file:", file_path))
-    message("Error details:", e$message)
-    return(NULL)
-  })
-}
-
-# Load datasets with error handling
-logbook_data <- safe_read_csv(logbook_path)
-life_history <- safe_read_csv(life_history_path)
-affiliative <- safe_read_csv(affiliative_path)
-agonistic <- safe_read_csv(agonistic_path)
-sexual <- safe_read_csv(sexual_path)
-
-# Verify data loading and structure
-if (is.null(logbook_data) | is.null(life_history) | is.null(affiliative) | is.null(agonistic) | is.null(sexual)) {
-  stop("One or more datasets failed to load. Please check the file paths and data consistency.")
-}
-
-# Preview the first few rows of each dataset
-head(logbook_data)
+# Check the structure of the data
+head(interactions)
 head(life_history)
-head(affiliative)
-head(agonistic)
-head(sexual)
-
-# Additional check for column consistency
-check_columns <- sapply(logbook_data, length)
-if (any(check_columns != ncol(logbook_data))) {
-  print("Inconsistent column numbers found in the data.")
-} else {
-  print("All rows have consistent column numbers.")
-}
-
 
 ```
-
-
-
-
-```{r loading male hierarchies r script, echo=FALSE}
-
-# Define the correct file path
-male_hierarchies_path <- "/Users/maki/Desktop/Master Thesis/Josies Codes/Male hierarchies.R"
-
-# Function to safely source the R script
-safe_source <- function(file_path) {
-  tryCatch({
-    source(file_path)
-    message("Successfully sourced the file:", file_path)
-  }, error = function(e) {
-    message("Error in sourcing the file:", file_path)
-    message("Error details:", e$message)
-  })
-}
-
-# Safely source the Male hierarchies script
-safe_source(male_hierarchies_path)
-
-
-
-
-```
-
-
-# Elo ratings
-
-1. I have to prepare each files in order to use male hierachies script
-2. I will prepare the excel file **agonistic.csv** using the following variables:
-  - Aggressor: The individual who initiated the interaction.
-  - Victim: The individual who received the interaction.
-  - AggressorBehavior: The type of behavior exhibited by the aggressor.
-  - VictimBehavior: The type of behavior exhibited by the victim.
-  - Date: The date when the interaction occurred.
-  
-3. Then i will import the file **IVP Life history_26053.csv** using the following variables:
-  - Sex: The sex of the individual.
-  - DOB: Date of birth.
-  - FirstRecorded: The first date the individual was observed.
-  - DateImmigration1: Date of first immigration (if relevant).
-  - Date of Pregnancy: (If available)
-  - Date of Birth of Baby: (If available)
-
-  -Also I will clean the variable by onverting dates to a consistent format (YYYY-MM-DD) and ensure     there are no missing or inconsistent values in these key columns.
-
-```{r test for elo ratings, echo=FALSE}
-
-# Example code snippet from Male hierarchies.R
-
-# Modified line with the correct path for your system
-agonistic_data <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/Agonistic.CSV")
-
-LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Re__start_with_stats!/IVP Life history_260523.csv", header = TRUE, stringsAsFactors = FALSE, na.strings = c('NA', 'Not yet'))
-
-
-
-```
-
 

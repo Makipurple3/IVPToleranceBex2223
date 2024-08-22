@@ -1,18 +1,18 @@
 ---
 title: "Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys - M.AungKyaw - 2022-2023"
 output:
-  pdf_document:
-    toc: yes
-    toc_depth: 6
-  word_document:
-    toc: yes
-    toc_depth: 6
   html_document:
     df_print: paged
     toc: yes
     toc_depth: 6
     toc_float:
       collapsed: no
+  word_document:
+    toc: yes
+    toc_depth: 6
+  pdf_document:
+    toc: yes
+    toc_depth: 6
 date: "`r format(Sys.time(), '%B %d, %Y %H:%M')`"
 header-includes:
   - \usepackage[utf8]{inputenc}
@@ -1374,49 +1374,87 @@ cat("Number of rows changed to Kom Oort:", length(rows_to_correct_kom), "\n")
 
 ```
 
-  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the    variable called **Day** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
+  3. Create the variable called **Trial** where the data will be **sorted by date and dyad** in order to see how many trials have been done with each individual: **One row (per dyad) = one trial** and the  variable called **Day** where the data will be **sorted by date and dyad and day** in order to see how many sessions have been done with each individual: **One day (per dyad) = one session**
   Now, let's proceed with creating the Dyad variable, Trial, and Day:
   
   
-```{r Dyad and Day, echo=FALSE}
-# Create Trial variable
-BexClean <- BexClean %>%
-  arrange(Date, Dyad) %>%
-  group_by(Dyad) %>%
-  mutate(Trial = row_number())
+  * **Experiment Day (across all dyads): This variable should count the number of unique experiment days across all dyads. For instance, if multiple dyads have trials on the same date, that date should be considered a single experiment day.
+  * **Dyad Day** (within each dyad): This variable should count the number of unique experiment days for each dyad separately. The first day of trials for a dyad should be Day 1, the second distinct date of trials should be Day 2, and so on.
+  
+  * DaysSinceStart: Tracks the total number of days since the first experiment, counting every calendar day, including gaps between experiments.
+  * ExperimentDay: Counts unique experiment dates, with each distinct date assigned a consecutive day number.
+  * Trial: Numbers the trials sequentially within each dyad, starting from 1 for each dyad.
+  * * DyadDay: Counts unique experiment days for each dyad separately, assigning Day 1 to the first distinct date, Day 2 to the next, etc.
+  
+```{r Dyad & Date: Trial, Experiment, DaysSinceStart Dyad, echo=FALSE}
 
-# Create Day variable  # (Changed 'Session' to 'Day' for better clarity)
+# Step 1: Ensure dates are treated as Date objects and Sort Data by Date
 BexClean <- BexClean %>%
-  arrange(Dyad, Date) %>%
-  group_by(Dyad, Date) %>%
-  mutate(Day = cur_group_id())
+  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
+  arrange(Date)  # Ensure data is strictly sorted by Date
+
+# Step 2: Calculate DaysSinceStart - Difference in days from the earliest date (including gaps)
+BexClean <- BexClean %>%
+  mutate(DaysSinceStart = as.numeric(difftime(Date, min(Date, na.rm = TRUE), units = "days")) + 1)
+
+# Step 3: Calculate ExperimentDay - Assign a unique day number to each unique date across the dataset
+BexClean <- BexClean %>%
+  mutate(ExperimentDay = cumsum(Date != lag(Date, default = first(Date))) + 1)
+
+# Step 4: Verification of ExperimentDay calculation
+# Recalculate ExperimentDay to verify correctness
+BexClean <- BexClean %>%
+  mutate(ExperimentDay_Verified = cumsum(Date != lag(Date, default = first(Date))) + 1)
+
+
+# Step 5: Create the Trial variable - Each trial has a unique identifier within each dyad, starting from 1
+# Group by Dyad to correctly calculate Trial
+BexClean <- BexClean %>%
+  group_by(Dyad) %>%
+  arrange(Date, Time, .by_group = TRUE) %>%
+  mutate(Trial = row_number()) %>%
+  ungroup()
+
+# Step 6: Create the DyadDay variable - Counts the number of unique experiment days for each dyad separately
+# We use dense_rank here within each Dyad to account for the unique experiment days for each dyad
+BexClean <- BexClean %>%
+  group_by(Dyad) %>%
+  arrange(Date, .by_group = TRUE) %>%
+  mutate(DyadDay = dense_rank(Date)) %>%
+  ungroup()
+
+
+
+
 
 ```
 4. Make a summary of trial and session so I can see see how many trials and sessions have been done with the individuals
 ```{r Dyad and Day Summary, echo=FALSE}
-# Step 1: Summarize the Trials and Days
+
+# Summary of Trials and Days per Dyad
 summary_trial <- BexClean %>%
   group_by(Dyad) %>%
   summarise(Num_Trials = max(Trial)) %>%
-  arrange(desc(Num_Trials))  # Sort by Num_Trials in descending order
+  arrange(desc(Num_Trials))
 
 summary_Day <- BexClean %>%
   group_by(Dyad) %>%
-  summarise(Num_Days = max(Day)) %>%
-  arrange(desc(Num_Days))  # Sort by Num_Days in descending order
+  summarise(Num_Days = max(DyadDay)) %>%
+  arrange(desc(Num_Days))
 
-# Step 2: Print the results with better presentation
-cat("Trial Summary:\n")
-kable(summary_trial, col.names = c("Dyad", "Amount of Trials"), caption = "Summary of Trials")
+# Combined Summary
+combined_summary <- summary_trial %>%
+  left_join(summary_Day, by = "Dyad") %>%
+  arrange(desc(Num_Trials), desc(Num_Days))
 
-cat("\nDay Summary:\n")
-kable(summary_Day, col.names = c("Dyad", "Number of Days"), caption = "Summary of Days")
+# Print Summary
+cat("Total Number of Unique Experiment Days:", n_distinct(BexClean$Date), "\n")
+cat("\nCombined Summary:\n")
+kable(combined_summary, col.names = c("Dyad", "Amount of Trials", "Number of Days"), caption = "Summary of Trials and Days")
 
 # Calculate Mean for Trials and Days
 mean_trials <- mean(summary_trial$Num_Trials)
 mean_days <- mean(summary_Day$Num_Days)
-
-# Step 3: Plot the summaries
 
 # Plot for Trials
 plot_trials <- ggplot(summary_trial, aes(x = reorder(Dyad, -Num_Trials), y = Num_Trials, fill = Dyad)) +
@@ -1440,9 +1478,11 @@ plot_days <- ggplot(summary_Day, aes(x = reorder(Dyad, -Num_Days), y = Num_Days,
   theme(legend.position = "bottom", legend.title = element_blank(), text = element_text(size = 12), axis.text.x = element_text(angle = 45, hjust = 1)) +
   scale_fill_brewer(palette = "Set1")
 
-# Display the plots
+# Step 4: Display the plots
 print(plot_trials)
 print(plot_days)
+
+
 ```
 
 
@@ -2834,7 +2874,7 @@ print(dyad_response_plot)
 
 
 
-# 4.Visualizing the data
+# 4.Visualizing the data and tests (to sort and clean)
 
 ## 4.1 Reordering the variables in Bex
 
@@ -2852,17 +2892,141 @@ str(BexClean)
 na_summary <- colSums(is.na(BexClean))
 print(na_summary)
 
+```
+
+
+* Before reordering these variables I may have to re update them to make sure all the changes that occurred between the creation of this variable and now, did not create any errors or mistakes
+
+
+```{r updates of variables before reordering, echo=FALSE}
+
+# Step 1: Ensure dates are treated as Date objects and sorted correctly
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
+  arrange(Date) %>%
+  mutate(
+    Day = as.numeric(difftime(Date, min(Date), units = "days")) + 1,  # Assign a unique day number
+    Month = format(Date, "%Y-%m")  # Include both year and month in Month variable
+  )
+
+
+# Step 2: Create Time, Period, and Hour variables
+BexClean <- BexClean %>%
+  mutate(
+    Time = as.POSIXct(Time, format = "%H:%M:%S"),  # Convert Time back to POSIXct
+    Period = case_when(
+      between(hour(Time), 6, 8) ~ "6 to 8",
+      between(hour(Time), 8, 10) ~ "8 to 10",
+      between(hour(Time), 10, 12) ~ "10 to 12",
+      between(hour(Time), 12, 14) ~ "12 to 14",
+      between(hour(Time), 14, 17) ~ "14 to 17",
+      TRUE ~ NA_character_
+    ),
+    Hour = format(floor_date(Time, "hour"), "%H:%M:%S")  # Create and format Hour variable
+  )
+
+
+
+# Step 3: Create Male, Female, and Dyad variables
+BexClean <- BexClean %>%
+  mutate(
+    Male = ifelse(nchar(MaleID) == 3, MaleID, ifelse(nchar(FemaleID) == 3, FemaleID, NA)),
+    Female = ifelse(nchar(FemaleID) == 4, FemaleID, ifelse(nchar(MaleID) == 4, MaleID, NA)),
+    Dyad = paste(Male, Female, sep = " ")
+  )
+
+# Step 4: Ensure DyadDistance is numeric and then create the Proximity variable
+BexClean <- BexClean %>%
+  mutate(
+    DyadDistance = as.numeric(DyadDistance),  # Convert DyadDistance to numeric
+    Proximity = case_when(
+      DyadDistance == 0 ~ "Contact",
+      between(DyadDistance, 1, 2) ~ "1-2",
+      between(DyadDistance, 3, 4) ~ "3-4",
+      between(DyadDistance, 5, 10) ~ "5+",
+      TRUE ~ NA_character_
+    )
+  )
+
+# Step 5: Recalculate the AmountAudience variable
+
+
+# Step 2: Splitting audience members by delimiters and trimming whitespace
+BexClean$AudienceList <- strsplit(BexClean$Audience, "[;,.]")
+
+# Step 3: Cleaning the list by removing any extra spaces
+BexClean$AudienceList <- lapply(BexClean$AudienceList, function(x) trimws(x))
+
+# Step 4: Calculating the number of unique audience members with special handling
+BexClean$AmountAudience <- sapply(BexClean$AudienceList, function(x) {
+  # Special handling for "No audience" and "UnidentifiedAudience"
+  if ("No audience" %in% x) {
+    return(0)  # Assign 0 for "No audience"
+  } else if ("UnidentifiedAudience" %in% x) {
+    return(-1)  # Assign -1 for "UnidentifiedAudience"
+  } else {
+    return(length(unique(x)))  # Count the number of unique valid audience members
+  }
+})
+
+# Step 5: Reconstructing the Audience column as a cleaned string
+BexClean$Audience <- sapply(BexClean$AudienceList, function(x) paste(unique(x), collapse = "; "))
+
+# Optional: Remove the intermediate AudienceList column
+BexClean$AudienceList <- NULL
+
 
 ```
 
-* I will keep the following variables in the next order: Date, Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity, DyadResponse, Intrusion, IntruderID SpecialBehaviour, Audience, AmountAudience, Context, Special Behaviour
+
+
+
+* Finally I will keep the following variables in the next order: Date, Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity, DyadResponse, Intrusion, IntruderID SpecialBehaviour, Audience, AmountAudience, Context, Special Behaviour
+
+
+
+```{r Updating variables for reorganization of BexClean, echo=FALSE}
+
+# Step 1: Ensure dates are treated as Date objects and Sort Data by Date
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
+  arrange(Date)  # Ensure data is strictly sorted by Date
+
+# Step 2: Recalculate DaysSinceStart
+BexClean <- BexClean %>%
+  mutate(DaysSinceStart = as.numeric(difftime(Date, min(Date, na.rm = TRUE), units = "days")) + 1)
+
+# Step 3: Recalculate ExperimentDay
+BexClean <- BexClean %>%
+  mutate(ExperimentDay = cumsum(Date != lag(Date, default = first(Date))) + 1)
+
+# Step 4: Recalculate Trial (depends on Date and Time within each Dyad)
+BexClean <- BexClean %>%
+  group_by(Dyad) %>%
+  arrange(Date, Time, .by_group = TRUE) %>%
+  mutate(Trial = row_number()) %>%
+  ungroup()
+
+# Step 5: Recalculate DyadDay (depends on Date within each Dyad)
+BexClean <- BexClean %>%
+  group_by(Dyad) %>%
+  arrange(Date, .by_group = TRUE) %>%
+  mutate(DyadDay = dense_rank(Date)) %>%
+  ungroup()
+
+
+
+
+```
+
+
 
   
 ```{r Reorganizing BexClean, echo=FALSE}
 # Reordering the columns of BexClean
 
 BexClean <- BexClean %>%
-  select(Date, Month, Day, Time, Hour, Period, Trial, Male, Female, Dyad, 
+  select(DaysSinceStart, ExperimentDay, Date, Month, DyadDay, Trial, Time, Hour, Period, Male, Female, Dyad, 
          DyadDistance, Proximity, DyadResponse,IDIndividual1, Intrusion, IntruderID, SpecialBehaviour, 
          Audience, AmountAudience, Context, SpecialBehaviour)
 
@@ -3009,54 +3173,37 @@ print(faceted_monthly_plot_with_lines)
 
 ```{r daily graph2, echo=FALSE}
 
-# 1. Improved Overall Male vs Female Aggression Plot
+# Step 1: Validate the data after filtering
+filtered_data <- BexClean %>%
+    filter(DyadResponse %in% c("Male aggress female", "Female aggress male"))
 
-# Calculate overall aggression counts
-overall_aggression <- BexClean %>%
-  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
-  group_by(DyadResponse) %>%
-  summarise(Count = n(), .groups = 'drop')
+# Ensure data is non-empty and valid
+if (nrow(filtered_data) > 0) {
+    # Step 2: Group and summarize the filtered data
+    overall_aggression <- filtered_data %>%
+        group_by(DyadResponse) %>%
+        summarise(Count = n(), .groups = 'drop')
 
-# Calculate the mean number of aggressions for display
-mean_agg <- mean(overall_aggression$Count)
+    # Step 3: Calculate the mean of counts (handling NAs)
+    mean_agg <- mean(overall_aggression$Count, na.rm = TRUE)
 
-# Create the plot
-overall_aggression_plot <- ggplot(data = overall_aggression, aes(x = DyadResponse, y = Count, fill = DyadResponse)) +
-  geom_bar(stat = "identity", width = 0.5) +
-  geom_text(aes(label = Count), vjust = -0.5, size = 5) +  # Add count on top of bars
-  theme_minimal(base_size = 15) +
-  labs(x = "Aggression Type", y = "Count", title = "Overall Male vs Female Aggression") +
-  scale_fill_manual(values = c("Male aggress female" = "#1f77b4", "Female aggress male" = "#ff7f0e")) + # Changed colors
-  theme(legend.position = "none") +
-  geom_hline(aes(yintercept = mean_agg), linetype = "dashed", color = "gray") +  # Add mean line
-  annotate("text", x = 1.5, y = mean_agg + 3, label = paste("Mean =", round(mean_agg, 2)), color = "gray", size = 5)
+    # Step 4: Create the plot
+    overall_aggression_plot <- ggplot(data = overall_aggression, aes(x = DyadResponse, y = Count, fill = DyadResponse)) +
+        geom_bar(stat = "identity", width = 0.5) +
+        geom_text(aes(label = Count), vjust = -0.5, size = 5) +
+        theme_minimal(base_size = 15) +
+        labs(x = "Aggression Type", y = "Count", title = "Overall Male vs Female Aggression") +
+        scale_fill_manual(values = c("Male aggress female" = "#1f77b4", "Female aggress male" = "#ff7f0e")) +
+        theme(legend.position = "none") +
+        geom_hline(aes(yintercept = mean_agg), linetype = "dashed", color = "gray") +
+        annotate("text", x = 1.5, y = mean_agg + 3, label = paste("Mean =", round(mean_agg, 2)), color = "gray", size = 5)
 
-# Print the overall aggression plot
-print(overall_aggression_plot)
+    # Print the plot
+    print(overall_aggression_plot)
+} else {
+    message("No valid data found for the specified DyadResponse types.")
+}
 
-# 2. Improved Proportion of Aggression by Dyad Plot
-
-# Improved Proportion of Aggression by Dyad Plot with Updated Colors
-
-# Calculate proportions
-dyad_aggression <- BexClean %>%
-  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
-  group_by(Dyad, DyadResponse) %>%
-  summarise(Count = n(), .groups = 'drop') %>%
-  group_by(Dyad) %>%
-  mutate(Proportion = Count / sum(Count))  # Calculate proportion
-
-# Horizontal bar plot with percentages
-dyad_aggression_plot <- ggplot(data = dyad_aggression, aes(x = Proportion, y = reorder(Dyad, Proportion), fill = DyadResponse)) +
-  geom_bar(stat = "identity", position = "fill", width = 0.7) +
-  theme_minimal(base_size = 15) +
-  labs(x = "Proportion (%)", y = "Dyad", title = "Proportion of Male vs Female Aggression by Dyad") +
-  scale_fill_manual(values = c("Male aggress female" = "#1f77b4", "Female aggress male" = "#ff7f0e")) +
-  geom_text(aes(label = paste0(round(Proportion * 100, 1), "%")), position = position_fill(vjust = 0.5), size = 4) +
-  theme(axis.text.y = element_text(angle = 0, hjust = 1))
-
-# Print the updated dyad aggression proportion plot
-print(dyad_aggression_plot)
 
 ```
   
@@ -3065,50 +3212,115 @@ print(dyad_aggression_plot)
 * Check amount of audience link with aggression occurences per sex
 
 
-```{r agression & audience test grap, echo=FALSE}
+```{r tests on agression audience and time, echo=FALSE}
 
 
-# Update the grouping with correct category order and relabel
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Step 1: Monthly Aggression Rate Analysis
+
+# Prepare data for monthly aggression rate analysis
 BexClean <- BexClean %>%
-    mutate(GroupedAudience = case_when(
-        as.numeric(AmountAudience) == 0 ~ "0",
-        as.numeric(AmountAudience) > 0 & as.numeric(AmountAudience) <= 3 ~ "1-3",
-        as.numeric(AmountAudience) > 3 ~ ">3"
-    ))
+  mutate(Month = floor_date(Date, "month"))
 
-# Ensure the categories are in the correct order
-BexClean$GroupedAudience <- factor(BexClean$GroupedAudience, levels = c("0", "1-3", ">3"))
+monthly_aggression <- BexClean %>%
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(Month, DyadResponse) %>%
+  summarise(AggressionCount = n(), .groups = "drop") %>%
+  mutate(MonthlyAggressionRate = AggressionCount / nrow(BexClean))
 
-# Calculate counts of aggression types by these audience categories
+# Plot monthly trends for male and female aggression separately
+ggplot(monthly_aggression, aes(x = Month, y = MonthlyAggressionRate, color = DyadResponse)) +
+  geom_line(size = 1.2) +
+  geom_point(size = 2) +
+  labs(title = "Monthly Aggression Rate Trends", x = "Month", y = "Aggression Rate",
+       color = "Aggression Type") +
+  theme_minimal()
+
+# Step 2: Audience Presence and Aggression Analysis
+
+# Categorize audience composition (male vs. female-dominated)
+BexClean <- BexClean %>%
+  mutate(AudienceComposition = case_when(
+    AmountAudience == 0 ~ "No Audience",
+    sum(nchar(Audience) == 3) > sum(nchar(Audience) == 4) ~ "Male-Dominated",
+    sum(nchar(Audience) == 4) > sum(nchar(Audience) == 3) ~ "Female-Dominated",
+    TRUE ~ "Mixed"
+  ))
+
 audience_aggression <- BexClean %>%
-    filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
-    group_by(GroupedAudience, DyadResponse) %>%
-    summarise(Count = n(), .groups = 'drop')
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(AudienceComposition, DyadResponse) %>%
+  summarise(Count = n(), .groups = 'drop')
 
-# Plot the relationship between audience amount and aggression with new colors and label
-audience_aggression_plot <- ggplot(data = audience_aggression, aes(x = GroupedAudience, y = Count, fill = DyadResponse)) +
-    geom_bar(stat = "identity", position = "dodge", width = 0.7) +
-    theme_minimal(base_size = 15) +
-    labs(x = "Amount of Audience", y = "Count of Aggressions",
-         title = "Relationship Between Audience Amount and Aggression",
-         fill = "Aggression Type") +
-    scale_fill_manual(values = c("#66c2a5", "#fc8d62")) +  # Teal and Orange colors
-    geom_text(aes(label = Count), position = position_dodge(width = 0.7), vjust = -0.3, size = 4)
+ggplot(audience_aggression, aes(x = AudienceComposition, y = Count, fill = DyadResponse)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+  theme_minimal() +
+  labs(title = "Aggression Incidents by Audience Composition",
+       x = "Audience Composition", y = "Aggression Count", fill = "Aggression Type") +
+  geom_text(aes(label = Count), position = position_dodge(width = 0.7), vjust = -0.3, size = 4)
 
-# Print the updated audience-aggression plot
-print(audience_aggression_plot)
+# Step 3: Kinship and Aggression Analysis
+
+# Identify kin presence within the audience
+BexClean <- BexClean %>%
+  mutate(KinPresent = ifelse(grepl(paste0("^", substr(Female, 1, 1)), Audience) & nchar(Female) == 4, "Female Kin Present",
+                              ifelse(grepl("Nak|Xin", Audience), "Male Kin Present", "No Kin Present")))
+
+# Analyze kin presence per dyad for aggression incidents
+kin_aggression <- BexClean %>%
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(KinPresent, DyadResponse) %>%
+  summarise(Count = n(), .groups = 'drop')
+
+ggplot(kin_aggression, aes(x = KinPresent, y = Count, fill = DyadResponse)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+  theme_minimal() +
+  labs(title = "Aggression Incidents by Kin Presence",
+       x = "Kin Presence", y = "Aggression Count", fill = "Aggression Type") +
+  geom_text(aes(label = Count), position = position_dodge(width = 0.7), vjust = -0.3, size = 4)
+
+# Step 4: Contextual Interaction Analysis
+
+# Combined analysis of month, audience composition, and kin presence
+combined_context <- BexClean %>%
+  group_by(Month, AudienceComposition, KinPresent) %>%
+  summarise(AggressionCount = sum(DyadResponse %in% c("Male aggress female", "Female aggress male")),
+            .groups = 'drop')
+
+ggplot(combined_context, aes(x = Month, y = AggressionCount, color = AudienceComposition, linetype = KinPresent)) +
+  geom_line(size = 1.2) +
+  labs(title = "Interaction Between Month, Audience, and Kin Presence on Aggression",
+       x = "Month", y = "Aggression Count", color = "Audience Composition", linetype = "Kin Presence") +
+  theme_minimal()
+
+# Step 5: Per-Dyad Analysis for Kin and Aggression
+dyad_kin_analysis <- BexClean %>%
+  filter(DyadResponse %in% c("Male aggress female", "Female aggress male")) %>%
+  group_by(Dyad, KinPresent, DyadResponse) %>%
+  summarise(Count = n(), .groups = 'drop')
+
+ggplot(dyad_kin_analysis, aes(x = Dyad, y = Count, fill = DyadResponse)) +
+  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
+  facet_wrap(~ KinPresent) +
+  theme_minimal() +
+  labs(title = "Per-Dyad Kin Presence and Aggression Analysis",
+       x = "Dyad", y = "Aggression Count", fill = "Aggression Type") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
+  geom_text(aes(label = Count), position = position_dodge(width = 0.7), vjust = -0.3, size = 4)
+
+# Additional code can be added based on specific questions and further refinements.
+
+
 
 
 
 ```
 
 
-
-
-```{r Not approaching, echo=FALSE}
-
-
-```
 
 ## 4.3 Preparation of dataset for importation of life history, elo rating & focal and ad libitum data
 
@@ -3269,6 +3481,8 @@ for (dyad in dyads) {
 }
 
 
+
+
 ```
 
 
@@ -3353,7 +3567,7 @@ print(unique(female_names))
 
 
 
-### 4.3.3 Intermediate check of Not Approaching behaviour
+### 4.3.3 Intermediate check of Not Approaching behaviour$
 ```{r Intermediate check of not approaching, echo=FALSE}
 
  # Load necessary libraries
@@ -3455,6 +3669,124 @@ print(dyad_plot)
 
 
 ```
+
+
+# 5.Checkpoint - Export Data as Rds and Xlslx
+```{r test organization export rds and xlsx, echo=FALSE}
+
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
+  arrange(Date)
+
+
+
+# Install the writexl package if not already installed
+# install.packages("writexl")
+
+# Load the writexl package
+library(writexl)
+
+# Export BexClean as an XLSX file
+write_xlsx(BexClean, path = "BexClean.xlsx")
+
+
+# Export BexClean as an RDS file
+saveRDS(BexClean, file = "BexClean.rds")
+
+
+```
+
+
+# 6. Preparation of life history
+
+* I will prepare the life-history file to have information about dyads and audience and import it
+
+```{r Life History, echo =FALSE}
+
+
+```
+# 7. EDA TESTING ; EXPLORATION and TESTS
+
+Step-by-Step Approach
+1. Visualizing Behavioral Trends Over Time
+We'll start by analyzing how key behaviors (like tolerance, male aggression, female aggression, and not approaching) evolve over time.
+
+Goal: Understand if there's a consistent trend over time, indicating factors like seasonality, repeated interactions, or changes in dyad dynamics.
+Approach: We'll create time-series plots to visualize how these behaviors change across trials and experiment days.
+2. Analyzing Behavioral Trends by Dyad
+Each dyad may exhibit different patterns. By separating the trends by dyad, we can:
+
+Goal: Identify whether some dyads are consistently tolerant, aggressive, or show variations depending on conditions like audience or time.
+Approach: Create faceted plots, where each facet represents a different dyad, showing the evolution of behaviors like distance, tolerance, and aggression.
+3. Investigating the Impact of Audience
+Understanding how audience composition influences behaviors like tolerance or aggression is crucial.
+
+Goal: Determine if audience types (e.g., kin vs. non-kin) have a statistically significant effect on behaviors.
+Approach: Use boxplots and bar charts to show the relationship between audience composition (kin vs. non-kin) and behaviors.
+4. Postulate and Refine Hypotheses
+After the initial EDA, we’ll refine the hypotheses and decide on the most suitable statistical models.
+
+Examples of Hypotheses:
+Tolerance is associated with shorter dyad distances over time.
+Audience presence (kin vs. non-kin) influences the likelihood of aggression.
+5. Preparing for Mixed-Effects Models
+Once the EDA provides insights, we can set up mixed-effects models that account for:
+
+Repeated measures within each dyad.
+Random effects to capture variability across dyads or trials.
+6. Outlier Detection and Analysis
+Outliers might distort the analysis, so we'll need to:
+
+Goal: Identify and handle influential outliers that could bias our models.
+Approach: Use boxplots and statistical diagnostics (e.g., Cook's distance) to detect outliers.
+
+
+Behaviours tests
+```{r behaviours graphs tests, echo=FALSE}
+
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Ensure Date is correctly formatted and clean the dataset
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format = "%Y-%m-%d"),
+         Month = floor_date(Date, "month")) %>%
+  filter(DyadDistance >= 0)  # Ensure no negative distances
+
+# Graph 1: Boxplot of Tolerance Mean Distance Per Dyad
+tolerance_boxplot <- BexClean %>%
+  filter(DyadResponse == "Tolerance") %>%
+  group_by(Dyad, Month) %>%
+  summarise(MeanDistance = mean(DyadDistance, na.rm = TRUE)) %>%
+  ungroup()
+
+ggplot(tolerance_boxplot, aes(x = Dyad, y = MeanDistance, fill = Dyad)) +
+  geom_boxplot() +
+  theme_minimal() +
+  labs(title = "Mean Distance for Tolerance per Dyad",
+       x = "Dyad",
+       y = "Mean Distance (Tolerance)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Graph 2: Line Plot of Tolerance Distance Over Time by Dyad
+ggplot(tolerance_boxplot, aes(x = Month, y = MeanDistance, color = Dyad, group = Dyad)) +
+  geom_line(size = 1) +
+  geom_point(size = 2) +
+  theme_minimal() +
+  labs(title = "Tolerance Distance Trends Over Time by Dyad",
+       x = "Month",
+       y = "Mean Distance (Tolerance)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+```
+
+
+
+
+
 
 # TO SORT; NOT FINISHED 
    * I want to use the date to know **how many sessions** have been done with each dyads in my experiment. 
