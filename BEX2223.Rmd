@@ -1424,7 +1424,17 @@ BexClean <- BexClean %>%
   ungroup()
 
 
+#Step 7: Create TrialDay variables - Count the number of unique trials for each day for each dyad separetely
+BexClean <- BexClean %>%
+  group_by(Dyad, Date) %>%
+  arrange(Date, Time, .by_group = TRUE) %>%
+  mutate(TrialDay = row_number()) %>%
+  ungroup()
 
+# Display relevant columns to check
+BexClean %>%
+  select(Date, Dyad, Trial, DyadDay, TrialDay) %>%
+  print()
 
 
 ```
@@ -2874,7 +2884,7 @@ print(dyad_response_plot)
 
 
 
-# 4.Visualizing the data and tests (to sort and clean)
+# 4.Visualizing the data (General Overview)
 
 ## 4.1 Reordering the variables in Bex
 
@@ -3014,6 +3024,12 @@ BexClean <- BexClean %>%
   mutate(DyadDay = dense_rank(Date)) %>%
   ungroup()
 
+# Step 6: Create the TrialDay variable - Counts the number of unique trials for each day for each dyad separately
+BexClean <- BexClean %>%
+  group_by(Dyad, Date) %>%
+  arrange(Date, Time, .by_group = TRUE) %>%
+  mutate(TrialDay = row_number()) %>%
+  ungroup()
 
 
 
@@ -3026,7 +3042,7 @@ BexClean <- BexClean %>%
 # Reordering the columns of BexClean
 
 BexClean <- BexClean %>%
-  select(DaysSinceStart, ExperimentDay, Date, Month, DyadDay, Trial, Time, Hour, Period, Male, Female, Dyad, 
+  select(DaysSinceStart, ExperimentDay, Date, Month, DyadDay, TrialDay, Trial, Time, Hour, Period, Male, Female, Dyad, 
          DyadDistance, Proximity, DyadResponse,IDIndividual1, Intrusion, IntruderID, SpecialBehaviour, 
          Audience, AmountAudience, Context, SpecialBehaviour)
 
@@ -3671,79 +3687,9 @@ print(dyad_plot)
 ```
 
 
-# 5.Checkpoint - Export Data as Rds and Xlslx
-```{r test organization export rds and xlsx, echo=FALSE}
-
-BexClean <- BexClean %>%
-  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
-  arrange(Date)
 
 
-
-# Install the writexl package if not already installed
-# install.packages("writexl")
-
-# Load the writexl package
-library(writexl)
-
-# Export BexClean as an XLSX file
-write_xlsx(BexClean, path = "BexClean.xlsx")
-
-
-# Export BexClean as an RDS file
-saveRDS(BexClean, file = "BexClean.rds")
-
-
-```
-
-
-# 6. Preparation of life history
-
-* I will prepare the life-history file to have information about dyads and audience and import it
-
-```{r Life History, echo =FALSE}
-library(readxl)
-lifehistory <- read_xlsx("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/Bex Life history.xlsx")
-
-
-head(lifehistory)
-
-```
-# 7. EDA TESTING ; EXPLORATION and TESTS
-
-Step-by-Step Approach
-1. Visualizing Behavioral Trends Over Time
-We'll start by analyzing how key behaviors (like tolerance, male aggression, female aggression, and not approaching) evolve over time.
-
-Goal: Understand if there's a consistent trend over time, indicating factors like seasonality, repeated interactions, or changes in dyad dynamics.
-Approach: We'll create time-series plots to visualize how these behaviors change across trials and experiment days.
-2. Analyzing Behavioral Trends by Dyad
-Each dyad may exhibit different patterns. By separating the trends by dyad, we can:
-
-Goal: Identify whether some dyads are consistently tolerant, aggressive, or show variations depending on conditions like audience or time.
-Approach: Create faceted plots, where each facet represents a different dyad, showing the evolution of behaviors like distance, tolerance, and aggression.
-3. Investigating the Impact of Audience
-Understanding how audience composition influences behaviors like tolerance or aggression is crucial.
-
-Goal: Determine if audience types (e.g., kin vs. non-kin) have a statistically significant effect on behaviors.
-Approach: Use boxplots and bar charts to show the relationship between audience composition (kin vs. non-kin) and behaviors.
-4. Postulate and Refine Hypotheses
-After the initial EDA, we’ll refine the hypotheses and decide on the most suitable statistical models.
-
-Examples of Hypotheses:
-Tolerance is associated with shorter dyad distances over time.
-Audience presence (kin vs. non-kin) influences the likelihood of aggression.
-5. Preparing for Mixed-Effects Models
-Once the EDA provides insights, we can set up mixed-effects models that account for:
-
-Repeated measures within each dyad.
-Random effects to capture variability across dyads or trials.
-6. Outlier Detection and Analysis
-Outliers might distort the analysis, so we'll need to:
-
-Goal: Identify and handle influential outliers that could bias our models.
-Approach: Use boxplots and statistical diagnostics (e.g., Cook's distance) to detect outliers.
-
+### 4.3.5 Evolution of DyadResponse per Dyad
 
 Behaviours tests
 ```{r behaviours graphs tests, echo=FALSE}
@@ -3786,6 +3732,154 @@ ggplot(tolerance_boxplot, aes(x = Month, y = MeanDistance, color = Dyad, group =
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 ```
+
+
+# 5.Checkpoint - Export Data as Rds and Xlslx
+```{r test organization export rds and xlsx, echo=FALSE}
+
+BexClean <- BexClean %>%
+  mutate(Date = as.Date(Date, format="%Y-%m-%d")) %>%
+  arrange(Date)
+
+
+
+# Install the writexl package if not already installed
+# install.packages("writexl")
+
+# Load the writexl package
+
+
+library(writexl)
+
+# Export BexClean as an XLSX file
+write_xlsx(BexClean, path = "BexClean.xlsx")
+
+
+# Export BexClean as an RDS file
+saveRDS(BexClean, file = "BexClean.rds")
+
+
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# 6 Importing data for new varaibles (Age, Elo Rating, DSI)
+* I want to investigate how intra-dyadic differences can explain inter-dyadic differences on tolerances levels during the box experiment
+* For that I will calculate the age of individuals , their rank using elo rating, and their social bond using the dyadic composite social index
+* I will use data files from IVP that contain longterm data as on theirage, agonistic and affiliative exhancges, and other data.
+
+
+* Female DOB: Direct from the dataset except for Ouli, who needs a manual adjustment.
+* Male DOB: Use FirstRecorded - 4 years, except for a few individuals who have DOB recorded (like Xia and Xin).
+* Age Comparison: Calculate the age for both males and females based on their estimated or recorded DOB.
+
+
+Female DOB: Use the direct DOB from LH, except for Ouli.
+Male DOB: Use FirstRecorded - 4 years unless they have a recorded DOB.
+Age Calculation: We'll calculate the ages for both using the DOBs or estimated DOBs.
+
+
+
+```{r Age calculations, echo=FALSE}
+
+
+# Load necessary libraries
+library(dplyr)
+library(lubridate)
+
+# Step 1: Load the Life History Data
+LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/IVP Life history_180424.csv", 
+                   header = TRUE, stringsAsFactors = FALSE, na.strings = c('NA', 'Not yet'))
+
+# Step 2: Convert FirstRecorded from character to date (dd/mm/yyyy format)
+LHdata <- LHdata %>%
+  mutate(
+    FirstRecorded = as.Date(FirstRecorded, format = "%d/%m/%Y"),  # Convert to Date from dd/mm/yyyy
+    DOB = parse_date_time(DOB, orders = c("dmy", "Y", "ymd"), quiet = TRUE)  # Parse DOB in multiple formats
+  )
+
+# Step 3: Filter female individuals (use the subset of individuals you're working with)
+females <- c("Ndaw", "Ginq", "Xian", "Oort", "Sirk", "Piep", "Ouli", "Oerw")
+LHdata_females <- LHdata %>%
+  filter(Code %in% females)
+
+# Step 4: Calculate the age based on FirstRecorded for all individuals
+LHdata_females <- LHdata_females %>%
+  mutate(
+    Age = as.numeric(difftime(Sys.Date(), FirstRecorded, units = "weeks")) / 52.1775  # Age in years
+  )
+
+# Step 5: Print the updated dataframe to check if Age is correct
+print(LHdata_females %>% select(Code, FirstRecorded, Age))
+
+# Step 6: Create a simple plot of the Ages
+library(ggplot2)
+
+ggplot(LHdata_females, aes(x = Code, y = Age)) +
+  geom_bar(stat = "identity", fill = "lightblue") +
+  theme_minimal() +
+  labs(title = "Age of Female Vervets", x = "Individual", y = "Age (Years)") +
+  geom_text(aes(label = round(Age, 2)), vjust = -0.5)
+
+
+
+
+```
+
+
+
+## 6.1. Assessing Age of Individuals
+
+# 7. EDA TESTING ; EXPLORATION and TESTS
+
+Step-by-Step Approach
+1. Visualizing Behavioral Trends Over Time
+We'll start by analyzing how key behaviors (like tolerance, male aggression, female aggression, and not approaching) evolve over time.
+
+Goal: Understand if there's a consistent trend over time, indicating factors like seasonality, repeated interactions, or changes in dyad dynamics.
+Approach: We'll create time-series plots to visualize how these behaviors change across trials and experiment days.
+2. Analyzing Behavioral Trends by Dyad
+Each dyad may exhibit different patterns. By separating the trends by dyad, we can:
+
+Goal: Identify whether some dyads are consistently tolerant, aggressive, or show variations depending on conditions like audience or time.
+Approach: Create faceted plots, where each facet represents a different dyad, showing the evolution of behaviors like distance, tolerance, and aggression.
+3. Investigating the Impact of Audience
+Understanding how audience composition influences behaviors like tolerance or aggression is crucial.
+
+Goal: Determine if audience types (e.g., kin vs. non-kin) have a statistically significant effect on behaviors.
+Approach: Use boxplots and bar charts to show the relationship between audience composition (kin vs. non-kin) and behaviors.
+4. Postulate and Refine Hypotheses
+After the initial EDA, we’ll refine the hypotheses and decide on the most suitable statistical models.
+
+Examples of Hypotheses:
+Tolerance is associated with shorter dyad distances over time.
+Audience presence (kin vs. non-kin) influences the likelihood of aggression.
+5. Preparing for Mixed-Effects Models
+Once the EDA provides insights, we can set up mixed-effects models that account for:
+
+Repeated measures within each dyad.
+Random effects to capture variability across dyads or trials.
+6. Outlier Detection and Analysis
+Outliers might distort the analysis, so we'll need to:
+
+Goal: Identify and handle influential outliers that could bias our models.
+Approach: Use boxplots and statistical diagnostics (e.g., Cook's distance) to detect outliers.
+
+
 
 
 
