@@ -3782,18 +3782,13 @@ saveRDS(BexClean, file = "BexClean.rds")
 * For that I will calculate the age of individuals , their rank using elo rating, and their social bond using the dyadic composite social index
 * I will use data files from Inkawu Vervet Project (IVP) that contain longterm data as on age, agonistic and affiliative ineractions as for proximity data amon other.
 
-## 6.1 Age of Dyads
+## 6.1. Assessing Age of Individuals
 
-* Female DOB: Direct from the dataset except for Ouli, who nwas already adult when first recored, we will add 4
-* Male DOB: Use FirstRecorded - 4 years, except for a few individuals who have DOB recorded (like Xia and Xin).
-* Age Comparison: Calculate the age for both males and females based on their estimated or recorded DOB.
+* Female DOB: Use the direct DOB from LH, except for Ouli.
+* Male DOB: Use FirstRecorded - 4 years unless they have a recorded DOB.
+* Age Calculation: We'll calculate the ages for both using the DOBs or estimated DOBs.
 
-
-Female DOB: Use the direct DOB from LH, except for Ouli.
-Male DOB: Use FirstRecorded - 4 years unless they have a recorded DOB.
-Age Calculation: We'll calculate the ages for both using the DOBs or estimated DOBs.
-
-
+### 6.2 Age of Females
 
 ```{r Age calculations, echo=FALSE}
 
@@ -3854,8 +3849,102 @@ ggplot(LHdata_females, aes(x = reorder(Code, Age), y = Age)) +
 ```
 
 
+### 6.3 Age of Male
 
-## 6.1. Assessing Age of Individuals
+* Since most males dispsersed from unkonwn groups we dont have their date of birth. But male usually dispers around 5 years old. 
+
+* Male DOB: Use FirstRecorded - 5 years, except for a few individuals who have DOB recorded (like Xia and Xin)
+
+* Use DOB directly if it exists.
+* Subtract 5 years from FirstRecorded if DOB is missing.
+* Calculate age based on AdjustedDOB.
+* Output a table with the relevant columns and create a graph * similar to the one you had for the females.
+
+
+```{r Male Age, echo=FALSE}
+
+
+# Step 1: Filter male individuals from the Life History Data
+males <- c("Sho", "Buk", "Kom", "Nge", "Xia", "Xin", "Sey", "Pom")
+
+LHdata_males <- LHdata %>%
+  filter(Code %in% males)
+
+# Step 2: Print the DOB and FirstRecorded for each male
+print(LHdata_males %>% select(Code, DOB, FirstRecorded))
+
+
+
+
+
+
+# Step 1: Load the Life History Data
+LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/IVP Life history_180424.csv", 
+                   header = TRUE, stringsAsFactors = FALSE, na.strings = c('NA', 'Not yet'))
+
+# Step 2: Convert FirstRecorded from character to date (dd/mm/yyyy format)
+LHdata <- LHdata %>%
+  mutate(
+    FirstRecorded = as.Date(FirstRecorded, format = "%d/%m/%Y"),  # Convert to Date from dd/mm/yyyy
+    DOB = parse_date_time(DOB, orders = c("dmy", "Y", "ymd"), quiet = TRUE)  # Parse DOB in multiple formats
+  )
+
+# Step 3: Filter male individuals (the subset of individuals you're working with)
+males <- c("Sho", "Buk", "Kom", "Nge", "Xia", "Xin", "Sey", "Pom")
+LHdata_males <- LHdata %>%
+  filter(Code %in% males)
+
+# Step 4: Adjust DOB for males; if DOB is missing, subtract 5 years from FirstRecorded
+LHdata_males <- LHdata_males %>%
+  mutate(
+    AdjustedDOB = ifelse(is.na(DOB), as.character(FirstRecorded - years(5)), as.character(DOB)),  # Subtract 5 years if DOB is missing
+    AdjustedDOB = ymd(AdjustedDOB)  # Parse AdjustedDOB as a date using lubridate's ymd() function
+  )
+
+# Step 5: Calculate Age based on AdjustedDOB
+LHdata_males <- LHdata_males %>%
+  mutate(
+    Age = as.numeric(difftime(Sys.Date(), AdjustedDOB, units = "weeks")) / 52.1775  # Age in years
+  )
+
+# Step 6: Display the table with relevant columns
+LHdata_males_table <- LHdata_males %>%
+  select(Code, DOB, FirstRecorded, AdjustedDOB, Age)
+
+# Print the table to check the results
+print(LHdata_males_table)
+
+# Step 7: Plot the Ages, sorting the bars from youngest to oldest
+library(ggplot2)
+
+ggplot(LHdata_males, aes(x = reorder(Code, Age), y = Age)) + 
+  geom_bar(stat = "identity", fill = "lightgreen") +
+  theme_minimal() +
+  labs(title = "Age of Male Vervets (Sorted)", x = "Individual", y = "Age (Years)") +
+  geom_text(aes(label = round(Age, 2)), vjust = -0.5)
+
+
+
+
+```
+
+
+### Dyadic Age Difference
+
+* Age Comparison: Calculate the age for both males and females based on their estimated or recorded DOB.
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 # 7. EDA TESTING ; EXPLORATION and TESTS
 
