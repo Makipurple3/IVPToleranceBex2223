@@ -3761,22 +3761,6 @@ saveRDS(BexClean, file = "BexClean.rds")
 
 ```
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 # 6 Importing data for new varaibles (Age, Elo Rating, DSI)
 * I want to investigate how intra-dyadic differences can explain inter-dyadic differences on tolerances levels during the box experiment
 * For that I will calculate the age of individuals , their rank using elo rating, and their social bond using the dyadic composite social index
@@ -3791,7 +3775,6 @@ saveRDS(BexClean, file = "BexClean.rds")
 ### 6.1.2 Age of Females
 
 ```{r Age calculations, echo=FALSE}
-
 
 # Load necessary libraries
 library(dplyr)
@@ -3937,10 +3920,6 @@ ggplot(LHdata_males, aes(x = reorder(Code, Age), y = Age)) +
 
 ```{r Age in male and female, echo=FALSE}
 
-
-
-
-
 # Combine male and female data
 # Use the Gender column to differentiate between males and females
 combined_data <- bind_rows(
@@ -3968,16 +3947,36 @@ ggplot(combined_data, aes(x = reorder(Code, Age), y = Age, fill = Gender)) +
 ```
 
 
-* The relative age difference normalizes the raw age difference between two individuals in a dyad, dividing it by the average age of the two. 
-* This normalization is essential to compare dyads consisting of younger and older individuals.
+### 6.1.5 Absolute Age Difference
 
-F* or instance:
+* We are going to calculate the raw differnce of agin between each male and female in the dyad displaying the absolute age difference ordered
 
-* A 4-year difference between a 10-year-old and a 14-year-old means a 40% difference relative to their average age (12 years).
-* The same 4-year difference between a 30-year-old and a 34-year-old represents only a 12.5% difference relative to their average age (32 years).
-* This allows for a fairer comparison of age differences across dyads with different age ranges.
+```{r Absolute Age Difference, echo=FALSE}
 
-```{r relative age difference, echo=FALSE }
+
+# Step 1: Ensure combined_data is ready with male and female data
+combined_data <- bind_rows(
+  LHdata_females_table %>% mutate(Gender = "Female"),  # Add Gender column for females
+  LHdata_males_table %>% mutate(Gender = "Male")       # Add Gender column for males
+)
+
+# Step 2: Join male and female age data for each dyad
+# Use "Male" and "Female" as the column names
+dyad_data <- BexClean %>%
+  left_join(combined_data, by = c("Male" = "Code")) %>% 
+  rename(MaleAge = Age) %>%
+  left_join(combined_data, by = c("Female" = "Code")) %>%
+  rename(FemaleAge = Age) %>%
+  mutate(AgeDifference = abs(MaleAge - FemaleAge)) %>%  # Calculate absolute age difference
+  arrange(AgeDifference)  # Sort by absolute age difference
+
+# Step 3: Plot Absolute Age Difference
+ggplot(dyad_data, aes(x = reorder(paste(Male, Female, sep = " - "), AgeDifference), y = AgeDifference)) +
+  geom_bar(stat = "identity", fill = "lightblue", width = 0.7) +
+  geom_text(aes(label = round(AgeDifference, 2)), vjust = -0.5, size = 4) +
+  theme_minimal() +
+  labs(title = "Absolute Age Difference Between Dyads", x = "Dyad", y = "Absolute Age Difference (Years)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 
@@ -3985,21 +3984,74 @@ F* or instance:
 ```
 
 
+### 6.1.6 Relative Age Difference
+
+* (Check if necessary) We are going to normalize the average age of to ID in a dyad
 
 
-* Absolute age difference
+```{r Relative Age Difference, echo=FALSE}
 
-```{r Absolute age difference, echo=FALSE}
+
+
+dyad_data <- dyad_data %>%
+  mutate(AvgAge = (MaleAge + FemaleAge) / 2,  # Calculate average age in the dyad
+         RelativeAgeDifference = (abs(MaleAge - FemaleAge) / AvgAge) * 100)  # Calculate relative age difference
+
+# Check for any NA or invalid AvgAge values
+summary(dyad_data$AvgAge)
+summary(dyad_data$RelativeAgeDifference)
+
+# Now plot
+ggplot(dyad_data, aes(x = reorder(paste(Male, Female, sep = " - "), RelativeAgeDifference), y = RelativeAgeDifference)) +
+  geom_bar(stat = "identity", fill = "lightgreen", width = 0.7) +
+  geom_text(aes(label = paste(round(RelativeAgeDifference, 2), "%")), vjust = -0.5, size = 4) +
+  theme_minimal() +
+  labs(title = "Relative Age Difference Between Dyads", x = "Dyad", y = "Relative Age Difference (%)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
 
 
 ```
 
-* Create a column into DyadData describing which individual (Male or Female) is older  within the Dyad
 
-```{r Older Individual in Dyad, echo=FALSE}
+### 6.1.7 In order to compare the age difference accross dyads we are going to calculate the z-scores of the aboslute age 
 
-# 
+
+```{r zscores age, echo=FALSE}
+
+
+
+# Step 1: Calculate Z-Score for Age Difference
+dyad_data <- dyad_data %>%
+  mutate(MeanAgeDiff = mean(AgeDifference, na.rm = TRUE),  # Calculate mean age difference
+         SDAgeDiff = sd(AgeDifference, na.rm = TRUE),      # Calculate standard deviation of age difference
+         ZScoreAgeDiff = (AgeDifference - MeanAgeDiff) / SDAgeDiff)  # Calculate Z-score for age difference
+
+# Step 2: Plot Z-Scores for Age Difference
+ggplot(dyad_data, aes(x = reorder(paste(Male, Female, sep = " - "), ZScoreAgeDiff), y = ZScoreAgeDiff)) +
+  geom_bar(stat = "identity", fill = "orange", width = 0.7) +
+  geom_text(aes(label = round(ZScoreAgeDiff, 2)), vjust = -0.5, size = 4) +
+  theme_minimal() +
+  labs(title = "Z-Score of Age Difference Between Dyads", x = "Dyad", y = "Z-Score of Age Difference") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+
 ```
+
+
+### 6.1.7 Age direction
+
+* For further anaylsis we may consider if the male or female was older 
+
+```{r Age direction, echo=FALSE}
+
+
+
+```
+
+
+
 
 # 7. EDA TESTING ; EXPLORATION and TESTS
 
