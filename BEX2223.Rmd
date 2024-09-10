@@ -3788,7 +3788,7 @@ saveRDS(BexClean, file = "BexClean.rds")
 * Male DOB: Use FirstRecorded - 4 years unless they have a recorded DOB.
 * Age Calculation: We'll calculate the ages for both using the DOBs or estimated DOBs.
 
-### 6.2 Age of Females
+### 6.1.2 Age of Females
 
 ```{r Age calculations, echo=FALSE}
 
@@ -3849,7 +3849,7 @@ ggplot(LHdata_females, aes(x = reorder(Code, Age), y = Age)) +
 ```
 
 
-### 6.3 Age of Male
+### 6.1.3 Age of Male
 
 * Since most males dispsersed from unkonwn groups we dont have their date of birth. But male usually dispers around 5 years old. 
 
@@ -3929,22 +3929,77 @@ ggplot(LHdata_males, aes(x = reorder(Code, Age), y = Age)) +
 ```
 
 
-### Dyadic Age Difference
+### 6.1.4 Dyadic Age Difference
 
 * Age Comparison: Calculate the age for both males and females based on their estimated or recorded DOB.
+* Lets explore male femalée ages before calculating differences between dyads
+
+
+```{r Age in male and female, echo=FALSE}
 
 
 
 
 
+# Combine male and female data
+# Use the Gender column to differentiate between males and females
+combined_data <- bind_rows(
+  LHdata_females_table %>% mutate(Gender = "Female"),  # Add Gender column for females
+  LHdata_males_table %>% mutate(Gender = "Male")       # Add Gender column for males
+)
+
+# Calculate the mean age across males and females
+mean_age <- mean(combined_data$Age, na.rm = TRUE)
+
+# Display the table with both male and female ages
+print(combined_data)
+
+# Plot with Male/Female distinction and mean line
+ggplot(combined_data, aes(x = reorder(Code, Age), y = Age, fill = Gender)) +
+  geom_bar(stat = "identity") +  # Bar plot for ages
+  geom_hline(yintercept = mean_age, linetype = "dashed", color = "red", size = 1) +  # Mean age line
+  theme_minimal() +
+  labs(title = "Age of Male and Female Vervet Monkeys with Mean Age", x = "Individual", y = "Age (Years)") +
+  scale_fill_manual(values = c("Male" = "lightblue", "Female" = "purple")) +  # Color coding for Male and Female
+  geom_text(aes(label = round(Age, 2)), vjust = -0.5) +  # Add age values on bars
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Adjust text angle for readability
+
+
+```
+
+
+* The relative age difference normalizes the raw age difference between two individuals in a dyad, dividing it by the average age of the two. 
+* This normalization is essential to compare dyads consisting of younger and older individuals.
+
+F* or instance:
+
+* A 4-year difference between a 10-year-old and a 14-year-old means a 40% difference relative to their average age (12 years).
+* The same 4-year difference between a 30-year-old and a 34-year-old represents only a 12.5% difference relative to their average age (32 years).
+* This allows for a fairer comparison of age differences across dyads with different age ranges.
+
+```{r relative age difference, echo=FALSE }
 
 
 
 
+```
 
 
 
 
+* Absolute age difference
+
+```{r Absolute age difference, echo=FALSE}
+
+
+```
+
+* Create a column into DyadData describing which individual (Male or Female) is older  within the Dyad
+
+```{r Older Individual in Dyad, echo=FALSE}
+
+# 
+```
 
 # 7. EDA TESTING ; EXPLORATION and TESTS
 
