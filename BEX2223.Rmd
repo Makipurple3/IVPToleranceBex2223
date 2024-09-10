@@ -3780,10 +3780,11 @@ saveRDS(BexClean, file = "BexClean.rds")
 # 6 Importing data for new varaibles (Age, Elo Rating, DSI)
 * I want to investigate how intra-dyadic differences can explain inter-dyadic differences on tolerances levels during the box experiment
 * For that I will calculate the age of individuals , their rank using elo rating, and their social bond using the dyadic composite social index
-* I will use data files from IVP that contain longterm data as on theirage, agonistic and affiliative exhancges, and other data.
+* I will use data files from Inkawu Vervet Project (IVP) that contain longterm data as on age, agonistic and affiliative ineractions as for proximity data amon other.
 
+## 6.1 Age of Dyads
 
-* Female DOB: Direct from the dataset except for Ouli, who needs a manual adjustment.
+* Female DOB: Direct from the dataset except for Ouli, who nwas already adult when first recored, we will add 4
 * Male DOB: Use FirstRecorded - 4 years, except for a few individuals who have DOB recorded (like Xia and Xin).
 * Age Comparison: Calculate the age for both males and females based on their estimated or recorded DOB.
 
@@ -3817,23 +3818,35 @@ females <- c("Ndaw", "Ginq", "Xian", "Oort", "Sirk", "Piep", "Ouli", "Oerw")
 LHdata_females <- LHdata %>%
   filter(Code %in% females)
 
-# Step 4: Calculate the age based on FirstRecorded for all individuals
+# Step 4: Adjust Ouli's DOB by subtracting 4 years
 LHdata_females <- LHdata_females %>%
   mutate(
-    Age = as.numeric(difftime(Sys.Date(), FirstRecorded, units = "weeks")) / 52.1775  # Age in years
+    AdjustedDOB = ifelse(Code == "Ouli", as.character(FirstRecorded - years(4)), as.character(DOB)),  # Subtract 4 years for Ouli
+    AdjustedDOB = ymd(AdjustedDOB)  # Parse AdjustedDOB as a date using lubridate's ymd() function
   )
 
-# Step 5: Print the updated dataframe to check if Age is correct
-print(LHdata_females %>% select(Code, FirstRecorded, Age))
+# Step 5: Calculate Age based on AdjustedDOB
+LHdata_females <- LHdata_females %>%
+  mutate(
+    Age = as.numeric(difftime(Sys.Date(), AdjustedDOB, units = "weeks")) / 52.1775  # Age in years
+  )
 
-# Step 6: Create a simple plot of the Ages
+# Step 6: Display the table with relevant columns
+LHdata_females_table <- LHdata_females %>%
+  select(Code, DOB, FirstRecorded,AdjustedDOB, Age)
+
+# Print the table
+print(LHdata_females_table)
+
+# Step 7: Plot the Ages, sorting the bars from youngest to oldest
 library(ggplot2)
 
-ggplot(LHdata_females, aes(x = Code, y = Age)) +
+ggplot(LHdata_females, aes(x = reorder(Code, Age), y = Age)) + 
   geom_bar(stat = "identity", fill = "lightblue") +
   theme_minimal() +
-  labs(title = "Age of Female Vervets", x = "Individual", y = "Age (Years)") +
+  labs(title = "Age of Female Vervets (Sorted)", x = "Individual", y = "Age (Years)") +
   geom_text(aes(label = round(Age, 2)), vjust = -0.5)
+
 
 
 
