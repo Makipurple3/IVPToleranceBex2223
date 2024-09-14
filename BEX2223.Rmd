@@ -4409,10 +4409,159 @@ Residuals vs. Leverage: Identify influential observations.
 ### 6.2.1 Creation of Final Agonistic
 
 
+* I will now create FinalAgonistic.csv using Agonistic data from 2016 to 2023 and maybe the latest agonistic file until May 2023. Also I Focal data from June 2022 until the latest focals (date to check)
+
+* **FinalAgonistic.csv** will combine the above input files after filtering one-on-one interactions (excluding support interactions). It will involve cleaning and merging the raw data from agonistic interactions and focals to prepare it for the winner-loser calculations.
+
+```{r Final Agonistic, echo=FALSE}
+
+## Creating FinalAgonistic
+library(dplyr)
+library(tidyr)
+library(stringr)
+
+old <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Agonistic2016-2023.csv")
+
+
+# This dataframe contains agonistic ad lib data from 2016 to May 2023.
+old$Date <- as.Date(old$Date)
+hist(old$Date, breaks = "weeks")
+
+# Check if the latest agonistic csv file of cybertracker has data that goes back to May 2023!
+# Otherwise, make sure to include that back up that contains data from that period until the latest
+# file of cybertracker
+
+# You can add that potential backup to this file the same way as you would add the newest file
+
+# Load the newest agonistic ad lib data
+new <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Agonistic.csv",1)
+
+# We only use one on one interactions
+# So omit all interactions with a supporter
+
+new <- dplyr::filter(new, IDSupporters == "")
+
+# Select columns of interest
+
+new <- new[,c(2:4,8:11)]
+
+str(new)
+
+# Put in right format
+
+new$Time <- format(as.POSIXct(new$Time,format="%H:%M:%S"),"%H:%M:%S")
+colnames(new)[1] <- "Date"
+new$Date <- as.Date(format(as.POSIXct(new$Date, format = "%Y/%m/%d"), "%Y-%m-%d"))
+colnames(new)[4] <- "Aggressor"
+colnames(new)[5] <- "AggressorBehaviour"
+colnames(new)[6] <- "Victim"
+colnames(new)[7] <- "VictimBehaviour"
+str(new)
+
+# Combine the old and new dataframes:
+elo <- bind_rows(old, new)
+#View(elo)
+
+# Make sure there is no overlapping data with the old data
+elo <- elo %>% distinct()
+
+# This file now should contain all ad lib recorded interactions that had no support
+
+### Now we do the same for focals ####
+
+
+
+
+
+
+
+#### ADD FOCAL AGONISTIC 2022 -2023 WHEN AVAILABLE
+#foc_old <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Focal_agonistic2022-2023.csv")
+#foc_old$Date <- as.Date(foc_old$Date)
+# This file contains all the agonistic interactions recorded during focals without support
+# Check the time period:
+#hist(foc_old$Date, breaks = "weeks")
+# So this file is from May 2022 (when we started focalling) until May 2023 basically
+
+####
+
+
+
+
+
+
+
+# Now we should load the newest file or the newest and the file until May 2023
+f <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Focal.CSV",1)
+f$Date <- as.Date(format(as.POSIXct(f$Date, format = "%Y/%m/%d"), "%Y-%m-%d"))
+
+# Filter only agonistic without support
+f <- subset(f, f$Behaviour%in% "Agonistic") 
+f <- subset(f, !f$AgonisticInteraction%in% c("Support to Focal", "Support to Partner", "Focal Supports"))
+
+# select columns of interest
+f <- f[,c(2:4,9,12,13)]
+
+f$VictimBehaviour <- ""
+
+
+# Perform the data transformation
+f <- f %>%
+  mutate(VictimBehaviour = str_extract_all(BehaviourFocal, "(?<=\\b[bB])(\\w{2,4})")) %>%
+  mutate(VictimBehaviour = ifelse(lengths(VictimBehaviour) > 0, sapply(VictimBehaviour, function(x) paste(x, collapse = " ")), NA),
+         BehaviourFocal = str_replace_all(BehaviourFocal, "\\b[bB]\\w{2,4}\\b", ""))
+
+colnames(f) [1:7] <- c("Date", "Time", "Group", "Aggressor", "AggressorBehaviour", "Victim", "VictimBehaviour")
+
+
+
+
+
+
+####### ADD AGAIN WHEN AGONISTIC 2022 -2023 AVAIALABLE
+# we bind both focals together
+#focals <- bind_rows(foc_old, f)
+######
+
+###### Make sure there's no duplicates
+#focals <- focals %>% distinct()
+#####
+
+# Now we bind both ad lib and focals together
+#final <- bind_rows(elo, focals)
+
+
+
+
+
+# Save this datafile as FinalAgonistic
+write.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/FinalAgonistic.csv", row.names = F)
+# However, although the column names are Aggressor and Victim, we do not know yet which 
+# individual won the interaction, and which one lost.
+# Go to Create WinnerLoser to calculate the winners and losers :)
+
+
+
+
+
+
+```
+
+
 
 ### 6.2 Creation of Winner Looser
 
 
+
+```{r Winner Looser, echo=FALSE}
+
+
+
+
+```
+
+
+* MISSING DATA WILL BE UPDATED WHENM AVAILABLE : AGONISTIC 2022 - 2023
 
 ### 6.2 Female Elo Ratings
 
@@ -4422,7 +4571,28 @@ Residuals vs. Leverage: Identify influential observations.
 
 
 
-## 6.3 Social Bond
+## 6.3 DSI - Dyadic composite Sociality Index
+
+
+
+
+```{r DSI Calculation, echo=FALSE}
+
+
+
+
+
+
+
+
+```
+
+
+
+
+
+
+
 
 ## 6.4 (Does tolerance predict distance?)
 * Thinking about 
