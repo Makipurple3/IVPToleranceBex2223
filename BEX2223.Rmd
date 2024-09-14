@@ -4253,7 +4253,7 @@ Spearman's Correlation:
 Measures monotonic relationships.
 Less sensitive to outliers and does not require normal distribution.
 
-```{r test, echo=FALSE}
+```{r Age Spearman, echo=FALSE}
 
 # Spearman's correlation test
 spearman_test <- cor.test(dyad_summary$AgeDifference, dyad_summary$ToleranceProportion, method = "spearman")
@@ -4367,6 +4367,16 @@ model3_interaction <- lm(ToleranceProportion ~ AgeDifference * AgeDirection, dat
 summary(model3_interaction)
 
 
+# Scatter plot with regression lines for each AgeDirection
+ggplot(dyad_summary, aes(x = AgeDifference, y = ToleranceProportion, color = AgeDirection)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Tolerance Proportion vs. Age Difference by Age Direction",
+       x = "Age Difference (years)", y = "Tolerance Proportion") +
+  theme_minimal()
+
+
+
 ```
 
 
@@ -4377,17 +4387,40 @@ Scale-Location Plot: Check for homoscedasticity.
 Residuals vs. Leverage: Identify influential observations.
 
 
-```{r Beta regression, echo=FALSE}
 
-
-
-
-
-
-```
+#### 6.1.9.4 Age Conclusion
+* It seems that both age difference and age direction within dyads re not significant and do not predict tolerance rates differences
+* This may come from the very small sample but we will try to explain tolerance with other factors as rank and intial social bond 
 
 
 ## 6.2 Elo Rating
+
+* In order to calculate the Elo Rating, I will have to create different files
+  1. **FinalAgonistic** using the files **Agonistic2016-2023.csv, Agonistic.csv and Focal.csv**
+  2. **WinnerLoser** using the newly created **FinalAgonistic.csv** and **IVP Life history_180424.csv**
+  3. **Elo rating** using presence matrices from the files **AK2020-2024.csv, BD2020-2024.csv, KB2020-2024.csv, NH2020-2024.csv** and **     WinnerLoser.csv**
+
+* As males and females hierarchy are distinct I will have to calculate their hierarchies separately
+
+* Speciffically for these codes I may have seqcheck() and elo.seq() functions errors as:
+	-First interaction occurred before presence (approx) meaning that there's already an interaction recorded before the male was added into that group in the life history
+	- In these cases I will have to either change the presence file manually or get rid of interactions before his first presence date.
+	
+### 6.2.1 Creation of Final Agonistic
+
+
+
+### 6.2 Creation of Winner Looser
+
+
+
+### 6.2 Female Elo Ratings
+
+
+### 6.3 Male Elo Ratings
+
+
+
 
 ## 6.3 Social Bond
 
