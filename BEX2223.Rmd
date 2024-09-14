@@ -3775,11 +3775,12 @@ saveRDS(BexClean, file = "BexClean.rds")
 
 ### 6.1.2 Age of Females
 
-```{r Age calculations, echo=FALSE}
+```{r Female Age, echo=FALSE}
 
 # Load necessary libraries
 library(dplyr)
 library(lubridate)
+library(ggplot2)  # Moved here to ensure it's loaded before use
 
 # Step 1: Load the Life History Data
 LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/IVP Life history_180424.csv", 
@@ -3792,7 +3793,7 @@ LHdata <- LHdata %>%
     DOB = parse_date_time(DOB, orders = c("dmy", "Y", "ymd"), quiet = TRUE)  # Parse DOB in multiple formats
   )
 
-# Step 3: Filter female individuals (use the subset of individuals you're working with)
+# Step 3: Filter female individuals
 females <- c("Ndaw", "Ginq", "Xian", "Oort", "Sirk", "Piep", "Ouli", "Oerw")
 LHdata_females <- LHdata %>%
   filter(Code %in% females)
@@ -3800,8 +3801,8 @@ LHdata_females <- LHdata %>%
 # Step 4: Adjust Ouli's DOB by subtracting 4 years
 LHdata_females <- LHdata_females %>%
   mutate(
-    AdjustedDOB = ifelse(Code == "Ouli", as.character(FirstRecorded - years(4)), as.character(DOB)),  # Subtract 4 years for Ouli
-    AdjustedDOB = ymd(AdjustedDOB)  # Parse AdjustedDOB as a date using lubridate's ymd() function
+    AdjustedDOB = ifelse(Code == "Ouli", as.character(FirstRecorded - years(4)), as.character(DOB)),
+    AdjustedDOB = ymd(AdjustedDOB)
   )
 
 # Step 5: Calculate Age based on AdjustedDOB
@@ -3812,20 +3813,17 @@ LHdata_females <- LHdata_females %>%
 
 # Step 6: Display the table with relevant columns
 LHdata_females_table <- LHdata_females %>%
-  select(Code, DOB, FirstRecorded,AdjustedDOB, Age)
+  select(Code, DOB, FirstRecorded, AdjustedDOB, Age)
 
 # Print the table
 print(LHdata_females_table)
 
 # Step 7: Plot the Ages, sorting the bars from youngest to oldest
-library(ggplot2)
-
 ggplot(LHdata_females, aes(x = reorder(Code, Age), y = Age)) + 
   geom_bar(stat = "identity", fill = "lightblue") +
   theme_minimal() +
   labs(title = "Age of Female Vervets (Sorted)", x = "Individual", y = "Age (Years)") +
   geom_text(aes(label = round(Age, 2)), vjust = -0.5)
-
 
 
 
@@ -3850,63 +3848,35 @@ ggplot(LHdata_females, aes(x = reorder(Code, Age), y = Age)) +
 
 # Step 1: Filter male individuals from the Life History Data
 males <- c("Sho", "Buk", "Kom", "Nge", "Xia", "Xin", "Sey", "Pom")
-
 LHdata_males <- LHdata %>%
   filter(Code %in% males)
 
-# Step 2: Print the DOB and FirstRecorded for each male
-print(LHdata_males %>% select(Code, DOB, FirstRecorded))
-
-
-
-
-
-
-# Step 1: Load the Life History Data
-LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/IVP Life history_180424.csv", 
-                   header = TRUE, stringsAsFactors = FALSE, na.strings = c('NA', 'Not yet'))
-
-# Step 2: Convert FirstRecorded from character to date (dd/mm/yyyy format)
-LHdata <- LHdata %>%
-  mutate(
-    FirstRecorded = as.Date(FirstRecorded, format = "%d/%m/%Y"),  # Convert to Date from dd/mm/yyyy
-    DOB = parse_date_time(DOB, orders = c("dmy", "Y", "ymd"), quiet = TRUE)  # Parse DOB in multiple formats
-  )
-
-# Step 3: Filter male individuals (the subset of individuals you're working with)
-males <- c("Sho", "Buk", "Kom", "Nge", "Xia", "Xin", "Sey", "Pom")
-LHdata_males <- LHdata %>%
-  filter(Code %in% males)
-
-# Step 4: Adjust DOB for males; if DOB is missing, subtract 5 years from FirstRecorded
+# Step 2: Adjust DOB for males; if DOB is missing, subtract 5 years from FirstRecorded
 LHdata_males <- LHdata_males %>%
   mutate(
-    AdjustedDOB = ifelse(is.na(DOB), as.character(FirstRecorded - years(5)), as.character(DOB)),  # Subtract 5 years if DOB is missing
-    AdjustedDOB = ymd(AdjustedDOB)  # Parse AdjustedDOB as a date using lubridate's ymd() function
+    AdjustedDOB = ifelse(is.na(DOB), as.character(FirstRecorded - years(5)), as.character(DOB)),
+    AdjustedDOB = ymd(AdjustedDOB)
   )
 
-# Step 5: Calculate Age based on AdjustedDOB
+# Step 3: Calculate Age based on AdjustedDOB
 LHdata_males <- LHdata_males %>%
   mutate(
-    Age = as.numeric(difftime(Sys.Date(), AdjustedDOB, units = "weeks")) / 52.1775  # Age in years
+    Age = as.numeric(difftime(Sys.Date(), AdjustedDOB, units = "weeks")) / 52.1775
   )
 
-# Step 6: Display the table with relevant columns
+# Step 4: Display the table with relevant columns
 LHdata_males_table <- LHdata_males %>%
   select(Code, DOB, FirstRecorded, AdjustedDOB, Age)
 
-# Print the table to check the results
+# Print the table
 print(LHdata_males_table)
 
-# Step 7: Plot the Ages, sorting the bars from youngest to oldest
-library(ggplot2)
-
+# Step 5: Plot the Ages, sorting the bars from youngest to oldest
 ggplot(LHdata_males, aes(x = reorder(Code, Age), y = Age)) + 
   geom_bar(stat = "identity", fill = "lightgreen") +
   theme_minimal() +
   labs(title = "Age of Male Vervets (Sorted)", x = "Individual", y = "Age (Years)") +
   geom_text(aes(label = round(Age, 2)), vjust = -0.5)
-
 
 
 
@@ -3920,12 +3890,10 @@ ggplot(LHdata_males, aes(x = reorder(Code, Age), y = Age)) +
 
 
 ```{r Age in male and female, echo=FALSE}
-
 # Combine male and female data
-# Use the Gender column to differentiate between males and females
 combined_data <- bind_rows(
-  LHdata_females_table %>% mutate(Gender = "Female"),  # Add Gender column for females
-  LHdata_males_table %>% mutate(Gender = "Male")       # Add Gender column for males
+  LHdata_females_table %>% mutate(Gender = "Female"),
+  LHdata_males_table %>% mutate(Gender = "Male")
 )
 
 # Calculate the mean age across males and females
@@ -3936,13 +3904,13 @@ print(combined_data)
 
 # Plot with Male/Female distinction and mean line
 ggplot(combined_data, aes(x = reorder(Code, Age), y = Age, fill = Gender)) +
-  geom_bar(stat = "identity") +  # Bar plot for ages
-  geom_hline(yintercept = mean_age, linetype = "dashed", color = "red", size = 1) +  # Mean age line
+  geom_bar(stat = "identity") +
+  geom_hline(yintercept = mean_age, linetype = "dashed", color = "red", size = 1) +
   theme_minimal() +
   labs(title = "Age of Male and Female Vervet Monkeys with Mean Age", x = "Individual", y = "Age (Years)") +
-  scale_fill_manual(values = c("Male" = "lightblue", "Female" = "purple")) +  # Color coding for Male and Female
-  geom_text(aes(label = round(Age, 2)), vjust = -0.5) +  # Add age values on bars
-  theme(axis.text.x = element_text(angle = 45, hjust = 1))  # Adjust text angle for readability
+  scale_fill_manual(values = c("Male" = "lightblue", "Female" = "purple")) +
+  geom_text(aes(label = round(Age, 2)), vjust = -0.5) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
 ```
@@ -3956,11 +3924,12 @@ ggplot(combined_data, aes(x = reorder(Code, Age), y = Age, fill = Gender)) +
 
 ```{r Creation of DyadData, echo=FALSE}
 
-# Step 1: Ensure the Dyad column is in the format "Male Female"
+# Step 1: Ensure the Dyad column is in the format "Male Female" without modifying BexClean
+# Instead of modifying BexClean directly, create a new data frame
 bex_dyads <- BexClean %>%
-  mutate(Dyad = paste(Male, Female)) %>%  # Create the Dyad column as "Male Female"
+  mutate(Dyad = paste(Male, Female)) %>%
   select(Dyad, Male, Female) %>%
-  distinct()  # Ensure distinct dyads
+  distinct()
 
 # Step 2: Define the exact valid dyads that you want
 valid_dyads <- c("Sey Sirk", "Xia Piep", "Nge Oerw", "Sho Ginq", "Xin Ouli", "Buk Ndaw", "Kom Oort", "Pom Xian")
@@ -3972,26 +3941,27 @@ filtered_dyads <- bex_dyads %>%
 # Step 4: Join Male and Female age data from LHdata_males_table and LHdata_females_table
 # Join Male age data
 dyad_with_male_age <- filtered_dyads %>%
-  left_join(LHdata_males_table %>% select(Code, Age) %>% rename(MaleAge = Age, Male = Code), by = "Male")
+  left_join(LHdata_males_table %>% select(Code, Age) %>% rename(Male = Code, MaleAge = Age), by = "Male")
 
 # Join Female age data
 dyad_with_age <- dyad_with_male_age %>%
-  left_join(LHdata_females_table %>% select(Code, Age) %>% rename(FemaleAge = Age, Female = Code), by = "Female")
+  left_join(LHdata_females_table %>% select(Code, Age) %>% rename(Female = Code, FemaleAge = Age), by = "Female")
 
 # Step 5: Calculate the absolute age difference
 dyad_with_age <- dyad_with_age %>%
   mutate(AgeDifference = abs(MaleAge - FemaleAge))
 
-# Step 6: Filter out rows with missing values in MaleAge or FemaleAge to keep only clean data
+# Step 6: Filter out rows with missing values
 dyad_data_clean <- dyad_with_age %>%
   filter(!is.na(MaleAge) & !is.na(FemaleAge))
 
-# Step 7: Display the final clean data for verification
+# Step 7: Display the final clean data
 dyad_table <- dyad_data_clean %>%
   select(Dyad, Male, Female, MaleAge, FemaleAge, AgeDifference)
 
-# Print the clean table to verify
+# Print the clean table
 print(dyad_table)
+
 
 ```
 
@@ -3999,18 +3969,18 @@ print(dyad_table)
 
 ```{r Absolute Age Difference, echo=FALSE}
 
+# Calculate Relative Age Difference
+dyad_data_clean <- dyad_data_clean %>%
+  mutate(RelativeAgeDifference = (AgeDifference / ((MaleAge + FemaleAge) / 2)) * 100)
 
-# Assuming dyad_data_clean already contains the AgeDifference column
-
-# Step 1: Create a bar plot of the absolute age differences between the dyads
-ggplot(dyad_data_clean, aes(x = reorder(Dyad, AgeDifference), y = AgeDifference)) +
-  geom_bar(stat = "identity", fill = "#87CEEB", width = 0.7) +
-  geom_text(aes(label = round(AgeDifference, 2)), vjust = -0.5, size = 4, color = "black", fontface = "bold") +
+# Plot Relative Age Difference
+ggplot(dyad_data_clean, aes(x = reorder(Dyad, RelativeAgeDifference), y = RelativeAgeDifference)) +
+  geom_bar(stat = "identity", fill = "turquoise", width = 0.7) +
+  geom_text(aes(label = paste0(round(RelativeAgeDifference, 2), "%")), vjust = -0.5, size = 4) +
   theme_minimal() +
-  labs(title = "Absolute Age Difference Between Dyads", x = "Dyad", y = "Absolute Age Difference (Years)") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
-        plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
-
+  labs(title = "Relative Age Difference Between Dyads", x = "Dyad", y = "Relative Age Difference (%)") +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10)) +
+  scale_y_continuous(limits = c(0, NA), breaks = seq(0, 100, by = 10))
 
 
 ```
@@ -4024,18 +3994,19 @@ ggplot(dyad_data_clean, aes(x = reorder(Dyad, AgeDifference), y = AgeDifference)
 ```{r Relative Age Difference, echo=FALSE}
 
 
-# Step 1: Calculate Relative Age Difference
+# Calculate Relative Age Difference
 dyad_data_clean <- dyad_data_clean %>%
-  mutate(RelativeAgeDifference = (abs(MaleAge - FemaleAge) / ((MaleAge + FemaleAge) / 2)) * 100)
+  mutate(RelativeAgeDifference = (AgeDifference / ((MaleAge + FemaleAge) / 2)) * 100)
 
-# Step 2: Plot Relative Age Difference
-ggplot(dyad_data_clean, aes(x = reorder(paste(Male, Female, sep = " - "), RelativeAgeDifference), y = RelativeAgeDifference)) +
-  geom_bar(stat = "identity", fill = "turquoise", width = 0.7) +  
+# Plot Relative Age Difference
+ggplot(dyad_data_clean, aes(x = reorder(Dyad, RelativeAgeDifference), y = RelativeAgeDifference)) +
+  geom_bar(stat = "identity", fill = "turquoise", width = 0.7) +
   geom_text(aes(label = paste0(round(RelativeAgeDifference, 2), "%")), vjust = -0.5, size = 4) +
   theme_minimal() +
   labs(title = "Relative Age Difference Between Dyads", x = "Dyad", y = "Relative Age Difference (%)") +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10)) +  # Adjust font size if needed
-  scale_y_continuous(limits = c(0, 100), breaks = seq(0, 100, by = 10))  # Adjusting the y-axis to the appropriate range
+  theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10)) +
+  scale_y_continuous(limits = c(0, NA), breaks = seq(0, 100, by = 10))
+
 
 
 ```
@@ -4046,14 +4017,16 @@ ggplot(dyad_data_clean, aes(x = reorder(paste(Male, Female, sep = " - "), Relati
 
 ```{r zscores age, echo=FALSE}
 
-# Step 1: Calculate Z-Score for Age Difference
+# Calculate Z-Score for Age Difference
 dyad_data_clean <- dyad_data_clean %>%
-  mutate(MeanAgeDiff = mean(AgeDifference, na.rm = TRUE),  # Calculate mean age difference
-         SDAgeDiff = sd(AgeDifference, na.rm = TRUE),      # Calculate standard deviation of age difference
-         ZScoreAgeDiff = (AgeDifference - MeanAgeDiff) / SDAgeDiff)  # Calculate Z-score for age difference
+  mutate(
+    MeanAgeDiff = mean(AgeDifference, na.rm = TRUE),
+    SDAgeDiff = sd(AgeDifference, na.rm = TRUE),
+    ZScoreAgeDiff = (AgeDifference - MeanAgeDiff) / SDAgeDiff
+  )
 
-# Step 2: Plot Z-Scores for Age Difference
-ggplot(dyad_data_clean, aes(x = reorder(paste(Male, Female, sep = " - "), ZScoreAgeDiff), y = ZScoreAgeDiff)) +
+# Plot Z-Scores for Age Difference
+ggplot(dyad_data_clean, aes(x = reorder(Dyad, ZScoreAgeDiff), y = ZScoreAgeDiff)) +
   geom_bar(stat = "identity", fill = "orange", width = 0.7) +
   geom_text(aes(label = round(ZScoreAgeDiff, 2)), vjust = -0.5, size = 4) +
   theme_minimal() +
@@ -4070,34 +4043,27 @@ ggplot(dyad_data_clean, aes(x = reorder(paste(Male, Female, sep = " - "), ZScore
 
 ```{r Age direction, echo=FALSE}
 
-# Step 1: Create the age direction column (whether male or female is older)
+# Create the age direction column (whether male or female is older)
 dyad_data_clean <- dyad_data_clean %>%
   mutate(AgeDirection = ifelse(MaleAge > FemaleAge, "Male Older", "Female Older"))
 
-# Step 2: Create a summary table with all the required columns
-summary_table <- dyad_data_clean %>%
-  select(Male, Female, MaleAge, FemaleAge, AgeDirection, AgeDifference, RelativeAgeDifference, ZScoreAgeDiff)
-
-# Step 1: Create the simplified summary table with only the relevant columns
-simplified_summary_table <- summary_table %>%
+# Simplified summary table
+simplified_summary_table <- dyad_data_clean %>%
   select(Male, Female, AgeDifference, AgeDirection)
 
-# Step 2: Display the simplified summary table
-simplified_summary_table
+# Display the simplified summary table
+print(simplified_summary_table)
 
-
-
-
-
-# Step 1: Create the bar plot visualization
+# Create the bar plot visualization
 ggplot(simplified_summary_table, aes(x = reorder(paste(Male, Female, sep = " - "), AgeDifference), y = AgeDifference, fill = AgeDirection)) +
   geom_bar(stat = "identity", width = 0.7) +  
   geom_text(aes(label = round(AgeDifference, 2)), vjust = -0.5, size = 4, color = "black") +
   theme_minimal() +
-  scale_fill_manual(values = c("Male Older" = "#1f77b4", "Female Older" = "#ff7f0e")) +  # Custom colors for AgeDirection
+  scale_fill_manual(values = c("Male Older" = "#1f77b4", "Female Older" = "#ff7f0e")) +
   labs(title = "Age Difference and Age Direction Between Dyads", x = "Dyad", y = "Age Difference (Years)", fill = "Age Direction") +
   theme(axis.text.x = element_text(angle = 45, hjust = 1, size = 10),
         plot.title = element_text(hjust = 0.5, size = 14, face = "bold"))
+
 
 
 
@@ -4116,11 +4082,27 @@ ggplot(simplified_summary_table, aes(x = reorder(paste(Male, Female, sep = " - "
 
 ```{r binomial tolerance, echo=FALSE}
 
-# Step 1: Ensure that `ToleranceBinomial` is correctly calculated in BexClean
+# Load necessary libraries
+library(tidyr)
+library(scales)  # For percentage formatting in plots
+
+# Step 1: Ensure that `Dyad` exists in `BexClean` without modifying existing variables
+BexClean <- BexClean %>%
+  mutate(Dyad = paste(Male, Female))
+
+# Step 2: Create `ToleranceBinomial` variable in `BexClean`
 BexClean <- BexClean %>%
   mutate(ToleranceBinomial = ifelse(DyadResponse == "Tolerance", 1, 0))
 
-# Step 2: Create a summary table with raw values of Tolerance and No Tolerance
+
+
+```
+
+
+```{r tolerance distribution, echo=FALSE}
+
+
+# Step 3: Create a summary table with raw values of Tolerance and No Tolerance
 tolerance_summary_table <- BexClean %>%
   group_by(Dyad) %>%
   summarise(
@@ -4133,52 +4115,276 @@ tolerance_summary_table <- BexClean %>%
     NoToleranceProportion = NoToleranceCount / TotalTrials  # Calculate no tolerance proportion
   )
 
-# Check if the proportions are correctly calculated in the summary table
+# Check the summary table with proportions
 print(tolerance_summary_table)
-
-# Step 3: Plot raw counts of Tolerance and No Tolerance per Dyad (absolute counts)
-raw_tolerance_graph <- ggplot(tolerance_summary_table, aes(x = reorder(Dyad, TotalTrials), y = TotalTrials, fill = Dyad)) +
-  geom_bar(stat = "identity", position = "dodge", width = 0.7) +
-  geom_text(aes(label = paste0("Tolerance: ", ToleranceCount, "\nNo Tolerance: ", NoToleranceCount)), 
-            vjust = -0.5, size = 3.5) +
-  labs(title = "Raw Counts of Tolerance and No Tolerance per Dyad", x = "Dyad", y = "Number of Trials") +
-  theme_minimal() +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_fill_manual(values = c("#FF7F0E", "#1F77B4", "#2CA02C", "#D62728", "#9467BD", "#8C564B", "#E377C2", "#7F7F7F"))
-
-# Step 4: Order by ToleranceProportion and plot the proportion of Tolerance vs. No Tolerance per Dyad
-# Arrange after proportions are calculated and ensure that column exists
-tolerance_proportion_graph <- tolerance_summary_table %>%
-  pivot_longer(cols = c(ToleranceProportion, NoToleranceProportion), 
-               names_to = "ResponseType", values_to = "Proportion") %>%
-  arrange(desc(ToleranceProportion))  # Arrange based on calculated tolerance proportion
-
-# Plotting the proportion graph after arranging
-proportion_tolerance_graph <- ggplot(tolerance_proportion_graph, aes(x = reorder(Dyad, ToleranceProportion), y = Proportion, fill = ResponseType)) +
-  geom_bar(stat = "identity", position = "stack", width = 0.7) +
-  geom_text(aes(label = paste0(round(Proportion * 100, 2), "%")), vjust = -0.5, size = 3.5) +
-  labs(title = "Proportion of Tolerance vs. No Tolerance per Dyad (Ordered by Tolerance)", 
-       x = "Dyad", y = "Proportion") +
-  theme_minimal() +
-  scale_fill_manual(values = c("turquoise", "coral"), labels = c("Tolerance", "No Tolerance")) +
-  theme(axis.text.x = element_text(angle = 45, hjust = 1)) +
-  scale_y_continuous(labels = scales::percent)
-
-# Step 5: Print the updated summary table for verification
-print(tolerance_summary_table)
-
-# Display the graphs
-print(raw_tolerance_graph)
-print(proportion_tolerance_graph)
 
 
 
 ```
 
+```{r visualization of tolerance rates, echo=FALSE}
 
-## 6.1.9 Age & Tolerance
+# Step 4: Prepare data for plotting counts
+tolerance_counts_long <- tolerance_summary_table %>%
+  select(Dyad, ToleranceCount, NoToleranceCount) %>%
+  pivot_longer(
+    cols = c(ToleranceCount, NoToleranceCount),
+    names_to = "ResponseType",
+    values_to = "Count"
+  ) %>%
+  mutate(ResponseLabel = case_when(
+    ResponseType == "ToleranceCount" ~ "Tolerance",
+    ResponseType == "NoToleranceCount" ~ "No Tolerance"
+  ))
+
+# Step 5: Prepare data for plotting proportions
+tolerance_proportions_long <- tolerance_summary_table %>%
+  select(Dyad, ToleranceProportion, NoToleranceProportion) %>%
+  pivot_longer(
+    cols = c(ToleranceProportion, NoToleranceProportion),
+    names_to = "ResponseType",
+    values_to = "Proportion"
+  ) %>%
+  mutate(ResponseLabel = case_when(
+    ResponseType == "ToleranceProportion" ~ "Tolerance",
+    ResponseType == "NoToleranceProportion" ~ "No Tolerance"
+  ))
+
+
+# Step 6: Order dyads by ToleranceProportion
+tolerance_summary_table <- tolerance_summary_table %>%
+  arrange(ToleranceProportion) %>%
+  mutate(Dyad = factor(Dyad, levels = Dyad))
+
+# Apply the same ordering to the long data frames
+tolerance_counts_long <- tolerance_counts_long %>%
+  mutate(Dyad = factor(Dyad, levels = levels(tolerance_summary_table$Dyad)))
+
+tolerance_proportions_long <- tolerance_proportions_long %>%
+  mutate(Dyad = factor(Dyad, levels = levels(tolerance_summary_table$Dyad)))
+
+
+# Step 7: Plot counts of Tolerance and No Tolerance per Dyad
+ggplot(tolerance_counts_long, aes(x = Dyad, y = Count, fill = ResponseLabel)) +
+  geom_bar(stat = "identity", position = position_dodge(width = 0.9)) +
+  geom_text(aes(label = Count), position = position_dodge(width = 0.9), vjust = -0.5, size = 3) +
+  labs(title = "Counts of Tolerance and No Tolerance per Dyad",
+       x = "Dyad", y = "Count", fill = "Response") +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+# Step 8: Plot proportions of Tolerance and No Tolerance per Dyad
+ggplot(tolerance_proportions_long, aes(x = Dyad, y = Proportion, fill = ResponseLabel)) +
+  geom_bar(stat = "identity", position = "stack") +
+  geom_text(aes(label = scales::percent(Proportion, accuracy = 0.1)),
+            position = position_stack(vjust = 0.5), size = 3) +
+  labs(title = "Proportion of Tolerance vs. No Tolerance per Dyad",
+       x = "Dyad", y = "Proportion", fill = "Response") +
+  scale_y_continuous(labels = percent_format()) +
+  theme_minimal() +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+
+
+```
+
+```{r add age difference in Dyad, echo=FALSE}
+
+# Step 9: Merge tolerance summary with dyad age data
+dyad_summary <- dyad_data_clean %>%
+  select(Dyad, Male, Female, AgeDifference, AgeDirection) %>%  # Ensure these columns are included
+  left_join(tolerance_summary_table, by = "Dyad")
+
+# Verify the merged data
+print(dyad_summary)
+
+
+```
+
+
+### 6.1.9 Age & Tolerance
 
 * I want to test wether age can predict tolerance and if there is an effect of age direction. In addition maybe track the effect of both Age difference and direction on tolerance
+
+#### 6.1.9.1
+* Model 1: Absolute age difference ~ tolerance
+
+```{r Absolute age difference & tolerance, echo=FALSE}
+
+# Assuming your data frame is named 'dyad_summary' and has the columns 'AgeDifference' and 'ToleranceProportion'
+
+# Scatter plot with regression line
+library(ggplot2)
+
+ggplot(dyad_summary, aes(x = AgeDifference, y = ToleranceProportion)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Tolerance Proportion vs. Age Difference",
+       x = "Age Difference (years)",
+       y = "Tolerance Proportion") +
+  theme_minimal()
+
+# Correlation test
+cor_test <- cor.test(dyad_summary$AgeDifference, dyad_summary$ToleranceProportion)
+print(cor_test)
+
+# Linear regression
+model <- lm(ToleranceProportion ~ AgeDifference, data = dyad_summary)
+summary(model)
+
+
+
+```
+* We are going to conduct a Spearman's rank correlation because we don't have a normal distribution and this methods considers the order of the data 
+
+* Comparing with Previous Results
+Earlier Pearson's Correlation:
+Correlation Coefficient (r): Approximately 0.0784
+P-value: 0.8535
+Interpretation: No significant linear relationship.
+Spearman's Correlation:
+Correlation Coefficient (rho): 0.4286
+P-value: 0.2992
+Interpretation: Suggests a moderate monotonic relationship but not statistically significant.
+Why the Difference?
+Pearson's Correlation:
+Measures linear relationships.
+Sensitive to outliers and requires normally distributed variables.
+Spearman's Correlation:
+Measures monotonic relationships.
+Less sensitive to outliers and does not require normal distribution.
+
+```{r test, echo=FALSE}
+
+# Spearman's correlation test
+spearman_test <- cor.test(dyad_summary$AgeDifference, dyad_summary$ToleranceProportion, method = "spearman")
+print(spearman_test)
+
+# Identify potential outliers
+library(ggpubr)
+ggboxplot(dyad_summary, x = "Dyad", y = "ToleranceProportion", add = "jitter")
+
+
+# Plotting ranked data
+ggplot(dyad_summary, aes(x = rank(AgeDifference), y = rank(ToleranceProportion))) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = TRUE, color = "blue") +
+  labs(
+    title = "Ranked Tolerance Proportion vs. Ranked Age Difference",
+    x = "Rank of Age Difference",
+    y = "Rank of Tolerance Proportion"
+  ) +
+  theme_minimal()
+
+
+```
+
+* Using a Spearman correlation we found a spearmans correlation coefficient (rho) which is equal to 0,4285714 indicating a moderate positive association between ranks of age difference and tolerance proportion. It seems that as the age difference increases, the tolerance proportion increases
+
+* But looking at the p-value of 0,2992 we can see that the correlation is not statistically significant and there is a 29,92% probability that the observed correlations occured by chance 
+
+
+
+
+
+* X-axis: AgeDifference
+* Y-axis: 
+* The correlation coefficient (0.0784) is very weak 
+* Also the p.value, 0.8535 is not significant
+* It seems that they are not significant correlation between age difference and tolerance proportion
+
+
+
+
+#### 6.1.9.2
+* Model 2: Age direction ~ tolerance
+
+```{r Age direction & Tolerance, echo=FALSE}
+
+
+# Step 10: Plot Tolerance Proportion vs. Age Difference
+ggplot(dyad_summary, aes(x = AgeDifference, y = ToleranceProportion)) +
+  geom_point(size = 3, color = "blue") +
+  geom_smooth(method = "lm", se = TRUE, color = "darkblue") +
+  labs(title = "Tolerance Proportion vs. Age Difference",
+       x = "Age Difference (Years)", y = "Tolerance Proportion") +
+  theme_minimal()
+
+
+# Step 11: Plot Tolerance Proportion by Age Direction
+ggplot(dyad_summary, aes(x = AgeDirection, y = ToleranceProportion, fill = AgeDirection)) +
+  geom_boxplot(alpha = 0.7) +
+  geom_jitter(width = 0.1, size = 3, color = "black") +
+  labs(title = "Tolerance Proportion by Age Direction",
+       x = "Age Direction", y = "Tolerance Proportion") +
+  scale_fill_manual(values = c("Male Older" = "#1f77b4", "Female Older" = "#ff7f0e")) +
+  theme_minimal() +
+  theme(legend.position = "none")
+
+
+# Step 13: T-test for Tolerance Proportion by Age Direction
+t_test_result <- t.test(ToleranceProportion ~ AgeDirection, data = dyad_summary)
+print(t_test_result)
+
+```
+*p-value of 0.2242 suggests that there is no significant difference in tolerance proportions between dyads where the male is older and those where the female is older at the conventional alpha level of 0.05.
+
+#### 6.1.9.3
+* Model 3: Absolute age + Age direction ~  tolerance
+
+
+* First lets do a regression model
+
+```{r ABsolute age + Age direction & Tolerance, echo=FALSE}
+
+#Regression model 
+
+# Fit the model
+model3 <- lm(ToleranceProportion ~ AgeDifference + AgeDirection, data = dyad_summary)
+
+# Summarize the model
+summary(model3)
+
+# Diagnostic plots
+par(mfrow = c(2, 2))
+plot(model3)
+
+# Interaction plot (optional)
+ggplot(dyad_summary, aes(x = AgeDifference, y = ToleranceProportion, color = AgeDirection)) +
+  geom_point(size = 3) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(title = "Tolerance Proportion vs. Age Difference by Age Direction",
+       x = "Age Difference (Years)",
+       y = "Tolerance Proportion",
+       color = "Age Direction") +
+  theme_minimal()
+
+
+
+# Fit model with interaction
+model3_interaction <- lm(ToleranceProportion ~ AgeDifference * AgeDirection, data = dyad_summary)
+
+# Summarize the model
+summary(model3_interaction)
+
+
+```
+
+
+
+* Check of model assumptiuons: Residuals vs. Fitted: Check for linearity and homoscedasticity.
+Normal Q-Q Plot: Assess normality of residuals.
+Scale-Location Plot: Check for homoscedasticity.
+Residuals vs. Leverage: Identify influential observations.
+
+
+```{r Beta regression, echo=FALSE}
+
+
+
+
+
+
+```
 
 
 ## 6.2 Elo Rating
