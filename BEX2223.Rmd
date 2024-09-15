@@ -4595,6 +4595,8 @@ write.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/FinalAgonistic.csv", r
 
 
 ## 6.4 (Does tolerance predict distance?)
+
+
 * Thinking about 
 1. check if tolerance predict distance
 2. If not distance of tolerance is predicted by other factors
@@ -4608,6 +4610,100 @@ write.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/FinalAgonistic.csv", r
 
 
 
+
+* First we are going to investigate the relationship between distance and tolerance proportion
+
+* Summary and Bar chart for Dyad distance and tolerance binomial
+
+```{r distance & tolerance proprotion, echo=FALSE}
+
+
+
+library(ggplot2)
+library(dplyr)
+
+# Remove NA values and summarize data: count tolerance and non-tolerance occurrences by distance
+tolerance_summary <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(DyadDistance, ToleranceBinomial) %>%
+  summarise(Count = n())
+
+# Create the bar chart
+ggplot(tolerance_summary, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Tolerance and Non-Tolerance Across Distances")
+
+
+
+
+
+# Create a boxplot for Distance vs Tolerance
+ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Boxplot of Distance by Tolerance")
+
+
+
+
+
+
+
+```
+
+
+
+
+```{r distance & tolerance assumpations, echo=FALSE}
+
+
+
+# Normality test for DyadDistance
+shapiro.test(BexClean$DyadDistance)
+
+# Normality test for ToleranceBinomial
+shapiro.test(BexClean$ToleranceBinomial)
+
+
+
+
+```
+
+
+
+```{r Distance & Tolerance Wilcoxon and t test, echo=FALSE}
+
+
+# Perform Wilcoxon rank sum test (Mann-Whitney U test)
+wilcox_test <- wilcox.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
+wilcox_test
+
+
+
+
+
+# Perform Welch Two Sample t-test
+t_test <- t.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
+t_test
+
+
+
+```
+
+
+tep 7: Reporting the Results
+In your write-up, you would report something like this:
+
+Normality assumption: Both DyadDistance and ToleranceBinomial were found to be non-normally distributed based on the Shapiro-Wilk test (p-values < 0.05). Therefore, we proceeded with non-parametric statistical methods.
+
+Wilcoxon Rank Sum Test: The Wilcoxon test revealed a statistically significant difference in the distance between dyads that exhibited tolerance (p-value = 8.901e-06). This suggests that dyads that were tolerant were, on average, closer than those that were not.
+
+t-test for comparison: A t-test supported the Wilcoxon test's findings, further demonstrating that mean distances were significantly different (p-value = 5.494e-06).
 
 
 # 7. EDA TESTING ; EXPLORATION and TESTS
