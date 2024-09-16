@@ -4467,29 +4467,17 @@ elo <- elo %>% distinct()
 
 # This file now should contain all ad lib recorded interactions that had no support
 
-### Now we do the same for focals ####
+# Now we do the same for focals 
 
-
-
-
-
-
-
-#### ADD FOCAL AGONISTIC 2022 -2023 WHEN AVAILABLE
-#foc_old <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Focal_agonistic2022-2023.csv")
-#foc_old$Date <- as.Date(foc_old$Date)
+## ADD FOCAL AGONISTIC 2022 -2023
+foc_old <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Focal_agonistic2022-2023.csv")
+foc_old$Date <- as.Date(foc_old$Date)
 # This file contains all the agonistic interactions recorded during focals without support
 # Check the time period:
-#hist(foc_old$Date, breaks = "weeks")
+hist(foc_old$Date, breaks = "weeks")
+
+
 # So this file is from May 2022 (when we started focalling) until May 2023 basically
-
-####
-
-
-
-
-
-
 
 # Now we should load the newest file or the newest and the file until May 2023
 f <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/Focal.CSV",1)
@@ -4514,30 +4502,21 @@ f <- f %>%
 colnames(f) [1:7] <- c("Date", "Time", "Group", "Aggressor", "AggressorBehaviour", "Victim", "VictimBehaviour")
 
 
-
-
-
-
-####### ADD AGAIN WHEN AGONISTIC 2022 -2023 AVAIALABLE
 # we bind both focals together
-#focals <- bind_rows(foc_old, f)
-######
+focals <- bind_rows(foc_old, f)
 
-###### Make sure there's no duplicates
-#focals <- focals %>% distinct()
-#####
+# Make sure there's no duplicates
+focals <- focals %>% distinct()
+
 
 # Now we bind both ad lib and focals together
-#final <- bind_rows(elo, focals)
-
-
+final <- bind_rows(elo, focals)
 
 
 
 # Save this datafile as FinalAgonistic
 write.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/FinalAgonistic.csv", row.names = F)
-# However, although the column names are Aggressor and Victim, we do not know yet which 
-# individual won the interaction, and which one lost.
+# However, although the column names are Aggressor and Victim, we do not know yet which individual won the interaction, and which one lost.
 # Go to Create WinnerLoser to calculate the winners and losers :)
 
 
@@ -4704,6 +4683,132 @@ Normality assumption: Both DyadDistance and ToleranceBinomial were found to be n
 Wilcoxon Rank Sum Test: The Wilcoxon test revealed a statistically significant difference in the distance between dyads that exhibited tolerance (p-value = 8.901e-06). This suggests that dyads that were tolerant were, on average, closer than those that were not.
 
 t-test for comparison: A t-test supported the Wilcoxon test's findings, further demonstrating that mean distances were significantly different (p-value = 5.494e-06).
+
+
+* lets now inlcude dyad as a factor of explnation to see if distance and otlerance differ per dyad
+
+
+```{r Dyad and distance & tolerance, echo=FALSE}
+
+# Summarize tolerance data per dyad and distance
+tolerance_summary_per_dyad <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(Dyad, DyadDistance, ToleranceBinomial) %>%
+  summarise(Count = n())
+
+# Bar chart for each dyad
+ggplot(tolerance_summary_per_dyad, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~Dyad) +  # Split by dyad
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Tolerance and Non-Tolerance Across Distances for Each Dyad")
+
+
+
+
+# Boxplot for distance vs. tolerance for each dyad
+ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
+  geom_boxplot() +
+  facet_wrap(~Dyad) +  # Split by dyad
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Boxplot of Distance by Tolerance for Each Dyad")
+
+
+
+```
+
+
+
+
+```{r distance dyad & tolerance test test, echo=FALSE}
+
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(car)
+
+# Check normality for DyadDistance using Shapiro-Wilk test
+shapiro.test(BexClean$DyadDistance)
+
+# Check homogeneity of variance (Levene's Test) - optional
+leveneTest(DyadDistance ~ factor(ToleranceBinomial), data = BexClean)
+
+
+
+# Logistic regression model: Tolerance explained by Distance and Dyad
+logistic_model <- glm(ToleranceBinomial ~ DyadDistance * Dyad, data = BexClean, family = "binomial")
+
+# Summary of the model
+summary(logistic_model)
+
+
+
+# Loop through each dyad and run the Wilcoxon test
+results <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(Dyad) %>%
+  do(test = wilcox.test(DyadDistance ~ ToleranceBinomial, data = .))
+
+# View the results for each dyad
+results
+
+
+
+# Add predicted tolerance probabilities to the dataset
+BexClean$predicted_tolerance <- predict(logistic_model, type = "response")
+
+# Plot the predicted probabilities of tolerance by distance for each dyad (Loess smoother)
+ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
+  theme_minimal() +
+  ggtitle("Predicted Tolerance by Distance for Each Dyad (Loess Smoother)")
+
+
+
+
+
+# Plot the predicted probabilities of tolerance by distance for each dyad (Linear smoother)
+ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
+  theme_minimal() +
+  ggtitle("Predicted Tolerance by Distance for Each Dyad (Linear Smoother)")
+
+
+
+```
+
+#6974 Dyad and Tolerance
+
+
+
+```{r toelrance & Dyad, echo=FALSE}
+
+
+# Summarize tolerance proportion by dyad
+tolerance_proportion_summary <- BexClean %>%
+  group_by(Dyad) %>%
+  summarise(ToleranceProportion = mean(ToleranceBinomial, na.rm = TRUE))
+
+# Run ANOVA to test if dyad explains variance in tolerance proportion
+anova_model <- aov(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
+summary(anova_model)
+
+
+
+# Kruskal-Wallis test to check if dyad explains variance in tolerance proportion
+kruskal_test <- kruskal.test(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
+print(kruskal_test)
+
+```
 
 
 # 7. EDA TESTING ; EXPLORATION and TESTS
