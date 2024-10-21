@@ -640,32 +640,28 @@ write.csv(d, "/Users/maki/Desktop/Master Thesis/Josies Codes/WinnerLoser.csv", r
 library(EloRating)
 library(data.table)
 
-# Load presence files
+# Load presence files and date formatting (YYYY-MM-DD)
 AKpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/pres_ak.csv")
 colnames(AKpres)[1] <- "Date"
-AKpres$Date <- as.Date(format(as.POSIXct(AKpres$Date, format = "%Y-%m-%d"), "%Y-%m-%d"))
+AKpres$Date <- as.Date(AKpres$Date, format = "%Y-%m-%d")
 AKpres[is.na(AKpres)] <- 0
 
 BDpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/pres_bd.csv")
-BDpres$Date <- as.Date(format(as.POSIXct(BDpres$Date, format = "%d/%m/%Y"), "%Y-%m-%d"))
+colnames(BDpres)[1] <- "Date"  # Ensure consistency in column names
+BDpres$Date <- as.Date(BDpres$Date, format = "%Y-%m-%d")
 BDpres[is.na(BDpres)] <- 0
 
-NHpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/pres_ak.csv")
-NHpres$Date <- as.Date(format(as.POSIXct(NHpres$Date, format = "%Y-%m-%d"), "%Y-%m-%d"))
+# Correct the file path for NHpres
+NHpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/pres_nh.csv")
+colnames(NHpres)[1] <- "Date"
+NHpres$Date <- as.Date(NHpres$Date, format = "%Y-%m-%d")
 NHpres[is.na(NHpres)] <- 0
 
-
+# Load WinnerLoser dataset and ensure consistent date formatting (YYYY-MM-DD)
 d <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/WinnerLoser.csv")
-d$Date <- as.Date(format(as.POSIXct(d$Date, format = "%d/%m/%Y"), "%Y-%m-%d"))
-d$Time <- format(as.POSIXct(d$Time,format="%H:%M:%S"),"%H:%M:%S")
-d <- d[order(d$Time), ]
-d <- d[order(d$Date), ]
+d$Date <- as.Date(d$Date, format = "%Y-%m-%d")
 
 
-str(AKpres)
-str(BDpres)
-str(NHpres)
-str(d)
 
 
 
