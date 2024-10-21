@@ -690,17 +690,21 @@ max(BDpres$Date)
 min(NHpres$Date)
 max(NHpres$Date)
 
-# AK, BD, Nh, pres min is 01.01.2021 and max 20.04.2024
-# I will select data from 02.01.2021 to 09.03.2023 for elo calculations filterning in pres and elo files
+# AK, BD, NH, pres min is 03.01.2021 and max 19.10.2023 for AK, 18.10.2023 for BD and 18.10.2023 for BD, 17.10.2023 for NH
+# I will select data from 03.01.2021 to 09.03.2023 for elo calculations filterning in pres and elo files
 
-# Min Date: 2021-01-02
+# Min Date: 2021-01-03
 # Max Date: 2023-03-09
 
 # Filter date in d
-d <- d[d$Date >= "2021-01-02" & d$Date <= "2023-03-09",]
-AKpres <- d[d$Date >= "2021-01-02" & d$Date <= "2023-03-09",]
-BDpres <- d[d$Date >= "2021-01-02" & d$Date <= "2023-03-09",]
-NHpres <- d[d$Date >= "2021-01-02" & d$Date <= "2023-03-09",]
+d <- d[d$Date >= "2021-01-03" & d$Date <= "2023-03-09",]
+AKpres <- AKpres[AKpres$Date >= "2021-01-03" & AKpres$Date <= "2023-03-09",]
+BDpres <- BDpres[BDpres$Date >= "2021-01-03" & BDpres$Date <= "2023-03-09",]
+NHpres <- NHpres[NHpres$Date >= "2021-01-03" & NHpres$Date <= "2023-03-09",]
+
+
+
+
 
 # Check dates
 min(d$Date)
@@ -716,7 +720,10 @@ min(NHpres$Date)
 max(NHpres$Date)
 
 
-# I will have to filter again before doing the Elo for each group
+# I will have to filter again before doing the Elo for each group depending of the day of first trial of each of my
+# Dyad's in my box experiment
+
+
 
 # In general, the more data you have the more accurate scores should be
 # However, its worth reading Borgeaud et al., 2017: The influence of demographic variation 
@@ -726,15 +733,63 @@ max(NHpres$Date)
 # 3 month to 3 months. and ideally on min 6 month to a year
 
 
+# Since Female and Male Vervet's have sex differentiated hierarchy I will calculate elo separately for males and females
+# Also, I will have to calculate it differently for each group
+
+
+
+
+
+# ELO PER SEX AND GROUP
+# FEMALE ELO
 
 # Female Elo Calculations
-# Only select adult females: ####
+# Only select adult females: 
 AF <- subset(d, d$AgeClassWinner%in%c("AF"))
 AF <- subset(AF, AF$AgeClassLoser%in%c("AF"))
 
 AK <- subset(AF,AF$Group%in%("Ankhase"))
 BD <- subset(AF,AF$Group%in%("Baie Dankie"))
 NH <- subset(AF,AF$Group%in%("Noha"))
+
+
+common_ids <- intersect(unique(d$winner), unique(d$loser))
+AKpres <- AKpres[AKpres$ID %in% common_ids, ]
+BDpres <- BDpres[BDpres$ID %in% common_ids, ]
+NHpres <- NHpres[NHpres$ID %in% common_ids, ]
+
+
+# Remove cases where winner = looser: d <- d[d$winner != d$loser, ]
+d <- d[d$winner != d$loser, ]
+
+
+#CHECK ID'S IN INTERACTION AND PRESENCE ID'S
+# Get unique IDs in presence and interaction datasets
+interaction_ids <- unique(c(d$winner, d$loser))
+presence_ids_AK <- colnames(AKpres)[-1]  # Excluding the Date column
+presence_ids_BD <- colnames(BDpres)[-1]
+presence_ids_NH <- colnames(NHpres)[-1]
+
+# Find IDs in presence data but not in interaction data
+ids_not_in_interactions_AK <- setdiff(presence_ids_AK, interaction_ids)
+ids_not_in_interactions_BD <- setdiff(presence_ids_BD, interaction_ids)
+ids_not_in_interactions_NH <- setdiff(presence_ids_NH, interaction_ids)
+
+# Print these IDs
+ids_not_in_interactions_AK
+ids_not_in_interactions_BD
+ids_not_in_interactions_NH
+
+
+#REMOVE THESE ID'S
+# For AK
+AKpres <- AKpres[, !(colnames(AKpres) %in% ids_not_in_interactions_AK)]
+# For BD
+BDpres <- BDpres[, !(colnames(BDpres) %in% ids_not_in_interactions_BD)]
+# For NH
+NHpres <- NHpres[, !(colnames(NHpres) %in% ids_not_in_interactions_NH)]
+
+
 
 
 # Check whether data looks good
@@ -774,7 +829,7 @@ NHELO <- elo.seq(winner = NH$winner, loser = NH$loser, Date = NH$Date, presence 
 
 eloplot(NHELO, from = "2021-01-02", to = "2023-03-09")
 
-extract_elo(NHELO, "202-03-09", daterange = 92, standardize = T)
+extract_elo(NHELO, "2023-03-09", daterange = 92, standardize = T)
 
 
 
