@@ -707,23 +707,31 @@ NHpres <- NHpres[NHpres$Date >= "2021-01-03" & NHpres$Date <= "2023-03-09",]
 
 
 # Check dates
+# d DATE
 min(d$Date)
 max(d$Date)
-
+# AK DATE
 min(AKpres$Date)
 max(AKpres$Date)
-
+# BD DATE
 min(BDpres$Date)
 max(BDpres$Date)
-
+# NH DATE
 min(NHpres$Date)
 max(NHpres$Date)
+
+# Check range of dates in interaction and presence data
+cat("Date range in interaction data:", min(d$Date), "to", max(d$Date), "\n")
+
+# Check ranges for each presence dataset
+cat("Date range in AK presence data:", min(AKpres$Date), "to", max(AKpres$Date), "\n")
+cat("Date range in BD presence data:", min(BDpres$Date), "to", max(BDpres$Date), "\n")
+cat("Date range in NH presence data:", min(NHpres$Date), "to", max(NHpres$Date), "\n")
+
 
 
 # I will have to filter again before doing the Elo for each group depending of the day of first trial of each of my
 # Dyad's in my box experiment
-
-
 
 # In general, the more data you have the more accurate scores should be
 # However, its worth reading Borgeaud et al., 2017: The influence of demographic variation 
@@ -732,13 +740,11 @@ max(NHpres$Date)
 # According to the article male stability fluctuates more , reason why it may be relevant to calculat Elo fluctuations 
 # 3 month to 3 months. and ideally on min 6 month to a year
 
-
+# SELECTION OF ID'S FOR ELO CALCULATIONS
 # Since Female and Male Vervet's have sex differentiated hierarchy I will calculate elo separately for males and females
 # Also, I will have to calculate it differently for each group
 
 
-
-colnames(AKpres)
 
 # ELO PER SEX AND GROUP
 # FEMALE ELO
@@ -761,6 +767,45 @@ NHpres <- NHpres[NHpres$ID %in% common_ids, ]
 
 # Remove cases where winner = looser: d <- d[d$winner != d$loser, ]
 d <- d[d$winner != d$loser, ]
+
+
+
+# Filter interaction and presence data to ensure alignment of IDs
+common_ids <- intersect(unique(d$winner), unique(d$loser))
+AKpres <- AKpres[AKpres$ID %in% common_ids, ]
+BDpres <- BDpres[BDpres$ID %in% common_ids, ]
+NHpres <- NHpres[NHpres$ID %in% common_ids, ]
+
+# Exclude interactions where the winner and loser are the same individual
+d <- d[d$winner != d$loser, ]
+
+
+# Find mismatches between interaction and presence data
+interaction_ids <- unique(c(d$winner, d$loser))
+
+# For AK presence
+presence_ids_AK <- colnames(AKpres)[-1]  # Exclude "Date"
+missing_in_interactions_AK <- setdiff(presence_ids_AK, interaction_ids)
+missing_in_presence_AK <- setdiff(interaction_ids, presence_ids_AK)
+
+# For BD presence
+presence_ids_BD <- colnames(BDpres)[-1]
+missing_in_interactions_BD <- setdiff(presence_ids_BD, interaction_ids)
+missing_in_presence_BD <- setdiff(interaction_ids, presence_ids_BD)
+
+# For NH presence
+presence_ids_NH <- colnames(NHpres)[-1]
+missing_in_interactions_NH <- setdiff(presence_ids_NH, interaction_ids)
+missing_in_presence_NH <- setdiff(interaction_ids, presence_ids_NH)
+
+# Output results
+cat("AK IDs missing in interactions:", missing_in_interactions_AK, "\n")
+cat("AK IDs missing in presence:", missing_in_presence_AK, "\n")
+cat("BD IDs missing in interactions:", missing_in_interactions_BD, "\n")
+cat("BD IDs missing in presence:", missing_in_presence_BD, "\n")
+cat("NH IDs missing in interactions:", missing_in_interactions_NH, "\n")
+cat("NH IDs missing in presence:", missing_in_presence_NH, "\n")
+
 
 
 
