@@ -738,7 +738,7 @@ max(NHpres$Date)
 
 
 
-
+colnames(AKpres)
 
 # ELO PER SEX AND GROUP
 # FEMALE ELO
@@ -761,6 +761,41 @@ NHpres <- NHpres[NHpres$ID %in% common_ids, ]
 
 # Remove cases where winner = looser: d <- d[d$winner != d$loser, ]
 d <- d[d$winner != d$loser, ]
+
+
+
+
+
+
+
+
+# Check the range of dates in interaction data
+min(d$Date)
+max(d$Date)
+
+# Check the range of dates in each presence dataset
+min(AKpres$Date)
+max(AKpres$Date)
+
+min(BDpres$Date)
+max(BDpres$Date)
+
+min(NHpres$Date)
+max(NHpres$Date)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 #CHECK ID'S IN INTERACTION AND PRESENCE ID'S
@@ -798,6 +833,15 @@ seqcheck(winner=BD$winner, loser=BD$loser, Date=BD$Date, draw = NULL, presence=B
 seqcheck(winner=KB$winner, loser=KB$loser, Date=KB$Date, draw = NULL, presence=KBpres)
 seqcheck(winner=NH$winner, loser=NH$loser, Date=NH$Date, draw = NULL, presence=NHpres)
 # These will give you many warnings, but as long as there are no errors it should be fine
+
+
+
+
+
+
+
+
+
 
 ## AK
 AKELO <- elo.seq(winner = AK$winner, loser=AK$loser, Date=AK$Date, presence = AKpres, runcheck=F)
@@ -863,6 +907,9 @@ seqcheck(winner=NH$winner, loser=NH$loser, Date=NH$Date, draw = NULL, presence=N
 AKELO <- elo.seq(winner = AK$winner, loser=AK$loser, Date=AK$Date, presence = AKpres, runcheck=F)
 # Set runcheck = F since the warnings seqcheck gives are not a dealbreaker
 summary(AKELO)
+
+
+
 
 
 
