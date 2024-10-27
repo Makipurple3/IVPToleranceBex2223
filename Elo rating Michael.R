@@ -107,9 +107,92 @@ eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Nco
 # to get an average of the eloscore over a period 
 # It counts from the date you give forwards with the amount of days in daterange
 # However, the last date possible is the last day there was an agonistic interaction recorded in that group
-extract_elo(AKELOF, "2022-09-01", daterange=90, standardize = T)
+
+
+# Extract Elo scores for a specific date using 365 days of date
+extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
+
+
+
+AKELOF2 <-extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
+
+
+
+
+# TEST FOR QUARTILE
+# Print the extracted Elo scores to confirm extraction
+print(AKELOF2)
+
+# Calculate quartiles for the Elo scores of females in AK
+AK_quartiles <- quantile(AKELOF2, probs = c(0.25, 0.5, 0.75))
+
+# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
+AKFQ <- cut(AKELOF2,
+            breaks = c(-Inf, AK_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
+            include.lowest = TRUE)
+
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+AKFQ2 <- data.frame(Individual = names(AKELOF2), Elo_Score = AKELOF2, Quartile = AKFQ)
+
+# Print the results
+print(AKFQ2)
+
+# Enhanced Plotting of the Elo scores as a boxplot with quartile labels
+# Reset graphical device if in an incorrect state
+if (dev.cur() != 1) {
+  dev.off()  # Close any open graphics device
+}
+
+# Set margins to accommodate labels
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+
+# Plot the boxplot for AK females without notches to prevent warnings
+boxplot(AKELOF2,
+        main = "Boxplot of Elo Scores for AK Females",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
+
+# Adding individual labels to visualize each individual's score within the quartiles
+# Adjust x and y positions to reduce overlap
+text(x = 1.2, y = AKELOF2, labels = names(AKELOF2), cex = 0.9, col = "black", pos = 4)
+
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+
+# Adding points to make individual scores stand out
+points(rep(1, length(AKELOF2)), AKELOF2, pch = 19, col = "red")
+
+# Enhancing boxplot to give some spacing for better readability
+par(oma = c(0, 0, 2, 0))  # Add outer margins
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -133,6 +216,58 @@ eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Pi
 
 
 
+# BD Group Elo Calculation and Quartile Analysis
+BDELOF2 <- extract_elo(BDELOF, "2022-09-01", daterange = 365, standardize = T)
+
+# Print the extracted Elo scores for BD
+print(BDELOF2)
+
+# Calculate quartiles for the Elo scores of females in BD
+BD_quartiles <- quantile(BDELOF2, probs = c(0.25, 0.5, 0.75))
+
+# Assign each individual in BDELOF2 to a quartile (ensure 1st Quartile is highest rank)
+BDFQ <- cut(BDELOF2,
+            breaks = c(-Inf, BD_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),
+            include.lowest = TRUE)
+
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+BDFQ2 <- data.frame(Individual = names(BDELOF2), Elo_Score = BDELOF2, Quartile = BDFQ)
+
+# Print the results
+print(BDFQ2)
+
+# Enhanced Plotting of the Elo scores as a boxplot for BD females
+if (dev.cur() != 1) {
+  dev.off()  # Close any open graphics device
+}
+
+# Set margins for readability
+par(mar = c(6, 6, 4, 2) + 0.1)
+
+# Plot the boxplot for BD females
+boxplot(BDELOF2,
+        main = "Boxplot of Elo Scores for BD Females",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,
+        cex.main = 1.5,
+        cex.lab = 1.2,
+        cex.axis = 1.1)
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = BDELOF2, labels = names(BDELOF2), cex = 0.9, col = "black", pos = 4)
+
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+
+# Adding points to make individual scores stand out
+points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
+
+
+
+
 
 
 ## NH
@@ -145,6 +280,54 @@ eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gr
 
 
 
+# NH Group Elo Calculation and Quartile Analysis
+NHELOF2 <- extract_elo(NHELOF, "2022-09-01", daterange = 365, standardize = T)
+
+# Print the extracted Elo scores for NH
+print(NHELOF2)
+
+# Calculate quartiles for the Elo scores of females in NH
+NH_quartiles <- quantile(NHELOF2, probs = c(0.25, 0.5, 0.75))
+
+# Assign each individual in NHELOF2 to a quartile (ensure 1st Quartile is highest rank)
+NHFQ <- cut(NHELOF2,
+            breaks = c(-Inf, NH_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),
+            include.lowest = TRUE)
+
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+NHFQ2 <- data.frame(Individual = names(NHELOF2), Elo_Score = NHELOF2, Quartile = NHFQ)
+
+# Print the results
+print(NHFQ2)
+
+# Enhanced Plotting of the Elo scores as a boxplot for NH females
+if (dev.cur() != 1) {
+  dev.off()  # Close any open graphics device
+}
+
+# Set margins for readability
+par(mar = c(6, 6, 4, 2) + 0.1)
+
+# Plot the boxplot for NH females
+boxplot(NHELOF2,
+        main = "Boxplot of Elo Scores for NH Females",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,
+        cex.main = 1.5,
+        cex.lab = 1.2,
+        cex.axis = 1.1)
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = NHELOF2, labels = names(NHELOF2), cex = 0.9, col = "black", pos = 4)
+
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+
+# Adding points to make individual scores stand out
+points(rep(1, length(NHELOF2)), NHELOF2, pch = 19, col = "red")
 
 
 
