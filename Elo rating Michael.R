@@ -35,15 +35,19 @@ range(NHpres$Date)
 
 # Select here the date from where you want to use agonistic data
 # In your case, filter from 6 months before the first experiment until the end of the experiment.
+
+# >Finally I choose to use 12 month since it takes a few month for elo to stabilize 
+# >Also I will run 3 elo for males on 3*4months of period to check for elo stability
+
 # The elo rating function has a built in function to calculate the elo on a given date, so best to keep everything.
 # You filter the same dates for the presence file.
 
 
 # Filter date 
 d <- d[d$Date >= "2022-03-01" & d$Date <= "2023-10-01",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
-AKpres <- AKpres[AKpres$Date >= "2022-03-01" & AKpres$Date <= "2023-10-01",] # Do the same for presence
-BDpres <- BDpres[BDpres$Date >= "2022-03-01" & BDpres$Date <= "2023-10-01",]
-NHpres <- NHpres[NHpres$Date >= "2022-03-01" & NHpres$Date <= "2023-10-01",]
+AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-10-01",] # Do the same for presence
+BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-10-01",]
+NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-10-01",]
 
 # Check dates
 range(d$Date)
@@ -58,14 +62,21 @@ range(NHpres$Date)
 # on which you can base how much data you need to get an accurate estimate of your individuals.
 # According to the article male stability fluctuates more , reason why it may be relevant to calculat Elo fluctuations 
 # 3 month to 3 months. and ideally on min 6 month to a year
+# > For these reasons I choose 1 year of data and will, instead of 3 month periods, calculate on 
+# > 4 months periods for males
 
 # Since Female and Male Vervet's have sex differentiated hierarchy I will calculate elo separately for males and females
-# Also, I will have to calculate it differently for each group
+# Also, I will have to calculate it differently for each group and select the extraction date from the first day of experiment of each
+# dyad
+# Once this is done, I will print a boxplot and table placing each female and male respectively to 
+# It's group, into the quartile of their hierarchy, and make a table and graph out of it
+
+
 
 # ELO PER SEX AND GROUP
 # FEMALE ELO
 # Remove cases where winner = looser: d <- d[d$winner != d$loser, ]
-d <- d[d$winner != d$loser, ] # Since you filter from d after this (into AF), you need to run this line before you filter
+d <- d[d$winner != d$loser, ] # Since you filter from d after this (into AF, then AM), you need to run this line before you filter
 
 # Female Elo Calculations
 # Only select adult females: 
@@ -91,7 +102,7 @@ AKELOF <- elo.seq(winner = AKF$winner, loser=AKF$loser, Date=AKF$Date, presence 
 # If you want to plot it to see how it evolved you can run the eloplot
 # Specific IDs over a specific time period:
 print(unique(AKF$winner))
-eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2022-03-02", to = "2023-10-01")
+eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2021-09-01", to = "2023-10-01")
 
 # to get an average of the eloscore over a period 
 # It counts from the date you give forwards with the amount of days in daterange
@@ -102,12 +113,23 @@ extract_elo(AKELOF, "2022-09-01", daterange=90, standardize = T)
 
 
 
+
+
+
+
+
+
+
+
+
 ## BD
 BDELOF <- elo.seq(winner=BDF$winner,loser=BDF$loser, Date=BDF$Date,presence=BDpres,runcheck=F)
 # Extract BD Elo
 extract_elo(BDELOF, "2022-09-01", daterange=90, standardize = T)
 # Eloplot BD
-eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2022-03-02", to = "2023-10-01")
+eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2021-09-01", to = "2023-10-01")
+
+
 
 
 
@@ -118,7 +140,7 @@ NHELOF <- elo.seq(winner=NHF$winner,loser=NHF$loser, Date=NHF$Date,presence=NHpr
 # Extract BD Elo
 extract_elo(NHELOF, "2022-09-01", daterange=90, standardize = T)
 # Eloplot BD
-eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2022-03-02", to = "2023-10-01")
+eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2021-09-01", to = "2023-10-01")
 
 
 
@@ -156,7 +178,7 @@ print(unique(AKM$winner))
 
 #ELO PLOT - AKM
 # FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-02", to = "2023-10-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
 
 # EXTRACT ELO AKM
 extract_elo(AKELOM, "2022-09-01", daterange=90, standardize = T)
