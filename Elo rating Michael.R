@@ -44,7 +44,7 @@ range(NHpres$Date)
 
 
 # Filter date 
-d <- d[d$Date >= "2022-03-01" & d$Date <= "2023-10-01",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
+d <- d[d$Date >= "2021-09-01" & d$Date <= "2023-10-01",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
 AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-10-01",] # Do the same for presence
 BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-10-01",]
 NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-10-01",]
@@ -140,16 +140,9 @@ AKFQ2 <- data.frame(Individual = names(AKELOF2), Elo_Score = AKELOF2, Quartile =
 # Print the results
 print(AKFQ2)
 
-# Enhanced Plotting of the Elo scores as a boxplot with quartile labels
-# Reset graphical device if in an incorrect state
-if (dev.cur() != 1) {
-  dev.off()  # Close any open graphics device
-}
-
-# Set margins to accommodate labels
+# Plot the boxplot for AK Females
 par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
 
-# Plot the boxplot for AK females without notches to prevent warnings
 boxplot(AKELOF2,
         main = "Boxplot of Elo Scores for AK Females",
         ylab = "Elo Scores",
@@ -161,7 +154,6 @@ boxplot(AKELOF2,
         cex.axis = 1.1)   # Increase the size of the axis numbers
 
 # Adding individual labels to visualize each individual's score within the quartiles
-# Adjust x and y positions to reduce overlap
 text(x = 1.2, y = AKELOF2, labels = names(AKELOF2), cex = 0.9, col = "black", pos = 4)
 
 # Adding grid lines for better visualization
@@ -169,36 +161,6 @@ grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
 
 # Adding points to make individual scores stand out
 points(rep(1, length(AKELOF2)), AKELOF2, pch = 19, col = "red")
-
-# Enhancing boxplot to give some spacing for better readability
-par(oma = c(0, 0, 2, 0))  # Add outer margins
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
@@ -237,24 +199,19 @@ BDFQ2 <- data.frame(Individual = names(BDELOF2), Elo_Score = BDELOF2, Quartile =
 # Print the results
 print(BDFQ2)
 
-# Enhanced Plotting of the Elo scores as a boxplot for BD females
-if (dev.cur() != 1) {
-  dev.off()  # Close any open graphics device
-}
 
-# Set margins for readability
-par(mar = c(6, 6, 4, 2) + 0.1)
+# Plot the boxplot for BD Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
 
-# Plot the boxplot for BD females
 boxplot(BDELOF2,
         main = "Boxplot of Elo Scores for BD Females",
         ylab = "Elo Scores",
         col = "#87CEEB",
         border = "darkblue",
-        notch = FALSE,
-        cex.main = 1.5,
-        cex.lab = 1.2,
-        cex.axis = 1.1)
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
 
 # Adding individual labels to visualize each individual's score within the quartiles
 text(x = 1.2, y = BDELOF2, labels = names(BDELOF2), cex = 0.9, col = "black", pos = 4)
@@ -264,7 +221,6 @@ grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
 
 # Adding points to make individual scores stand out
 points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
-
 
 
 
@@ -301,24 +257,18 @@ NHFQ2 <- data.frame(Individual = names(NHELOF2), Elo_Score = NHELOF2, Quartile =
 # Print the results
 print(NHFQ2)
 
-# Enhanced Plotting of the Elo scores as a boxplot for NH females
-if (dev.cur() != 1) {
-  dev.off()  # Close any open graphics device
-}
+# Plot the boxplot for NH Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
 
-# Set margins for readability
-par(mar = c(6, 6, 4, 2) + 0.1)
-
-# Plot the boxplot for NH females
 boxplot(NHELOF2,
         main = "Boxplot of Elo Scores for NH Females",
         ylab = "Elo Scores",
         col = "#87CEEB",
         border = "darkblue",
-        notch = FALSE,
-        cex.main = 1.5,
-        cex.lab = 1.2,
-        cex.axis = 1.1)
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
 
 # Adding individual labels to visualize each individual's score within the quartiles
 text(x = 1.2, y = NHELOF2, labels = names(NHELOF2), cex = 0.9, col = "black", pos = 4)
@@ -328,7 +278,6 @@ grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
 
 # Adding points to make individual scores stand out
 points(rep(1, length(NHELOF2)), NHELOF2, pch = 19, col = "red")
-
 
 
 
@@ -349,6 +298,43 @@ AKM <- subset(AM,AM$Group%in%("Ankhase"))
 BDM <- subset(AM,AM$Group%in%("Baie Dankie"))
 NHM <- subset(AM,AM$Group%in%("Noha"))
 
+range(AKM$Date)
+
+
+
+
+
+
+
+
+# Step 8: Run Sequence Check Before Elo Calculation (Males)
+seqcheck(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, draw = NULL, presence = AKpres_filtered_males)
+seqcheck(winner = BDM$winner, loser = BDM$loser, Date = BDM$Date, draw = NULL, presence = BDpres_filtered_males)
+seqcheck(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, draw = NULL, presence = NHpres_filtered_males)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Check filtering in BD, AK and NH
+unique(c(AKM$winner, AKM$loser))
+
+
+
+
+# Filter presence dataset to include only individuals involved in interactions
+# Assuming the presence data has an ID column named 'ID'
 
 
 
@@ -363,9 +349,42 @@ print(unique(AKM$winner))
 # FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
 
+# Plot Elo ratings over different time intervals manually
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2022-03-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
+
+
+# Full period for Sho, Vla, Buk
+
 # EXTRACT ELO AKM
 extract_elo(AKELOM, "2022-09-01", daterange=90, standardize = T)
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
+
+# Extract ELO AKM 4 periods of 3 month
+# Extract Elo for different 4-month intervals
+AKELOM1 <- extract_elo(AKELOM, "2021-09-01", daterange=120, standardize=T)  # Sep 2021 - Jan 2022
+AKELOM2 <- extract_elo(AKELOM, "2022-01-01", daterange=120, standardize=T)  # Jan 2022 - May 2022
+AKELOM3 <- extract_elo(AKELOM, "2022-05-01", daterange=120, standardize=T)  # May 2022 - Sep 2022
+AKELOM4 <- extract_elo(AKELOM, "2022-09-01", daterange=120, standardize=T)  # Sep 2022 - Jan 2023
+
+
+
+
+extract_elo(AKELOM, "2021-09-01", daterange=120, standardize=T)  # Sep 2021 - Jan 2022
+extract_elo(AKELOM, "2022-01-01", daterange=120, standardize=T)  # Jan 2022 - May 2022
+extract_elo(AKELOM, "2022-05-01", daterange=120, standardize=T)  # May 2022 - Sep 2022
+extract_elo(AKELOM, "2022-09-01", daterange=120, standardize=T)  # Sep 2022 - Jan 2023
+
+
+
+
+
+# More periods can be added as needed.
+
+
+
 
 
