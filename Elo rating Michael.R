@@ -44,10 +44,12 @@ range(NHpres$Date)
 
 
 # Filter date 
-d <- d[d$Date >= "2021-09-01" & d$Date <= "2023-10-01",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
-AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-10-01",] # Do the same for presence
-BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-10-01",]
-NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-10-01",]
+d <- d[d$Date >= "2021-09-01" & d$Date <= "2023-09-13",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
+# For better reliability I will choose data from a year before experiment and because some presence data end in spetember choose last date of experiment
+# as end date (In the code you gave me I replaced 2023-09-13 with 2023-09-13)
+AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-09-13",] # Do the same for presence
+BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-09-13",]
+NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-09-13",]
 
 # Check dates
 range(d$Date)
@@ -102,7 +104,7 @@ AKELOF <- elo.seq(winner = AKF$winner, loser=AKF$loser, Date=AKF$Date, presence 
 # If you want to plot it to see how it evolved you can run the eloplot
 # Specific IDs over a specific time period:
 print(unique(AKF$winner))
-eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2021-09-01", to = "2023-10-01")
+eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2021-09-01", to = "2023-09-13")
 
 # to get an average of the eloscore over a period 
 # It counts from the date you give forwards with the amount of days in daterange
@@ -160,7 +162,7 @@ BDELOF <- elo.seq(winner=BDF$winner,loser=BDF$loser, Date=BDF$Date,presence=BDpr
 # Extract BD Elo
 extract_elo(BDELOF, "2022-09-01", daterange=90, standardize = T)
 # Eloplot BD
-eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2021-09-01", to = "2023-10-01")
+eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2021-09-01", to = "2023-09-13")
 
 
 
@@ -206,9 +208,9 @@ points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
 ## NH
 NHELOF <- elo.seq(winner=NHF$winner,loser=NHF$loser, Date=NHF$Date,presence=NHpres,runcheck=F)
 # Extract BD Elo
-extract_elo(NHELOF, "2022-09-01", daterange=90, standardize = T)
+extract_elo(NHELOF, "2022-09-01", daterange=365, standardize = T)
 # Eloplot BD
-eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2021-09-01", to = "2023-10-01")
+eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2021-09-01", to = "2023-09-13")
 
 
 # NH Group Elo Calculation and Quartile Analysis
@@ -267,6 +269,9 @@ NHM <- subset(AM,AM$Group%in%("Noha"))
 range(AKM$Date)
 range(BDM$Date)
 range(NHM$Date)
+range(AKpres$Date)
+range(BDpres$Date)
+range(NHpres$Date)
 
 # Filter for correct ID's in AKM, BDM, NHM
 unique(AKM$winner)
@@ -282,27 +287,24 @@ unique(NHM$winner)
 unique(NHM$loser)
   # Remove "War","Sio"
 
+# Example: Remove unwanted individuals from AKM (IDs that should not be present)
+unwanted_ids_akm <- c("Tch", "Yan")  # Add more if necessary
+AKM <- AKM[!AKM$winner %in% unwanted_ids_akm & !AKM$loser %in% unwanted_ids_akm, ]
+
+unwanted_ids_bdm <- c("Pro", "Pal", "Mat", "Ted", "Dok", "Bra", "Win")
+BDM <- BDM[!BDM$winner %in% unwanted_ids_bdm & !BDM$loser %in% unwanted_ids_bdm, ]
+
+unwanted_ids_nhm <- c("War", "Sio")
+NHM <- NHM[!NHM$winner %in% unwanted_ids_nhm & !NHM$loser %in% unwanted_ids_nhm, ]
 
 
-range(AKpres$Date)
 
-
-
-
-
-
-
-
-# Step 8: Run Sequence Check Before Elo Calculation (Males)
+# Seqcheck
+# Run Sequence Check Before Elo Calculation (Males)
 seqcheck(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, draw = NULL, presence = AKpres)
 seqcheck(winner = BDM$winner, loser = BDM$loser, Date = BDM$Date, draw = NULL, presence = BDpres)
 seqcheck(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, draw = NULL, presence = NHpres)
 
-
-
-
-# Filter presence dataset to include only individuals involved in interactions
-# Assuming the presence data has an ID column named 'ID'
 
 
 
@@ -315,38 +317,43 @@ print(unique(AKM$winner))
 
 #ELO PLOT - AKM
 # FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
 
 
 # Plot Elo ratings over different time intervals manually
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2022-03-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
 
 
+
+
+
+
 # Full period for Sho, Vla, Buk
 
 # EXTRACT ELO AKM
-extract_elo(AKELOM, "2022-09-01", daterange=90, standardize = T)
+
+# Extract ELO AKM 4 periods of 3 months
+# Extract Elo for different 4-month intervals
+AKELOM1 <- extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
+AKELOM2 <- extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
+AKELOM3 <- extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
+AKELOM4 <- extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
+
+# Extract Elo for different 4-month intervals and print them to verify
+extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
+extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
+extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
+extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
+
+# Calculate Average Elo Over Intervals
+avg_elo <- (AKELOM1 + AKELOM2 + AKELOM3 + AKELOM4) / 4
+print(avg_elo)
+# Extract Elo from 1st September 2022 for the previous 365 days
+extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
+# I did not have data on 365days like for female so reduced it to 345 days
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
-
-# Extract ELO AKM 4 periods of 3 month
-# Extract Elo for different 4-month intervals
-AKELOM1 <- extract_elo(AKELOM, "2021-09-01", daterange=120, standardize=T)  # Sep 2021 - Jan 2022
-AKELOM2 <- extract_elo(AKELOM, "2022-01-01", daterange=120, standardize=T)  # Jan 2022 - May 2022
-AKELOM3 <- extract_elo(AKELOM, "2022-05-01", daterange=120, standardize=T)  # May 2022 - Sep 2022
-AKELOM4 <- extract_elo(AKELOM, "2022-09-01", daterange=120, standardize=T)  # Sep 2022 - Jan 2023
-
-
-
-
-extract_elo(AKELOM, "2021-09-01", daterange=120, standardize=T)  # Sep 2021 - Jan 2022
-extract_elo(AKELOM, "2022-01-01", daterange=120, standardize=T)  # Jan 2022 - May 2022
-extract_elo(AKELOM, "2022-05-01", daterange=120, standardize=T)  # May 2022 - Sep 2022
-extract_elo(AKELOM, "2022-09-01", daterange=120, standardize=T)  # Sep 2022 - Jan 2023
-
-
-
 
