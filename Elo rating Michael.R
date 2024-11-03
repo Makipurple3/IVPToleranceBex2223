@@ -335,6 +335,74 @@ eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
 
 # EXTRACT ELO AKM
 
+# ELO Before K vaues
+# Extract Elo for different 4-month intervals and print them to verify
+extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
+extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
+extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
+extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
+
+
+
+# Since males have more aggressive encounters than females I will try to weigh aggressive behaviors
+# higher than lower intensity types of aggression
+# it may also be relevant to investigate if importance to departures of males (not included in elo) are to take in account be 
+# giveing more wight to periods where they left?> remaining males must have more competition into these peridos
+
+
+
+
+
+# Aggressor = from the least (cat_1) to the most aggressive behaviours (cat_3), the animal performing the most intense aggressive behaviour is the winner
+agg_cat <- list(cat_3=c('bi', 'gb', 'hi', 'fi', 'hh', 'so'), 
+                cat_2='ch', cat_1=c('ac', 'at', 'dp', 'tp', 'st', 'su', 'fh', 'sf', 'hb', 'bd'))
+
+
+# Define k values for each behavior category
+k_values <- list(
+  cat_3 = 200,  # Highest impact
+  cat_2 = 100,
+  cat_1 = 50   # Lowest impact
+)
+
+# Assign k values based on the behavior for each interaction in your dataset
+AKM$k_value <- sapply(AKM$BehaviourW, function(behavior) {
+  if (behavior %in% agg_cat$cat_3) {
+    return(k_values$cat_3)
+  } else if (behavior %in% agg_cat$cat_2) {
+    return(k_values$cat_2)
+  } else if (behavior %in% agg_cat$cat_1) {
+    return(k_values$cat_1)
+  } else {
+    return(100)  # Default value if behavior doesn't fit into a category
+  }
+})
+
+# Use elo.seq() with intensity data for different k values
+AKELOMK <- elo.seq(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, presence = AKpres, k = AKM$k_value, runcheck = F)
+
+# FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
+eloplot(AKELOMK, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
+
+
+# Plot Elo ratings over different time intervals manually
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2022-03-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
+
+
+
+
+
+
+
+
+
+
+
+
+
 # Extract ELO AKM 4 periods of 3 months
 # Extract Elo for different 4-month intervals
 AKELOM1 <- extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
@@ -348,9 +416,10 @@ extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 202
 extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
 extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
 
-# Calculate Average Elo Over Intervals
-avg_elo <- (AKELOM1 + AKELOM2 + AKELOM3 + AKELOM4) / 4
-print(avg_elo)
+
+
+
+
 # Extract Elo from 1st September 2022 for the previous 365 days
 extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
 # I did not have data on 365days like for female so reduced it to 345 days
