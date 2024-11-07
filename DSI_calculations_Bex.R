@@ -58,7 +58,7 @@ range(pres_nh$date)
 
 # Select only applicable behaviours
 dsi <- dsi %>%
-  filter(beh %in% c("Groom", "Groom.focal", "Approach", "Contact", "Contact.focal", "pl", "Two", "Five"))
+  filter(beh %in% c("Groom", "Groom.focal", "Approach", "Contact", "Contact.focal", "Two", "Five"))
 
 # Extract the column names from each presence matrix except for the first one (Date)
 individuals_ak <- colnames(pres_ak)[-1]
@@ -135,6 +135,14 @@ ak <- DSI(dsi_ak, ot.source = ot_ak, duration.NA.treatm = "count", onlyfocaldyad
 bd <- DSI(dsi_bd, ot.source = ot_bd, duration.NA.treatm = "count", onlyfocaldyads = T, limit2focalnonfocal = F)
 nh <- DSI(dsi_nh, ot.source = ot_nh, duration.NA.treatm = "count", onlyfocaldyads = T, limit2focalnonfocal = F)
 
+
+> section 2.5 temporal changes, stq is my dsi ak and set from and to
+> to as start date, and same for end date for DSI on set date
+
+
+
+
+
 # See socialindices tutorial to see what other things you can do with the DSI function
 
 
@@ -144,6 +152,26 @@ unique_receivers <- unique(dsi_nh$receiver)
 
 print(unique_actors)
 print(unique_receivers)
+
+
+
+
+> DSI first and last date of experiment
+> May be problems with Ghida because of presence but very active in other focals
+> Josie sends observation time based on focals and amount of time spent in the grouping
+
+> Z DSI, from 0 to 1 should be the one to use, score divided by the mean of the group
+> a
+
+
+
+
+
+
+
+
+
+
 
 
 

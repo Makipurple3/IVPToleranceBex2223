@@ -44,12 +44,12 @@ range(NHpres$Date)
 
 
 # Filter date 
-d <- d[d$Date >= "2021-09-01" & d$Date <= "2023-09-13",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
+d <- d[d$Date >= "2022-01-20" & d$Date <= "2023-09-13",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
 # For better reliability I will choose data from a year before experiment and because some presence data end in spetember choose last date of experiment
 # as end date (In the code you gave me I replaced 2023-09-13 with 2023-09-13)
-AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-09-13",] # Do the same for presence
-BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-09-13",]
-NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-09-13",]
+AKpres <- AKpres[AKpres$Date >= "2022-01-20" & AKpres$Date <= "2023-09-13",] # Do the same for presence
+BDpres <- BDpres[BDpres$Date >= "2022-01-20" & BDpres$Date <= "2023-09-13",]
+NHpres <- NHpres[NHpres$Date >= "2022-01-20" & NHpres$Date <= "2023-09-13",]
 
 # Check dates
 range(d$Date)
@@ -104,7 +104,7 @@ AKELOF <- elo.seq(winner = AKF$winner, loser=AKF$loser, Date=AKF$Date, presence 
 # If you want to plot it to see how it evolved you can run the eloplot
 # Specific IDs over a specific time period:
 print(unique(AKF$winner))
-eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2021-09-01", to = "2023-09-13")
+eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2022-01-20", to = "2023-09-13")
 
 # to get an average of the eloscore over a period 
 # It counts from the date you give forwards with the amount of days in daterange
@@ -162,7 +162,7 @@ BDELOF <- elo.seq(winner=BDF$winner,loser=BDF$loser, Date=BDF$Date,presence=BDpr
 # Extract BD Elo
 extract_elo(BDELOF, "2022-09-01", daterange=90, standardize = T)
 # Eloplot BD
-eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2021-09-01", to = "2023-09-13")
+eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2022-01-20", to = "2023-09-13")
 
 
 
@@ -210,7 +210,7 @@ NHELOF <- elo.seq(winner=NHF$winner,loser=NHF$loser, Date=NHF$Date,presence=NHpr
 # Extract BD Elo
 extract_elo(NHELOF, "2022-09-01", daterange=365, standardize = T)
 # Eloplot BD
-eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2021-09-01", to = "2023-09-13")
+eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2022-01-20", to = "2023-09-13")
 
 
 # NH Group Elo Calculation and Quartile Analysis
@@ -273,6 +273,13 @@ range(AKpres$Date)
 range(BDpres$Date)
 range(NHpres$Date)
 
+colnames(BDpres)
+colnames(NHpres)
+
+
+
+
+
 # Filter for correct ID's in AKM, BDM, NHM
 unique(AKM$winner)
 unique(AKM$loser)
@@ -297,13 +304,98 @@ BDM <- BDM[!BDM$winner %in% unwanted_ids_bdm & !BDM$loser %in% unwanted_ids_bdm,
 unwanted_ids_nhm <- c("War", "Sio")
 NHM <- NHM[!NHM$winner %in% unwanted_ids_nhm & !NHM$loser %in% unwanted_ids_nhm, ]
 
-
-
 # Seqcheck
 # Run Sequence Check Before Elo Calculation (Males)
 seqcheck(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, draw = NULL, presence = AKpres)
 seqcheck(winner = BDM$winner, loser = BDM$loser, Date = BDM$Date, draw = NULL, presence = BDpres)
 seqcheck(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, draw = NULL, presence = NHpres)
+
+
+
+
+
+# RUN ELO
+# Calculate Elo ratings for AK males
+AKELOM <- elo.seq(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, presence = AKpres, runcheck = F)
+# Calculate Elo ratings for BD males
+BDELOM <- elo.seq(winner = BDM$winner, loser = BDM$loser, Date = BDM$Date, presence = BDpres, runcheck = F)
+# Calculate Elo ratings for NH males
+NHELOM <- elo.seq(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, presence = NHpres, runcheck = F)
+
+
+
+
+
+#UPDATES FROM HERE, CHECK I WANTED RISE/DECLINE ELO AND SET DATE AND ADAPT FOR FEMALE
+# For evolution AK
+extract_elo(AKELOM, extractdate = "2022-08-15", standardize=F)
+extract_elo(AKELOM, extractdate = "2022-09-15", standardize=F)
+extract_elo(AKELOM, extractdate = "2022-10-15", standardize=F)
+# For set dateAK
+extract_elo(AKELOM, extractdate = "2022-09-15", standardize=T)
+
+# For evolution BD
+extract_elo(BDELOM, extractdate = "2022-08-15", standardize=F)
+extract_elo(BDELOM, extractdate = "2022-09-15", standardize=F)
+extract_elo(BDELOM, extractdate = "2022-10-15", standardize=F)
+# For set dateBD
+extract_elo(BDELOM, extractdate = "2022-09-15", standardize=T)
+
+# For evolution NH
+extract_elo(NHELOM, extractdate = "2022-08-15", standardize=F)
+extract_elo(NHELOM, extractdate = "2022-09-15", standardize=F)
+extract_elo(NHELOM, extractdate = "2022-10-15", standardize=F)
+# For set date NH
+extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
+
+
+
+
+
+
+
+
+# unique winner
+unique(AKM$winner)
+# For AK group males
+eloplot(AKELOM, ids = c("Sho", "Vla", "Buk"), from = "2022-01-20", to = "2023-09-13")
+
+
+# For BD group males (replace with actual IDs)
+unique(BDM$winner)
+unique(BDM$loser)
+eloplot(BDELOM, ids = bd_male_ids, from = "2022-01-20", to = "2023-09-13")
+
+# For NH group males (replace with actual IDs)
+unique(NHM$winner)
+unique(NHM$loser)
+eloplot(NHELOM, ids = nh_male_ids, from = "2022-01-20", to = "2023-09-13")
+
+
+
+
+# View the results
+print("NH Group Male Elo Ratings:")
+print(nh_male_elo)
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -317,12 +409,12 @@ print(unique(AKM$winner))
 
 #ELO PLOT - AKM
 # FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
 
 
 # Plot Elo ratings over different time intervals manually
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2022-03-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2022-03-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
 
@@ -344,57 +436,25 @@ extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 202
 
 
 
-# Since males have more aggressive encounters than females I will try to weigh aggressive behaviors
-# higher than lower intensity types of aggression
-# it may also be relevant to investigate if importance to departures of males (not included in elo) are to take in account be 
-# giveing more wight to periods where they left?> remaining males must have more competition into these peridos
-
-
-
-
-
-# Aggressor = from the least (cat_1) to the most aggressive behaviours (cat_3), the animal performing the most intense aggressive behaviour is the winner
-agg_cat <- list(cat_3=c('bi', 'gb', 'hi', 'fi', 'hh', 'so'), 
-                cat_2='ch', cat_1=c('ac', 'at', 'dp', 'tp', 'st', 'su', 'fh', 'sf', 'hb', 'bd'))
-
-
-# Define k values for each behavior category
-k_values <- list(
-  cat_3 = 200,  # Highest impact
-  cat_2 = 100,
-  cat_1 = 50   # Lowest impact
-)
-
-# Assign k values based on the behavior for each interaction in your dataset
-AKM$k_value <- sapply(AKM$BehaviourW, function(behavior) {
-  if (behavior %in% agg_cat$cat_3) {
-    return(k_values$cat_3)
-  } else if (behavior %in% agg_cat$cat_2) {
-    return(k_values$cat_2)
-  } else if (behavior %in% agg_cat$cat_1) {
-    return(k_values$cat_1)
-  } else {
-    return(100)  # Default value if behavior doesn't fit into a category
-  }
-})
-
-# Use elo.seq() with intensity data for different k values
-AKELOMK <- elo.seq(winner = AKM$winner, loser = AKM$loser, Date = AKM$Date, presence = AKpres, k = AKM$k_value, runcheck = F)
-
-# FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOMK, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
-
-
 # Plot Elo ratings over different time intervals manually
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-09-13")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2022-03-01")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
+eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2022-03-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
 eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
 
 
+# Take average of 3 periods >
+# use standardize is true (instead of is false)
+    
+ # daterange in elo > s
+# also calculate with same method for female
 
-
-
+    # Define the start dates for each period
+    start_dates <- as.Date(c("2021-09-02", "2022-01-02", "2022-05-02"))
+    
+    # Define the number of days in each period (approximate 4 months)
+    daterange <- 120  # 120 days
+    
 
 
 
@@ -420,7 +480,8 @@ extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 202
 
 
 
-# Extract Elo from 1st September 2022 for the previous 365 days
+# Extract Elo from 1st September 2022 for the previous 365 days 
+#modify functions that counts forward not backwards
 extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
 # I did not have data on 365days like for female so reduced it to 345 days
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
