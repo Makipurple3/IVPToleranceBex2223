@@ -118,7 +118,7 @@ extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
 
 
 
-AKELOF2 <-extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
+AKELOF2 <-extract_elo(AKELOF, extractdate = "2022-09-15", standardize=T)
 # TEST FOR QUARTILE
 # Print the extracted Elo scores to confirm extraction
 print(AKELOF2)
@@ -167,7 +167,7 @@ eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Pi
 
 
 # BD Group Elo Calculation and Quartile Analysis
-BDELOF2 <- extract_elo(BDELOF, "2022-09-01", daterange = 365, standardize = T)
+BDELOF2 <- extract_elo(BDELOF, extractdate = "2022-09-15", standardize=T)
 # Print the extracted Elo scores for BD
 print(BDELOF2)
 # Calculate quartiles for the Elo scores of females in BD
@@ -214,7 +214,7 @@ eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gr
 
 
 # NH Group Elo Calculation and Quartile Analysis
-NHELOF2 <- extract_elo(NHELOF, "2022-09-01", daterange = 365, standardize = T)
+NHELOF2 <- extract_elo(NHELOF, extractdate = "2022-09-15", standardize=T)
 # Print the extracted Elo scores for NH
 print(NHELOF2)
 # Calculate quartiles for the Elo scores of females in NH
@@ -327,6 +327,7 @@ NHELOM <- elo.seq(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, prese
 
 
 #UPDATES FROM HERE, CHECK I WANTED RISE/DECLINE ELO AND SET DATE AND ADAPT FOR FEMALE
+#AK
 # For evolution AK
 extract_elo(AKELOM, extractdate = "2022-08-15", standardize=F)
 extract_elo(AKELOM, extractdate = "2022-09-15", standardize=F)
@@ -334,6 +335,47 @@ extract_elo(AKELOM, extractdate = "2022-10-15", standardize=F)
 # For set dateAK
 extract_elo(AKELOM, extractdate = "2022-09-15", standardize=T)
 
+
+#Extract quartile and boxplot AK
+AKELOM2 <-extract_elo(AKELOM, extractdate = "2022-09-15", standardize=T)
+# TEST FOR QUARTILE
+# Print the extracted Elo scores to confirm extraction
+print(AKELOM2)
+# Calculate quartiles for the Elo scores of females in AK
+AK_quartiles <- quantile(AKELOM2, probs = c(0.25, 0.5, 0.75))
+# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
+AKMQ <- cut(AKELOM2,
+            breaks = c(-Inf, AK_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
+            include.lowest = TRUE)
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+AKMQ2 <- data.frame(Individual = names(AKELOM2), Elo_Score = AKELOM2, Quartile = AKMQ)
+# Print the results
+print(AKMQ2)
+# Plot the boxplot for AK Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+boxplot(AKELOM2,
+        main = "Boxplot of Elo Scores for AK Males",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = AKELOM2, labels = names(AKELOM2), cex = 0.9, col = "black", pos = 4)
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+# Adding points to make individual scores stand out
+points(rep(1, length(AKELOM2)), AKELOM2, pch = 19, col = "red")
+
+
+
+
+
+#BD
 # For evolution BD
 extract_elo(BDELOM, extractdate = "2022-08-15", standardize=F)
 extract_elo(BDELOM, extractdate = "2022-09-15", standardize=F)
@@ -341,6 +383,46 @@ extract_elo(BDELOM, extractdate = "2022-10-15", standardize=F)
 # For set dateBD
 extract_elo(BDELOM, extractdate = "2022-09-15", standardize=T)
 
+#Extract quartile and boxplot BD
+BDELOM2 <-extract_elo(BDELOM, extractdate = "2022-09-15", standardize=T)
+# TEST FOR QUARTILE
+# Print the extracted Elo scores to confirm extraction
+print(BDELOM2)
+# Calculate quartiles for the Elo scores of females in AK
+BD_quartiles <- quantile(BDELOM2, probs = c(0.25, 0.5, 0.75))
+# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
+BDMQ <- cut(BDELOM2,
+            breaks = c(-Inf, BD_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
+            include.lowest = TRUE)
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+BDMQ2 <- data.frame(Individual = names(BDELOM2), Elo_Score = BDELOM2, Quartile = BDMQ)
+# Print the results
+print(BDMQ2)
+# Plot the boxplot for AK Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+boxplot(BDELOM2,
+        main = "Boxplot of Elo Scores for BD Males",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = BDELOM2, labels = names(BDELOM2), cex = 0.9, col = "black", pos = 4)
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+# Adding points to make individual scores stand out
+points(rep(1, length(BDELOM2)), BDELOM2, pch = 19, col = "red")
+
+
+
+
+
+#NH
 # For evolution NH
 extract_elo(NHELOM, extractdate = "2022-08-15", standardize=F)
 extract_elo(NHELOM, extractdate = "2022-09-15", standardize=F)
@@ -349,141 +431,56 @@ extract_elo(NHELOM, extractdate = "2022-10-15", standardize=F)
 extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
 
 
+#Extract quartile anx boxplot NH
+NHELOM2 <-extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
+# TEST FOR QUARTILE
+# Print the extracted Elo scores to confirm extraction
+print(NHELOM2)
+# Calculate quartiles for the Elo scores of females in AK
+NH_quartiles <- quantile(NHELOM2, probs = c(0.25, 0.5, 0.75))
+# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
+NHMQ <- cut(NHELOM2,
+            breaks = c(-Inf, NH_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
+            include.lowest = TRUE)
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+NHMQ2 <- data.frame(Individual = names(NHELOM2), Elo_Score = NHELOM2, Quartile = NHMQ)
+# Print the results
+print(NHMQ2)
+# Plot the boxplot for AK Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+boxplot(NHELOM2,
+        main = "Boxplot of Elo Scores for NH Males",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
 
-
-
-
-
-
-# unique winner
-unique(AKM$winner)
-# For AK group males
-eloplot(AKELOM, ids = c("Sho", "Vla", "Buk"), from = "2022-01-20", to = "2023-09-13")
-
-
-# For BD group males (replace with actual IDs)
-unique(BDM$winner)
-unique(BDM$loser)
-eloplot(BDELOM, ids = bd_male_ids, from = "2022-01-20", to = "2023-09-13")
-
-# For NH group males (replace with actual IDs)
-unique(NHM$winner)
-unique(NHM$loser)
-eloplot(NHELOM, ids = nh_male_ids, from = "2022-01-20", to = "2023-09-13")
-
-
-
-
-# View the results
-print("NH Group Male Elo Ratings:")
-print(nh_male_elo)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-### ANKHASE MALE - AKM
-## AK
-AKELOM <- elo.seq(winner = AKM$winner, loser=AKM$loser, Date=AKM$Date, presence = AKpres, runcheck=F)
-# Set runcheck = F since the warnings seqcheck gives are not a dealbreaker
-# Specific IDs over a specific time period:
-print(unique(AKM$winner))
-
-#ELO PLOT - AKM
-# FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
-
-
-# Plot Elo ratings over different time intervals manually
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2022-03-01")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
-
-
-
-
-
-
-# Full period for Sho, Vla, Buk
-
-# EXTRACT ELO AKM
-
-# ELO Before K vaues
-# Extract Elo for different 4-month intervals and print them to verify
-extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
-extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
-extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
-extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
-
-
-
-# Plot Elo ratings over different time intervals manually
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2023-09-13")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-01-20", to = "2022-03-01")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-03-01", to = "2022-06-01")
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2022-06-01", to = "2022-09-01")
-
-
-# Take average of 3 periods >
-# use standardize is true (instead of is false)
-    
- # daterange in elo > s
-# also calculate with same method for female
-
-    # Define the start dates for each period
-    start_dates <- as.Date(c("2021-09-02", "2022-01-02", "2022-05-02"))
-    
-    # Define the number of days in each period (approximate 4 months)
-    daterange <- 120  # 120 days
-    
-
-
-
-
-
-
-
-
-# Extract ELO AKM 4 periods of 3 months
-# Extract Elo for different 4-month intervals
-AKELOM1 <- extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
-AKELOM2 <- extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
-AKELOM3 <- extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
-AKELOM4 <- extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
-
-# Extract Elo for different 4-month intervals and print them to verify
-extract_elo(AKELOM, "2021-09-02", daterange = 90, standardize = TRUE)  # Sep 2021 - Dec 2021
-extract_elo(AKELOM, "2021-12-02", daterange = 90, standardize = TRUE)  # Dec 2021 - Mar 2022
-extract_elo(AKELOM, "2022-03-02", daterange = 90, standardize = TRUE)  # Mar 2022 - Jun 2022
-extract_elo(AKELOM, "2022-06-02", daterange = 90, standardize = TRUE)  # Jun 2022 - Sep 2022
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = NHELOM2, labels = names(NHELOM2), cex = 0.9, col = "black", pos = 4)
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+# Adding points to make individual scores stand out
+points(rep(1, length(NHELOM2)), NHELOM2, pch = 19, col = "red")
 
 
 
 
 
 # Extract Elo from 1st September 2022 for the previous 365 days 
-#modify functions that counts forward not backwards
-extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
+# modify functions that counts forward not backwards
+extract_elo(AKELOM, "2022-09-20", daterange=345, standardize = T)
+extract_elo(BDELOM, "2022-09-02", daterange=345, standardize = T)
+extract_elo(NHELOM, "2022-09-02", daterange=345, standardize = T)
 # I did not have data on 365days like for female so reduced it to 345 days
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
+
+
+
+
+
 
