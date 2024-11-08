@@ -214,11 +214,15 @@ eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gr
 
 
 # NH Group Elo Calculation and Quartile Analysis
-NHELOF2 <- extract_elo(NHELOF, extractdate = "2022-09-15", standardize=T)
+NHELOM2 <- extract_elo(NHELOF, extractdate = "2022-09-15", standardize=T)
 # Print the extracted Elo scores for NH
 print(NHELOF2)
+sum(is.na(NHELOM2))  # Count NA values
+sum(is.nan(NHELOM2)) # Count NaN values
+
+
 # Calculate quartiles for the Elo scores of females in NH
-NH_quartiles <- quantile(NHELOF2, probs = c(0.25, 0.5, 0.75))
+quantile(NHELOM2, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
 # Assign each individual in NHELOF2 to a quartile (ensure 1st Quartile is highest rank)
 NHFQ <- cut(NHELOF2,
             breaks = c(-Inf, NH_quartiles, Inf),
@@ -283,16 +287,16 @@ colnames(NHpres)
 # Filter for correct ID's in AKM, BDM, NHM
 unique(AKM$winner)
 unique(AKM$loser)
-  # Remove "Tch", "Yan", consider "Vla" depending analysis
+# Remove "Tch", "Yan", consider "Vla" depending analysis
 
 
 unique(BDM$winner)
 unique(BDM$loser)
-  # Remove "Pro","Pal","Mat", "Ted", "Dok","Bra","Win"
+# Remove "Pro","Pal","Mat", "Ted", "Dok","Bra","Win"
 
 unique(NHM$winner)
 unique(NHM$loser)
-  # Remove "War","Sio"
+# Remove "War","Sio"
 
 # Example: Remove unwanted individuals from AKM (IDs that should not be present)
 unwanted_ids_akm <- c("Tch", "Yan")  # Add more if necessary
@@ -437,14 +441,25 @@ NHELOM2 <-extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
 # Print the extracted Elo scores to confirm extraction
 print(NHELOM2)
 # Calculate quartiles for the Elo scores of females in AK
-NH_quartiles <- quantile(NHELOM2, probs = c(0.25, 0.5, 0.75))
-# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
-NHMQ <- cut(NHELOM2,
-            breaks = c(-Inf, NH_quartiles, Inf),
-            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
-            include.lowest = TRUE)
-# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+# Extract quartiles for the Elo scores
+NHELOM2 <- NHELOM2[!is.na(NHELOM2)]  # Remove NA values if any
+NH_quartiles <- quantile(NHELOM2, probs = c(0.25, 0.5, 0.75), na.rm = TRUE)
+
+# Print the quartiles for debugging
+print(NH_quartiles)
+
+# Cut Elo scores into quartiles
+NHMQ <- cut(
+  NHELOM2,
+  breaks = c(-Inf, NH_quartiles, Inf),  # Ensure the correct number of breaks
+  labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Labels for each quartile
+  include.lowest = TRUE
+)
+
+# Proceed to create the data frame and plot as planned
 NHMQ2 <- data.frame(Individual = names(NHELOM2), Elo_Score = NHELOM2, Quartile = NHMQ)
+print(NHMQ2)
+
 # Print the results
 print(NHMQ2)
 # Plot the boxplot for AK Females
@@ -472,14 +487,12 @@ points(rep(1, length(NHELOM2)), NHELOM2, pch = 19, col = "red")
 
 # Extract Elo from 1st September 2022 for the previous 365 days 
 # modify functions that counts forward not backwards
-extract_elo(AKELOM, "2022-09-20", daterange=345, standardize = T)
+extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
 extract_elo(BDELOM, "2022-09-02", daterange=345, standardize = T)
 extract_elo(NHELOM, "2022-09-02", daterange=345, standardize = T)
 # I did not have data on 365days like for female so reduced it to 345 days
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
-
-
 
 
 
