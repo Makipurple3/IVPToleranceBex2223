@@ -136,43 +136,114 @@ bd <- DSI(dsi_bd, ot.source = ot_bd, duration.NA.treatm = "count", onlyfocaldyad
 nh <- DSI(dsi_nh, ot.source = ot_nh, duration.NA.treatm = "count", onlyfocaldyads = T, limit2focalnonfocal = F)
 
 
-> section 2.5 temporal changes, stq is my dsi ak and set from and to
-> to as start date, and same for end date for DSI on set date
+
+
+
+# DSI Calculations with set dates for each groups depending of dyads first day of experiment
+# Dates and dyads
+
+#DYAD		FIRST EXPERIMENT DAY
+#BD1		>	SEPT 2022
+##Sey Sirk		14.09.2022
+##Xia Piep		16.09.2022
+##Nge Oerw		22.09.2022
+##Xin Ouli		27.09.2022
+
+#AK		>	SEPT 2022
+##Sho Ginq		27.09.2022
+##Buk Ndaw		29.09.2022
+
+#BD2		>	DEC 2022	
+##Kom Oort		12.12.2022
+
+#NH		>	MAR 2023
+##Pom Xian		10.03.2023
+
+
+# For each dyad take data from 3 month before to first day of experiments to have same amount of data. First common data is 2022-06-02
+
+# DSI Dates for AK
+# AKShoGinq <- from 2022-06-27 to 2022-09-27
+
+
+# Calculate DSI for dyads between specified dates
+AKShoGinq <- DSI(dsi_ak, from = "2022-06-27", to = "2022-09-27", ot.source = ot_ak)
+# Extract dyad identifiers and their DSI values
+dyads_DSI <- AKShoGinq %>%
+  dplyr::select(i1, i2, dyad, DSI, zDSI)
+# Sort the dyads based on zDSI values in descending order and rank them
+sorted_dyads_DSI <- dyads_DSI %>%
+  filter(!is.na(zDSI)) %>%  # Remove rows with NA zDSI values
+  arrange(desc(zDSI)) %>%
+  mutate(rank = row_number())  # Add rank based on zDSI values
+
+# Define the dyad identifier for "Ginq Sho"
+ginq_sho_dyad <- "Ginq_@_Sho"
+# Extract the rank of "Ginq Sho" based on zDSI values
+rank_ginq_sho <- sorted_dyads_DSI %>%
+  filter(dyad == ginq_sho_dyad) %>%
+  select(dyad, rank, zDSI)
+
+# Print the relative rank of "Ginq Sho"
+print(rank_ginq_sho)
+
+# Filter rows where Sho is involved, including interaction with Ginq
+sho_dyads <- sorted_dyads_DSI %>%
+  filter(i1 == "Sho" | i2 == "Sho")
+# Print the zDSI values for Sho with others
+print(sho_dyads %>% select(i1, i2, dyad, zDSI))
+# Filter rows where Ginq is involved, including interaction with Sho
+ginq_dyads <- sorted_dyads_DSI %>%
+  filter(i1 == "Ginq" | i2 == "Ginq")
+# Print the zDSI values for Ginq with others
+print(ginq_dyads %>% select(i1, i2, dyad, zDSI))
+
+
+
+# Load necessary libraries
+library(ggplot2)
+
+# Create the boxplot for zDSI values with a uniform color scheme
+p <- ggplot(sorted_dyads_DSI, aes(x = '', y = zDSI)) +
+  geom_boxplot(outlier.color = 'black', fill = 'lightgray', alpha = 0.6) +
+  geom_jitter(color = 'black', width = 0.2, alpha = 0.6) +  # Add jitter for individual dyads with consistent color
+  theme_minimal() +
+  labs(title = 'Distribution of zDSI Values for Dyads',
+       y = 'zDSI',
+       x = 'All Dyads') +
+  theme(legend.position = 'none')  # Hide the legend for simplicity
+
+# Highlight specific dyads involving Sho and Ginq
+highlight_dyads <- c("Ginq_@_Sho")  # Highlight only the "Ginq Sho" dyad
+highlight_data <- sorted_dyads_DSI %>% filter(dyad %in% highlight_dyads)
+
+# Add highlighted points for "Ginq Sho" dyad in red
+p <- p + geom_point(data = highlight_data, aes(x = '', y = zDSI), color = 'red', size = 3, shape = 18)
+
+# Print the plot
+print(p)
 
 
 
 
 
-# See socialindices tutorial to see what other things you can do with the DSI function
-
-
-
-unique_actors <- unique(dsi_nh$actor)
-unique_receivers <- unique(dsi_nh$receiver)
-
-print(unique_actors)
-print(unique_receivers)
 
 
 
 
-> DSI first and last date of experiment
-> May be problems with Ghida because of presence but very active in other focals
-> Josie sends observation time based on focals and amount of time spent in the grouping
+# AKShoGinq <- from 2022-06-27 to 2022-09-27
+# AKBukNdaw <- from 2022-06-29 to 2022-09-29
 
-> Z DSI, from 0 to 1 should be the one to use, score divided by the mean of the group
-> a
-
-
-
-
-
+# DSI Dates for BD
+# BDSeySirk <- from 2022-06-14 to 2022-09-14
+# BDXiaPiep <- from 2022-06-16 to 2022-09-16
+# BDNgeOerw <- from 2022-06-22 to 2022-09-22
+# BDXinOuli <- from 2022-06-27 to 2022-09-27
+# BDKomOort <- from 2022-09-12 to 2022-12-12
 
 
-
-
-
-
+# DSI Dates for NH
+# NHPomXian <- from 2022-12-10 to 2023-03-10
 
 
 
@@ -182,145 +253,75 @@ print(unique_receivers)
 library(dplyr)
 library(ggplot2)
 
-# Define the start dates for each dyad
-start_dates <- data.frame(
-  group = c(rep("BD", 5), rep("AK", 2), "NH"),
-  i1 = c("Sey", "Xia", "Nge", "Xin", "Kom", "Sho", "Buk", "Pom"),
-  i2 = c("Sirk", "Piep", "Oerw", "Ouli", "Oort", "Ginq", "Ndaw", "Xian"),
-  start_date = as.Date(c("2022-09-14", "2022-09-16", "2022-09-22", "2022-09-27", "2022-12-12",
-                         "2022-09-27", "2022-09-29", "2023-03-10"))
-)
-
-# For each group, find the earliest start date
-min_dates <- start_dates %>%
-  group_by(group) %>%
-  summarise(min_date = min(start_date))
-
-# Filter interaction and observation time data for each group based on the earliest start date
-dsi_bd_filtered <- dsi_bd %>%
-  filter(date >= min_dates$min_date[min_dates$group == "BD"])
-ot_bd_filtered <- ot_bd %>%
-  filter(date >= min_dates$min_date[min_dates$group == "BD"])
-
-dsi_ak_filtered <- dsi_ak %>%
-  filter(date >= min_dates$min_date[min_dates$group == "AK"])
-ot_ak_filtered <- ot_ak %>%
-  filter(date >= min_dates$min_date[min_dates$group == "AK"])
-
-dsi_nh_filtered <- dsi_nh %>%
-  filter(date >= min_dates$min_date[min_dates$group == "NH"])
-ot_nh_filtered <- ot_nh %>%
-  filter(date >= min_dates$min_date[min_dates$group == "NH"])
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
-
-# Define the start dates for each dyad
-start_dates <- data.frame(
-  group = c(rep("BD", 5), rep("AK", 2), "NH"),
-  i1 = c("Sey", "Xia", "Nge", "Xin", "Kom", "Sho", "Buk", "Pom"),
-  i2 = c("Sirk", "Piep", "Oerw", "Ouli", "Oort", "Ginq", "Ndaw", "Xian"),
-  start_date = as.Date(c("2022-09-14", "2022-09-16", "2022-09-22", "2022-09-27", "2022-12-12",
-                         "2022-09-27", "2022-09-29", "2023-03-10"))
-)
-
-# For each group, find the earliest start date
-min_dates <- start_dates %>%
-  group_by(group) %>%
-  summarise(min_date = min(start_date))
-
-# Filter interaction and observation time data for each group based on the earliest start date
-dsi_bd_filtered <- dsi_bd %>%
-  filter(date >= min_dates$min_date[min_dates$group == "BD"])
-ot_bd_filtered <- ot_bd %>%
-  filter(date >= min_dates$min_date[min_dates$group == "BD"])
-
-dsi_ak_filtered <- dsi_ak %>%
-  filter(date >= min_dates$min_date[min_dates$group == "AK"])
-ot_ak_filtered <- ot_ak %>%
-  filter(date >= min_dates$min_date[min_dates$group == "AK"])
-
-dsi_nh_filtered <- dsi_nh %>%
-  filter(date >= min_dates$min_date[min_dates$group == "NH"])
-ot_nh_filtered <- ot_nh %>%
-  filter(date >= min_dates$min_date[min_dates$group == "NH"])
-
-
-# Calculate DSI for BD group
-bd <- DSI(
-  dsi_bd_filtered,
-  ot.source = ot_bd_filtered,
-  duration.NA.treatm = "count",
-  onlyfocaldyads = TRUE
-)
-
-# Calculate DSI for AK group
-ak <- DSI(
-  dsi_ak_filtered,
-  ot.source = ot_ak_filtered,
-  duration.NA.treatm = "count",
-  onlyfocaldyads = TRUE
-)
-
-# Calculate DSI for NH group
-nh <- DSI(
-  dsi_nh_filtered,
-  ot.source = ot_nh_filtered,
-  duration.NA.treatm = "count",
-  onlyfocaldyads = TRUE
-)
-
-
-
-
-
-# Function to extract DSI for dyads and create graphs
-create_dsi_plots <- function(dsi_data, group_name, dyads) {
-  # Extract DSI scores for dyads of interest
-  dyad_dsi <- dsi_data %>%
-    filter((i1 %in% dyads$i1 & i2 %in% dyads$i2) | (i1 %in% dyads$i2 & i2 %in% dyads$i1))
+# Function to calculate and visualize DSI for each dyad pair
+analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
+  # Calculate DSI for dyads between specified dates
+  dyad_data <- DSI(data, from = from_date, to = to_date, ot.source = ot_source)
   
-  # Add a column indicating if the dyad is of interest
-  dsi_data$dyad_of_interest <- ifelse(
-    (paste(dsi_data$i1, dsi_data$i2, sep = "_") %in% paste(dyads$i1, dyads$i2, sep = "_")) |
-      (paste(dsi_data$i2, dsi_data$i1, sep = "_") %in% paste(dyads$i1, dyads$i2, sep = "_")),
-    "Dyad of Interest",
-    "Other Dyads"
-  )
+  # Extract dyad identifiers and their DSI values
+  dyads_DSI <- dyad_data %>%
+    dplyr::select(i1, i2, dyad, DSI, zDSI)
   
-  # Create boxplot
-  p <- ggplot(dsi_data, aes(x = dyad_of_interest, y = DSI)) +
-    geom_boxplot(outlier.shape = NA) +
-    geom_jitter(aes(color = dyad_of_interest), width = 0.2, size = 2) +
-    scale_color_manual(values = c("Dyad of Interest" = "red", "Other Dyads" = "black")) +
-    labs(
-      title = paste("DSI Scores in", group_name, "Group"),
-      x = "Dyad Category",
-      y = "DSI Score",
-      color = "Dyad Category"
-    ) +
-    theme_minimal()
+  # Sort the dyads based on zDSI values in descending order and rank them
+  sorted_dyads_DSI <- dyads_DSI %>%
+    filter(!is.na(zDSI)) %>%  # Remove rows with NA zDSI values
+    arrange(desc(zDSI)) %>%
+    mutate(rank = row_number())  # Add rank based on zDSI values
   
-  # Display the plot
+  # Extract the rank of the specified dyad
+  rank_dyad <- sorted_dyads_DSI %>%
+    filter(dyad == dyad_identifier) %>%
+    select(dyad, rank, zDSI)
+  
+  # Print the relative rank of the specified dyad
+  print(rank_dyad)
+  
+  # Filter rows where the first individual is involved, including interaction with the second
+  i1_dyads <- sorted_dyads_DSI %>%
+    filter(i1 == strsplit(dyad_identifier, "_@_")[[1]][1] | i2 == strsplit(dyad_identifier, "_@_")[[1]][1])
+  # Print the zDSI values for first individual with others
+  print(i1_dyads %>% select(i1, i2, dyad, zDSI))
+  
+  # Filter rows where the second individual is involved, including interaction with the first
+  i2_dyads <- sorted_dyads_DSI %>%
+    filter(i1 == strsplit(dyad_identifier, "_@_")[[1]][2] | i2 == strsplit(dyad_identifier, "_@_")[[1]][2])
+  # Print the zDSI values for second individual with others
+  print(i2_dyads %>% select(i1, i2, dyad, zDSI))
+  
+  # Create the boxplot for zDSI values with a uniform color scheme
+  p <- ggplot(sorted_dyads_DSI, aes(x = '', y = zDSI)) +
+    geom_boxplot(outlier.color = 'black', fill = 'lightgray', alpha = 0.6) +
+    geom_jitter(color = 'black', width = 0.2, alpha = 0.6) +  # Add jitter for individual dyads with consistent color
+    theme_minimal() +
+    labs(title = paste('Distribution of zDSI Values for', dyad_identifier, 'Dyads'),
+         y = 'zDSI',
+         x = 'All Dyads') +
+    theme(legend.position = 'none',
+          axis.text.x = element_text(size = 12, face = 'bold'),
+          axis.text.y = element_text(size = 12, face = 'bold'),
+          plot.title = element_text(size = 14, face = 'bold', hjust = 0.5))  # Improve label readability
+  
+  # Highlight specific dyad
+  highlight_data <- sorted_dyads_DSI %>% filter(dyad == dyad_identifier)
+  
+  # Add highlighted points for specific dyad in red
+  p <- p + geom_point(data = highlight_data, aes(x = '', y = zDSI), color = 'red', size = 3, shape = 18)
+  
+  # Print the plot
   print(p)
-  
-  # Print DSI scores for dyads of interest
-  print(dyad_dsi)
 }
 
-# Apply the function to each group
-# For BD group
-bd_dyads <- start_dates %>% filter(group == "BD")
-create_dsi_plots(bd, "BD", bd_dyads)
+# Define datasets and analyze each dyad
+# AK Dataset
+analyze_dyad(data = dsi_ak, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_ak, dyad_identifier = "Sho_@_Ginq")
+analyze_dyad(data = dsi_ak, from_date = "2022-06-29", to_date = "2022-09-29", ot_source = ot_ak, dyad_identifier = "Buk_@_Ndaw")
 
-# For AK group
-ak_dyads <- start_dates %>% filter(group == "AK")
-create_dsi_plots(ak, "AK", ak_dyads)
+# BD Dataset
+analyze_dyad(data = dsi_bd, from_date = "2022-06-14", to_date = "2022-09-14", ot_source = ot_bd, dyad_identifier = "Sey_@_Sirk")
+analyze_dyad(data = dsi_bd, from_date = "2022-06-16", to_date = "2022-09-16", ot_source = ot_bd, dyad_identifier = "Xia_@_Piep")
+analyze_dyad(data = dsi_bd, from_date = "2022-06-22", to_date = "2022-09-22", ot_source = ot_bd, dyad_identifier = "Nge_@_Oerw")
+analyze_dyad(data = dsi_bd, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_bd, dyad_identifier = "Xin_@_Ouli")
+analyze_dyad(data = dsi_bd, from_date = "2022-09-12", to_date = "2022-12-12", ot_source = ot_bd, dyad_identifier = "Kom_@_Oort")
 
-# For NH group
-nh_dyads <- start_dates %>% filter(group == "NH")
-create_dsi_plots(nh, "NH", nh_dyads)
-
-
-
-
+# NH Dataset
+analyze_dyad(data = dsi_nh, from_date = "2022-12-10", to_date = "2023-03-10", ot_source = ot_nh, dyad_identifier = "Pom_@_Xian")
