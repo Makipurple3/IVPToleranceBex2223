@@ -130,6 +130,11 @@ colnames(dsi_ak)
 # Check column names in ot_ak
 colnames(ot_ak)
 
+checkpresence(presence=pres_ak, b.source=dsi_ak)
+
+
+
+
 
 ak <- DSI(dsi_ak, ot.source = ot_ak, duration.NA.treatm = "count", onlyfocaldyads = T, limit2focalnonfocal = F)
 bd <- DSI(dsi_bd, ot.source = ot_bd, duration.NA.treatm = "count", onlyfocaldyads = T, limit2focalnonfocal = F)
@@ -247,7 +252,6 @@ print(p)
 
 
 
-
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
@@ -273,21 +277,23 @@ analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
     select(dyad, rank, zDSI)
   
   # Print the relative rank of the specified dyad
+  cat("Relative Rank of Specified Dyad:\n")
   print(rank_dyad)
   
-  # Filter rows where the first individual is involved, including interaction with the second
+  # Filter rows where either individual (i1 or i2) is involved in interactions
   i1 <- strsplit(dyad_identifier, "_@_")[[1]][1]
   i2 <- strsplit(dyad_identifier, "_@_")[[1]][2]
   
   i1_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == i1 | i2 == i1)
-  # Print the zDSI values for first individual with others
+    filter(i1 == !!i1 | i2 == !!i1)
+  
+  cat("\nDSI Values for Interactions Involving", i1, ":\n")
   print(i1_dyads %>% select(i1, i2, dyad, zDSI))
   
-  # Filter rows where the second individual is involved, including interaction with the first
   i2_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == i2 | i2 == i2)
-  # Print the zDSI values for second individual with others
+    filter(i1 == !!i2 | i2 == !!i2)
+  
+  cat("\nDSI Values for Interactions Involving", i2, ":\n")
   print(i2_dyads %>% select(i1, i2, dyad, zDSI))
   
   # Create the boxplot for zDSI values with a uniform color scheme
@@ -295,7 +301,7 @@ analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
     geom_boxplot(outlier.color = 'black', fill = 'lightgray', alpha = 0.6) +
     geom_jitter(color = 'black', width = 0.2, alpha = 0.6) +  # Add jitter for individual dyads with consistent color
     theme_minimal() +
-    labs(title = paste('Distribution of zDSI Values for', dyad_identifier, 'Dyads'),
+    labs(title = paste('Distribution of zDSI Values for', dyad_identifier, '\nPeriod:', from_date, 'to', to_date),
          y = 'zDSI',
          x = 'All Dyads') +
     theme(legend.position = 'none',
