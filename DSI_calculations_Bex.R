@@ -248,7 +248,6 @@ print(p)
 
 
 
-
 # Load necessary libraries
 library(dplyr)
 library(ggplot2)
@@ -277,14 +276,17 @@ analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
   print(rank_dyad)
   
   # Filter rows where the first individual is involved, including interaction with the second
+  i1 <- strsplit(dyad_identifier, "_@_")[[1]][1]
+  i2 <- strsplit(dyad_identifier, "_@_")[[1]][2]
+  
   i1_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == strsplit(dyad_identifier, "_@_")[[1]][1] | i2 == strsplit(dyad_identifier, "_@_")[[1]][1])
+    filter(i1 == i1 | i2 == i1)
   # Print the zDSI values for first individual with others
   print(i1_dyads %>% select(i1, i2, dyad, zDSI))
   
   # Filter rows where the second individual is involved, including interaction with the first
   i2_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == strsplit(dyad_identifier, "_@_")[[1]][2] | i2 == strsplit(dyad_identifier, "_@_")[[1]][2])
+    filter(i1 == i2 | i2 == i2)
   # Print the zDSI values for second individual with others
   print(i2_dyads %>% select(i1, i2, dyad, zDSI))
   
@@ -313,15 +315,15 @@ analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
 
 # Define datasets and analyze each dyad
 # AK Dataset
-analyze_dyad(data = dsi_ak, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_ak, dyad_identifier = "Sho_@_Ginq")
-analyze_dyad(data = dsi_ak, from_date = "2022-06-29", to_date = "2022-09-29", ot_source = ot_ak, dyad_identifier = "Buk_@_Ndaw")
+analyze_dyad(data = dsi_ak, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_ak, dyad_identifier = "Sho_@_Ginq") # Sho and Ginq from 2022-06-27 to 2022-09-27
+analyze_dyad(data = dsi_ak, from_date = "2022-06-29", to_date = "2022-09-29", ot_source = ot_ak, dyad_identifier = "Buk_@_Ndaw") # Buk and Ndaw from 2022-06-29 to 2022-09-29
 
 # BD Dataset
-analyze_dyad(data = dsi_bd, from_date = "2022-06-14", to_date = "2022-09-14", ot_source = ot_bd, dyad_identifier = "Sey_@_Sirk")
-analyze_dyad(data = dsi_bd, from_date = "2022-06-16", to_date = "2022-09-16", ot_source = ot_bd, dyad_identifier = "Xia_@_Piep")
-analyze_dyad(data = dsi_bd, from_date = "2022-06-22", to_date = "2022-09-22", ot_source = ot_bd, dyad_identifier = "Nge_@_Oerw")
-analyze_dyad(data = dsi_bd, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_bd, dyad_identifier = "Xin_@_Ouli")
-analyze_dyad(data = dsi_bd, from_date = "2022-09-12", to_date = "2022-12-12", ot_source = ot_bd, dyad_identifier = "Kom_@_Oort")
+analyze_dyad(data = dsi_bd, from_date = "2022-06-14", to_date = "2022-09-14", ot_source = ot_bd, dyad_identifier = "Sey_@_Sirk") # Sey and Sirk from 2022-06-14 to 2022-09-14
+analyze_dyad(data = dsi_bd, from_date = "2022-06-16", to_date = "2022-09-16", ot_source = ot_bd, dyad_identifier = "Xia_@_Piep") # Xia and Piep from 2022-06-16 to 2022-09-16
+analyze_dyad(data = dsi_bd, from_date = "2022-06-22", to_date = "2022-09-22", ot_source = ot_bd, dyad_identifier = "Nge_@_Oerw") # Nge and Oerw from 2022-06-22 to 2022-09-22
+analyze_dyad(data = dsi_bd, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_bd, dyad_identifier = "Xin_@_Ouli") # Xin and Ouli from 2022-06-27 to 2022-09-27
+analyze_dyad(data = dsi_bd, from_date = "2022-09-12", to_date = "2022-12-12", ot_source = ot_bd, dyad_identifier = "Kom_@_Oort") # Kom and Oort from 2022-09-12 to 2022-12-12
 
 # NH Dataset
-analyze_dyad(data = dsi_nh, from_date = "2022-12-10", to_date = "2023-03-10", ot_source = ot_nh, dyad_identifier = "Pom_@_Xian")
+analyze_dyad(data = dsi_nh, from_date = "2022-12-10", to_date = "2023-03-10", ot_source = ot_nh, dyad_identifier = "Pom_@_Xian") # Pom and Xian from 2022-12-10 to 2023-03-10
