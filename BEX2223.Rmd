@@ -6198,7 +6198,7 @@ write.csv(BexDSI, file = "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thes
   -AgeDiff: Absolute difference between MAge and FAge.
   -IEloDiff: Absolute difference between male and female Elo quartiles.   
   -Binomial Variables (Tol, Agg, NotApp): Based on your criteria.
-  -Existing variables in Bex: "Date", "Month", "DyadDay", "Trial", "Time", "Period", "Male", "Female", "Dyad", "DyadDistance", "Proximity", "DyadResponse", "SpecialBehaviour", "Context", "ToleranceBinomial"
+  -Existing variables in BexClean: "Date", "Month", "DyadDay", "Trial", "Time", "Period", "Male", "Female", "Dyad", "DyadDistance", "Proximity", "DyadResponse", "SpecialBehaviour", "Context", "ToleranceBinomial"
 
 
 
@@ -6232,7 +6232,11 @@ write.csv(dyad_summary_clean, "/Users/maki/Desktop/Master Thesis/BEX 2223 Master
 # Step 1: Identify and review column names in Bex and in Dyad Summary
 
 colnames(BexClean)
-colnames(dyad_summary)
+
+
+
+
+
 # Step 2: Reorder and select variables of interest
 # Rearrange columns to bring important ones to the front
 
@@ -6244,6 +6248,9 @@ BexClean <- BexClean %>%
 
 BexClean <- BexClean %>%
   select(Date, Time, Group, Male, Female, DyadResponse, )
+
+
+
 
 # Step 3: Count occurrences of Tolerance, Aggression, and NotApproaching
 response_counts <- table(Bex$DyadResponse)
