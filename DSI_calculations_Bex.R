@@ -213,14 +213,6 @@ nh <- DSI(dsi_nh, ot.source = ot_nh, duration.NA.treatm = "count", onlyfocaldyad
 # NHPomXian <- fromt 2023-01-09 to 2023-03-09
 
 
-# Check structure of each group
-if (!is.null(final_dsi_bd)) print(str(final_dsi_bd))
-if (!is.null(final_dsi_ak)) print(str(final_dsi_ak))
-if (!is.null(final_dsi_nh)) print(str(final_dsi_nh))
-
-
-
-
 # Define dyads of interest
 dyads_of_interest <- c("Buk_@_Ndaw", "Ginq_@_Sho", "Kom_@_Oort", "Nge_@_Oerw", "Ouli_@_Xin", "Piep_@_Xia", "Pom_@_Xian", "Sey_@_Sirk")
 

@@ -5062,59 +5062,15 @@ points(rep(1, length(NHELOF2)), NHELOF2, pch = 19, col = "red")
 
 
 
-```{r male elo, echo=FALSE}
-
-## MALE
-# Male Elo Calculations
-# Only select adult females: 
-AM <- subset(d, d$AgeClassWinner%in%c("AM"))
-AM <- subset(AM, AM$AgeClassLoser%in%c("AM"))
-
-AKM <- subset(AM,AM$Group%in%("Ankhase"))
-BDM <- subset(AM,AM$Group%in%("Baie Dankie"))
-NHM <- subset(AM,AM$Group%in%("Noha"))
-
-
-
-
-### ANKHASE MALE - AKM
-## AK
-AKELOM <- elo.seq(winner = AKM$winner, loser=AKM$loser, Date=AKM$Date, presence = AKpres, runcheck=F)
-# Set runcheck = F since the warnings seqcheck gives are not a dealbreaker
-# Specific IDs over a specific time period:
-print(unique(AKM$winner))
-
-#ELO PLOT - AKM
-# FULL AKM ELO (WILL CUT 3 MONTH PER 3 MONTH AND SET PERIOD FROM BORGEAUD AND AL 2017)
-eloplot(AKELOM, ids=c("Sho","Vla","Buk"), from="2021-09-01", to = "2023-10-01")
-
-# EXTRACT ELO AKM
-extract_elo(AKELOM, "2022-09-01", daterange=90, standardize = T)
-# So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
-# But please check the elo rating tutorial to see what's best for you!
-
-
-
-
-
-```
 
 
 
 ```{r full elo test, echo=FALSE}
 # Elo Michael
 
-
 # Elo Michael
 # FINALLY : ELO CALCULATIONS FROM PREVIOUS DATASETS CREATED
 # UPDATE FROM HERE
-
-
-
-dev.off()  # Close any open graphics devices
-dev.new()  # Open a new graphics window
-par(mfrow = c(1, 1))  # Single plot layout
-par(mar = c(5, 4, 4, 2) + 0.1)  # Default margins
 
 
 
@@ -5228,8 +5184,7 @@ eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Nco
 # However, the last date possible is the last day there was an agonistic interaction recorded in that group
 
 
-# Extract Elo scores for a specific date using 365 days 
-extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
+
 # So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
 # But please check the elo rating tutorial to see what's best for you!
 
@@ -5317,6 +5272,24 @@ text(x = 1.2, y = BDELOF2, labels = names(BDELOF2), cex = 0.9, col = "black", po
 grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
 # Adding points to make individual scores stand out
 points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
+
+
+
+
+
+# Check before running BDELOF for 2nd period
+range(BDF$Date) # Check if date ranges are consistent
+sum(is.na(BDF)) # Check for missing values
+
+
+range(BDpres$Date) # Ensure presence data aligns with interaction data
+setdiff(BDF$winner, colnames(BDpres)) # Check if all winners are in presence data
+setdiff(BDF$loser, colnames(BDpres)) # Check if all losers are in presence data
+
+
+
+
+#
 
 
 
@@ -5699,6 +5672,18 @@ points(rep(1, length(NHELOM2)), NHELOM2, pch = 19, col = "red")
 
 
 
+# Extract Elo from 1st September 2022 for the previous 365 days 
+# modify functions that counts forward not backwards
+extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
+extract_elo(BDELOM, "2022-09-02", daterange=345, standardize = T)
+extract_elo(NHELOM, "2022-09-02", daterange=345, standardize = T)
+# I did not have data on 365days like for female so reduced it to 345 days
+# So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
+# But please check the elo rating tutorial to see what's best for you!
+
+
+
+
 # Elo TABLE
 
 #I wil want a df with the coluwing columns Dyad, Male, Female, MEloQ, FEloQ, ZMFEloQ, EloDate
@@ -5735,8 +5720,11 @@ print(BDFQ4)
 print(NHMQ2)
 print(NHFQ2)
 
+str(dyads)
+print(dyads)
 
-# Clear the data frame to avoid duplicates if this script is rerun
+
+# Create an empty data frame for the output
 BexElo <- data.frame(
   Dyad = character(),
   Male = character(),
@@ -5746,43 +5734,43 @@ BexElo <- data.frame(
   ZMFEloQ = numeric(),
   MElo = numeric(),
   FElo = numeric(),
-  ZMElo = numeric(),
-  ZFElo = numeric(),
   EloDate = character(),
   stringsAsFactors = FALSE
 )
 
-# Loop through the dyads and extract the relevant information
-for (dyad in names(dyads)) {
-  male <- dyads[[dyad]]$Male
-  female <- dyads[[dyad]]$Female
-  MEloQDF <- dyads[[dyad]]$MEloQDF
-  FEloQDF <- dyads[[dyad]]$FEloQDF
-  EloDate <- dyads[[dyad]]$EloDate
+# Example: Assign Elo datasets (AKMQ2, AKFQ2, etc.) as a named list
+elo_datasets <- list(
+  "AKM" = AKMQ2,
+  "AKF" = AKFQ2,
+  "BDM" = BDMQ2,
+  "BDF" = BDFQ2,
+  "NHM" = NHMQ2,
+  "NHF" = NHFQ2
+)
+
+# Assuming `dyads` contains dyad names like "Buk Ndaw", "Kom Oort", etc.
+for (dyad in dyads) {
+  # Split dyad into male and female names
+  individuals <- unlist(strsplit(dyad, " "))
+  male <- individuals[1]
+  female <- individuals[2]
   
-  # Extract male and female Elo quartiles
-  MEloQ <- as.character(MEloQDF[MEloQDF$Individual == male, "Quartile"])
-  FEloQ <- as.character(FEloQDF[FEloQDF$Individual == female, "Quartile"])
+  # Look up male and female information in the respective datasets
+  male_data <- do.call(rbind, lapply(elo_datasets[c("AKM", "BDM", "NHM")], function(df) df[df$Individual == male, ]))
+  female_data <- do.call(rbind, lapply(elo_datasets[c("AKF", "BDF", "NHF")], function(df) df[df$Individual == female, ]))
   
-  # Extract male and female Elo scores
-  MElo <- MEloQDF[MEloQDF$Individual == male, "Elo_Score"]
-  FElo <- FEloQDF[FEloQDF$Individual == female, "Elo_Score"]
-  
-  # Standardize Elo scores (Z-score calculation)
-  ZMElo <- (MElo - mean(MEloQDF$Elo_Score, na.rm = TRUE)) / sd(MEloQDF$Elo_Score, na.rm = TRUE)
-  ZFElo <- (FElo - mean(FEloQDF$Elo_Score, na.rm = TRUE)) / sd(FEloQDF$Elo_Score, na.rm = TRUE)
-  
-  # Calculate ZMFEloQ as the absolute difference in quartiles
-  ZMFEloQ <- if (!is.na(MEloQ) & !is.na(FEloQ)) {
-    abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
-  } else {
-    NA
-  }
-  
-  # Append to the output data frame
-  BexElo <- rbind(
-    BexElo,
-    data.frame(
+  # Ensure both male and female data are found
+  if (nrow(male_data) > 0 & nrow(female_data) > 0) {
+    MElo <- male_data$Elo_Score[1]
+    FElo <- female_data$Elo_Score[1]
+    MEloQ <- male_data$Quartile[1]
+    FEloQ <- female_data$Quartile[1]
+    
+    # Calculate absolute difference in quartiles
+    ZMFEloQ <- abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
+    
+    # Append to the output data frame
+    BexElo <- rbind(BexElo, data.frame(
       Dyad = dyad,
       Male = male,
       Female = female,
@@ -5791,29 +5779,26 @@ for (dyad in names(dyads)) {
       ZMFEloQ = ZMFEloQ,
       MElo = MElo,
       FElo = FElo,
-      ZMElo = ZMElo,
-      ZFElo = ZFElo,
-      EloDate = EloDate,
+      EloDate = Sys.Date(), # Replace with actual date if available
       stringsAsFactors = FALSE
-    )
-  )
+    ))
+  } else {
+    warning(paste("Missing data for dyad:", dyad))
+  }
 }
 
-# Remove any duplicate rows
+# Remove duplicates, if any
 BexElo <- BexElo[!duplicated(BexElo), ]
 
-# Print the corrected data frame
+# Print the resulting data frame
 print(BexElo)
 
-
-# Export the corrected data frame as a CSV file to the specified path
-write.csv(BexElo, file = "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv", row.names = FALSE)
+# Export the data frame to CSV
+output_path <- "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv"
+write.csv(BexElo, file = output_path, row.names = FALSE)
 
 # Print confirmation message
-cat("CSV file successfully saved at: /Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv\n")
-
-
-
+cat("CSV file successfully saved at:", output_path, "\n")
 
 
 
@@ -5823,6 +5808,10 @@ cat("CSV file successfully saved at: /Users/maki/Desktop/Master Thesis/BEX 2223 
 # DSI DYAD
 
 ```{r DSI Calculations, echo=FALSE}
+
+
+
+
 #Install package of social indices: socialindices_0.28.tar.gz
 # Replace the path with the actual path to the script
 source("/Users/maki/Desktop/Master Thesis/Josies Codes/socialindices/R/DSI.R")
@@ -5835,7 +5824,7 @@ source("/Users/maki/Desktop/Master Thesis/Josies Codes/socialindices/R/checkpres
 source("/Users/maki/Desktop/Master Thesis/Josies Codes/socialindices/R/checkbehaviour.R")
 
 
-ls()
+
 library(dplyr)
 
 # Calculate monthly DSI scores based on DSI file, OT and presence
@@ -5947,15 +5936,41 @@ ot_nh <- OT %>%
   mutate(date = as.Date(date, format = "%Y-%m-%d"))
 
 
+# AK PRE DSI CHECK
 range(ot_ak$date)
 range(dsi_ak$date)
 # Check column names in dsi_ak
 colnames(dsi_ak)
-
 # Check column names in ot_ak
 colnames(ot_ak)
-
 checkpresence(presence=pres_ak, b.source=dsi_ak)
+
+
+# BD PRE DSI CHECK
+range(ot_bd$date)
+range(dsi_bd$date)
+# Check column names in dsi_ak
+colnames(dsi_bd)
+# Check column names in ot_ak
+colnames(ot_bd)
+checkpresence(presence=pres_bd, b.source=dsi_bd)
+
+
+# NH PRE DSI CHECK
+range(ot_nh$date)
+range(dsi_nh$date)
+# Check column names in dsi_ak
+colnames(dsi_nh)
+# Check column names in ot_ak
+colnames(ot_nh)
+checkpresence(presence=pres_nh, b.source=dsi_nh)
+
+
+
+
+
+
+
 
 
 
@@ -5992,75 +6007,13 @@ nh <- DSI(dsi_nh, ot.source = ot_nh, duration.NA.treatm = "count", onlyfocaldyad
 
 # For each dyad take data from 3 month before to first day of experiments to have same amount of data. First common data is 2022-06-02
 
+
+
+
+
+
+
 # DSI Dates for AK
-# AKShoGinq <- from 2022-06-27 to 2022-09-27
-
-
-# Calculate DSI for dyads between specified dates
-AKShoGinq <- DSI(dsi_ak, from = "2022-06-27", to = "2022-09-27", ot.source = ot_ak)
-# Extract dyad identifiers and their DSI values
-dyads_DSI <- AKShoGinq %>%
-  dplyr::select(i1, i2, dyad, DSI, zDSI)
-# Sort the dyads based on zDSI values in descending order and rank them
-sorted_dyads_DSI <- dyads_DSI %>%
-  filter(!is.na(zDSI)) %>%  # Remove rows with NA zDSI values
-  arrange(desc(zDSI)) %>%
-  mutate(rank = row_number())  # Add rank based on zDSI values
-
-# Define the dyad identifier for "Ginq Sho"
-ginq_sho_dyad <- "Ginq_@_Sho"
-# Extract the rank of "Ginq Sho" based on zDSI values
-rank_ginq_sho <- sorted_dyads_DSI %>%
-  filter(dyad == ginq_sho_dyad) %>%
-  select(dyad, rank, zDSI)
-
-# Print the relative rank of "Ginq Sho"
-print(rank_ginq_sho)
-
-# Filter rows where Sho is involved, including interaction with Ginq
-sho_dyads <- sorted_dyads_DSI %>%
-  filter(i1 == "Sho" | i2 == "Sho")
-# Print the zDSI values for Sho with others
-print(sho_dyads %>% select(i1, i2, dyad, zDSI))
-# Filter rows where Ginq is involved, including interaction with Sho
-ginq_dyads <- sorted_dyads_DSI %>%
-  filter(i1 == "Ginq" | i2 == "Ginq")
-# Print the zDSI values for Ginq with others
-print(ginq_dyads %>% select(i1, i2, dyad, zDSI))
-
-
-
-# Load necessary libraries
-library(ggplot2)
-
-# Create the boxplot for zDSI values with a uniform color scheme
-p <- ggplot(sorted_dyads_DSI, aes(x = '', y = zDSI)) +
-  geom_boxplot(outlier.color = 'black', fill = 'lightgray', alpha = 0.6) +
-  geom_jitter(color = 'black', width = 0.2, alpha = 0.6) +  # Add jitter for individual dyads with consistent color
-  theme_minimal() +
-  labs(title = 'Distribution of zDSI Values for Dyads',
-       y = 'zDSI',
-       x = 'All Dyads') +
-  theme(legend.position = 'none')  # Hide the legend for simplicity
-
-# Highlight specific dyads involving Sho and Ginq
-highlight_dyads <- c("Ginq_@_Sho")  # Highlight only the "Ginq Sho" dyad
-highlight_data <- sorted_dyads_DSI %>% filter(dyad %in% highlight_dyads)
-
-# Add highlighted points for "Ginq Sho" dyad in red
-p <- p + geom_point(data = highlight_data, aes(x = '', y = zDSI), color = 'red', size = 3, shape = 18)
-
-# Print the plot
-print(p)
-
-
-
-
-
-
-
-
-
 # AKShoGinq <- from 2022-06-27 to 2022-09-27
 # AKBukNdaw <- from 2022-06-29 to 2022-09-29
 
@@ -6071,93 +6024,157 @@ print(p)
 # BDXinOuli <- from 2022-06-27 to 2022-09-27
 # BDKomOort <- from 2022-09-12 to 2022-12-12
 
-
-# DSI Dates for NH
-# NHPomXian <- from 2022-12-10 to 2023-03-10
+# NHPomXian <- fromt 2023-01-09 to 2023-03-09
 
 
 
-# Load necessary libraries
-library(dplyr)
-library(ggplot2)
 
-# Function to calculate and visualize DSI for each dyad pair
-analyze_dyad <- function(data, from_date, to_date, ot_source, dyad_identifier) {
-  # Calculate DSI for dyads between specified dates
-  dyad_data <- DSI(data, from = from_date, to = to_date, ot.source = ot_source)
+# Define dyads of interest
+dyads_of_interest <- c("Buk_@_Ndaw", "Ginq_@_Sho", "Kom_@_Oort", "Nge_@_Oerw", "Ouli_@_Xin", "Piep_@_Xia", "Pom_@_Xian", "Sey_@_Sirk")
+
+# Helper function to standardize dyads
+standardize_dyad <- function(dyad) {
+  dyad_parts <- unlist(strsplit(dyad, "_@_"))
+  paste(sort(dyad_parts), collapse = "_@_")
+}
+dyads_of_interest <- sapply(dyads_of_interest, standardize_dyad)
+
+# Define date ranges for each group
+date_ranges <- list(
+  AK = c("2022-06-15", "2022-09-15"),
+  BD = c("2022-06-15", "2022-09-15"),
+  BD2 = c("2022-09-11", "2022-12-11"),
+  NH = c("2022-12-09", "2023-03-09")
+)
+
+# Helper function to calculate DSI
+calculate_dsi <- function(dsi_data, ot_data, from_date, to_date) {
+  dsi_subset <- dsi_data %>%
+    filter(date >= as.Date(from_date) & date <= as.Date(to_date))
   
-  # Extract dyad identifiers and their DSI values
-  dyads_DSI <- dyad_data %>%
-    dplyr::select(i1, i2, dyad, DSI, zDSI)
+  # Ensure subset has data
+  if (nrow(dsi_subset) == 0) {
+    cat("No data for date range:", from_date, "-", to_date, "\n")
+    return(NULL)
+  }
   
-  # Sort the dyads based on zDSI values in descending order and rank them
-  sorted_dyads_DSI <- dyads_DSI %>%
-    filter(!is.na(zDSI)) %>%  # Remove rows with NA zDSI values
-    arrange(desc(zDSI)) %>%
-    mutate(rank = row_number())  # Add rank based on zDSI values
-  
-  # Extract the rank of the specified dyad
-  rank_dyad <- sorted_dyads_DSI %>%
-    filter(dyad == dyad_identifier) %>%
-    select(dyad, rank, zDSI)
-  
-  # Print the relative rank of the specified dyad
-  cat("Relative Rank of Specified Dyad:\n")
-  print(rank_dyad)
-  
-  # Filter rows where either individual (i1 or i2) is involved in interactions
-  i1 <- strsplit(dyad_identifier, "_@_")[[1]][1]
-  i2 <- strsplit(dyad_identifier, "_@_")[[1]][2]
-  
-  i1_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == !!i1 | i2 == !!i1)
-  
-  cat("\nDSI Values for Interactions Involving", i1, ":\n")
-  print(i1_dyads %>% select(i1, i2, dyad, zDSI))
-  
-  i2_dyads <- sorted_dyads_DSI %>%
-    filter(i1 == !!i2 | i2 == !!i2)
-  
-  cat("\nDSI Values for Interactions Involving", i2, ":\n")
-  print(i2_dyads %>% select(i1, i2, dyad, zDSI))
-  
-  # Create the boxplot for zDSI values with a uniform color scheme
-  p <- ggplot(sorted_dyads_DSI, aes(x = '', y = zDSI)) +
-    geom_boxplot(outlier.color = 'black', fill = 'lightgray', alpha = 0.6) +
-    geom_jitter(color = 'black', width = 0.2, alpha = 0.6) +  # Add jitter for individual dyads with consistent color
-    theme_minimal() +
-    labs(title = paste('Distribution of zDSI Values for', dyad_identifier, '\nPeriod:', from_date, 'to', to_date),
-         y = 'zDSI',
-         x = 'All Dyads') +
-    theme(legend.position = 'none',
-          axis.text.x = element_text(size = 12, face = 'bold'),
-          axis.text.y = element_text(size = 12, face = 'bold'),
-          plot.title = element_text(size = 14, face = 'bold', hjust = 0.5))  # Improve label readability
-  
-  # Highlight specific dyad
-  highlight_data <- sorted_dyads_DSI %>% filter(dyad == dyad_identifier)
-  
-  # Add highlighted points for specific dyad in red
-  p <- p + geom_point(data = highlight_data, aes(x = '', y = zDSI), color = 'red', size = 3, shape = 18)
-  
-  # Print the plot
-  print(p)
+  # Run DSI calculation
+  tryCatch(
+    {
+      dsi_output <- DSI(
+        b.source = dsi_subset,
+        ot.source = ot_data,
+        from = from_date,
+        to = to_date,
+        onlyfocaldyads = TRUE,
+        limit2focalnonfocal = TRUE
+      )
+      
+      # Ensure `date_extraction` column exists
+      if (!"date_extraction" %in% colnames(dsi_output)) {
+        dsi_output$date_extraction <- as.Date(to_date)
+      }
+      
+      dsi_output
+    },
+    error = function(e) {
+      cat("Error in DSI calculation:", e$message, "\n")
+      return(NULL)
+    }
+  )
 }
 
-# Define datasets and analyze each dyad
-# AK Dataset
-analyze_dyad(data = dsi_ak, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_ak, dyad_identifier = "Sho_@_Ginq") # Sho and Ginq from 2022-06-27 to 2022-09-27
-analyze_dyad(data = dsi_ak, from_date = "2022-06-29", to_date = "2022-09-29", ot_source = ot_ak, dyad_identifier = "Buk_@_Ndaw") # Buk and Ndaw from 2022-06-29 to 2022-09-29
+# Run DSI for all groups
+dsi_results <- list(
+  AK = calculate_dsi(dsi_ak, ot_ak, date_ranges$AK[1], date_ranges$AK[2]),
+  BD = calculate_dsi(dsi_bd, ot_bd, date_ranges$BD[1], date_ranges$BD[2]),
+  BD2 = calculate_dsi(dsi_bd, ot_bd, date_ranges$BD2[1], date_ranges$BD2[2]),
+  NH = calculate_dsi(dsi_nh, ot_nh, date_ranges$NH[1], date_ranges$NH[2])
+)
 
-# BD Dataset
-analyze_dyad(data = dsi_bd, from_date = "2022-06-14", to_date = "2022-09-14", ot_source = ot_bd, dyad_identifier = "Sey_@_Sirk") # Sey and Sirk from 2022-06-14 to 2022-09-14
-analyze_dyad(data = dsi_bd, from_date = "2022-06-16", to_date = "2022-09-16", ot_source = ot_bd, dyad_identifier = "Xia_@_Piep") # Xia and Piep from 2022-06-16 to 2022-09-16
-analyze_dyad(data = dsi_bd, from_date = "2022-06-22", to_date = "2022-09-22", ot_source = ot_bd, dyad_identifier = "Nge_@_Oerw") # Nge and Oerw from 2022-06-22 to 2022-09-22
-analyze_dyad(data = dsi_bd, from_date = "2022-06-27", to_date = "2022-09-27", ot_source = ot_bd, dyad_identifier = "Xin_@_Ouli") # Xin and Ouli from 2022-06-27 to 2022-09-27
-analyze_dyad(data = dsi_bd, from_date = "2022-09-12", to_date = "2022-12-12", ot_source = ot_bd, dyad_identifier = "Kom_@_Oort") # Kom and Oort from 2022-09-12 to 2022-12-12
+# Filter DSI results for dyads of interest
+filter_dsi <- function(dsi_data) {
+  if (is.null(dsi_data) || nrow(dsi_data) == 0) {
+    return(data.frame(dyad = dyads_of_interest, IDSI = 0, IzDSI = 0, date_extraction = NA))
+  }
+  dsi_data %>%
+    mutate(dyad = sapply(dyad, standardize_dyad)) %>%
+    filter(dyad %in% dyads_of_interest) %>%
+    select(i1, i2, dyad, DSI, zDSI, date_extraction) %>%
+    rename(IDSI = DSI, IzDSI = zDSI)
+}
 
-# NH Dataset
-analyze_dyad(data = dsi_nh, from_date = "2022-12-10", to_date = "2023-03-10", ot_source = ot_nh, dyad_identifier = "Pom_@_Xian") # Pom and Xian from 2022-12-10 to 2023-03-10
+filtered_dsi <- list(
+  AK = filter_dsi(dsi_results$AK),
+  BD = filter_dsi(dsi_results$BD),
+  BD2 = filter_dsi(dsi_results$BD2),
+  NH = filter_dsi(dsi_results$NH)
+)
+
+# Combine all filtered results
+BexDSI <- do.call(rbind, filtered_dsi)
+
+# Handle missing dyads
+missing_dyads <- setdiff(dyads_of_interest, unique(BexDSI$dyad))
+for (dyad_id in missing_dyads) {
+  default_row <- data.frame(
+    i1 = NA,
+    i2 = NA,
+    dyad = dyad_id,
+    IDSI = 0,
+    IzDSI = 0,
+    date_extraction = NA
+  )
+  BexDSI <- rbind(BexDSI, default_row)
+}
+
+# Display final table
+print(BexDSI)
+
+# Add FDSI and FzDSI columns
+BexDSI <- BexDSI %>%
+  mutate(
+    Male = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 3, x[1], x[2])),
+    Female = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 4, x[1], x[2])),
+    dyad = paste(Male, Female), # Update dyad column to be "Male Female"
+    FDSI = IDSI, # Assuming FDSI takes the same value as IDSI
+    FzDSI = IzDSI # Assuming FzDSI takes the same value as IzDSI
+  ) %>%
+  select(dyad, Male, Female, IDSI, IzDSI, FDSI, FzDSI, date_extraction) # Reorder columns
+
+# Reset row names to ensure no `AK.1`, `BD.1`, etc.
+rownames(BexDSI) <- NULL
+
+# Set FDSI and FzDSI for the final date `2023-09-13`
+BexDSI <- BexDSI %>%
+  mutate(
+    FDSI = ifelse(date_extraction == as.Date("2023-09-13"), FDSI, FDSI),
+    FzDSI = ifelse(date_extraction == as.Date("2023-09-13"), FzDSI, FzDSI)
+  )
+
+## Remove rows 9, 10, 11, and 12
+BexDSI <- BexDSI[-c(3, 9, 10, 11, 12), ]
+
+# Add the final extraction date as a new column
+BexDSI <- BexDSI %>%
+  mutate(date_extraction_final = as.Date("2023-09-13"))
+
+# Display the final table
+print(BexDSI)
+
+
+
+write.csv(BexDSI, file = "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexDSI.csv", row.names = FALSE)
+
+
+
+
+
+
+
+
+
+
 
 
 ```
@@ -6187,19 +6204,13 @@ analyze_dyad(data = dsi_nh, from_date = "2022-12-10", to_date = "2023-03-10", ot
 #Identify existing rows in BexClean
 colnames(BexClean)
 
-# Load required libraries
-library(dplyr)
-
-# Ensure `BexClean` is the cleaned dataset containing necessary variables
-# Key columns include MaleDOB, FemaleDOB, MEloQuartile, FEloQuartile, etc.
-
-# 1. Compute MAge, FAge, and AgeDiff
+# Check amount of occurences of Tolerance, Aggresssion and NotApproaching in dataset!
 
 
-# 2. Compute IEloDiff using Quartile Information
 
+# Make Tolerance,Tol, Aggression, Agg and Not Approaching, NotApp binomial
 
-# 3. Compute Binomial Variables (Tol, Agg, NotApp)
+ables (Tol, Agg, NotApp)
 BexClean<- BexClean %>%
   mutate(
     Tol = ifelse(DyadResponse == "Tolerance", 1, 0),  # Tolerance as binomial
@@ -6208,12 +6219,6 @@ BexClean<- BexClean %>%
   )
 
 # 4. Add Existing and Temporal Variables
-
-# 5. Ensure all required variables exist
-
-#  "Date", "Month", "DyadDay", "Trial", "Time", "Period", "Male", "Female", "Dyad",
-#"DyadDistance", "Proximity", "DyadResponse", "SpecialBehaviour", "Context", "ToleranceBinomial",
-# MAge", "FAge", "AgeDiff", "IEloDiff", "Tol", "Agg", "NotApp"
 
 
 # Add missing columns as NA

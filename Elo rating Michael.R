@@ -680,8 +680,11 @@ print(BDFQ4)
 print(NHMQ2)
 print(NHFQ2)
 
+str(dyads)
+print(dyads)
 
-# Clear the data frame to avoid duplicates if this script is rerun
+
+# Create an empty data frame for the output
 BexElo <- data.frame(
   Dyad = character(),
   Male = character(),
@@ -691,43 +694,43 @@ BexElo <- data.frame(
   ZMFEloQ = numeric(),
   MElo = numeric(),
   FElo = numeric(),
-  ZMElo = numeric(),
-  ZFElo = numeric(),
   EloDate = character(),
   stringsAsFactors = FALSE
 )
 
-# Loop through the dyads and extract the relevant information
-for (dyad in names(dyads)) {
-  male <- dyads[[dyad]]$Male
-  female <- dyads[[dyad]]$Female
-  MEloQDF <- dyads[[dyad]]$MEloQDF
-  FEloQDF <- dyads[[dyad]]$FEloQDF
-  EloDate <- dyads[[dyad]]$EloDate
+# Example: Assign Elo datasets (AKMQ2, AKFQ2, etc.) as a named list
+elo_datasets <- list(
+  "AKM" = AKMQ2,
+  "AKF" = AKFQ2,
+  "BDM" = BDMQ2,
+  "BDF" = BDFQ2,
+  "NHM" = NHMQ2,
+  "NHF" = NHFQ2
+)
+
+# Assuming `dyads` contains dyad names like "Buk Ndaw", "Kom Oort", etc.
+for (dyad in dyads) {
+  # Split dyad into male and female names
+  individuals <- unlist(strsplit(dyad, " "))
+  male <- individuals[1]
+  female <- individuals[2]
   
-  # Extract male and female Elo quartiles
-  MEloQ <- as.character(MEloQDF[MEloQDF$Individual == male, "Quartile"])
-  FEloQ <- as.character(FEloQDF[FEloQDF$Individual == female, "Quartile"])
+  # Look up male and female information in the respective datasets
+  male_data <- do.call(rbind, lapply(elo_datasets[c("AKM", "BDM", "NHM")], function(df) df[df$Individual == male, ]))
+  female_data <- do.call(rbind, lapply(elo_datasets[c("AKF", "BDF", "NHF")], function(df) df[df$Individual == female, ]))
   
-  # Extract male and female Elo scores
-  MElo <- MEloQDF[MEloQDF$Individual == male, "Elo_Score"]
-  FElo <- FEloQDF[FEloQDF$Individual == female, "Elo_Score"]
-  
-  # Standardize Elo scores (Z-score calculation)
-  ZMElo <- (MElo - mean(MEloQDF$Elo_Score, na.rm = TRUE)) / sd(MEloQDF$Elo_Score, na.rm = TRUE)
-  ZFElo <- (FElo - mean(FEloQDF$Elo_Score, na.rm = TRUE)) / sd(FEloQDF$Elo_Score, na.rm = TRUE)
-  
-  # Calculate ZMFEloQ as the absolute difference in quartiles
-  ZMFEloQ <- if (!is.na(MEloQ) & !is.na(FEloQ)) {
-    abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
-  } else {
-    NA
-  }
-  
-  # Append to the output data frame
-  BexElo <- rbind(
-    BexElo,
-    data.frame(
+  # Ensure both male and female data are found
+  if (nrow(male_data) > 0 & nrow(female_data) > 0) {
+    MElo <- male_data$Elo_Score[1]
+    FElo <- female_data$Elo_Score[1]
+    MEloQ <- male_data$Quartile[1]
+    FEloQ <- female_data$Quartile[1]
+    
+    # Calculate absolute difference in quartiles
+    ZMFEloQ <- abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
+    
+    # Append to the output data frame
+    BexElo <- rbind(BexElo, data.frame(
       Dyad = dyad,
       Male = male,
       Female = female,
@@ -736,23 +739,23 @@ for (dyad in names(dyads)) {
       ZMFEloQ = ZMFEloQ,
       MElo = MElo,
       FElo = FElo,
-      ZMElo = ZMElo,
-      ZFElo = ZFElo,
-      EloDate = EloDate,
+      EloDate = Sys.Date(), # Replace with actual date if available
       stringsAsFactors = FALSE
-    )
-  )
+    ))
+  } else {
+    warning(paste("Missing data for dyad:", dyad))
+  }
 }
 
-# Remove any duplicate rows
+# Remove duplicates, if any
 BexElo <- BexElo[!duplicated(BexElo), ]
 
-# Print the corrected data frame
+# Print the resulting data frame
 print(BexElo)
 
-
-# Export the corrected data frame as a CSV file to the specified path
-write.csv(BexElo, file = "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv", row.names = FALSE)
+# Export the data frame to CSV
+output_path <- "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv"
+write.csv(BexElo, file = output_path, row.names = FALSE)
 
 # Print confirmation message
-cat("CSV file successfully saved at: /Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv\n")
+cat("CSV file successfully saved at:", output_path, "\n")
