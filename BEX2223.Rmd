@@ -4190,6 +4190,8 @@ ggplot(tolerance_proportions_long, aes(x = Dyad, y = Proportion, fill = Response
 
 ```
 
+
+# Important chunk for dyad sumamry to keep!
 ```{r add age difference in Dyad, echo=FALSE}
 
 # Step 9: Merge tolerance summary with dyad age data
@@ -4202,6 +4204,8 @@ print(dyad_summary)
 
 
 str(dyad_summary)
+
+#Create csv
 
 ```
 
@@ -6198,40 +6202,66 @@ write.csv(BexDSI, file = "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thes
 
 
 
+```{r export dyadsummary csv, echo=FALSE}
+# Select and rename specific columns
+dyad_summary_clean <- dyad_summary %>%
+  select(
+    Dyad, 
+    Male, 
+    Female, 
+    AgeDiff = AgeDifference, # Rename AgeDifference to AgeDiff
+    AgeDir = AgeDirection,   # Rename AgeDirection to AgeDir
+    TotalTrials,
+    ToleranceCount,
+    NoToleranceCount,
+    ToleranceProportion,
+    NoToleranceProportion
+  )
+
+print(dyad_summary)
+
+# Export the cleaned dataset to a CSV file
+write.csv(dyad_summary_clean, "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/dyad_summary_clean.csv", row.names = FALSE)
+```
+
+
+
 
 ```{R FINAL BEX FOR STATS, echo=FALSE}
 
-#Identify existing rows in BexClean
-colnames(BexClean)
-
-# Check amount of occurences of Tolerance, Aggresssion and NotApproaching in dataset!
-
-
-
-# Make Tolerance,Tol, Aggression, Agg and Not Approaching, NotApp binomial
-
-ables (Tol, Agg, NotApp)
-BexClean<- BexClean %>%
-  mutate(
-    Tol = ifelse(DyadResponse == "Tolerance", 1, 0),  # Tolerance as binomial
-    Agg = ifelse(DyadResponse == "Aggression", 1, 0),  # Aggression as binomial
-    NotApp = ifelse(DyadResponse == "NotApproaching", 1, 0)  # NotApproaching as binomial
-  )
-
-# 4. Add Existing and Temporal Variables
-
-
-# Add missing columns as NA
-
-
-# Reorder columns for consistency
-
-
+# Step 1: Identify and review column names in Bex and in Dyad Summary
 
 colnames(BexClean)
+colnames(dyad_summary)
+# Step 2: Reorder and select variables of interest
+# Rearrange columns to bring important ones to the front
 
 
-# 6. Export Final Dataset
+BexClean <- BexClean %>%
+  rename(Male = MaleID, Female = FemaleID)
+
+
+
+BexClean <- BexClean %>%
+  select(Date, Time, Group, Male, Female, DyadResponse, )
+
+# Step 3: Count occurrences of Tolerance, Aggression, and NotApproaching
+response_counts <- table(Bex$DyadResponse)
+print(response_counts)
+
+tolerance_count <- sum(BexClean$Tol == 1, na.rm = TRUE)
+aggression_count <- sum(BexClean$Agg == 1, na.rm = TRUE)
+not_approaching_count <- sum(BexClean$NotApp == 1, na.rm = TRUE)
+
+cat("Tolerance Count:", tolerance_count, "\n")
+cat("Aggression Count:", aggression_count, "\n")
+cat("Not Approaching Count:", not_approaching_count, "\n")
+
+
+# Step 5: Check final dataset structure and column names
+colnames(BexClean)
+head(BexClean)  # Preview the first few rows
+
 
 
 ```
