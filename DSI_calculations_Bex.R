@@ -210,115 +210,112 @@ nh <- DSI(dsi_nh, ot.source = ot_nh, duration.NA.treatm = "count", onlyfocaldyad
 # BDXinOuli <- from 2022-06-27 to 2022-09-27
 # BDKomOort <- from 2022-09-12 to 2022-12-12
 
+# NHPomXian <- fromt 2023-01-09 to 2023-03-09
+
+
+# Check structure of each group
+if (!is.null(final_dsi_bd)) print(str(final_dsi_bd))
+if (!is.null(final_dsi_ak)) print(str(final_dsi_ak))
+if (!is.null(final_dsi_nh)) print(str(final_dsi_nh))
 
 
 
 
-## Helper function to standardize dyad names
+# Define dyads of interest
+dyads_of_interest <- c("Buk_@_Ndaw", "Ginq_@_Sho", "Kom_@_Oort", "Nge_@_Oerw", "Ouli_@_Xin", "Piep_@_Xia", "Pom_@_Xian", "Sey_@_Sirk")
+
+# Helper function to standardize dyads
 standardize_dyad <- function(dyad) {
   dyad_parts <- unlist(strsplit(dyad, "_@_"))
   paste(sort(dyad_parts), collapse = "_@_")
 }
-
-# Ensure dyads of interest are standardized
 dyads_of_interest <- sapply(dyads_of_interest, standardize_dyad)
 
-# Initialize an empty list to store DSI calculations for groups
-group_DSI <- list()
+# Define date ranges for each group
+date_ranges <- list(
+  AK = c("2022-06-15", "2022-09-15"),
+  BD = c("2022-06-15", "2022-09-15"),
+  BD2 = c("2022-09-11", "2022-12-11"),
+  NH = c("2022-12-09", "2023-03-09")
+)
 
-# Function to calculate DSI for the entire group and extract dyads
-calculate_group_DSI <- function(dsi_data, ot_data, final_date, days, onlyfocaldyads = TRUE, limit2focalnonfocal = TRUE) {
-  # Calculate from_date based on final_date and days
-  from_date <- as.Date(final_date) - days
-  
-  cat("Processing group from", from_date, "to", final_date, "\n")
-  
-  # Filter the DSI data within the date range
+# Helper function to calculate DSI
+calculate_dsi <- function(dsi_data, ot_data, from_date, to_date) {
   dsi_subset <- dsi_data %>%
-    filter(date >= from_date & date <= as.Date(final_date))
+    filter(date >= as.Date(from_date) & date <= as.Date(to_date))
   
-  # Ensure there is data within the range
+  # Ensure subset has data
   if (nrow(dsi_subset) == 0) {
-    cat("No data available for this group and date range.\n")
+    cat("No data for date range:", from_date, "-", to_date, "\n")
     return(NULL)
   }
   
-  # Calculate DSI
-  group_dsi <- DSI(
-    b.source = dsi_subset,
-    ot.source = ot_data,
-    from = as.character(from_date),
-    to = as.character(final_date),
-    onlyfocaldyads = onlyfocaldyads,
-    limit2focalnonfocal = limit2focalnonfocal
+  # Run DSI calculation
+  tryCatch(
+    {
+      dsi_output <- DSI(
+        b.source = dsi_subset,
+        ot.source = ot_data,
+        from = from_date,
+        to = to_date,
+        onlyfocaldyads = TRUE,
+        limit2focalnonfocal = TRUE
+      )
+      
+      # Ensure `date_extraction` column exists
+      if (!"date_extraction" %in% colnames(dsi_output)) {
+        dsi_output$date_extraction <- as.Date(to_date)
+      }
+      
+      dsi_output
+    },
+    error = function(e) {
+      cat("Error in DSI calculation:", e$message, "\n")
+      return(NULL)
+    }
   )
-  
-  # Check if DSI output contains data
-  if (nrow(group_dsi) > 0) {
-    cat("Number of rows in DSI output:", nrow(group_dsi), "\n")
-  } else {
-    cat("No data generated for this group and date range.\n")
-    return(NULL)
-  }
-  
-  # Standardize dyad names and add date_extraction
-  group_dsi <- group_dsi %>%
-    dplyr::mutate(
-      dyad = sapply(dyad, standardize_dyad),
-      date_extraction = as.Date(final_date)
-    )
-  
-  return(group_dsi)
 }
 
-# Set parameters for analysis
-days_to_analyze <- 90  # Number of days to include in analysis
+# Run DSI for all groups
+dsi_results <- list(
+  AK = calculate_dsi(dsi_ak, ot_ak, date_ranges$AK[1], date_ranges$AK[2]),
+  BD = calculate_dsi(dsi_bd, ot_bd, date_ranges$BD[1], date_ranges$BD[2]),
+  BD2 = calculate_dsi(dsi_bd, ot_bd, date_ranges$BD2[1], date_ranges$BD2[2]),
+  NH = calculate_dsi(dsi_nh, ot_nh, date_ranges$NH[1], date_ranges$NH[2])
+)
 
-# Process each group's DSI data for specified date ranges
-group_DSI[[1]] <- calculate_group_DSI(dsi_bd, ot_bd, final_date = "2022-09-14", days = days_to_analyze)
-group_DSI[[2]] <- calculate_group_DSI(dsi_bd, ot_bd, final_date = "2022-12-12", days = days_to_analyze)
-group_DSI[[3]] <- calculate_group_DSI(dsi_ak, ot_ak, final_date = "2022-09-27", days = days_to_analyze)
-group_DSI[[4]] <- calculate_group_DSI(dsi_nh, ot_nh, final_date = "2023-03-10", days = days_to_analyze)
-
-# Combine all extracted DSI data into a single table
-group_DSI <- group_DSI[!sapply(group_DSI, is.null)]  # Remove NULL elements
-
-if (length(group_DSI) > 0) {
-  combined_dsi <- do.call(rbind, group_DSI)
-  
-  # Standardize dyads again
-  combined_dsi <- combined_dsi %>%
-    dplyr::mutate(dyad = sapply(dyad, standardize_dyad))
-  
-  # Aggregate DSI and zDSI by dyad
-  aggregated_dsi <- combined_dsi %>%
-    dplyr::group_by(dyad) %>%
-    dplyr::summarise(
-      DSI = mean(DSI, na.rm = TRUE),
-      zDSI = mean(zDSI, na.rm = TRUE),
-      date_extraction = max(date_extraction, na.rm = TRUE)  # Latest date
-    )
-  
-  # Filter for the dyads of interest
-  filtered_dsi <- aggregated_dsi %>%
-    dplyr::filter(dyad %in% dyads_of_interest)
-  
-  # Handle missing dyads
-  missing_dyads <- setdiff(dyads_of_interest, unique(filtered_dsi$dyad))
-  for (dyad_id in missing_dyads) {
-    cat("No data for dyad:", dyad_id, "- assigning default values.\n")
-    default_row <- data.frame(
-      dyad = dyad_id,
-      DSI = 0,
-      zDSI = 0,
-      date_extraction = NA
-    )
-    filtered_dsi <- rbind(filtered_dsi, default_row)
+# Filter DSI results for dyads of interest
+filter_dsi <- function(dsi_data) {
+  if (is.null(dsi_data) || nrow(dsi_data) == 0) {
+    return(data.frame(dyad = dyads_of_interest, DSI = 0, zDSI = 0, date_extraction = NA))
   }
-  
-  # Save the final table
-  BexZDSI <- filtered_dsi
-  print(BexZDSI)
-} else {
-  cat("No DSI data processed.\n")
+  dsi_data %>%
+    mutate(dyad = sapply(dyad, standardize_dyad)) %>%
+    filter(dyad %in% dyads_of_interest)
 }
+
+filtered_dsi <- list(
+  AK = filter_dsi(dsi_results$AK),
+  BD = filter_dsi(dsi_results$BD),
+  BD2 = filter_dsi(dsi_results$BD2),
+  NH = filter_dsi(dsi_results$NH)
+)
+
+# Combine all filtered results
+final_dsi_table <- do.call(rbind, filtered_dsi)
+
+# Handle missing dyads
+missing_dyads <- setdiff(dyads_of_interest, unique(final_dsi_table$dyad))
+for (dyad_id in missing_dyads) {
+  default_row <- data.frame(
+    dyad = dyad_id,
+    DSI = 0,
+    zDSI = 0,
+    date_extraction = NA
+  )
+  final_dsi_table <- rbind(final_dsi_table, default_row)
+}
+
+# Display final table
+print(final_dsi_table)
+
