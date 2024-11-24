@@ -4201,6 +4201,8 @@ dyad_summary <- dyad_data_clean %>%
 print(dyad_summary)
 
 
+str(dyad_summary)
+
 ```
 
 
@@ -5101,8 +5103,20 @@ extract_elo(AKELOM, "2022-09-01", daterange=90, standardize = T)
 
 ```{r full elo test, echo=FALSE}
 # Elo Michael
+
+
+# Elo Michael
 # FINALLY : ELO CALCULATIONS FROM PREVIOUS DATASETS CREATED
 # UPDATE FROM HERE
+
+
+
+dev.off()  # Close any open graphics devices
+dev.new()  # Open a new graphics window
+par(mfrow = c(1, 1))  # Single plot layout
+par(mar = c(5, 4, 4, 2) + 0.1)  # Default margins
+
+
 
 
 ## Create Elo *normal* ####
@@ -5120,7 +5134,6 @@ colnames(BDpres)[1] <- "Date"
 BDpres$Date <- as.Date(format(as.POSIXct(BDpres$Date, format = "%d/%m/%Y"), "%Y-%m-%d")) # This date was different then the rest, check whether it's good now!
 BDpres[is.na(BDpres)] <- 0
 
-# Correct the file path for NHpres
 NHpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/NH2020-2024.csv")
 colnames(NHpres)[1] <- "Date"
 NHpres$Date <- as.Date(NHpres$Date, format = "%Y-%m-%d")
@@ -5136,10 +5149,18 @@ range(BDpres$Date)
 range(NHpres$Date)
 
 # Select here the date from where you want to use agonistic data
+
+
+# In general, the more data you have the more accurate scores should be
+# However, its worth reading Borgeaud et al., 2017: The influence of demographic variation 
+# on social network stability in wild vervet monkeys. Here they discuss stability of male and female hierarchies
+# on which you can base how much data you need to get an accurate estimate of your individuals.
+# According to the article male stability fluctuates more , reason why it may be relevant to calculat Elo fluctuations 
+# 3 month to 3 months. and ideally on min 6 month to a year
+
 # In your case, filter from 6 months before the first experiment until the end of the experiment.
 
-# >Finally I choose to use 12 month since it takes a few month for elo to stabilize 
-# >Also I will run 3 elo for males on 3*4months of period to check for elo stability
+# Finally I choose to use 6 month since it takes a few month for elo to stabilize 
 
 # The elo rating function has a built in function to calculate the elo on a given date, so best to keep everything.
 # You filter the same dates for the presence file.
@@ -5160,14 +5181,8 @@ range(BDpres$Date)
 range(NHpres$Date)
 # Now all date ranges are the same
 
-# In general, the more data you have the more accurate scores should be
-# However, its worth reading Borgeaud et al., 2017: The influence of demographic variation 
-# on social network stability in wild vervet monkeys. Here they discuss stability of male and female hierarchies
-# on which you can base how much data you need to get an accurate estimate of your individuals.
-# According to the article male stability fluctuates more , reason why it may be relevant to calculat Elo fluctuations 
-# 3 month to 3 months. and ideally on min 6 month to a year
-# > For these reasons I choose 1 year of data and will, instead of 3 month periods, calculate on 
-# > 4 months periods for males
+
+
 
 # Since Female and Male Vervet's have sex differentiated hierarchy I will calculate elo separately for males and females
 # Also, I will have to calculate it differently for each group and select the extraction date from the first day of experiment of each
@@ -5307,16 +5322,76 @@ points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
 
 
 
+## BDELOF2 - Kom Oort, 2022-12-11 
+
+## BD
+BDELOF3 <- elo.seq(winner=BDF$winner,loser=BDF$loser, Date=BDF$Date,presence=BDpres,runcheck=F)
+# Extract BD Elo
+extract_elo(BDELOF3, "2022-12-11", daterange=90, standardize = T)
+# Eloplot BD
+eloplot(BDELOF3,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2022-12-11", to = "2023-09-13")
+
+
+
+# BD Group Elo Calculation and Quartile Analysis
+BDELOF4 <- extract_elo(BDELOF3, extractdate = "2022-12-11", standardize=T)
+# Print the extracted Elo scores for BD
+print(BDELOF4)
+# Calculate quartiles for the Elo scores of females in BD
+BD_quartiles <- quantile(BDELOF4, probs = c(0.25, 0.5, 0.75))
+# Assign each individual in BDELOF2 to a quartile (ensure 1st Quartile is highest rank)
+BDFQ3 <- cut(BDELOF4,
+            breaks = c(-Inf, BD_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),
+            include.lowest = TRUE)
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+BDFQ4 <- data.frame(Individual = names(BDELOF4), Elo_Score = BDELOF4, Quartile = BDFQ3)
+# Print the results
+print(BDFQ4)
+# Plot the boxplot for BD Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+
+boxplot(BDELOF4,
+        main = "Boxplot of Elo Scores for BD Females",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = BDELOF4, labels = names(BDELOF4), cex = 0.9, col = "black", pos = 4)
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+# Adding points to make individual scores stand out
+points(rep(1, length(BDELOF4)), BDELOF4, pch = 19, col = "red")
+
+
+
+
+str(BDELOF2)
+str(BDELOF4)
+
+
+
+
+
+
+
+
+
 ## NH
 NHELOF <- elo.seq(winner=NHF$winner,loser=NHF$loser, Date=NHF$Date,presence=NHpres,runcheck=F)
 # Extract BD Elo
-extract_elo(NHELOF, "2022-09-01", daterange=365, standardize = T)
+extract_elo(NHELOF, "2023-03-09", daterange=365, standardize = T)
 # Eloplot BD
 eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2022-01-20", to = "2023-09-13")
 
 
 # NH Group Elo Calculation and Quartile Analysis
-NHELOM2 <- extract_elo(NHELOF, extractdate = "2022-09-15", standardize=T)
+NHELOM2 <- extract_elo(NHELOF, extractdate = "2023-03-09", standardize=T)
 # Print the extracted Elo scores for NH
 print(NHELOF2)
 sum(is.na(NHELOM2))  # Count NA values
@@ -5389,22 +5464,22 @@ colnames(NHpres)
 # Filter for correct ID's in AKM, BDM, NHM
 unique(AKM$winner)
 unique(AKM$loser)
-  # Remove "Tch", "Yan", consider "Vla" depending analysis
+# Remove "Tch", "Yan", consider "Vla" depending analysis
 
 
 unique(BDM$winner)
 unique(BDM$loser)
-  # Remove "Pro","Pal","Mat", "Ted", "Dok","Bra","Win"
+# Remove "Pro","Pal","Mat", "Ted", "Dok","Bra","Win"
 
 unique(NHM$winner)
 unique(NHM$loser)
-  # Remove "War","Sio"
+# Remove "War","Sio"
 
 # Example: Remove unwanted individuals from AKM (IDs that should not be present)
 unwanted_ids_akm <- c("Tch", "Yan")  # Add more if necessary
 AKM <- AKM[!AKM$winner %in% unwanted_ids_akm & !AKM$loser %in% unwanted_ids_akm, ]
 
-unwanted_ids_bdm <- c("Pro", "Pal", "Mat", "Ted", "Dok", "Bra", "Win")
+unwanted_ids_bdm <- c("Pro", "Pal", "Mat", "Ted", "Dok", "Bra", "Win", "Pom")
 BDM <- BDM[!BDM$winner %in% unwanted_ids_bdm & !BDM$loser %in% unwanted_ids_bdm, ]
 
 unwanted_ids_nhm <- c("War", "Sio")
@@ -5434,10 +5509,6 @@ NHELOM <- elo.seq(winner = NHM$winner, loser = NHM$loser, Date = NHM$Date, prese
 
 #UPDATES FROM HERE, CHECK I WANTED RISE/DECLINE ELO AND SET DATE AND ADAPT FOR FEMALE
 #AK
-# For evolution AK
-extract_elo(AKELOM, extractdate = "2022-08-15", standardize=F)
-extract_elo(AKELOM, extractdate = "2022-09-15", standardize=F)
-extract_elo(AKELOM, extractdate = "2022-10-15", standardize=F)
 # For set dateAK
 extract_elo(AKELOM, extractdate = "2022-09-15", standardize=T)
 
@@ -5482,11 +5553,8 @@ points(rep(1, length(AKELOM2)), AKELOM2, pch = 19, col = "red")
 
 
 #BD
-# For evolution BD
-extract_elo(BDELOM, extractdate = "2022-08-15", standardize=F)
-extract_elo(BDELOM, extractdate = "2022-09-15", standardize=F)
-extract_elo(BDELOM, extractdate = "2022-10-15", standardize=F)
-# For set dateBD
+
+# For set dateBD 1 , BDELOM"
 extract_elo(BDELOM, extractdate = "2022-09-15", standardize=T)
 
 #Extract quartile and boxplot BD
@@ -5511,7 +5579,7 @@ boxplot(BDELOM2,
         main = "Boxplot of Elo Scores for BD Males",
         ylab = "Elo Scores",
         col = "#87CEEB",
-        border = "darkblue",
+        border = "blue",
         notch = FALSE,    # Disable notches to avoid warnings and visual clutter
         cex.main = 1.5,   # Increase the size of the title
         cex.lab = 1.2,    # Increase the size of the axis labels
@@ -5526,22 +5594,66 @@ points(rep(1, length(BDELOM2)), BDELOM2, pch = 19, col = "red")
 
 
 
+# BD2
+
+
+
+# # For set dateBD2 ( Kom Oort) / BDELOM3
+extract_elo(BDELOM, extractdate = "2022-12-11", standardize=T)
+
+#Extract quartile and boxplot BD
+BDELOM3 <-extract_elo(BDELOM, extractdate = "2022-12-11", standardize=T)
+# TEST FOR QUARTILE
+# Print the extracted Elo scores to confirm extraction
+print(BDELOM3)
+# Calculate quartiles for the Elo scores of females in AK
+BD_quartiles <- quantile(BDELOM3, probs = c(0.25, 0.5, 0.75))
+# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
+BDMQ3 <- cut(BDELOM3,
+            breaks = c(-Inf, BD_quartiles, Inf),
+            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
+            include.lowest = TRUE)
+# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
+BDMQ4 <- data.frame(Individual = names(BDELOM3), Elo_Score = BDELOM3, Quartile = BDMQ3)
+# Print the results
+print(BDMQ4)
+# Plot the boxplot for AK Females
+par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
+boxplot(BDELOM3,
+        main = "Boxplot of Elo Scores for BD2 Males",
+        ylab = "Elo Scores",
+        col = "#87CEEB",
+        border = "darkblue",
+        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
+        cex.main = 1.5,   # Increase the size of the title
+        cex.lab = 1.2,    # Increase the size of the axis labels
+        cex.axis = 1.1)   # Increase the size of the axis numbers
+
+# Adding individual labels to visualize each individual's score within the quartiles
+text(x = 1.2, y = BDELOM3, labels = names(BDELOM2), cex = 0.9, col = "black", pos = 4)
+# Adding grid lines for better visualization
+grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
+# Adding points to make individual scores stand out
+points(rep(1, length(BDELOM3)), BDELOM3, pch = 19, col = "red")
+
+
+
+
 
 
 #NH
-# For evolution NH
-extract_elo(NHELOM, extractdate = "2022-08-15", standardize=F)
-extract_elo(NHELOM, extractdate = "2022-09-15", standardize=F)
-extract_elo(NHELOM, extractdate = "2022-10-15", standardize=F)
-# For set date NH
-extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
 
+# For set date NH
+extract_elo(NHELOM, extractdate = "2023-03-09", standardize=T)
+extract_elo(NHELOM, extractdate = "2023-03-13" , standardize=T)
 
 #Extract quartile anx boxplot NH
-NHELOM2 <-extract_elo(NHELOM, extractdate = "2022-09-15", standardize=T)
+NHELOM2 <-extract_elo(NHELOM, extractdate = "2023-03-09", standardize=T)
 # TEST FOR QUARTILE
 # Print the extracted Elo scores to confirm extraction
 print(NHELOM2)
+str(NHM)
+colnames(NHM)
 # Calculate quartiles for the Elo scores of females in AK
 # Extract quartiles for the Elo scores
 NHELOM2 <- NHELOM2[!is.na(NHELOM2)]  # Remove NA values if any
@@ -5552,10 +5664,10 @@ print(NH_quartiles)
 
 # Cut Elo scores into quartiles
 NHMQ <- cut(
-    NHELOM2,
-    breaks = c(-Inf, NH_quartiles, Inf),  # Ensure the correct number of breaks
-    labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Labels for each quartile
-    include.lowest = TRUE
+  NHELOM2,
+  breaks = c(-Inf, NH_quartiles, Inf),  # Ensure the correct number of breaks
+  labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Labels for each quartile
+  include.lowest = TRUE
 )
 
 # Proceed to create the data frame and plot as planned
@@ -5587,14 +5699,118 @@ points(rep(1, length(NHELOM2)), NHELOM2, pch = 19, col = "red")
 
 
 
-# Extract Elo from 1st September 2022 for the previous 365 days 
-# modify functions that counts forward not backwards
-extract_elo(AKELOM, "2022-09-02", daterange=345, standardize = T)
-extract_elo(BDELOM, "2022-09-02", daterange=345, standardize = T)
-extract_elo(NHELOM, "2022-09-02", daterange=345, standardize = T)
-# I did not have data on 365days like for female so reduced it to 345 days
-# So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
-# But please check the elo rating tutorial to see what's best for you!
+# Elo TABLE
+
+#I wil want a df with the coluwing columns Dyad, Male, Female, MEloQ, FEloQ, ZMFEloQ, EloDate
+#I want to extract the elo value and quartile information in
+
+#AK
+#AKMQ2 for Buk, Sho, date is 2022-15-09
+#AKFQ2 for Ginq, Buk, date is 2022-15-09
+
+#BD
+#BDMQ2 for Sey, Xia, Nge, Xin, date us 2022-15-09
+#BDMF2 for Sirk, Piep, Oerw, Ouli, date is 2022-09-15
+
+#BD2
+#BDMQ4 for Kom, date is 2022-12-11
+#BDFQ4 fo Oort, date is 2022-12-11
+
+#NH
+#NHMQ2 for Pom, date is 2023-03-09
+#HFQ2 for Xian, date is 2023-03-09
+
+
+
+
+
+
+
+print(AKMQ2)
+print(AKFQ2)
+print(BDMQ2)
+print(BDMQ4)
+print(BDFQ2)
+print(BDFQ4)
+print(NHMQ2)
+print(NHFQ2)
+
+
+# Clear the data frame to avoid duplicates if this script is rerun
+BexElo <- data.frame(
+  Dyad = character(),
+  Male = character(),
+  Female = character(),
+  MEloQ = character(),
+  FEloQ = character(),
+  ZMFEloQ = numeric(),
+  MElo = numeric(),
+  FElo = numeric(),
+  ZMElo = numeric(),
+  ZFElo = numeric(),
+  EloDate = character(),
+  stringsAsFactors = FALSE
+)
+
+# Loop through the dyads and extract the relevant information
+for (dyad in names(dyads)) {
+  male <- dyads[[dyad]]$Male
+  female <- dyads[[dyad]]$Female
+  MEloQDF <- dyads[[dyad]]$MEloQDF
+  FEloQDF <- dyads[[dyad]]$FEloQDF
+  EloDate <- dyads[[dyad]]$EloDate
+  
+  # Extract male and female Elo quartiles
+  MEloQ <- as.character(MEloQDF[MEloQDF$Individual == male, "Quartile"])
+  FEloQ <- as.character(FEloQDF[FEloQDF$Individual == female, "Quartile"])
+  
+  # Extract male and female Elo scores
+  MElo <- MEloQDF[MEloQDF$Individual == male, "Elo_Score"]
+  FElo <- FEloQDF[FEloQDF$Individual == female, "Elo_Score"]
+  
+  # Standardize Elo scores (Z-score calculation)
+  ZMElo <- (MElo - mean(MEloQDF$Elo_Score, na.rm = TRUE)) / sd(MEloQDF$Elo_Score, na.rm = TRUE)
+  ZFElo <- (FElo - mean(FEloQDF$Elo_Score, na.rm = TRUE)) / sd(FEloQDF$Elo_Score, na.rm = TRUE)
+  
+  # Calculate ZMFEloQ as the absolute difference in quartiles
+  ZMFEloQ <- if (!is.na(MEloQ) & !is.na(FEloQ)) {
+    abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
+  } else {
+    NA
+  }
+  
+  # Append to the output data frame
+  BexElo <- rbind(
+    BexElo,
+    data.frame(
+      Dyad = dyad,
+      Male = male,
+      Female = female,
+      MEloQ = MEloQ,
+      FEloQ = FEloQ,
+      ZMFEloQ = ZMFEloQ,
+      MElo = MElo,
+      FElo = FElo,
+      ZMElo = ZMElo,
+      ZFElo = ZFElo,
+      EloDate = EloDate,
+      stringsAsFactors = FALSE
+    )
+  )
+}
+
+# Remove any duplicate rows
+BexElo <- BexElo[!duplicated(BexElo), ]
+
+# Print the corrected data frame
+print(BexElo)
+
+
+# Export the corrected data frame as a CSV file to the specified path
+write.csv(BexElo, file = "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv", row.names = FALSE)
+
+# Print confirmation message
+cat("CSV file successfully saved at: /Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv\n")
 
 
 
