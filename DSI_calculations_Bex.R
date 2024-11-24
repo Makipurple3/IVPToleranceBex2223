@@ -287,11 +287,13 @@ dsi_results <- list(
 # Filter DSI results for dyads of interest
 filter_dsi <- function(dsi_data) {
   if (is.null(dsi_data) || nrow(dsi_data) == 0) {
-    return(data.frame(dyad = dyads_of_interest, DSI = 0, zDSI = 0, date_extraction = NA))
+    return(data.frame(dyad = dyads_of_interest, IDSI = 0, IzDSI = 0, date_extraction = NA))
   }
   dsi_data %>%
     mutate(dyad = sapply(dyad, standardize_dyad)) %>%
-    filter(dyad %in% dyads_of_interest)
+    filter(dyad %in% dyads_of_interest) %>%
+    select(i1, i2, dyad, DSI, zDSI, date_extraction) %>%
+    rename(IDSI = DSI, IzDSI = zDSI)
 }
 
 filtered_dsi <- list(
@@ -302,20 +304,59 @@ filtered_dsi <- list(
 )
 
 # Combine all filtered results
-final_dsi_table <- do.call(rbind, filtered_dsi)
+BexDSI <- do.call(rbind, filtered_dsi)
 
 # Handle missing dyads
-missing_dyads <- setdiff(dyads_of_interest, unique(final_dsi_table$dyad))
+missing_dyads <- setdiff(dyads_of_interest, unique(BexDSI$dyad))
 for (dyad_id in missing_dyads) {
   default_row <- data.frame(
+    i1 = NA,
+    i2 = NA,
     dyad = dyad_id,
-    DSI = 0,
-    zDSI = 0,
+    IDSI = 0,
+    IzDSI = 0,
     date_extraction = NA
   )
-  final_dsi_table <- rbind(final_dsi_table, default_row)
+  BexDSI <- rbind(BexDSI, default_row)
 }
 
 # Display final table
-print(final_dsi_table)
+print(BexDSI)
+
+# Add FDSI and FzDSI columns
+BexDSI <- BexDSI %>%
+  mutate(
+    Male = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 3, x[1], x[2])),
+    Female = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 4, x[1], x[2])),
+    dyad = paste(Male, Female), # Update dyad column to be "Male Female"
+    FDSI = IDSI, # Assuming FDSI takes the same value as IDSI
+    FzDSI = IzDSI # Assuming FzDSI takes the same value as IzDSI
+  ) %>%
+  select(dyad, Male, Female, IDSI, IzDSI, FDSI, FzDSI, date_extraction) # Reorder columns
+
+# Reset row names to ensure no `AK.1`, `BD.1`, etc.
+rownames(BexDSI) <- NULL
+
+# Set FDSI and FzDSI for the final date `2023-09-13`
+BexDSI <- BexDSI %>%
+  mutate(
+    FDSI = ifelse(date_extraction == as.Date("2023-09-13"), FDSI, FDSI),
+    FzDSI = ifelse(date_extraction == as.Date("2023-09-13"), FzDSI, FzDSI)
+  )
+
+## Remove rows 9, 10, 11, and 12
+BexDSI <- BexDSI[-c(9, 10, 11, 12), ]
+
+# Add the final extraction date as a new column
+BexDSI <- BexDSI %>%
+  mutate(date_extraction_final = as.Date("2023-09-13"))
+
+# Display the final table
+print(BexDSI)
+
+
+
+write.csv(BexDSI, file = "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexDSI.csv", row.names = FALSE)
+
+
 
