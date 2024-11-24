@@ -3,6 +3,15 @@
 # UPDATE FROM HERE
 
 
+
+dev.off()  # Close any open graphics devices
+dev.new()  # Open a new graphics window
+par(mfrow = c(1, 1))  # Single plot layout
+par(mar = c(5, 4, 4, 2) + 0.1)  # Default margins
+
+
+
+
 ## Create Elo *normal* ####
 library(EloRating)
 library(data.table)
@@ -672,12 +681,7 @@ print(NHMQ2)
 print(NHFQ2)
 
 
-
-
-
-
-
-# Initialize an empty data frame for the output
+# Clear the data frame to avoid duplicates if this script is rerun
 BexElo <- data.frame(
   Dyad = character(),
   Male = character(),
@@ -685,20 +689,12 @@ BexElo <- data.frame(
   MEloQ = character(),
   FEloQ = character(),
   ZMFEloQ = numeric(),
+  MElo = numeric(),
+  FElo = numeric(),
+  ZMElo = numeric(),
+  ZFElo = numeric(),
   EloDate = character(),
   stringsAsFactors = FALSE
-)
-
-# Define the dyads and corresponding individuals
-dyads <- list(
-  "Sey Sirk" = list(Male = "Sey", Female = "Sirk", MEloQDF = BDMQ2, FEloQDF = BDFQ2, EloDate = "2022-09-15"),
-  "Xia Piep" = list(Male = "Xia", Female = "Piep", MEloQDF = BDMQ2, FEloQDF = BDFQ2, EloDate = "2022-09-15"),
-  "Nge Oerw" = list(Male = "Nge", Female = "Oerw", MEloQDF = BDMQ2, FEloQDF = BDFQ2, EloDate = "2022-09-15"),
-  "Xin Ouli" = list(Male = "Xin", Female = "Ouli", MEloQDF = BDMQ2, FEloQDF = BDFQ2, EloDate = "2022-09-15"),
-  "Sho Ginq" = list(Male = "Sho", Female = "Ginq", MEloQDF = AKMQ2, FEloQDF = AKFQ2, EloDate = "2022-09-15"),
-  "Buk Ndaw" = list(Male = "Buk", Female = "Ndaw", MEloQDF = AKMQ2, FEloQDF = AKFQ2, EloDate = "2022-09-15"),
-  "Kom Oort" = list(Male = "Kom", Female = "Oort", MEloQDF = BDMQ4, FEloQDF = BDFQ4, EloDate = "2022-12-11"),
-  "Pom Xian" = list(Male = "Pom", Female = "Xian", MEloQDF = NHMQ2, FEloQDF = NHFQ2, EloDate = "2023-03-09")
 )
 
 # Loop through the dyads and extract the relevant information
@@ -713,9 +709,17 @@ for (dyad in names(dyads)) {
   MEloQ <- as.character(MEloQDF[MEloQDF$Individual == male, "Quartile"])
   FEloQ <- as.character(FEloQDF[FEloQDF$Individual == female, "Quartile"])
   
-  # Calculate ZMFEloQ (difference in quartiles, if applicable)
+  # Extract male and female Elo scores
+  MElo <- MEloQDF[MEloQDF$Individual == male, "Elo_Score"]
+  FElo <- FEloQDF[FEloQDF$Individual == female, "Elo_Score"]
+  
+  # Standardize Elo scores (Z-score calculation)
+  ZMElo <- (MElo - mean(MEloQDF$Elo_Score, na.rm = TRUE)) / sd(MEloQDF$Elo_Score, na.rm = TRUE)
+  ZFElo <- (FElo - mean(FEloQDF$Elo_Score, na.rm = TRUE)) / sd(FEloQDF$Elo_Score, na.rm = TRUE)
+  
+  # Calculate ZMFEloQ as the absolute difference in quartiles
   ZMFEloQ <- if (!is.na(MEloQ) & !is.na(FEloQ)) {
-    as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ))
+    abs(as.numeric(gsub("\\D", "", MEloQ)) - as.numeric(gsub("\\D", "", FEloQ)))
   } else {
     NA
   }
@@ -730,19 +734,25 @@ for (dyad in names(dyads)) {
       MEloQ = MEloQ,
       FEloQ = FEloQ,
       ZMFEloQ = ZMFEloQ,
+      MElo = MElo,
+      FElo = FElo,
+      ZMElo = ZMElo,
+      ZFElo = ZFElo,
       EloDate = EloDate,
       stringsAsFactors = FALSE
     )
   )
 }
 
-# Print the resulting data frame
+# Remove any duplicate rows
+BexElo <- BexElo[!duplicated(BexElo), ]
+
+# Print the corrected data frame
 print(BexElo)
 
 
 
 
-
-
-
+# Export the corrected data frame as a CSV file
+write.csv(BexElo, file = "BexElo.csv", row.names = FALSE)
 
