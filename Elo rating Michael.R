@@ -751,8 +751,8 @@ BexElo <- BexElo[!duplicated(BexElo), ]
 print(BexElo)
 
 
+# Export the corrected data frame as a CSV file to the specified path
+write.csv(BexElo, file = "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv", row.names = FALSE)
 
-
-# Export the corrected data frame as a CSV file
-write.csv(BexElo, file = "BexElo.csv", row.names = FALSE)
-
+# Print confirmation message
+cat("CSV file successfully saved at: /Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv\n")
