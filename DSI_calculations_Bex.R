@@ -345,7 +345,7 @@ BexDSI <- BexDSI %>%
   )
 
 ## Remove rows 9, 10, 11, and 12
-BexDSI <- BexDSI[-c(9, 10, 11, 12), ]
+BexDSI <- BexDSI[-c(3, 9, 10, 11, 12), ]
 
 # Add the final extraction date as a new column
 BexDSI <- BexDSI %>%
