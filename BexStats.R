@@ -12,7 +12,7 @@ BexElo <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Mau
 
 DyadSummary <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/dyad_summary_clean.csv")
 
-
+t
 print(BexDSI)
 print(BexElo)
 print(DyadSummary)
