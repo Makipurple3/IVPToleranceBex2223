@@ -4191,7 +4191,7 @@ ggplot(tolerance_proportions_long, aes(x = Dyad, y = Proportion, fill = Response
 ```
 
 
-# Important chunk for dyad sumamry to keep!
+## 
 ```{r add age difference in Dyad, echo=FALSE}
 
 # Step 9: Merge tolerance summary with dyad age data
@@ -4469,607 +4469,12 @@ Residuals vs. Leverage: Identify influential observations.
 
 
 
-### 6.3 Male Elo Ratings
+### 6.3Elo Ratings
 
 
 
 
-## 6.3 DSI - Dyadic composite Sociality Index
-
-
-
-
-
-
-
-
-
-## 6.4 (Does tolerance predict distance?)
-
-
-* Thinking about 
-1. check if tolerance predict distance
-2. If not distance of tolerance is predicted by other factors
-3. Check whihc predictors explain better tolerance from 
-    a. Age difference
-    b. Rank difference
-    c. Initial social bond
-4. Additional check to see if we can improve the models using
-    d. male tenure
-    c. female pregnancy
-
-
-
-
-* First we are going to investigate the relationship between distance and tolerance proportion
-
-* Summary and Bar chart for Dyad distance and tolerance binomial
-
-```{r distance & tolerance proprotion, echo=FALSE}
-
-
-
-library(ggplot2)
-library(dplyr)
-
-# Remove NA values and summarize data: count tolerance and non-tolerance occurrences by distance
-tolerance_summary <- BexClean %>%
-  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
-  group_by(DyadDistance, ToleranceBinomial) %>%
-  summarise(Count = n())
-
-# Create the bar chart
-ggplot(tolerance_summary, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
-  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
-  theme_minimal() +
-  ggtitle("Tolerance and Non-Tolerance Across Distances")
-
-
-
-
-
-# Create a boxplot for Distance vs Tolerance
-ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
-  geom_boxplot() +
-  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
-  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
-  theme_minimal() +
-  ggtitle("Boxplot of Distance by Tolerance")
-
-
-
-
-
-
-
-```
-
-
-
-
-```{r distance & tolerance assumpations, echo=FALSE}
-
-
-
-# Normality test for DyadDistance
-shapiro.test(BexClean$DyadDistance)
-
-# Normality test for ToleranceBinomial
-shapiro.test(BexClean$ToleranceBinomial)
-
-
-
-
-```
-
-
-
-```{r Distance & Tolerance Wilcoxon and t test, echo=FALSE}
-
-
-# Perform Wilcoxon rank sum test (Mann-Whitney U test)
-wilcox_test <- wilcox.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
-wilcox_test
-
-
-
-
-
-# Perform Welch Two Sample t-test
-t_test <- t.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
-t_test
-
-
-
-```
-
-
-tep 7: Reporting the Results
-In your write-up, you would report something like this:
-
-Normality assumption: Both DyadDistance and ToleranceBinomial were found to be non-normally distributed based on the Shapiro-Wilk test (p-values < 0.05). Therefore, we proceeded with non-parametric statistical methods.
-
-Wilcoxon Rank Sum Test: The Wilcoxon test revealed a statistically significant difference in the distance between dyads that exhibited tolerance (p-value = 8.901e-06). This suggests that dyads that were tolerant were, on average, closer than those that were not.
-
-t-test for comparison: A t-test supported the Wilcoxon test's findings, further demonstrating that mean distances were significantly different (p-value = 5.494e-06).
-
-
-* lets now inlcude dyad as a factor of explnation to see if distance and otlerance differ per dyad
-
-
-```{r Dyad and distance & tolerance, echo=FALSE}
-
-# Summarize tolerance data per dyad and distance
-tolerance_summary_per_dyad <- BexClean %>%
-  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
-  group_by(Dyad, DyadDistance, ToleranceBinomial) %>%
-  summarise(Count = n())
-
-# Bar chart for each dyad
-ggplot(tolerance_summary_per_dyad, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
-  geom_bar(stat = "identity", position = "dodge") +
-  facet_wrap(~Dyad) +  # Split by dyad
-  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
-  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
-  theme_minimal() +
-  ggtitle("Tolerance and Non-Tolerance Across Distances for Each Dyad")
-
-
-
-
-# Boxplot for distance vs. tolerance for each dyad
-ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
-  geom_boxplot() +
-  facet_wrap(~Dyad) +  # Split by dyad
-  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
-  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
-  theme_minimal() +
-  ggtitle("Boxplot of Distance by Tolerance for Each Dyad")
-
-
-
-```
-
-
-
-
-```{r distance dyad & tolerance test test, echo=FALSE}
-
-
-# Load necessary libraries
-library(ggplot2)
-library(dplyr)
-library(car)
-
-# Check normality for DyadDistance using Shapiro-Wilk test
-shapiro.test(BexClean$DyadDistance)
-
-# Check homogeneity of variance (Levene's Test) - optional
-leveneTest(DyadDistance ~ factor(ToleranceBinomial), data = BexClean)
-
-
-
-# Logistic regression model: Tolerance explained by Distance and Dyad
-logistic_model <- glm(ToleranceBinomial ~ DyadDistance * Dyad, data = BexClean, family = "binomial")
-
-# Summary of the model
-summary(logistic_model)
-
-
-
-# Loop through each dyad and run the Wilcoxon test
-results <- BexClean %>%
-  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
-  group_by(Dyad) %>%
-  do(test = wilcox.test(DyadDistance ~ ToleranceBinomial, data = .))
-
-# View the results for each dyad
-results
-
-
-
-# Add predicted tolerance probabilities to the dataset
-BexClean$predicted_tolerance <- predict(logistic_model, type = "response")
-
-# Plot the predicted probabilities of tolerance by distance for each dyad (Loess smoother)
-ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
-  geom_point() +
-  geom_smooth(method = "loess", se = FALSE) +
-  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
-  theme_minimal() +
-  ggtitle("Predicted Tolerance by Distance for Each Dyad (Loess Smoother)")
-
-
-
-
-
-# Plot the predicted probabilities of tolerance by distance for each dyad (Linear smoother)
-ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
-  geom_point() +
-  geom_smooth(method = "lm", se = FALSE) +
-  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
-  theme_minimal() +
-  ggtitle("Predicted Tolerance by Distance for Each Dyad (Linear Smoother)")
-
-
-
-```
-
-#6974 Dyad and Tolerance
-
-
-
-```{r toelrance & Dyad, echo=FALSE}
-
-
-# Summarize tolerance proportion by dyad
-tolerance_proportion_summary <- BexClean %>%
-  group_by(Dyad) %>%
-  summarise(ToleranceProportion = mean(ToleranceBinomial, na.rm = TRUE))
-
-# Run ANOVA to test if dyad explains variance in tolerance proportion
-anova_model <- aov(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
-summary(anova_model)
-
-
-
-# Kruskal-Wallis test to check if dyad explains variance in tolerance proportion
-kruskal_test <- kruskal.test(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
-print(kruskal_test)
-
-```
-
-
-# 7. EDA TESTING ; EXPLORATION and TESTS
-
-Step-by-Step Approach
-1. Visualizing Behavioral Trends Over Time
-We'll start by analyzing how key behaviors (like tolerance, male aggression, female aggression, and not approaching) evolve over time.
-
-Goal: Understand if there's a consistent trend over time, indicating factors like seasonality, repeated interactions, or changes in dyad dynamics.
-Approach: We'll create time-series plots to visualize how these behaviors change across trials and experiment days.
-2. Analyzing Behavioral Trends by Dyad
-Each dyad may exhibit different patterns. By separating the trends by dyad, we can:
-
-Goal: Identify whether some dyads are consistently tolerant, aggressive, or show variations depending on conditions like audience or time.
-Approach: Create faceted plots, where each facet represents a different dyad, showing the evolution of behaviors like distance, tolerance, and aggression.
-3. Investigating the Impact of Audience
-Understanding how audience composition influences behaviors like tolerance or aggression is crucial.
-
-Goal: Determine if audience types (e.g., kin vs. non-kin) have a statistically significant effect on behaviors.
-Approach: Use boxplots and bar charts to show the relationship between audience composition (kin vs. non-kin) and behaviors.
-4. Postulate and Refine Hypotheses
-After the initial EDA, we’ll refine the hypotheses and decide on the most suitable statistical models.
-
-Examples of Hypotheses:
-Tolerance is associated with shorter dyad distances over time.
-Audience presence (kin vs. non-kin) influences the likelihood of aggression.
-5. Preparing for Mixed-Effects Models
-Once the EDA provides insights, we can set up mixed-effects models that account for:
-
-Repeated measures within each dyad.
-Random effects to capture variability across dyads or trials.
-6. Outlier Detection and Analysis
-Outliers might distort the analysis, so we'll need to:
-
-Goal: Identify and handle influential outliers that could bias our models.
-Approach: Use boxplots and statistical diagnostics (e.g., Cook's distance) to detect outliers.
-
-# Elo Rating
-
-
-```{r elo, echo=FALSE}
-# Elo Michael
-# FINALLY : ELO CALCULATIONS FROM PREVIOUS DATASETS CREATED
-# UPDATE FROM HERE
-
-
-## Create Elo *normal* ####
-library(EloRating)
-library(data.table)
-
-# Load presence files and date formatting (YYYY-MM-DD)
-AKpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/AK2020-2024.csv")
-colnames(AKpres)[1] <- "Date"
-AKpres$Date <- as.Date(AKpres$Date, format = "%Y-%m-%d")
-AKpres[is.na(AKpres)] <- 0
-
-BDpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/BD2020-2024.csv")
-colnames(BDpres)[1] <- "Date"  
-BDpres$Date <- as.Date(format(as.POSIXct(BDpres$Date, format = "%d/%m/%Y"), "%Y-%m-%d")) # This date was different then the rest, check whether it's good now!
-BDpres[is.na(BDpres)] <- 0
-
-# Correct the file path for NHpres
-NHpres <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/NH2020-2024.csv")
-colnames(NHpres)[1] <- "Date"
-NHpres$Date <- as.Date(NHpres$Date, format = "%Y-%m-%d")
-NHpres[is.na(NHpres)] <- 0
-
-# Load WinnerLoser dataset and ensure consistent date formatting (YYYY-MM-DD)
-d <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/WinnerLoser.csv") # For some reason your winner loser file doesn't go beyond May 23?
-d$Date <- as.Date(format(as.POSIXct(d$Date, format = "%d/%m/%Y"), "%Y-%m-%d"))
-
-range(d$Date)
-range(AKpres$Date)
-range(BDpres$Date)
-range(NHpres$Date)
-
-# Select here the date from where you want to use agonistic data
-# In your case, filter from 6 months before the first experiment until the end of the experiment.
-
-# >Finally I choose to use 12 month since it takes a few month for elo to stabilize 
-# >Also I will run 3 elo for males on 3*4months of period to check for elo stability
-
-# The elo rating function has a built in function to calculate the elo on a given date, so best to keep everything.
-# You filter the same dates for the presence file.
-
-
-# Filter date 
-d <- d[d$Date >= "2022-03-01" & d$Date <= "2023-10-01",] # We started in September 22 so I'm using data starting in March (doesn't have to be very precise). We ended in Sept 23 so taking data until Oct 23
-AKpres <- AKpres[AKpres$Date >= "2021-09-01" & AKpres$Date <= "2023-10-01",] # Do the same for presence
-BDpres <- BDpres[BDpres$Date >= "2021-09-01" & BDpres$Date <= "2023-10-01",]
-NHpres <- NHpres[NHpres$Date >= "2021-09-01" & NHpres$Date <= "2023-10-01",]
-
-# Check dates
-range(d$Date)
-range(AKpres$Date)
-range(BDpres$Date)
-range(NHpres$Date)
-# Now all date ranges are the same
-
-# In general, the more data you have the more accurate scores should be
-# However, its worth reading Borgeaud et al., 2017: The influence of demographic variation 
-# on social network stability in wild vervet monkeys. Here they discuss stability of male and female hierarchies
-# on which you can base how much data you need to get an accurate estimate of your individuals.
-# According to the article male stability fluctuates more , reason why it may be relevant to calculat Elo fluctuations 
-# 3 month to 3 months. and ideally on min 6 month to a year
-# > For these reasons I choose 1 year of data and will, instead of 3 month periods, calculate on 
-# > 4 months periods for males
-
-# Since Female and Male Vervet's have sex differentiated hierarchy I will calculate elo separately for males and females
-# Also, I will have to calculate it differently for each group and select the extraction date from the first day of experiment of each
-# dyad
-# Once this is done, I will print a boxplot and table placing each female and male respectively to 
-# It's group, into the quartile of their hierarchy, and make a table and graph out of it
-
-
-
-# ELO PER SEX AND GROUP
-# FEMALE ELO
-# Remove cases where winner = looser: d <- d[d$winner != d$loser, ]
-d <- d[d$winner != d$loser, ] # Since you filter from d after this (into AF, then AM), you need to run this line before you filter
-
-# Female Elo Calculations
-# Only select adult females: 
-AF <- subset(d, d$AgeClassWinner%in%c("AF"))
-AF <- subset(AF, AF$AgeClassLoser%in%c("AF"))
-
-AKF <- subset(AF,AF$Group%in%("Ankhase"))
-BDF <- subset(AF,AF$Group%in%("Baie Dankie"))
-NHF <- subset(AF,AF$Group%in%("Noha"))
-
-# Check whether data looks good
-seqcheck(winner=AKF$winner, loser=AKF$loser, Date=AKF$Date, draw = NULL, presence=AKpres) 
-seqcheck(winner=BDF$winner, loser=BDF$loser, Date=BDF$Date, draw = NULL, presence=BDpres)
-seqcheck(winner=NHF$winner, loser=NHF$loser, Date=NHF$Date, draw = NULL, presence=NHpres)
-
-# No errors, just warnings and that's fine.
-# So we can run elo.seq
-
-```
-
-
-```{r elo AKF, echo=FALSE}
-
-## AK
-AKELOF <- elo.seq(winner = AKF$winner, loser=AKF$loser, Date=AKF$Date, presence = AKpres, runcheck=F)
-# Set runcheck = F since the warnings seqcheck gives are not a dealbreaker
-
-# If you want to plot it to see how it evolved you can run the eloplot
-# Specific IDs over a specific time period:
-print(unique(AKF$winner))
-eloplot(AKELOF, ids=c("Ginq","Godu","Gubh", "Ndaw", "Nkos", "Ghid", "Ndon", "Ncok"), from="2021-09-01", to = "2023-10-01")
-
-# to get an average of the eloscore over a period 
-# It counts from the date you give forwards with the amount of days in daterange
-# However, the last date possible is the last day there was an agonistic interaction recorded in that group
-
-
-# Extract Elo scores for a specific date using 365 days of date
-extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
-# So this gives you the average standardized (between 1 and 0) elo scores of the females in AK from the start of the experiment for three months
-# But please check the elo rating tutorial to see what's best for you!
-
-
-
-AKELOF2 <-extract_elo(AKELOF, "2022-09-01", daterange = 365, standardize = T)
-
-
-
-
-# TEST FOR QUARTILE
-# Print the extracted Elo scores to confirm extraction
-print(AKELOF2)
-
-# Calculate quartiles for the Elo scores of females in AK
-AK_quartiles <- quantile(AKELOF2, probs = c(0.25, 0.5, 0.75))
-
-# Assign each individual in AKELOF2 to a quartile (ensure 1st Quartile is highest rank)
-AKFQ <- cut(AKELOF2,
-            breaks = c(-Inf, AK_quartiles, Inf),
-            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),  # Reversed labels for correct assignment
-            include.lowest = TRUE)
-
-# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
-AKFQ2 <- data.frame(Individual = names(AKELOF2), Elo_Score = AKELOF2, Quartile = AKFQ)
-
-# Print the results
-print(AKFQ2)
-
-# Plot the boxplot for AK Females
-par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
-
-boxplot(AKELOF2,
-        main = "Boxplot of Elo Scores for AK Females",
-        ylab = "Elo Scores",
-        col = "#87CEEB",
-        border = "darkblue",
-        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
-        cex.main = 1.5,   # Increase the size of the title
-        cex.lab = 1.2,    # Increase the size of the axis labels
-        cex.axis = 1.1)   # Increase the size of the axis numbers
-
-# Adding individual labels to visualize each individual's score within the quartiles
-text(x = 1.2, y = AKELOF2, labels = names(AKELOF2), cex = 0.9, col = "black", pos = 4)
-
-# Adding grid lines for better visualization
-grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
-
-# Adding points to make individual scores stand out
-points(rep(1, length(AKELOF2)), AKELOF2, pch = 19, col = "red")
-
-
-```
-
-
-
-
-
-
-```{r elo BDF, echo=FALSE}
-
-
-
-## BD
-BDELOF <- elo.seq(winner=BDF$winner,loser=BDF$loser, Date=BDF$Date,presence=BDpres,runcheck=F)
-# Extract BD Elo
-extract_elo(BDELOF, "2022-09-01", daterange=90, standardize = T)
-# Eloplot BD
-eloplot(BDELOF,ids=c("Obse","Oort","Ouli","Puol","Aapi","Sirk","Miel","Asis","Piep","Skem","Heer","Reen","Oerw","Lewe","Naal","Rede","Hond","Numb","Nooi","Gese","Sari","Riss","Enge","Pann","Nurk","Eina"),from="2021-09-01", to = "2023-10-01")
-
-
-
-
-
-# BD Group Elo Calculation and Quartile Analysis
-BDELOF2 <- extract_elo(BDELOF, "2022-09-01", daterange = 365, standardize = T)
-
-# Print the extracted Elo scores for BD
-print(BDELOF2)
-
-# Calculate quartiles for the Elo scores of females in BD
-BD_quartiles <- quantile(BDELOF2, probs = c(0.25, 0.5, 0.75))
-
-# Assign each individual in BDELOF2 to a quartile (ensure 1st Quartile is highest rank)
-BDFQ <- cut(BDELOF2,
-            breaks = c(-Inf, BD_quartiles, Inf),
-            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),
-            include.lowest = TRUE)
-
-# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
-BDFQ2 <- data.frame(Individual = names(BDELOF2), Elo_Score = BDELOF2, Quartile = BDFQ)
-
-# Print the results
-print(BDFQ2)
-
-
-# Plot the boxplot for BD Females
-par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
-
-boxplot(BDELOF2,
-        main = "Boxplot of Elo Scores for BD Females",
-        ylab = "Elo Scores",
-        col = "#87CEEB",
-        border = "darkblue",
-        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
-        cex.main = 1.5,   # Increase the size of the title
-        cex.lab = 1.2,    # Increase the size of the axis labels
-        cex.axis = 1.1)   # Increase the size of the axis numbers
-
-# Adding individual labels to visualize each individual's score within the quartiles
-text(x = 1.2, y = BDELOF2, labels = names(BDELOF2), cex = 0.9, col = "black", pos = 4)
-
-# Adding grid lines for better visualization
-grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
-
-# Adding points to make individual scores stand out
-points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
-```
-
-
-
-
-```{r ELONHF, echo=FALSE}
-
-
-
-
-## NH
-NHELOF <- elo.seq(winner=NHF$winner,loser=NHF$loser, Date=NHF$Date,presence=NHpres,runcheck=F)
-# Extract BD Elo
-extract_elo(NHELOF, "2022-09-01", daterange=90, standardize = T)
-# Eloplot BD
-eloplot(NHELOF,ids=c("Gran","Guat","Prai","Upps","Gaya","Xala","Pret","Xinp","Gris","Beir","Prat","Regi","Xian","Bela","Raba","Rioj"),from="2021-09-01", to = "2023-10-01")
-
-
-
-
-# NH Group Elo Calculation and Quartile Analysis
-NHELOF2 <- extract_elo(NHELOF, "2022-09-01", daterange = 365, standardize = T)
-
-# Print the extracted Elo scores for NH
-print(NHELOF2)
-
-# Calculate quartiles for the Elo scores of females in NH
-NH_quartiles <- quantile(NHELOF2, probs = c(0.25, 0.5, 0.75))
-
-# Assign each individual in NHELOF2 to a quartile (ensure 1st Quartile is highest rank)
-NHFQ <- cut(NHELOF2,
-            breaks = c(-Inf, NH_quartiles, Inf),
-            labels = c("4th Quartile", "3rd Quartile", "2nd Quartile", "1st Quartile"),
-            include.lowest = TRUE)
-
-# Create a dataframe to hold individual names, Elo scores, and their respective quartiles
-NHFQ2 <- data.frame(Individual = names(NHELOF2), Elo_Score = NHELOF2, Quartile = NHFQ)
-
-# Print the results
-print(NHFQ2)
-
-# Plot the boxplot for NH Females
-par(mar = c(6, 6, 4, 2) + 0.1)  # Increase margins for readability
-
-boxplot(NHELOF2,
-        main = "Boxplot of Elo Scores for NH Females",
-        ylab = "Elo Scores",
-        col = "#87CEEB",
-        border = "darkblue",
-        notch = FALSE,    # Disable notches to avoid warnings and visual clutter
-        cex.main = 1.5,   # Increase the size of the title
-        cex.lab = 1.2,    # Increase the size of the axis labels
-        cex.axis = 1.1)   # Increase the size of the axis numbers
-
-# Adding individual labels to visualize each individual's score within the quartiles
-text(x = 1.2, y = NHELOF2, labels = names(NHELOF2), cex = 0.9, col = "black", pos = 4)
-
-# Adding grid lines for better visualization
-grid(nx = NULL, ny = NULL, lty = "dotted", col = "gray")
-
-# Adding points to make individual scores stand out
-points(rep(1, length(NHELOF2)), NHELOF2, pch = 19, col = "red")
-
-```
-
-
-
-
-
-
-
-
-
-```{r full elo test, echo=FALSE}
+```{r full elo, echo=FALSE}
 # Elo Michael
 
 # Elo Michael
@@ -5809,6 +5214,258 @@ cat("CSV file successfully saved at:", output_path, "\n")
 ```
 
 
+## 6.3 DSI - Dyadic composite Sociality Index
+
+
+
+
+
+
+
+
+
+### 6.4 (Does tolerance predict distance?)
+
+
+* Thinking about 
+1. check if tolerance predict distance
+2. If not distance of tolerance is predicted by other factors
+3. Check whihc predictors explain better tolerance from 
+    a. Age difference
+    b. Rank difference
+    c. Initial social bond
+4. Additional check to see if we can improve the models using
+    d. male tenure
+    c. female pregnancy
+
+
+
+
+* First we are going to investigate the relationship between distance and tolerance proportion
+
+* Summary and Bar chart for Dyad distance and tolerance binomial
+
+```{r distance & tolerance proprotion, echo=FALSE}
+
+
+
+library(ggplot2)
+library(dplyr)
+
+# Remove NA values and summarize data: count tolerance and non-tolerance occurrences by distance
+tolerance_summary <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(DyadDistance, ToleranceBinomial) %>%
+  summarise(Count = n())
+
+# Create the bar chart
+ggplot(tolerance_summary, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Tolerance and Non-Tolerance Across Distances")
+
+
+
+
+
+# Create a boxplot for Distance vs Tolerance
+ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
+  geom_boxplot() +
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Boxplot of Distance by Tolerance")
+
+
+
+
+
+
+
+```
+
+
+
+
+```{r distance & tolerance assumpations, echo=FALSE}
+
+
+
+# Normality test for DyadDistance
+shapiro.test(BexClean$DyadDistance)
+
+# Normality test for ToleranceBinomial
+shapiro.test(BexClean$ToleranceBinomial)
+
+
+
+
+```
+
+
+
+```{r Distance & Tolerance Wilcoxon and t test, echo=FALSE}
+
+
+# Perform Wilcoxon rank sum test (Mann-Whitney U test)
+wilcox_test <- wilcox.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
+wilcox_test
+
+
+
+
+
+# Perform Welch Two Sample t-test
+t_test <- t.test(DyadDistance ~ ToleranceBinomial, data = BexClean)
+t_test
+
+
+
+```
+
+
+tep 7: Reporting the Results
+In your write-up, you would report something like this:
+
+Normality assumption: Both DyadDistance and ToleranceBinomial were found to be non-normally distributed based on the Shapiro-Wilk test (p-values < 0.05). Therefore, we proceeded with non-parametric statistical methods.
+
+Wilcoxon Rank Sum Test: The Wilcoxon test revealed a statistically significant difference in the distance between dyads that exhibited tolerance (p-value = 8.901e-06). This suggests that dyads that were tolerant were, on average, closer than those that were not.
+
+t-test for comparison: A t-test supported the Wilcoxon test's findings, further demonstrating that mean distances were significantly different (p-value = 5.494e-06).
+
+
+* lets now inlcude dyad as a factor of explnation to see if distance and otlerance differ per dyad
+
+
+```{r Dyad and distance & tolerance, echo=FALSE}
+
+# Summarize tolerance data per dyad and distance
+tolerance_summary_per_dyad <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(Dyad, DyadDistance, ToleranceBinomial) %>%
+  summarise(Count = n())
+
+# Bar chart for each dyad
+ggplot(tolerance_summary_per_dyad, aes(x = DyadDistance, y = Count, fill = factor(ToleranceBinomial))) +
+  geom_bar(stat = "identity", position = "dodge") +
+  facet_wrap(~Dyad) +  # Split by dyad
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Distance", y = "Count of Interactions", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Tolerance and Non-Tolerance Across Distances for Each Dyad")
+
+
+
+
+# Boxplot for distance vs. tolerance for each dyad
+ggplot(BexClean, aes(x = factor(ToleranceBinomial), y = DyadDistance, fill = factor(ToleranceBinomial))) +
+  geom_boxplot() +
+  facet_wrap(~Dyad) +  # Split by dyad
+  scale_fill_manual(values = c("0" = "red", "1" = "blue"), labels = c("No Tolerance", "Tolerance")) +
+  labs(x = "Tolerance Type", y = "Distance", fill = "Tolerance Type") +
+  theme_minimal() +
+  ggtitle("Boxplot of Distance by Tolerance for Each Dyad")
+
+
+
+```
+
+
+
+
+```{r distance dyad & tolerance test test, echo=FALSE}
+
+
+# Load necessary libraries
+library(ggplot2)
+library(dplyr)
+library(car)
+
+# Check normality for DyadDistance using Shapiro-Wilk test
+shapiro.test(BexClean$DyadDistance)
+
+# Check homogeneity of variance (Levene's Test) - optional
+leveneTest(DyadDistance ~ factor(ToleranceBinomial), data = BexClean)
+
+
+
+# Logistic regression model: Tolerance explained by Distance and Dyad
+logistic_model <- glm(ToleranceBinomial ~ DyadDistance * Dyad, data = BexClean, family = "binomial")
+
+# Summary of the model
+summary(logistic_model)
+
+
+
+# Loop through each dyad and run the Wilcoxon test
+results <- BexClean %>%
+  filter(!is.na(DyadDistance) & !is.na(ToleranceBinomial)) %>%
+  group_by(Dyad) %>%
+  do(test = wilcox.test(DyadDistance ~ ToleranceBinomial, data = .))
+
+# View the results for each dyad
+results
+
+
+
+# Add predicted tolerance probabilities to the dataset
+BexClean$predicted_tolerance <- predict(logistic_model, type = "response")
+
+# Plot the predicted probabilities of tolerance by distance for each dyad (Loess smoother)
+ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
+  geom_point() +
+  geom_smooth(method = "loess", se = FALSE) +
+  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
+  theme_minimal() +
+  ggtitle("Predicted Tolerance by Distance for Each Dyad (Loess Smoother)")
+
+
+
+
+
+# Plot the predicted probabilities of tolerance by distance for each dyad (Linear smoother)
+ggplot(BexClean, aes(x = DyadDistance, y = predicted_tolerance, color = Dyad)) +
+  geom_point() +
+  geom_smooth(method = "lm", se = FALSE) +
+  labs(x = "Distance", y = "Predicted Tolerance Probability", color = "Dyad") +
+  theme_minimal() +
+  ggtitle("Predicted Tolerance by Distance for Each Dyad (Linear Smoother)")
+
+
+
+```
+
+### Dyad and Tolerance
+
+
+
+```{r toelrance & Dyad, echo=FALSE}
+
+
+# Summarize tolerance proportion by dyad
+tolerance_proportion_summary <- BexClean %>%
+  group_by(Dyad) %>%
+  summarise(ToleranceProportion = mean(ToleranceBinomial, na.rm = TRUE))
+
+# Run ANOVA to test if dyad explains variance in tolerance proportion
+anova_model <- aov(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
+summary(anova_model)
+
+
+
+# Kruskal-Wallis test to check if dyad explains variance in tolerance proportion
+kruskal_test <- kruskal.test(ToleranceProportion ~ Dyad, data = tolerance_proportion_summary)
+print(kruskal_test)
+
+```
+
+
+
+
+
+
 # DSI DYAD
 
 ```{r DSI Calculations, echo=FALSE}
@@ -6229,46 +5886,53 @@ write.csv(dyad_summary_clean, "/Users/maki/Desktop/Master Thesis/BEX 2223 Master
 
 ```{R FINAL BEX FOR STATS, echo=FALSE}
 
-# Step 1: Identify and review column names in Bex and in Dyad Summary
+# Step 1: Reorder and select necessary columns
+if (!all(c("Male", "Female", "Dyad", "Date", "TrialDay", "DyadDay", "Trial", 
+           "Period", "Month", "DyadResponse") %in% colnames(BexClean))) {
+  stop("One or more expected columns are missing in 'BexClean'. Please check column names.")
+}
 
-colnames(BexClean)
-
-
-
-
-
-# Step 2: Reorder and select variables of interest
-# Rearrange columns to bring important ones to the front
-
-
+# Select relevant columns
 BexClean <- BexClean %>%
-  rename(Male = MaleID, Female = FemaleID)
+  select(Male, Female, Dyad, Date, TrialDay, DyadDay, Trial, Period, Month, DyadResponse)
 
+# Step 2: Count unique DyadResponse values and their frequencies
+response_counts <- table(BexClean$DyadResponse)
 
-
-BexClean <- BexClean %>%
-  select(Date, Time, Group, Male, Female, DyadResponse, )
-
-
-
-
-# Step 3: Count occurrences of Tolerance, Aggression, and NotApproaching
-response_counts <- table(Bex$DyadResponse)
+# Print unique DyadResponse values and their counts
+cat("Unique DyadResponse values and their counts:\n")
 print(response_counts)
 
-tolerance_count <- sum(BexClean$Tol == 1, na.rm = TRUE)
-aggression_count <- sum(BexClean$Agg == 1, na.rm = TRUE)
-not_approaching_count <- sum(BexClean$NotApp == 1, na.rm = TRUE)
+# Count the total number of unique response types
+num_unique_responses <- length(unique(BexClean$DyadResponse))
+cat("\nTotal number of unique response types:", num_unique_responses, "\n")
 
-cat("Tolerance Count:", tolerance_count, "\n")
-cat("Aggression Count:", aggression_count, "\n")
-cat("Not Approaching Count:", not_approaching_count, "\n")
+# Step 3: Create columns for counts of each response type using pattern matching
+# Assign binary indicators for each response type based on partial matches
+BexClean <- BexClean %>%
+  mutate(
+    Tol = ifelse(grepl("Tolerance", DyadResponse, ignore.case = TRUE), 1, 0),
+    Agg = ifelse(grepl("male aggress female|female aggress male", DyadResponse, ignore.case = TRUE), 1, 0),
+    NotApp = ifelse(grepl("Not approaching", DyadResponse, ignore.case = TRUE), 1, 0),
+    Intrud = ifelse(grepl("Intrusion", DyadResponse, ignore.case = TRUE), 1, 0)
+  )
 
+# Step 4: Verify the counts using distinct matches
+# Ensure all variations are considered
+tol <- sum(BexClean$Tol, na.rm = TRUE)
+agg <- sum(BexClean$Agg, na.rm = TRUE)
+notapp <- sum(BexClean$NotApp, na.rm = TRUE)
+intrud <- sum(BexClean$Intrud, na.rm = TRUE)
 
-# Step 5: Check final dataset structure and column names
+# Print the counts
+cat("Tolerance Count:", tol, "\n")
+cat("Aggression Count:", agg, "\n")
+cat("Not Approaching Count:", notapp, "\n")
+cat("Intrusion Count:", intrud, "\n")
+
+# Step 5: Verify the dataset structure
 colnames(BexClean)
-head(BexClean)  # Preview the first few rows
-
+head(BexClean)
 
 
 ```
