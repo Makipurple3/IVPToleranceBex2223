@@ -93,21 +93,66 @@ cat("\nBexFinal has been successfully exported to:", output_path, "\n")
 BexFinal <- BexFinal %>%
   mutate(Date = as.Date(Date, format = "%Y-%m-%d"))
 
+
+#BY WEEK
+# Smooth plot od dyad evolution and tolerance: BY WEEK
 # Round dates to the nearest week and calculate weekly averages
 tolerance_evolution_week <- BexFinal %>%
   mutate(Week = floor_date(Date, unit = "week")) %>%
   group_by(Dyad, Week) %>%
   summarise(ToleranceProportion = mean(Tol, na.rm = TRUE), .groups = "drop")
 
-
-
-# Plot tolerance evolution by week
-g# Plot smoothed tolerance evolution by week
+# Plot smoothed tolerance evolution by week
 ggplot(tolerance_evolution_week, aes(x = Week, y = ToleranceProportion, color = Dyad, group = Dyad)) +
   geom_smooth(se = FALSE, method = "loess", span = 0.3) +  # Smoothed curves
   labs(
     title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Week)",
     x = "Week",
+    y = "Tolerance Proportion"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+# Plot LINES tolerance evolution by month
+ggplot(tolerance_evolution_week, aes(x = Week, y = ToleranceProportion, color = Dyad, group = Dyad)) +
+  geom_smooth(se = FALSE, method = "lm")   +  # Smoothed curves
+  labs(
+    title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Week)",
+    x = "Week",
+    y = "Tolerance Proportion"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+
+
+
+#BY MONTH
+# Smooth plot od dyad evolution and tolerance: BY MONTH
+# Round dates to the nearest week and calculate monthly averages
+tolerance_evolution_month <- BexFinal %>%
+  mutate(Month = floor_date(Date, unit = "month")) %>%
+  group_by(Dyad, Month) %>%
+  summarise(ToleranceProportion = mean(Tol, na.rm = TRUE), .groups = "drop")
+
+# Plot smoothed tolerance evolution by month
+ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color = Dyad, group = Dyad)) +
+  geom_smooth(se = FALSE, method = "loess", span = 0.4) +  # Smoothed curves
+  labs(
+    title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Month)",
+    x = "Month",
+    y = "Tolerance Proportion"
+  ) +
+  theme_minimal() +
+  theme(legend.position = "bottom")
+
+# Plot LINES tolerance evolution by month
+ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color = Dyad, group = Dyad)) +
+  geom_smooth(se = FALSE, method = "lm")   +  # Smoothed curves
+  labs(
+    title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Month)",
+    x = "Month",
     y = "Tolerance Proportion"
   ) +
   theme_minimal() +
@@ -120,43 +165,9 @@ ggplot(tolerance_evolution_week, aes(x = Week, y = ToleranceProportion, color = 
 
 
 
-# PRediction
-# Aggregate data by week for modeling
-tolerance_model_data <- tolerance_evolution_week %>%
-  group_by(Week) %>%
-  summarise(ToleranceProportion = mean(ToleranceProportion, na.rm = TRUE), .groups = "drop")
-
-# Create a time series object
-tolerance_ts <- ts(tolerance_model_data$ToleranceProportion, frequency = 52)
-
-# Fit a time series model
-tolerance_model <- auto.arima(tolerance_ts)
-
-# Predict for the next 12 weeks
-predictions <- forecast(tolerance_model, h = 12)
-
-# Create predicted data
-predicted_data <- data.frame(
-  Week = seq(max(tolerance_model_data$Week) + weeks(1), 
-             by = "week", 
-             length.out = 12),
-  ToleranceProportion = predictions$mean
-)
-
-# Combine observed and predicted data
-combined_data <- bind_rows(
-  tolerance_evolution_week,
-  predicted_data %>% mutate(Dyad = "Prediction")
-)
 
 
-
-
-
-
-
-
-
+# TEST OF PREDICTION GRAPH PER WEEK
 
 
 

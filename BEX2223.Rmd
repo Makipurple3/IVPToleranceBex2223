@@ -5934,8 +5934,25 @@ cat("Intrusion Count:", intrud, "\n")
 colnames(BexClean)
 head(BexClean)
 
+View(BexClean)
+
+# Export the data frame to CSV
+
+write.csv(BexClean, file =  "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexStat.csv", row.names = FALSE)
+
+# Print confirmation message
+cat("CSV file successfully saved at:",  "//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexStat.csv", "\n")
+
+
 
 ```
+
+
+
+```
+
+
+
 
 
   * Dyad,IEloDiff, IZDSi, AgeDiff, Date, DyadDay, DyadTrial, Resp, Tol, Agg, NoApp, EloSex
