@@ -214,47 +214,6 @@ points(rep(1, length(BDELOF2)), BDELOF2, pch = 19, col = "red")
 
 
 
-
-# Check before running BDELOF for 2nd period
-range(BDF$Date) # Check if date ranges are consistent
-sum(is.na(BDF)) # Check for missing values
-
-
-range(BDpres$Date) # Ensure presence data aligns with interaction data
-setdiff(BDF$winner, colnames(BDpres)) # Check if all winners are in presence data
-setdiff(BDF$loser, colnames(BDpres)) # Check if all losers are in presence data
-
-
-
-# Check structure of BDELOF and BDELOF3
-str(BDELOF)
-str(BDELOF3)
-
-# Compare names in both objects
-all.equal(names(BDELOF), names(BDELOF3))
-
-# Compare Elo scores at a specific date
-BDELOF_test <- extract_elo(BDELOF, extractdate = "2022-12-11", standardize = TRUE)
-BDELOF3_test <- extract_elo(BDELOF3, extractdate = "2022-12-11", standardize = TRUE)
-
-# Check if scores are identical
-all.equal(BDELOF_test, BDELOF3_test)
-
-# Print any mismatches in scores
-setdiff(names(BDELOF_test), names(BDELOF3_test))
-setdiff(names(BDELOF3_test), names(BDELOF_test))
-
-
-
-
-identical(names(BDELOF3), names(BDELOF4)) # Ensure names align
-
-
-summary(BDELOF4) # Ensure score values align with expected quartile ranges
-
-
-
-
 ## BDELOF2 - Kom Oort, 2022-12-11 
 
 ## BD

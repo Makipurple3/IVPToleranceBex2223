@@ -1,8 +1,10 @@
-
 # Load libraries
 library(dplyr)
 library(ggplot2)
 library(lubridate)
+library(lmerTest)
+library(effects)
+library(car)
 
 # Import DSI ELO and Bex For Maerge
 
@@ -44,14 +46,14 @@ BexFinal <- BexFinal %>%
   left_join(BexElo %>% select(Dyad, MEloQ, FEloQ, ZMFEloQ), by = "Dyad")
 # Merge DyadSummary
 BexFinal <- BexFinal %>%
-  left_join(DyadSummary %>% select(Dyad, AgeDiff, AgeDir), by = "Dyad")
+  left_join(DyadSummary %>% select(Dyad, AgeDiff, AgeDir, TotalTrials), by = "Dyad")
 
 # Step 5: Rename ZMFEloQ to IELO
 colnames(BexFinal)[colnames(BexFinal) == "ZMFEloQ"] <- "IzELO"
 # Step 6: Retain only the required variables in BexFinal
 BexFinal <- BexFinal %>%
-  select(Dyad, MEloQ, FEloQ, IzELO, IzDSI, FzDSI, TrialDay, DyadDay, Trial, Date, 
-         DyadResponse, Tol, Agg, NotApp, Intrud)
+  select(Dyad, MEloQ, FEloQ, IzELO, IzDSI, FzDSI, TrialDay, DyadDay, Trial,TotalTrials, Date, 
+         DyadResponse, Tol, Agg, NotApp, Intrud, AgeDiff, AgeDir)
 
 # Step 7: Verify variables in BexFinal
 cat("Column names in BexFinal:\n")
@@ -179,6 +181,12 @@ ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color 
 
 
 
+
+
+
+
+
+
 # see what are the values in IzELO and create a binmoial  
 #Like Similar Rank/Different Rank And/Or Female HIgh/Male High deoending which has higher quartile using MElo vs FElo
 
@@ -196,6 +204,13 @@ ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color 
 #>Lower variations in age and rank and higher inital social bonds and overall amount of time spent otgether leads to higher rates of tolerance
 
 
+table(BexFinal$IzELO)
+
+datSS <- droplevels(subset(BexFinal, Dyad =="Sey Sirk"))
+summary(datSS)
+
+xtabs(~ IzELO+ AgeDiff, BexFinal)
+
 
 
 # STATISTICAL TEST  
@@ -203,4 +218,54 @@ ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color 
 #{lmerTest} / pTol ~ AmountTrial (totalNtrial  vs fixed amount each dyad) + AgeDiff + IEloDiff + IDsi +(Day| Dyad)
 
 
+
+# > > > Use Totaltrials from DyadSummary and include it back in BexFinal?
+
+
+
+
+
+
+cdplot(factor(Tol) ~  IzDSI, data = BexFinal)
+
+cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)
+
+cdplot(factor(Tol) ~  IzELO, data = BexFinal)
+
+cdplot(factor(Tol) ~  AgeDiff, data = BexFinal)
+
+
+
+
+
+
+cdplot(factor(Tol) ~  IzDSI, data = BexFinal)       
+cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)   
+
+xtabs(~ Tol+ IzELO, data= BexFinal)
+xtabs(~ Tol+ Dyad, data= BexFinal)
+
+BexFinal$IzELO <- as.factor(BexFinal$IzELO)
+require(party)
+plot(ctree(factor(Tol) ~  IzDSI + factor(IzELO) + TotalTrials + AgeDiff, data = BexFinal))
+
+dat0 <- aggregate(Tol~ Dyad + IzDSI + IzELO + TotalTrials + AgeDiff, sum, data = BexFinal)
+dat0
+
+mod0 <- glmer(Tol ~  IzDSI + IzELO + AgeDiff + TotalTrials + (TrialDay|Dyad/DyadDay), binomial,    data = BexFinal)
+
+mod0 <- glm(cbind(Tol, TotalTrials - Tol) ~  IzDSI + IzELO +AgeDiff, binomial,    data = dat0)
+
+summary(mod0)
+Anova(mod0)
+
+plot(effect( "IzELO", mod0), type="response")
+plot(effect( "AgeDiff", mod0))
+plot(effect( "IzDSI", mod0))
+
+
+
+# Seasonality, male tenure and pregnancy?
+# Create max trial day to compute on dyad day
+# Check how to do seasonality
 
