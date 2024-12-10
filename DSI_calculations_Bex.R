@@ -321,30 +321,21 @@ BexDSI <- BexDSI %>%
     Male = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 3, x[1], x[2])),
     Female = sapply(strsplit(dyad, "_@_"), function(x) ifelse(nchar(x[1]) == 4, x[1], x[2])),
     dyad = paste(Male, Female), # Update dyad column to be "Male Female"
-    FDSI = IDSI, # Assuming FDSI takes the same value as IDSI
-    FzDSI = IzDSI # Assuming FzDSI takes the same value as IzDSI
   ) %>%
-  select(dyad, Male, Female, IDSI, IzDSI, FDSI, FzDSI, date_extraction) # Reorder columns
+  select(dyad, Male, Female, IDSI, IzDSI, date_extraction) # Reorder columns
 
 # Reset row names to ensure no `AK.1`, `BD.1`, etc.
 rownames(BexDSI) <- NULL
 
-# Set FDSI and FzDSI for the final date `2023-09-13`
-BexDSI <- BexDSI %>%
-  mutate(
-    FDSI = ifelse(date_extraction == as.Date("2023-09-13"), FDSI, FDSI),
-    FzDSI = ifelse(date_extraction == as.Date("2023-09-13"), FzDSI, FzDSI)
-  )
-
 ## Remove rows 9, 10, 11, and 12
 BexDSI <- BexDSI[-c(3, 9, 10, 11, 12), ]
 
-# Add the final extraction date as a new column
-BexDSI <- BexDSI %>%
-  mutate(date_extraction_final = as.Date("2023-09-13"))
-
 # Display the final table
 print(BexDSI)
+
+
+
+
 
 
 

@@ -11,16 +11,19 @@ BexDSI <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Mau
 BexElo <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexElo.csv")
 DyadSummary <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/dyad_summary_clean.csv")
 BexStat <-read.csv("//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexStat.csv")
+MaleSummary <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/MaleSummary.csv")
 
 print(BexDSI)
 print(BexElo)
 print(DyadSummary)
 head(BexStat)
+print(MaleSummary)
 
 colnames(BexDSI)
 colnames(BexElo)
 colnames(DyadSummary)
 colnames(BexStat)
+colnames(MaleSummary)
 
 
 #Variables to select for 
@@ -35,7 +38,7 @@ BexStat_selected <- BexStat %>%
 # Step 4: Merge datasets by Dyad
 # Merge BexDSI
 BexFinal <- BexStat_selected %>%
-  left_join(BexDSI %>% select(Dyad, IzDSI, FzDSI), by = "Dyad")
+  left_join(BexDSI %>% select(Dyad, IzDSI,), by = "Dyad")
 # Merge BexElo
 BexFinal <- BexFinal %>%
   left_join(BexElo %>% select(Dyad, MEloQ, FEloQ, ZMFEloQ), by = "Dyad")
@@ -73,6 +76,16 @@ cat("\nBexFinal has been successfully exported to:", output_path, "\n")
 
 
 
+
+
+
+
+# OPEN BEXFINAL
+
+BexFinal <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexFinal.csv")
+
+colnames(BexFinal)
+
 #TASKS
 # Check the evolution of the proportion of tolerance per Dyad with tolerance rounded by the week
 # Round dates to the nearest week
@@ -90,7 +103,7 @@ tolerance_evolution_week <- BexFinal %>%
 
 # Plot smoothed tolerance evolution by week
 ggplot(tolerance_evolution_week, aes(x = Week, y = ToleranceProportion, color = Dyad, group = Dyad)) +
-  geom_smooth(se = FALSE, method = "loess", span = 0.3) +  # Smoothed curves
+  geom_smooth(se = FALSE, method = "lm", span = 0.3) +  # Smoothed curves
   labs(
     title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Week)",
     x = "Week",
@@ -119,7 +132,7 @@ tolerance_evolution_month <- BexFinal %>%
   summarise(ToleranceProportion = mean(Tol, na.rm = TRUE), .groups = "drop")
 # Plot smoothed tolerance evolution by month
 ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color = Dyad, group = Dyad)) +
-  geom_smooth(se = FALSE, method = "loess", span = 0.4) +  # Smoothed curves
+  geom_smooth(se = FALSE, method = "lm", span = 0.4) +  # Smoothed curves
   labs(
     title = "Smoothed Evolution of Tolerance Proportion per Dyad (Rounded to Month)",
     x = "Month",
@@ -147,78 +160,7 @@ ggplot(tolerance_evolution_month, aes(x = Month, y = ToleranceProportion, color 
 
 
 
-
-
-
-
-
-
-
-# RESEARCH QUESTION
-#Variations in Age, Rank, IDSI, and IEloDiff and time spent together (amount of trials on a set period/in general) can explain differences in tolerance (aggression/not approaching?!) rates in a forced proximity box experiment conducted in wild vervet monkeys
-#The effects may be moderated by /> Seasonality, Male tenure, Female pregnancy
-
-#>Lower variations in age and rank and higher initial social bonds and overall amount of time spent together leads to higher rates of tolerance
-
-
-table(BexFinal$IzELO)
-
-datSS <- droplevels(subset(BexFinal, Dyad =="Sey Sirk"))
-summary(datSS)
-
-xtabs(~ IzELO+ AgeDiff, BexFinal)
-
-
-
-# STATISTICAL TEST  
-#glmer
-#{lmerTest} / pTol ~ AmountTrial (totalNtrial  vs fixed amount each dyad) + AgeDiff + IEloDiff + IDsi +(Day| Dyad)
-
-
-
-# > > > Use Totaltrials from DyadSummary and include it back in BexFinal?
-
-
-
-
-
-
-cdplot(factor(Tol) ~  IzDSI, data = BexFinal)
-
-cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)
-
-cdplot(factor(Tol) ~  IzELO, data = BexFinal)
-
-cdplot(factor(Tol) ~  AgeDiff, data = BexFinal)
-
-
-
-
-
-
-cdplot(factor(Tol) ~  IzDSI, data = BexFinal)       
-cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)   
-
-xtabs(~ Tol+ IzELO, data= BexFinal)
-xtabs(~ Tol+ Dyad, data= BexFinal)
-
-BexFinal$IzELO <- as.factor(BexFinal$IzELO)
-require(party)
-plot(ctree(factor(Tol) ~  IzDSI + factor(IzELO) + TotalTrials + AgeDiff, data = BexFinal))
-
-dat0 <- aggregate(Tol~ Dyad + IzDSI + IzELO + TotalTrials + AgeDiff, sum, data = BexFinal)
-dat0
-
-mod0 <- glmer(Tol ~  IzDSI + IzELO + AgeDiff + TotalTrials + (TrialDay|Dyad/DyadDay), binomial,    data = BexFinal)
-
-mod0 <- glm(cbind(Tol, TotalTrials - Tol) ~  IzDSI + IzELO +AgeDiff, binomial,    data = dat0)
-
-summary(mod0)
-Anova(mod0)
-
-plot(effect( "IzELO", mod0), type="response")
-plot(effect( "AgeDiff", mod0))
-plot(effect( "IzDSI", mod0))
+# UPDATES AND CREATION OF COLUMNS IN BEXFINAL
 
 
 #MAX TRIAL DAY
@@ -228,7 +170,6 @@ BexFinal <- BexFinal %>%
   group_by(Dyad, Date) %>%
   mutate(MaxTrialDay = max(TrialDay)) %>%
   ungroup()
-
 
 # SEASONS
 # Add a "Season" column based on the Date
@@ -241,12 +182,107 @@ BexFinal <- BexFinal %>%
     TRUE ~ NA_character_  # Handles missing or invalid dates
   ))
 
-# Check the first few rows to verify the new column
-View(BexFinal)
+# VERVET SEASONS
+# Ass a vervet sweasons with amting season and bb season
+# Create "VervetSeason" based on months
+BexFinal <- BexFinal %>%
+  mutate(VervetSeason = case_when(
+    month(Date) %in% c(1, 2, 3) ~ "Summer",
+    month(Date) %in% c(4, 5, 6) ~ "Mating",
+    month(Date) %in% c(7, 8, 9) ~ "Winter",
+    month(Date) %in% c(10, 11, 12) ~ "Baby",
+    TRUE ~ NA_character_  # Default for missing dates
+  ))
+
+# Change format Season & Vevert Season
+BexFinal$Season <- factor(BexFinal$Season, levels = c("Winter", "Spring",  "Summer", "Autumn"), ordered = T)
+# Change format Season & Vevert Season
+BexFinal$VervetSeason <- factor(BexFinal$VervetSeason, levels = c("Summer","Mating", "Winter","Baby"), ordered = T)
+
+
+
+
+
+
+
+
+
+# RESEARCH QUESTION
+#Variations in Age, Rank, IDSI, and IEloDiff and time spent together (amount of trials on a set period/in general) can explain differences in tolerance (aggression/not approaching?!) rates in a forced proximity box experiment conducted in wild vervet monkeys
+#The effects may be moderated by /> Seasonality, Male tenure, Female pregnancy
+# Add Male/Female Higher for ELO , column "Higher" M or F diffelo*higher > see if effect of sex + rank on tolerance<
+# Add Male/Female higher for AGE > same idea as Elo
+
+#>Lower variations in age and rank and higher initial social bonds and overall amount of time spent together leads to higher rates of tolerance
+
+
+
+
+# STATISTICAL TEST  
+#glmer
+#{lmerTest} / pTol ~ AmountTrial (totalNtrial  vs fixed amount each dyad) + AgeDiff + IEloDiff + IDsi +(Day| Dyad)
+
+# > > > Use Totaltrials from DyadSummary and include it back in BexFinal?
+
+cdplot(factor(Tol) ~  IzDSI, data = BexFinal)
+
+cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)
+
+cdplot(factor(Tol) ~  IzELO, data = BexFinal)
+
+cdplot(factor(Tol) ~  AgeDiff, data = BexFinal)
+
+
+#ANAYLSIS
+# ORDER SEASONS FOR STATS
+
+
+xtabs(~ Tol+ IzELO, data= BexFinal)
+xtabs(~ Tol+ Dyad, data= BexFinal)
+
+BexFinal$IzELO <- as.factor(BexFinal$IzELO)
+require(party)
+plot(ctree(factor(Tol) ~  IzDSI + factor(IzELO) + TotalTrials + AgeDiff, data = BexFinal))
+
+dat0 <- aggregate(Tol~ Dyad + IzDSI + IzELO + TotalTrials + AgeDiff + Season + VervetSeason, sum, data = BexFinal)
+
+
+
+
+mod0 <- glmer(cbind(Tol, TotalTrials - Tol) ~  IzDSI + IzELO + AgeDiff + Season + (1|Dyad), binomial,    data = dat0)
+mod1 <- glmer(cbind(Tol, TotalTrials - Tol) ~  IzDSI + IzELO + AgeDiff + VervetSeason + (1|Dyad), binomial,    data = dat0)
+summary(mod0)
+Anova(mod0)
+
+
+plot(effect( "IzELO", mod0), type="response")
+plot(effect( "AgeDiff", mod0))
+plot(effect( "IzDSI", mod0))
+
+
+
+plot(effect( "Season", mod0))
+
+# TASK: ANOVA mod 1 & mod 0 
+# A) Create mod 1 & mod 0, 1 VVSeason on Season, both ordered
+(anova(mod0, mod1))
+# nod0 is better model, Season is better predictor than VervetSeason
+# LOWER AIC Score when running anova between two models is the best
+
+
+
+
+
+
+
+
+
+
 
 
 
  # Seasonality, male tenure and pregnancy?
+#> Import Male tenure
 
 # Check how to do seasonality
 
@@ -254,7 +290,3 @@ View(BexFinal)
 
 
 
-
-
-head(BexFinal,50)
-str(BexFinal)

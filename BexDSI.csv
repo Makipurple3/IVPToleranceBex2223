@@ -1,9 +1,9 @@
-"dyad","Male","Female","IDSI","IzDSI","FDSI","FzDSI","date_extraction","date_extraction_final"
-"Buk Ndaw","Buk","Ndaw",0.23653,-0.21647,0.23653,-0.21647,2022-09-15,2023-09-13
-"Sho Ginq","Sho","Ginq",0.75584,-0.0171,0.75584,-0.0171,2022-09-15,2023-09-13
-"Nge Oerw","Nge","Oerw",0.62609,-0.04241,0.62609,-0.04241,2022-09-15,2023-09-13
-"Xin Ouli","Xin","Ouli",0.02376,-0.13449,0.02376,-0.13449,2022-09-15,2023-09-13
-"Xia Piep","Xia","Piep",0,-0.1387,0,-0.1387,2022-09-15,2023-09-13
-"Sey Sirk","Sey","Sirk",0,-0.1387,0,-0.1387,2022-09-15,2023-09-13
-"Kom Oort","Kom","Oort",0,-0.24291,0,-0.24291,2022-12-11,2023-09-13
-"Pom Xian","Pom","Xian",0,-0.32982,0,-0.32982,2023-03-09,2023-09-13
+"dyad","Male","Female","IDSI","IzDSI","date_extraction","FDSI.x","FzDSI.x","date_extraction2.x","FDSI.y","FzDSI.y","date_extraction2.y"
+"Buk Ndaw","Buk","Ndaw",0.23653,-0.21647,2022-09-15,NA,NA,NA,NA,NA,NA
+"Sho Ginq","Sho","Ginq",0.75584,-0.0171,2022-09-15,NA,NA,NA,NA,NA,NA
+"Nge Oerw","Nge","Oerw",0.62609,-0.04241,2022-09-15,NA,NA,NA,NA,NA,NA
+"Xin Ouli","Xin","Ouli",0.02376,-0.13449,2022-09-15,NA,NA,NA,NA,NA,NA
+"Xia Piep","Xia","Piep",0,-0.1387,2022-09-15,NA,NA,NA,NA,NA,NA
+"Sey Sirk","Sey","Sirk",0,-0.1387,2022-09-15,NA,NA,NA,NA,NA,NA
+"Kom Oort","Kom","Oort",0,-0.24291,2022-12-11,NA,NA,NA,NA,NA,NA
+"Pom Xian","Pom","Xian",0,-0.32982,2023-03-09,NA,NA,NA,NA,NA,NA
