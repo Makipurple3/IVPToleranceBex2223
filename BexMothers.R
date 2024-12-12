@@ -101,6 +101,11 @@ print(BB)
 
 
 
+# Export BB dataset
+write.csv(BB, file = "/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexMothers.csv", row.names = FALSE)
+
+
+
 # BB ALive (adapt in future df)
 # Add a column BBAlive where if date = Na or Still present Yes, otherwise No
 # Then a colum MotherWhileBex
