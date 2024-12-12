@@ -12,18 +12,21 @@ BexElo <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Mau
 DyadSummary <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/dyad_summary_clean.csv")
 BexStat <-read.csv("//Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexStat.csv")
 MaleSummary <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/MaleSummary.csv")
+BexMothers <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexMothers.csv")
 
 print(BexDSI)
 print(BexElo)
 print(DyadSummary)
 head(BexStat)
 print(MaleSummary)
+print(BexMothers)
 
 colnames(BexDSI)
 colnames(BexElo)
 colnames(DyadSummary)
 colnames(BexStat)
 colnames(MaleSummary)
+colnames(BexMothers)
 
 
 #Variables to select for 
@@ -202,7 +205,30 @@ BexFinal$VervetSeason <- factor(BexFinal$VervetSeason, levels = c("Summer","Mati
 
 
 
+range(BexFinal$Date)
+range(BexFinal$DyadDay)
+# Ensure Date column is properly recognized as a Date type
+BexFinal$Date <- as.Date(BexFinal$Date)
 
+# Get the range (min and max) of the entire Date column
+date_range <- range(BexFinal$Date)
+
+# Get the minimum and maximum DyadDay per Dyad
+library(dplyr)
+
+dyad_summary <- BexFinal %>%
+  group_by(Dyad) %>%
+  summarize(
+    Min_Date = min(Date),
+    Max_Date = max(Date),
+    Min_DyadDay = min(DyadDay),
+    Max_DyadDay = max(DyadDay),
+    .groups = "drop"
+  )
+
+# Display results
+print(date_range) # Overall date range
+print(dyad_summary) # Per-dyad summary of dates and DyadDays
 
 
 
@@ -283,7 +309,7 @@ plot(effect( "Season", mod0))
 
  # Seasonality, male tenure and pregnancy?
 #> Import Male tenure
-
+# Variable BB Yes No with date, before birth, says no after, says yes, control effect of bb
 # Check how to do seasonality
 
 
