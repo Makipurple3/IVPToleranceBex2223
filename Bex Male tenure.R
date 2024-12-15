@@ -220,7 +220,11 @@ MaleSummary <- MaleSummary %>%
   rowwise() %>%
   mutate(Tenure = calculate_duration_in_group(MaleID, Date, MaleSummary, LHdata),
          TenureYears = Tenure/365) %>%
-  ungroup()
+
+  ungroup() %>%
+  mutate(Tenure = ifelse(MaleID == "Kom", 1189, Tenure),
+         TenureYears = Tenure/365)
+
 
 
 print(MaleSummary)
