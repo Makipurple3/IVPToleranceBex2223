@@ -11,6 +11,8 @@ library(lattice)
 require(blme)
 library(RVAideMemoire)
 library(DHARMa)
+library(MASS)
+library(lme4)
 
 
 # OPEN BEXFINAL
@@ -21,13 +23,10 @@ colnames(BexFinal)
 BexFinal <- BexFinal %>%
   mutate(Date = as.Date(Date, format = "%Y-%m-%d"))
 
-
 # Higher ELO states which of male or femlae has a higher Elo, the same has been done for
 # Since they are only 4 quartiles ,1,2,3,4, we will asses the follwoing way,
 # Using MEloQ and FEloQ we will rate the higher rating individual, is the higher quartile individual is Male then we have MaleHigh if female higher the FemaleHigh
-
 # Age Diff that gives the direction (male or female) for the older ID in dyad
-
 
 
 # UPDATES AND CREATION OF COLUMNS IN BEXFINAL
@@ -38,7 +37,6 @@ BexFinal <- BexFinal %>%
   group_by(Dyad, Date) %>%
   mutate(MaxTrialDay = max(TrialDay)) %>%
   ungroup()
-
 # SEASONS
 # Add a "Season" column based on the Date
 BexFinal <- BexFinal %>%
@@ -49,7 +47,6 @@ BexFinal <- BexFinal %>%
     month(Date) %in% c(6, 7, 8) ~ "Winter",
     TRUE ~ NA_character_  # Handles missing or invalid dates
   ))
-
 # VERVET SEASONS
 # Ass a vervet sweasons with amting season and bb season
 # Create "VervetSeason" based on months
@@ -61,17 +58,14 @@ BexFinal <- BexFinal %>%
     month(Date) %in% c(10, 11, 12) ~ "Baby",
     TRUE ~ NA_character_  # Default for missing dates
   ))
-
 # Change format Season & Vevert Season
 BexFinal$Season <- factor(BexFinal$Season, levels = c("Winter", "Spring",  "Summer", "Autumn"), ordered = F)
 # Change format Season & Vevert Season
 BexFinal$VervetSeason <- factor(BexFinal$VervetSeason, levels = c("Summer","Mating", "Winter","Baby"), ordered = F)
-
 # Ensure Date column is properly recognized as a Date type
 BexFinal$Date <- as.Date(BexFinal$Date)
 # Get the range (min and max) of the entire Date column
 date_range <- range(BexFinal$Date)
-
 dyad_summary <- BexFinal %>%
   group_by(Dyad) %>%
   summarize(
@@ -81,7 +75,6 @@ dyad_summary <- BexFinal %>%
     Max_DyadDay = max(DyadDay),
     .groups = "drop"
   )
-
 # Display results
 print(date_range) # Overall date range
 print(dyad_summary) # Per-dyad summary of dates and DyadDays
@@ -90,29 +83,26 @@ print(dyad_summary) # Per-dyad summary of dates and DyadDays
 
 
 
-# MODIFICAITON OF VARIABLES INTO BINOMIAL
-  # 1) SELECT VARAIBLES TO KEEP
-  str(BexFinal)
-  # Select :
-    # Dyad, Trial, Tol, IzElo, Higher ELo, AgeDir, BB, Season, >Age Diff, 
+
+
 
 # RESEARCH QUESTION
-# Variations in Age, Rank, IDSI, and IEloDiff and time spent together 
-# (amount of trials on a set period/in general) can explain differences in tolerance 
-# (aggression/not approaching?!) rates in a forced proximity box experiment 
-# conducted in wild vervet monkeys
-# The effects may be moderated by /> Seasonality, Male tenure, Female pregnancy
-# Add Male/Female Higher for ELO , column "Higher" M or F diffelo*higher > see if effect of sex + rank on tolerance<
-# Add Male/Female higher for AGE > same idea as Elo
 
-#>Lower variations in age and rank and higher initial social bonds and overall amount of time spent together leads to higher rates of tolerance
+  # Variations in Age, Rank, IDSI, and IEloDiff and time spent together 
+  # (amount of trials on a set period/in general) can explain differences in tolerance 
+  # (aggression/not approaching?!) rates in a forced proximity box experiment 
+  # conducted in wild vervet monkeys
+  # The effects may be moderated by /> Seasonality, Male tenure, Female pregnancy
+  # Add Male/Female Higher for ELO , column "Higher" M or F diffelo*higher > see if effect of sex + rank on tolerance<
+  # Add Male/Female higher for AGE > same idea as Elo
+
+  #>Lower variations in age and rank and higher initial social bonds and overall amount of time spent together leads to higher rates of tolerance
 
   
   
   
-# VARIABLES INFORMATION
-  
-  
+# DESCRIPTION OF VARIABLES
+
   # IzDSI = Initial DSI (at beggning of the experiment in dyad)
   # IzELO = Quartile difference from male/female rank respectively to their sex and group at beginning of the experiment
   # AgeDiff = Age difference between M/F in dyad
@@ -126,7 +116,9 @@ print(dyad_summary) # Per-dyad summary of dates and DyadDays
   # BB = Says if BB is born or not
   
   
-  
+
+
+# CD PLOTS : CHECK TENDICES FOR VARIABLES
 BexFinal=as.data.frame(BexFinal)
 
 cdplot(factor(Tol) ~  IzDSI, data = BexFinal)
@@ -154,19 +146,42 @@ plot(ctree(factor(Tol) ~  IzELO  + IzDSI +  AgeDiff + Season + VervetSeason + To
 
 
 
-
+# MODEL CHECK WITH AIC 
+# CHECK WHICH MDOEL WOULD BE THE BEST FOR AIC, THIS WILL BE USED AS A PèOTENTIEL INDICATOR BUT COMBBINATIONS WILL BE TESTED INDIVIDUALLY
 # Check model fit and interactions with AIC
 
 #Logistic regression model for Tol using both main effects and all pairwise interactions of the specified predictors.
 #Selects the best subset of these predictors (main effects and interactions) by optimizing AIC, ensuring the model is neither overfit nor underfit.
 
+
+
+tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + IzELO + VervetSeason)^2, 
+                   family = binomial, data = BexFinal))
+  
+  # BEST MODEL WITH AIC 1
+  #Tol ~ AgeDiff + AgeDir + IzELO + VervetSeason + AgeDiff:IzELO + AgeDiff:VervetSeason
+  
+
+
+tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + BB + TenureYears + IzELO + IzDSI+HigherElo+
+                            VervetSeason + BirthGp), binomial, data= BexFinal)) 
+  # BEST MODEL WITH AIC 2
+  # Tol ~ AgeDiff + AgeDir + TenureYears + IzELO + IzDSI + HigherElo + VervetSeason
+
+
 tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + BB + TenureYears + IzELO + IzDSI+HigherElo+
                             VervetSeason + BirthGp)^2, binomial, data= BexFinal)) 
+  # BEST MODEL WITH AIC 3
+  # Tol ~ AgeDiff + AgeDir + TenureYears + IzELO + IzDSI + HigherElo + VervetSeason
 
 
 
-
-
+#Impact of Variables and Interactions:
+  
+  #Significant Variables: AgeDiff, AgeDir, IzELO, and VervetSeason consistently remain in the final models. This suggests their importance in explaining Tol.
+  #Non-Significant Variables:
+  #BB was consistently removed, indicating it doesn't significantly explain variation.
+  #HigherElo and IzDSI are retained in some runs, but their contributions are marginal.
 
 
 
@@ -294,7 +309,7 @@ plot(simulationOutput)
     
 # 4 MODEL 4:
   # Adding Gender-Specific Interaction Terms to Model
-    # Interactions tester are Agedir*HigherElo + AgeDir*VervetSeason
+    # Interactions tested are Agedir*HigherElo + AgeDir*VervetSeason
     model.bin4 <- glmer(
       Tol ~ IzELO + AgeDiff + AgeDir + HigherElo + VervetSeason + BirthGp +
         AgeDir:HigherElo + AgeDir:VervetSeason + (1|Dyad) + (1|Date),
@@ -306,49 +321,17 @@ plot(simulationOutput)
     
     
     
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    # SORT FROM HERE TO MODELFINAL!!!
 
-    #MOD 4
-    model.bin4 <- glmer(Tol ~ IzELO + HigherElo + AgeDiff +AgeDir + VervetSeason + BirthGp 
+    #MOD 5
+    model.bin5 <- glmer(Tol ~ IzELO + HigherElo + AgeDiff +AgeDir + VervetSeason + BirthGp 
                         +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-    summary(model.bin4)
-    Anova(model.bin4)
+    summary(model.bin5)
+    Anova(model.bin5)
     
-
-
-    
-    
-    
-    
-    
-    
-    
-    
-    # Last model that worked
-
-    # Higher Elo + AgeDir
-    model.bin2 <- glmer(Tol ~ IzELO  +  AgeDiff + AgeDir + HigherElo
-                        +(1|Dyad) +, binomial, data= BexFinal) 
-    
-    
-    # MODEL : IZELO, AGEDIFF, SE
-    model.bin <- glmer(Tol ~ IzELO  +  AgeDiff + Season + 
-                         + AgeDir  + BirthGp
-                       +(1|Dyad) + (1|Date), binomial, data= BexFinal)  # add here all the other interesting predictors and interactions
-    summary(model.bin1)
-    Anova(model.bin1)
     
     
 
+  
 plot(effect("IzELO", model.bin), type="response")
 plot(effect("AgeDiff", model.bin))
 plot(effect("IzDSI", model.bin))
@@ -357,6 +340,13 @@ plot(effect("VervetSeason", model.bin))
       
 
 
+
+
+# MOD TEST
+  model.binvlast <- glmer(Tol ~ IzELO + VervetSeason + BirthGp + AgeDir:VervetSeason + 
+                            TenureYears:VervetSeason + IzELO:VervetSeason + (1|Date), binomial, data= BexFinal) 
+summary(model.binvlast)
+Anova(model.binvlast)
 
 # BIN 5
 
@@ -378,96 +368,129 @@ Anova(model.bin5)
 
 
 
-
-
 # BIN FINAL
 
-
-# Final model
-model.binfinal <- glmer(
-  Tol ~ IzELO + VervetSeason + BirthGp + AgeDir:VervetSeason + 
-    TenureYears:VervetSeason + IzELO:VervetSeason + 
-    (1|Dyad) + (1|Date),
+# Final Model
+final_model <- glmer(
+  Tol ~ IzDSI:TenureYears + IzELO:AgeDir + VervetSeason + AgeDiff:AgeDir + 
+    AgeDir:VervetSeason + TenureYears:VervetSeason + (1|Date),
   control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
-  binomial,
+  family = binomial,
   data = BexFinal
 )
 
+# Summary of the final model
+summary(final_model)
+Anova(final_model)
+
+# Analysis of Deviance (Type II Wald Chi-square test)
+Anova(final_model, type = "II")
+
+
+
+# Dispersion Check
+simulationOutput <- simulateResiduals(fittedModel = final_model, plot = FALSE)
+testDispersion(simulationOutput)
+#The dispersion test ensures there is no overdispersion in the model. A p-value > 0.05 confirms the model is appropriately specified.
+
+
+# Residual Diagnostics
+plot(simulationOutput)
+# Check for homoscedasticity (residuals vs predictors)
+plotResiduals(simulationOutput, form = BexFinal$IzELO)
+plotResiduals(simulationOutput, form = BexFinal$AgeDiff)
+# Outlier check
+testOutliers(simulationOutput)
+# The residual plots confirm that residuals are evenly distributed (no patterns) and there are no significant outliers (p > 0.05).
+
+
+
+# Variance Inflation Factor (VIF)
+vif_model <- lm(
+  Tol ~ IzELO + AgeDir + AgeDiff + VervetSeason + TenureYears,
+  data = BexFinal
+)
+vif(vif_model)
+#All VIF values are below 5, indicating no multicollinearity among predictors.
+#If any VIF were > 10, the associated variable would need to be reconsidered.
 
 
 
 
-require(MuMIn)
-r.squaredGLMM(model.binfinal)
 
+# Null model without random effects for comparison
+null_model <- glm(
+  Tol ~ IzDSI:TenureYears + IzELO:AgeDir + VervetSeason + AgeDiff:AgeDir + 
+    AgeDir:VervetSeason + TenureYears:VervetSeason,
+  family = binomial,
+  data = BexFinal
+)
 
-# Model check
-qqnorm(resid(model.binfinal))  # outliers
-plot(model.binfinal) # homogeneity
-sum(resid(model.binfinal, type="pearson")< -2)
-bwplot(resid(model.binfinal) ~ VervetSeason, data=BexFinal) # homogeneity
-xyplot(resid(model.binfinal) ~ IzDSI, type=c("p", "smooth"), data=BexFinal) # homogeneity
-qqmath(ranef(model.binfinal))  # normality
-
-# Model Check DHARMa
-plot(simulateResiduals(fittedModel = model.binfinal, plot = T))
-
-
-# Effect vizualization
-plot(effect("IzELO:VervetSeason", model.binfinal), x.var="IzELO")
-plot(effect("TenureYears:VervetSeason", model.binfinal))
-plot(effect("AgeDir:VervetSeason", model.binfinal), x.var="AgeDir")
-
-
-# PostHoc
-emtrends(model.binfinal, "VervetSeason", var="TenureYears")
-pairs(emtrends(model.binfinal, "VervetSeason", var="TenureYears"))
-
-require(emmeans)
-pairs(emmeans(model.binfinal, "IzELO", by="VervetSeason"))
+# Likelihood ratio test for random effect of Date
+anova(final_model, null_model, test = "Chisq")
 
 
 
 
 
-# Checking Random Effects Correlations
-rePCA_result <- rePCA(model.binfinal)
+
+# Check random effect correlations
+rePCA_result <- rePCA(final_model)
 print(rePCA_result)
-plot(rePCA_result)  # Visualize correlations between random effects
+plot(rePCA_result)
 
 
 
-# Interptration of model.final
-  #Significant Effects
-    #Main Effects:
-  
-      #IzELO: Lower quartile ranks reduce tolerance rates significantly.
-      #BirthGp: Natal group significantly influences tolerance.
-      #VervetSeason: Seasonal context (e.g., Mating, Winter) strongly affects tolerance, with Mating and Winter showing higher rates.
-      #Interaction Effects:
-  
-      #AgeDir:VervetSeason: The direction of age difference has a season-dependent influence on tolerance.
-      #IzELO:VervetSeason: Rank effects are contingent on seasonal context, showing rank's interaction with ecological periods.
-      #TenureYears:VervetSeason: Male tenure length interacts with seasonal periods, adding nuance to tolerance dynamics.
-
-    #Non-Significant Effects
-      
-      #HigherElo (p > 0.1): No strong evidence for male vs. female rank differences affecting tolerance.
-      #AgeDiff (p > 0.05): Absolute age difference does not strongly predict tolerance.
-
-    #Model Fit
-      #R² Values:
-        #Marginal R² (R2m = 0.157): Indicates the proportion of variance explained by fixed effects.
-        #Conditional R² (R2c = 0.215): Includes variance explained by random effects, showing that a notable portion of the variability comes from Dyad and Date.
-        #Model Diagnostics:
-        #No overdispersion (dispersion = 1.0032, p = 0.936).
-        #Residual diagnostics (QQ plot and residual patterns) confirm the model's assumptions are met.
-
-    #Random effects correlations for Dyad:Date suggest negligible overlap or multicollinearity between random effects.
-      #Post-Hoc Analyses
-        #Seasonal trends (emtrends):
-        #Mating season exhibits reduced tolerance with male tenure, while Summer, Winter, and Baby seasons show negligible trends.
-      #Pairwise comparisons (emmeans):
-        #Significant contrasts for IzELO within seasons highlight rank-dependent seasonal differences.
 
 
+
+# Calculate R² for fixed and random effects
+library(MuMIn)
+r.squaredGLMM(final_model)
+
+
+
+
+# Visualizing interactions
+library(effects)
+plot(effect("IzDSI:TenureYears", final_model))
+plot(effect("TenureYears:VervetSeason", final_model))
+plot(effect("AgeDir:VervetSeason", final_model), x.var = "AgeDir")
+
+
+
+
+
+# post hocs:
+# Post-hoc analyses for interaction effects
+library(emmeans)
+emtrends(final_model, "VervetSeason", var = "TenureYears")
+pairs(emtrends(final_model, "VervetSeason", var = "TenureYears"))
+
+# Pairwise comparisons for IzELO across VervetSeason
+pairs(emmeans(final_model, "IzELO", by = "VervetSeason"))
+
+
+
+
+
+
+
+
+
+
+
+#Significant Effects
+#Main Effects:
+  #IzDSI:TenureYears (p < 0.05): Longer tenures with higher dominance scores significantly increase tolerance.
+  #VervetSeason (p < 0.001): Mating and winter seasons show higher tolerance compared to summer and baby seasons.
+  #IzELO:AgeDir (p < 0.001): Rank effects (IzELO) interact with age differences to influence tolerance.
+#Interactions:
+  #TenureYears:VervetSeason (p < 0.001): Seasonal changes moderate the effect of tenure on tolerance.
+  #Non-Significant Effects
+  #AgeDirMale Older:VervetSeasonWinter and AgeDirMale Older:VervetSeasonBaby (p > 0.1): These could be removed to simplify the model, but they align structurally with other interactions.
+
+  #AIC = 3003.3: Indicates a well-fitting model. Lower than alternative models, so this is a good choice.
+  #Dispersion Test: No overdispersion (p > 0.05).
+  #Residual Diagnostics: No issues with homoscedasticity, normality, or outliers.
+  #Random Effects: The contribution of Date is small but helps account for temporal variability.
