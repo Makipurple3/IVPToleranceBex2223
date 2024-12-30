@@ -493,4 +493,10 @@ pairs(emmeans(final_model, "IzELO", by = "VervetSeason"))
   #AIC = 3003.3: Indicates a well-fitting model. Lower than alternative models, so this is a good choice.
   #Dispersion Test: No overdispersion (p > 0.05).
   #Residual Diagnostics: No issues with homoscedasticity, normality, or outliers.
-  #Random Effects: The contribution of Date is small but helps account for temporal variability.
+  #Random Effects: The contribution of Date is small but helps account for temporal variability.Variance for Date is 0.07563, suggesting that while the random effect for Date is small, it slightly contributes to the model fit.
+
+  #Median residuals are close to zero, and the distribution appears balanced, with no extreme outliers affecting the model's performance.
+
+
+
+#
