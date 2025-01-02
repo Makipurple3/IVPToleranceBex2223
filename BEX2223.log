@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.28)  14 AUG 2024 16:34
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (TeX Live 2023) (preloaded format=pdflatex 2023.9.28)  2 JAN 2025 17:56
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -828,109 +828,105 @@ Nge Oerw Xin Ouli Buk Ndaw Kom Oort Pom Xian Pom Guat[]
 Package longtable Warning: Column widths have changed
 (longtable)                in table 5 on input line 2250.
 
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 6 on input line 2301.
-
-
-Package longtable Warning: Column widths have changed
-(longtable)                in table 7 on input line 2328.
-
 [22]
-<BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf, id=288, 459.7175pt x 30
+
+Package longtable Warning: Column widths have changed
+(longtable)                in table 6 on input line 2360.
+
+<BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf, id=285, 459.7175pt x 30
 9.155pt>
 File: BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf Graphic file (type 
 pdf)
 <use BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf 
- used on input line 2330.
+ used on input line 2362.
 (pdftex.def)             Requested size: 459.74442pt x 309.1731pt.
-<BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf, id=289, 459.7175pt x 30
+<BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf, id=286, 459.7175pt x 30
 9.155pt>
 File: BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf Graphic file (type 
 pdf)
 <use BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf 
- used on input line 2331.
+ used on input line 2363.
 (pdftex.def)             Requested size: 459.74442pt x 309.1731pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2330--2332
+Underfull \hbox (badness 10000) in paragraph at lines 2362--2364
 [][]
  []
 
 [23 <./BEX2223_files/figure-latex/Dyad and Day Summary-1.pdf>]
-<BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf, id=301, 459.7175pt 
+<BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf, id=300, 459.7175pt 
 x 312.16624pt>
 File: BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf Graphic file (t
 ype pdf)
 <use BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/PlacementMaleFemale Plot-1.
-pdf  used on input line 2374.
+pdf  used on input line 2406.
 (pdftex.def)             Requested size: 459.72337pt x 312.17024pt.
-<BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf, id=302, 459.7175pt 
+<BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf, id=301, 459.7175pt 
 x 312.16624pt>
 File: BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf Graphic file (t
 ype pdf)
 <use BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/PlacementMaleFemale Plot-2.
-pdf  used on input line 2375.
+pdf  used on input line 2407.
 (pdftex.def)             Requested size: 459.72337pt x 312.17024pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 2374--2376
+Underfull \hbox (badness 10000) in paragraph at lines 2406--2408
 [][]
  []
 
 [24 <./BEX2223_files/figure-latex/Dyad and Day Summary-2.pdf>] [25 <./BEX2223_f
 iles/figure-latex/PlacementMaleFemale Plot-1.pdf> <./BEX2223_files/figure-latex
 /PlacementMaleFemale Plot-2.pdf>]
-<BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf, id=337, 464.7362
+<BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf, id=336, 464.7362
 5pt x 315.1775pt>
 File: BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf Graphic file
  (type pdf)
 <use BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/DyadDistance Frequency Plot
--1.pdf  used on input line 2426.
+-1.pdf  used on input line 2458.
 (pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
 [26 <./BEX2223_files/figure-latex/DyadDistance Frequency Plot-1.pdf>]
-<BEX2223_files/figure-latex/Proximity plot-1.pdf, id=351, 459.7175pt x 315.1775
+<BEX2223_files/figure-latex/Proximity plot-1.pdf, id=350, 459.7175pt x 315.1775
 pt>
 File: BEX2223_files/figure-latex/Proximity plot-1.pdf Graphic file (type pdf)
 <use BEX2223_files/figure-latex/Proximity plot-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Proximity plot-1.pdf  used 
-on input line 2450.
+on input line 2482.
 (pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
 [27 <./BEX2223_files/figure-latex/Proximity plot-1.pdf>]
 <BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and f
-requencies and plots-1.pdf, id=377, 459.7175pt x 315.1775pt>
+requencies and plots-1.pdf, id=376, 459.7175pt x 315.1775pt>
 File: BEX2223_files/figure-latex/DyadResponse unique and multiple combinations 
 and frequencies and plots-1.pdf Graphic file (type pdf)
 <use BEX2223_files/figure-latex/DyadResponse unique and multiple combinations a
 nd frequencies and plots-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/DyadResponse unique and mul
-tiple combinations and frequencies and plots-1.pdf  used on input line 2562.
+tiple combinations and frequencies and plots-1.pdf  used on input line 2594.
 (pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
 [28] [29 <./BEX2223_files/figure-latex/DyadResponse unique and multiple combina
 tions and frequencies and plots-1.pdf>]
 <BEX2223_files/figure-latex/DyadResponse unique and multiple combinations and f
-requencies and plots-2.pdf, id=396, 464.73625pt x 315.1775pt>
+requencies and plots-2.pdf, id=395, 464.73625pt x 315.1775pt>
 File: BEX2223_files/figure-latex/DyadResponse unique and multiple combinations 
 and frequencies and plots-2.pdf Graphic file (type pdf)
 <use BEX2223_files/figure-latex/DyadResponse unique and multiple combinations a
 nd frequencies and plots-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/DyadResponse unique and mul
-tiple combinations and frequencies and plots-2.pdf  used on input line 2603.
+tiple combinations and frequencies and plots-2.pdf  used on input line 2635.
 (pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
 [30 <./BEX2223_files/figure-latex/DyadResponse unique and multiple combinations
  and frequencies and plots-2.pdf>]
-Overfull \hbox (6302.7253pt too wide) in paragraph at lines 2644--2644
+Overfull \hbox (6302.7253pt too wide) in paragraph at lines 2676--2676
 []\T1/lmtt/m/n/10 ## Rows with multiple entries in DyadResponse:  3 4 13 53 58 
 64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 
 304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469
  482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 74
 9 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 9
-12 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1108 1141 
-1143 1161 1162 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267
- 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1341 1343 1352 1378 139
+12 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1104 1141 
+1143 1164 1165 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267
+ 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1342 1344 1353 1378 139
 8 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 15
 58 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1
 708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 
@@ -943,16 +939,16 @@ Overfull \hbox (6302.7253pt too wide) in paragraph at lines 2644--2644
  []
 
 [31]
-<BEX2223_files/figure-latex/Dyad Response Unique-1.pdf, id=413, 459.7175pt x 31
+<BEX2223_files/figure-latex/Dyad Response Unique-1.pdf, id=412, 459.7175pt x 31
 5.1775pt>
 File: BEX2223_files/figure-latex/Dyad Response Unique-1.pdf Graphic file (type 
 pdf)
 <use BEX2223_files/figure-latex/Dyad Response Unique-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/Dyad Response Unique-1.pdf 
- used on input line 2691.
+ used on input line 2723.
 (pdftex.def)             Requested size: 459.74442pt x 315.19595pt.
 [32 <./BEX2223_files/figure-latex/Dyad Response Unique-1.pdf>] [33]
-Overfull \hbox (18.49356pt too wide) in paragraph at lines 2883--2883
+Overfull \hbox (18.49356pt too wide) in paragraph at lines 2915--2915
 []\T1/lmtt/m/n/10 ## Number of combinations with \TS1/lmtt/m/n/10 '\T1/lmtt/m/n
 /10 Other\TS1/lmtt/m/n/10 ' \T1/lmtt/m/n/10 in DyadResponse and \TS1/lmtt/m/n/1
 0 '\T1/lmtt/m/n/10 No Response\TS1/lmtt/m/n/10 ' \T1/lmtt/m/n/10 in OtherRespon
@@ -962,106 +958,131 @@ se:  5[]
 [34] [35]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 9 on input line 3230.
+(longtable)                in table 8 on input line 3262.
 
 
-Overfull \hbox (49.99347pt too wide) in paragraph at lines 3235--3235
+Overfull \hbox (49.99347pt too wide) in paragraph at lines 3267--3267
 []\T1/lmtt/m/n/10 ## Warning in RColorBrewer::brewer.pal(n, pal): n too large, 
 allowed maximum for palette Set3 is 12[] 
  []
 
-<BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf, id=448, 453.
+<BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf, id=447, 453.
 695pt x 320.19624pt>
 File: BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf Graphic 
 file (type pdf)
 <use BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/check and state of dyadresp
-onse-1.pdf  used on input line 3237.
+onse-1.pdf  used on input line 3269.
 (pdftex.def)             Requested size: 453.6939pt x 320.19545pt.
 [36]
 
 Package longtable Warning: Column widths have changed
-(longtable)                in table 10 on input line 3258.
+(longtable)                in table 9 on input line 3290.
 
-<BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf, id=454, 464.
+<BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf, id=453, 464.
 73625pt x 315.1775pt>
 File: BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf Graphic 
 file (type pdf)
 <use BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf>
 Package pdftex.def Info: BEX2223_files/figure-latex/check and state of dyadresp
-onse-2.pdf  used on input line 3260.
+onse-2.pdf  used on input line 3292.
 (pdftex.def)             Requested size: 464.74928pt x 315.18634pt.
 [37 <./BEX2223_files/figure-latex/check and state of dyadresponse-1.pdf>]
-Overfull \hbox (28.99353pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ Date               : chr [1:2719] "2022-09-29" "2022-09
--29" "2022-09-29" "2022-10-04" ...[] 
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Time                  : chr [1:2719] "08:18:23" "08:37:
+12" "08:37:58" "08:16:30" ...[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ DyadResponse       : chr [1:2719] "Tolerance" "Toleranc
-e" "Intrusion" "Intrusion" ...[] 
+Overfull \hbox (44.74348pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Date                  : chr [1:2719] "2022-09-29" "2022
+-09-29" "2022-09-29" "2022-10-04" ...[] 
  []
 
 
-Overfull \hbox (49.99347pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ OtherResponse      : chr [1:2719] "No Response" "No Res
-ponse" "No Response" "No Response" ...[] 
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ DyadResponse          : chr [1:2719] "Tolerance" "Toler
+ance" "Intrusion" "Intrusion" ...[] 
  []
 
 
-Overfull \hbox (81.49338pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ Audience           : chr [1:2719] "Ginq; Gubh" "Ginq; G
-ubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...[] 
+Overfull \hbox (65.74342pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ OtherResponse         : chr [1:2719] "No Response" "No 
+Response" "No Response" "No Response" ...[] 
  []
 
 
-Overfull \hbox (18.49356pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ IDIndividual1      : chr [1:2719] "No individual" "No i
-ndividual" "Buk; Ndaw" "Buk" ...[] 
+Overfull \hbox (97.24333pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Audience              : chr [1:2719] "Ginq; Gubh" "Ginq
+; Gubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...[] 
  []
 
 
-Overfull \hbox (18.49356pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ IntruderID         : chr [1:2719] "No Intrusion" "No In
-trusion" "Ginq; Gubh" "Ginq" ...[] 
+Overfull \hbox (34.24352pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ IDIndividual1         : chr [1:2719] "No individual" "N
+o individual" "Buk; Ndaw" "Buk" ...[] 
  []
 
 
-Overfull \hbox (7.99359pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ Context            : chr [1:2719] "NoContext" "NoContex
-t" "NoContext" "NoContext" ...[] 
+Overfull \hbox (34.24352pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ IntruderID            : chr [1:2719] "No Intrusion" "No
+ Intrusion" "Ginq; Gubh" "Ginq" ...[] 
+ []
+
+
+Overfull \hbox (13.24358pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Remarks               : chr [1:2719] "No Remarks" "No R
+emarks" "Treated" "Treated" ...[] 
+ []
+
+
+Overfull \hbox (23.74355pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Context               : chr [1:2719] "NoContext" "NoCon
+text" "NoContext" "NoContext" ...[] 
  []
 
 [38 <./BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf>]
-Overfull \hbox (196.99304pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ SpecialBehaviour   : chr [1:2719] "NoSpecialBehaviour" 
-"NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...[] 
+Overfull \hbox (212.743pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ SpecialBehaviour      : chr [1:2719] "NoSpecialBehaviou
+r" "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...[] 
  []
 
 
-Overfull \hbox (175.9931pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ DyadResponse_sorted: chr [1:2719] "Tolerance" "Toleranc
-e" "Intrusion;Not approaching" "Intrusion;Losing interest" ...[] 
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Hour                  : chr [1:2719] "08:00:00" "08:00:
+00" "08:00:00" "08:00:00" ...[] 
  []
 
 
-Overfull \hbox (91.99335pt too wide) in paragraph at lines 3313--3313
-[]\T1/lmtt/m/n/10 ##  $ MultipleResponses  : chr [1:2719] "Single Response" "Si
-ngle Response" ">1 Response" ">1 Response" ...[] 
+Overfull \hbox (2.7436pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ Dyad                  : chr [1:2719] "Buk Ndaw" "Buk Nd
+aw" "Buk Ndaw" "Buk Ndaw" ...[] 
  []
 
+
+Overfull \hbox (191.74306pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ DyadResponse_sorted   : chr [1:2719] "Tolerance" "Toler
+ance" "Intrusion;Not approaching" "Intrusion;Losing interest" ...[] 
+ []
+
+
+Overfull \hbox (107.7433pt too wide) in paragraph at lines 3351--3351
+[]\T1/lmtt/m/n/10 ##  $ MultipleResponses     : chr [1:2719] "Single Response" 
+"Single Response" ">1 Response" ">1 Response" ...[] 
+ []
+
+[39]
 ! Missing endcsname inserted.
 <to be read again> 
                    &
-l.3373 ...igure-latex/Dyad Distance \& Date-1.pdf}
+l.3426 ...igure-latex/Dyad Distance \& Date-1.pdf}
                                                    
 Here is how much of TeX's memory you used:
- 14501 strings out of 476025
- 233991 string characters out of 5790017
- 1877388 words of memory out of 5000000
- 34255 multiletter control sequences out of 15000+600000
- 567101 words of font info for 171 fonts, out of 8000000 for 9000
+ 14502 strings out of 476025
+ 234025 string characters out of 5790017
+ 1886388 words of memory out of 5000000
+ 34254 multiletter control sequences out of 15000+600000
+ 567184 words of font info for 172 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  77i,7n,81p,1304b,744s stack positions out of 10000i,1000n,20000p,200000b,200000s
 

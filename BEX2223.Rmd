@@ -76,6 +76,9 @@ library(tidyr)
 # Read xlsx files
 Boxex <- read_xls("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis MAung Kyaw/Makipurple3/Box Experiments.xls")
 
+
+
+
 ``` 
 
 * First I downloaded the **knitr package** to create outputs as html, pdf or word files when knitting my r markdown file. I also loaded the **pander** package for better presentation

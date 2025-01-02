@@ -7,7 +7,7 @@
 \title{Testing for Tolerance in a Box Experiment in Wild Vervet Monkeys
 - M.AungKyaw - 2022-2023}
 \author{}
-\date{\vspace{-2.5em}août 14, 2024 16:33}
+\date{\vspace{-2.5em}janvier 02, 2025 17:55}
 
 \usepackage{amsmath,amssymb}
 \usepackage{lmodern}
@@ -2260,6 +2260,7 @@ Xin Ouli & 186 \\
 \begin{enumerate}
 \def\labelenumi{\arabic{enumi}.}
 \setcounter{enumi}{2}
+\tightlist
 \item
   Create the variable called \textbf{Trial} where the data will be
   \textbf{sorted by date and dyad} in order to see how many trials have
@@ -2269,61 +2270,92 @@ Xin Ouli & 186 \\
   sessions have been done with each individual: \textbf{One day (per
   dyad) = one session} Now, let's proceed with creating the Dyad
   variable, Trial, and Day:
+\end{enumerate}
+
+\begin{itemize}
+\item
+  **Experiment Day (across all dyads): This variable should count the
+  number of unique experiment days across all dyads. For instance, if
+  multiple dyads have trials on the same date, that date should be
+  considered a single experiment day.
+\item
+  \textbf{Dyad Day} (within each dyad): This variable should count the
+  number of unique experiment days for each dyad separately. The first
+  day of trials for a dyad should be Day 1, the second distinct date of
+  trials should be Day 2, and so on.
+\item
+  DaysSinceStart: Tracks the total number of days since the first
+  experiment, counting every calendar day, including gaps between
+  experiments.
+\item
+  ExperimentDay: Counts unique experiment dates, with each distinct date
+  assigned a consecutive day number.
+\item
+  Trial: Numbers the trials sequentially within each dyad, starting from
+  1 for each dyad.
+\item
+  \begin{itemize}
+  \tightlist
+  \item
+    DyadDay: Counts unique experiment days for each dyad separately,
+    assigning Day 1 to the first distinct date, Day 2 to the next, etc.
+  \end{itemize}
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 2,742 x 5
+##    Date       Dyad     Trial DyadDay TrialDay
+##    <date>     <chr>    <int>   <int>    <int>
+##  1 2022-09-29 Buk Ndaw     1       1        1
+##  2 2022-09-29 Buk Ndaw     2       1        2
+##  3 2022-09-29 Buk Ndaw     3       1        3
+##  4 2022-10-04 Buk Ndaw     4       2        1
+##  5 2022-10-13 Buk Ndaw     5       3        1
+##  6 2022-10-13 Buk Ndaw     6       3        2
+##  7 2022-10-13 Buk Ndaw     7       3        3
+##  8 2022-10-13 Buk Ndaw     8       3        4
+##  9 2022-10-13 Buk Ndaw     9       3        5
+## 10 2022-10-13 Buk Ndaw    10       3        6
+## # i 2,732 more rows
+\end{verbatim}
+
+\begin{enumerate}
+\def\labelenumi{\arabic{enumi}.}
+\setcounter{enumi}{3}
+\tightlist
 \item
   Make a summary of trial and session so I can see see how many trials
   and sessions have been done with the individuals
 \end{enumerate}
 
 \begin{verbatim}
-## Trial Summary:
+## Total Number of Unique Experiment Days: 92
 \end{verbatim}
-
-\begin{longtable}[]{@{}lr@{}}
-\caption{Summary of Trials}\tabularnewline
-\toprule
-Dyad & Amount of Trials \\
-\midrule
-\endfirsthead
-\toprule
-Dyad & Amount of Trials \\
-\midrule
-\endhead
-Xia Piep & 610 \\
-Sey Sirk & 587 \\
-Kom Oort & 370 \\
-Sho Ginq & 283 \\
-Buk Ndaw & 259 \\
-Pom Xian & 259 \\
-Xin Ouli & 186 \\
-Nge Oerw & 183 \\
-Pom Guat & 5 \\
-\bottomrule
-\end{longtable}
 
 \begin{verbatim}
 ## 
-## Day Summary:
+## Combined Summary:
 \end{verbatim}
 
-\begin{longtable}[]{@{}lr@{}}
-\caption{Summary of Days}\tabularnewline
+\begin{longtable}[]{@{}lrr@{}}
+\caption{Summary of Trials and Days}\tabularnewline
 \toprule
-Dyad & Number of Days \\
+Dyad & Amount of Trials & Number of Days \\
 \midrule
 \endfirsthead
 \toprule
-Dyad & Number of Days \\
+Dyad & Amount of Trials & Number of Days \\
 \midrule
 \endhead
-Xin Ouli & 276 \\
-Xia Piep & 249 \\
-Sho Ginq & 200 \\
-Sey Sirk & 165 \\
-Pom Xian & 112 \\
-Pom Guat & 93 \\
-Nge Oerw & 92 \\
-Kom Oort & 70 \\
-Buk Ndaw & 39 \\
+Xia Piep & 610 & 49 \\
+Sey Sirk & 587 & 53 \\
+Kom Oort & 370 & 31 \\
+Sho Ginq & 283 & 35 \\
+Buk Ndaw & 259 & 39 \\
+Pom Xian & 259 & 19 \\
+Xin Ouli & 186 & 27 \\
+Nge Oerw & 183 & 22 \\
+Pom Guat & 5 & 1 \\
 \bottomrule
 \end{longtable}
 
@@ -2617,30 +2649,30 @@ description}\label{dyad-response-description}}
 \end{verbatim}
 
 \begin{verbatim}
-## # A tibble: 271 x 31
-##    Time     Date                Group   MaleID FemaleID FemaleCorn DyadDistance
-##    <chr>    <dttm>              <chr>   <chr>  <chr>         <dbl>        <dbl>
-##  1 08:37:58 2022-09-29 00:00:00 Ankhase Buk    Ndaw              0            5
-##  2 08:16:30 2022-10-04 00:00:00 Ankhase Buk    Ndaw              3            5
-##  3 08:12:17 2022-10-13 00:00:00 Ankhase Buk    Ndaw              3            1
-##  4 09:02:40 2022-11-10 00:00:00 Ankhase Buk    Ndaw              3            3
-##  5 14:05:56 2022-11-16 00:00:00 Ankhase Buk    Ndaw              0            3
-##  6 14:23:22 2022-11-16 00:00:00 Ankhase Buk    Ndaw              1            2
-##  7 14:25:53 2022-11-17 00:00:00 Ankhase Buk    Ndaw              4            4
-##  8 14:27:38 2022-11-18 00:00:00 Ankhase Buk    Ndaw              0            6
-##  9 08:58:48 2022-11-22 00:00:00 Ankhase Buk    Ndaw              6            6
-## 10 12:47:31 2022-11-24 00:00:00 Ankhase Buk    Ndaw              4            4
+## # A tibble: 271 x 36
+##    Time    Date       Group MaleID FemaleID FemaleCorn DyadDistance DyadResponse
+##    <chr>   <date>     <chr> <chr>  <chr>         <dbl>        <dbl> <chr>       
+##  1 08:37:~ 2022-09-29 Ankh~ Buk    Ndaw              0            5 Not approac~
+##  2 08:16:~ 2022-10-04 Ankh~ Buk    Ndaw              3            5 Losing inte~
+##  3 08:12:~ 2022-10-13 Ankh~ Buk    Ndaw              3            1 Tolerance; ~
+##  4 09:02:~ 2022-11-10 Ankh~ Buk    Ndaw              3            3 Not approac~
+##  5 14:05:~ 2022-11-16 Ankh~ Buk    Ndaw              0            3 Not approac~
+##  6 14:23:~ 2022-11-16 Ankh~ Buk    Ndaw              1            2 Not approac~
+##  7 14:25:~ 2022-11-17 Ankh~ Buk    Ndaw              4            4 Not approac~
+##  8 14:27:~ 2022-11-18 Ankh~ Buk    Ndaw              0            6 Not approac~
+##  9 08:58:~ 2022-11-22 Ankh~ Buk    Ndaw              6            6 Not approac~
+## 10 12:47:~ 2022-11-24 Ankh~ Buk    Ndaw              4            4 Not approac~
 ## # i 261 more rows
-## # i 24 more variables: DyadResponse <chr>, OtherResponse <chr>, Audience <chr>,
+## # i 28 more variables: OtherResponse <chr>, Audience <chr>,
 ## #   IDIndividual1 <chr>, IntruderID <chr>, Remarks <chr>, MaleCorn <dbl>,
 ## #   Intrusion <dbl>, AmountAudience <dbl>, Context <chr>,
-## #   SpecialBehaviour <chr>, GotCorn <chr>, Period <chr>, Hour <chr>, Day <int>,
-## #   Month <chr>, Male <chr>, Female <chr>, Dyad <chr>, Trial <int>,
-## #   PlacementMale <dbl>, PlacementFemale <dbl>, Proximity <chr>, ...
+## #   SpecialBehaviour <chr>, GotCorn <chr>, Period <chr>, Hour <chr>, Day <dbl>,
+## #   Month <chr>, Male <chr>, Female <chr>, Dyad <chr>, DaysSinceStart <dbl>,
+## #   ExperimentDay <dbl>, ExperimentDay_Verified <dbl>, Trial <int>, ...
 \end{verbatim}
 
 \begin{verbatim}
-## Rows with multiple entries in DyadResponse:  3 4 13 53 58 64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469 482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 749 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 912 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1108 1141 1143 1161 1162 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1341 1343 1352 1378 1398 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 1558 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 1806 1807 1808 1815 1816 1819 1820 1821 1822 1824 1825 1828 1829 1830 1831 1832 1837 1843 1856 1857 1858 1889 1897 1968 1984 2023 2066 2088 2090 2091 2100 2101 2102 2103 2104 2105 2109 2112 2113 2147 2148 2149 2152 2153 2166 2175 2184 2185 2192 2193 2194 2199 2201 2202 2205 2218 2226 2237 2248 2257 2290 2294 2343 2353 2354 2359 2360 2362 2363 2370 2388 2395 2396 2400 2465 2466 2467 2493 2534 2601 2609 2626 2629 2630 2643 2651 2657 2730
+## Rows with multiple entries in DyadResponse:  3 4 13 53 58 64 68 71 72 84 88 89 97 98 113 133 137 192 194 244 275 277 278 284 289 298 302 304 318 322 326 327 328 331 341 346 347 367 368 387 388 391 397 409 454 468 469 482 497 510 511 522 529 536 597 600 626 629 687 696 706 711 713 726 740 748 749 757 760 761 763 768 769 780 786 818 829 841 843 845 861 866 877 888 892 898 912 919 934 937 938 954 955 962 973 997 1004 1015 1027 1042 1048 1060 1104 1141 1143 1164 1165 1190 1209 1213 1217 1225 1229 1236 1240 1243 1245 1247 1254 1267 1271 1284 1288 1293 1308 1310 1311 1326 1327 1330 1336 1342 1344 1353 1378 1398 1399 1407 1416 1461 1464 1473 1478 1484 1488 1489 1495 1510 1520 1521 1528 1558 1595 1598 1602 1607 1616 1629 1630 1633 1636 1639 1642 1645 1654 1658 1679 1708 1714 1718 1724 1741 1750 1752 1784 1785 1788 1795 1800 1801 1802 1804 1805 1806 1807 1808 1815 1816 1819 1820 1821 1822 1824 1825 1828 1829 1830 1831 1832 1837 1843 1856 1857 1858 1889 1897 1968 1984 2023 2066 2088 2090 2091 2100 2101 2102 2103 2104 2105 2109 2112 2113 2147 2148 2149 2152 2153 2166 2175 2184 2185 2192 2193 2194 2199 2201 2202 2205 2218 2226 2237 2248 2257 2290 2294 2343 2353 2354 2359 2360 2362 2363 2370 2388 2395 2396 2400 2465 2466 2467 2493 2534 2601 2609 2626 2629 2630 2643 2651 2657 2730
 \end{verbatim}
 
 \begin{verbatim}
@@ -3259,8 +3291,9 @@ Female aggress male & 18 \\
 
 \includegraphics{BEX2223_files/figure-latex/check and state of dyadresponse-2.pdf}
 
-\hypertarget{visualizing-the-data}{%
-\section{4.Visualizing the data}\label{visualizing-the-data}}
+\hypertarget{visualizing-the-data-general-overview}{%
+\section{4.Visualizing the data (General
+Overview)}\label{visualizing-the-data-general-overview}}
 
 \hypertarget{reordering-the-variables-in-bex}{%
 \subsection{4.1 Reordering the variables in
@@ -3277,75 +3310,94 @@ Bex}\label{reordering-the-variables-in-bex}}
 \end{itemize}
 
 \begin{verbatim}
-## tibble [2,719 x 32] (S3: tbl_df/tbl/data.frame)
-##  $ Time               : chr [1:2719] "08:18:23" "08:37:12" "08:37:58" "08:16:30" ...
-##  $ Date               : chr [1:2719] "2022-09-29" "2022-09-29" "2022-09-29" "2022-10-04" ...
-##  $ Group              : chr [1:2719] "Ankhase" "Ankhase" "Ankhase" "Ankhase" ...
-##  $ MaleID             : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
-##  $ FemaleID           : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
-##  $ FemaleCorn         : chr [1:2719] "0" "0" "0" "3" ...
-##  $ DyadDistance       : chr [1:2719] "5" "5" "5" "5" ...
-##  $ DyadResponse       : chr [1:2719] "Tolerance" "Tolerance" "Intrusion" "Intrusion" ...
-##  $ OtherResponse      : chr [1:2719] "No Response" "No Response" "No Response" "No Response" ...
-##  $ Audience           : chr [1:2719] "Ginq; Gubh" "Ginq; Gubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...
-##  $ IDIndividual1      : chr [1:2719] "No individual" "No individual" "Buk; Ndaw" "Buk" ...
-##  $ IntruderID         : chr [1:2719] "No Intrusion" "No Intrusion" "Ginq; Gubh" "Ginq" ...
-##  $ Remarks            : chr [1:2719] "No Remarks" "No Remarks" "Treated" "Treated" ...
-##  $ MaleCorn           : chr [1:2719] "0" "0" "0" "7" ...
-##  $ Intrusion          : chr [1:2719] "0" "0" "1" "0" ...
-##  $ AmountAudience     : chr [1:2719] "2" "2" "2" "4" ...
-##  $ Context            : chr [1:2719] "NoContext" "NoContext" "NoContext" "NoContext" ...
-##  $ SpecialBehaviour   : chr [1:2719] "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...
-##  $ GotCorn            : chr [1:2719] "Yes" "Yes" "Yes" "Yes" ...
-##  $ Period             : chr [1:2719] "6 to 8" "6 to 8" "6 to 8" "6 to 8" ...
-##  $ Hour               : chr [1:2719] "08:00:00" "08:00:00" "08:00:00" "08:00:00" ...
-##  $ Day                : chr [1:2719] "1" "1" "1" "2" ...
-##  $ Month              : chr [1:2719] "2022-09" "2022-09" "2022-09" "2022-10" ...
-##  $ Male               : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
-##  $ Female             : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
-##  $ Dyad               : chr [1:2719] "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" ...
-##  $ Trial              : chr [1:2719] "1" "2" "3" "4" ...
-##  $ PlacementMale      : chr [1:2719] "0" "0" "0" "7" ...
-##  $ PlacementFemale    : chr [1:2719] "0" "0" "0" "3" ...
-##  $ Proximity          : chr [1:2719] "4-5" "4-5" "4-5" "4-5" ...
-##  $ DyadResponse_sorted: chr [1:2719] "Tolerance" "Tolerance" "Intrusion;Not approaching" "Intrusion;Losing interest" ...
-##  $ MultipleResponses  : chr [1:2719] "Single Response" "Single Response" ">1 Response" ">1 Response" ...
+## tibble [2,719 x 37] (S3: tbl_df/tbl/data.frame)
+##  $ Time                  : chr [1:2719] "08:18:23" "08:37:12" "08:37:58" "08:16:30" ...
+##  $ Date                  : chr [1:2719] "2022-09-29" "2022-09-29" "2022-09-29" "2022-10-04" ...
+##  $ Group                 : chr [1:2719] "Ankhase" "Ankhase" "Ankhase" "Ankhase" ...
+##  $ MaleID                : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
+##  $ FemaleID              : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
+##  $ FemaleCorn            : chr [1:2719] "0" "0" "0" "3" ...
+##  $ DyadDistance          : chr [1:2719] "5" "5" "5" "5" ...
+##  $ DyadResponse          : chr [1:2719] "Tolerance" "Tolerance" "Intrusion" "Intrusion" ...
+##  $ OtherResponse         : chr [1:2719] "No Response" "No Response" "No Response" "No Response" ...
+##  $ Audience              : chr [1:2719] "Ginq; Gubh" "Ginq; Gubh" "Ginq; Gubh" "Ghid; Gil; Ginq; Gom" ...
+##  $ IDIndividual1         : chr [1:2719] "No individual" "No individual" "Buk; Ndaw" "Buk" ...
+##  $ IntruderID            : chr [1:2719] "No Intrusion" "No Intrusion" "Ginq; Gubh" "Ginq" ...
+##  $ Remarks               : chr [1:2719] "No Remarks" "No Remarks" "Treated" "Treated" ...
+##  $ MaleCorn              : chr [1:2719] "0" "0" "0" "7" ...
+##  $ Intrusion             : chr [1:2719] "0" "0" "1" "0" ...
+##  $ AmountAudience        : chr [1:2719] "2" "2" "2" "4" ...
+##  $ Context               : chr [1:2719] "NoContext" "NoContext" "NoContext" "NoContext" ...
+##  $ SpecialBehaviour      : chr [1:2719] "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" "NoSpecialBehaviour" ...
+##  $ GotCorn               : chr [1:2719] "Yes" "Yes" "Yes" "Yes" ...
+##  $ Period                : chr [1:2719] "6 to 8" "6 to 8" "6 to 8" "6 to 8" ...
+##  $ Hour                  : chr [1:2719] "08:00:00" "08:00:00" "08:00:00" "08:00:00" ...
+##  $ Day                   : chr [1:2719] "16" "16" "16" "21" ...
+##  $ Month                 : chr [1:2719] "2022-09" "2022-09" "2022-09" "2022-10" ...
+##  $ Male                  : chr [1:2719] "Buk" "Buk" "Buk" "Buk" ...
+##  $ Female                : chr [1:2719] "Ndaw" "Ndaw" "Ndaw" "Ndaw" ...
+##  $ Dyad                  : chr [1:2719] "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" "Buk Ndaw" ...
+##  $ DaysSinceStart        : chr [1:2719] "16" "16" "16" "21" ...
+##  $ ExperimentDay         : chr [1:2719] "6" "6" "6" "7" ...
+##  $ ExperimentDay_Verified: chr [1:2719] "6" "6" "6" "7" ...
+##  $ Trial                 : chr [1:2719] "1" "2" "3" "4" ...
+##  $ DyadDay               : chr [1:2719] "1" "1" "1" "2" ...
+##  $ TrialDay              : chr [1:2719] "1" "2" "3" "1" ...
+##  $ PlacementMale         : chr [1:2719] "0" "0" "0" "7" ...
+##  $ PlacementFemale       : chr [1:2719] "0" "0" "0" "3" ...
+##  $ Proximity             : chr [1:2719] "4-5" "4-5" "4-5" "4-5" ...
+##  $ DyadResponse_sorted   : chr [1:2719] "Tolerance" "Tolerance" "Intrusion;Not approaching" "Intrusion;Losing interest" ...
+##  $ MultipleResponses     : chr [1:2719] "Single Response" "Single Response" ">1 Response" ">1 Response" ...
 \end{verbatim}
 
 \begin{verbatim}
-##                Time                Date               Group              MaleID 
-##                   0                   0                   0                   0 
-##            FemaleID          FemaleCorn        DyadDistance        DyadResponse 
-##                   0                   0                   0                   0 
-##       OtherResponse            Audience       IDIndividual1          IntruderID 
-##                   0                   0                   0                   0 
-##             Remarks            MaleCorn           Intrusion      AmountAudience 
-##                   0                   0                   0                   0 
-##             Context    SpecialBehaviour             GotCorn              Period 
-##                   0                   0                   0                   0 
-##                Hour                 Day               Month                Male 
-##                   0                   0                   0                   0 
-##              Female                Dyad               Trial       PlacementMale 
-##                   0                   0                   0                   0 
-##     PlacementFemale           Proximity DyadResponse_sorted   MultipleResponses 
-##                   0                   0                   0                   0
+##                   Time                   Date                  Group 
+##                      0                      0                      0 
+##                 MaleID               FemaleID             FemaleCorn 
+##                      0                      0                      0 
+##           DyadDistance           DyadResponse          OtherResponse 
+##                      0                      0                      0 
+##               Audience          IDIndividual1             IntruderID 
+##                      0                      0                      0 
+##                Remarks               MaleCorn              Intrusion 
+##                      0                      0                      0 
+##         AmountAudience                Context       SpecialBehaviour 
+##                      0                      0                      0 
+##                GotCorn                 Period                   Hour 
+##                      0                      0                      0 
+##                    Day                  Month                   Male 
+##                      0                      0                      0 
+##                 Female                   Dyad         DaysSinceStart 
+##                      0                      0                      0 
+##          ExperimentDay ExperimentDay_Verified                  Trial 
+##                      0                      0                      0 
+##                DyadDay               TrialDay          PlacementMale 
+##                      0                      0                      0 
+##        PlacementFemale              Proximity    DyadResponse_sorted 
+##                      0                      0                      0 
+##      MultipleResponses 
+##                      0
 \end{verbatim}
 
 \begin{itemize}
-\tightlist
 \item
-  I will keep the following variables in the next order: Date, Month,
-  Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance, Proximity,
-  DyadResponse, Intrusion, IntruderID SpecialBehaviour, Audience,
-  AmountAudience, Context, Special Behaviour
+  Before reordering these variables I may have to re update them to make
+  sure all the changes that occurred between the creation of this
+  variable and now, did not create any errors or mistakes
+\item
+  Finally I will keep the following variables in the next order: Date,
+  Month, Day, Time, Period, Trial, Male, Female, Dyad, DyadDistance,
+  Proximity, DyadResponse, Intrusion, IntruderID SpecialBehaviour,
+  Audience, AmountAudience, Context, Special Behaviour
 \end{itemize}
 
 \begin{verbatim}
-##  [1] "Date"             "Month"            "Day"              "Time"            
-##  [5] "Hour"             "Period"           "Trial"            "Male"            
-##  [9] "Female"           "Dyad"             "DyadDistance"     "Proximity"       
-## [13] "DyadResponse"     "IDIndividual1"    "Intrusion"        "IntruderID"      
-## [17] "SpecialBehaviour" "Audience"         "AmountAudience"   "Context"
+##  [1] "DaysSinceStart"   "ExperimentDay"    "Date"             "Month"           
+##  [5] "DyadDay"          "TrialDay"         "Trial"            "Time"            
+##  [9] "Hour"             "Period"           "Male"             "Female"          
+## [13] "Dyad"             "DyadDistance"     "Proximity"        "DyadResponse"    
+## [17] "IDIndividual1"    "Intrusion"        "IntruderID"       "SpecialBehaviour"
+## [21] "Audience"         "AmountAudience"   "Context"
 \end{verbatim}
 
 \hypertarget{exploratory-graph-to-organise}{%
@@ -3367,7 +3419,8 @@ organise)}\label{exploratory-graph-to-organise}}
 \end{verbatim}
 
 \begin{verbatim}
-## Warning: Removed 65 rows containing non-finite values (`stat_smooth()`).
+## Warning: Removed 65 rows containing non-finite outside the scale range
+## (`stat_smooth()`).
 \end{verbatim}
 
 \includegraphics{BEX2223_files/figure-latex/Dyad Distance \& Date-1.pdf}
@@ -3391,7 +3444,6 @@ organise)}\label{exploratory-graph-to-organise}}
 \includegraphics{BEX2223_files/figure-latex/last test before sleep-1.pdf}
 
 \includegraphics{BEX2223_files/figure-latex/daily graph2-1.pdf}
-\includegraphics{BEX2223_files/figure-latex/daily graph2-2.pdf}
 
 \begin{itemize}
 \tightlist
@@ -3399,7 +3451,19 @@ organise)}\label{exploratory-graph-to-organise}}
   Check amount of audience link with aggression occurences per sex
 \end{itemize}
 
-\includegraphics{BEX2223_files/figure-latex/agression \& audience test grap-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/tests on agression audience and time-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/tests on agression audience and time-2.pdf}
+
+\begin{verbatim}
+## Warning: There was 1 warning in `mutate()`.
+## i In argument: `KinPresent = ifelse(...)`.
+## Caused by warning in `grepl()`:
+## ! l'argument pattern a une longueur > 1 et seul le premier élément est utilisé
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/tests on agression audience and time-3.pdf}
+\includegraphics{BEX2223_files/figure-latex/tests on agression audience and time-4.pdf}
+\includegraphics{BEX2223_files/figure-latex/tests on agression audience and time-5.pdf}
 
 \hypertarget{preparation-of-dataset-for-importation-of-life-history-elo-rating-focal-and-ad-libitum-data}{%
 \subsection{4.3 Preparation of dataset for importation of life history,
@@ -3706,7 +3770,7 @@ names}\label{intermediate-check-of-intrusion-extraction-of-names}}
 
 \hypertarget{intermediate-check-of-not-approaching-behaviour}{%
 \subsubsection{4.3.3 Intermediate check of Not Approaching
-behaviour}\label{intermediate-check-of-not-approaching-behaviour}}
+behaviour\$}\label{intermediate-check-of-not-approaching-behaviour}}
 
 \includegraphics{BEX2223_files/figure-latex/Intermediate check of not approaching-1.pdf}
 
@@ -3723,20 +3787,869 @@ Intrusion}\label{intermediate-check-of-intrusion}}
 
 \includegraphics{BEX2223_files/figure-latex/Intermediate check of intrusion-2.pdf}
 
-\#OTHER / TEST
+\hypertarget{evolution-of-dyadresponse-per-dyad}{%
+\subsubsection{4.3.5 Evolution of DyadResponse per
+Dyad}\label{evolution-of-dyadresponse-per-dyad}}
 
-install.packages(``writexl'') library(writexl)
+Behaviours tests
 
-\hypertarget{export-to-excel-file}{%
-\section{Export to Excel file}\label{export-to-excel-file}}
+\begin{verbatim}
+## `summarise()` has grouped output by 'Dyad'. You can override using the
+## `.groups` argument.
+\end{verbatim}
 
-write\_xlsx(BexClean, ``BexClean.xlsx'')
+\includegraphics{BEX2223_files/figure-latex/behaviours graphs tests-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/behaviours graphs tests-2.pdf}
 
-\hypertarget{export-to-rds-file}{%
-\section{Export to RDS file}\label{export-to-rds-file}}
+\hypertarget{checkpoint---export-data-as-rds-and-xlslx}{%
+\section{5.Checkpoint - Export Data as Rds and
+Xlslx}\label{checkpoint---export-data-as-rds-and-xlslx}}
 
-saveRDS(BexClean, ``BexClean.rds'') BexClean \textless-
-readRDS(``BexClean.rds'')
+\hypertarget{importing-data-for-new-varaibles-age-elo-rating-dsi}{%
+\section{6 Importing data for new varaibles (Age, Elo Rating,
+DSI)}\label{importing-data-for-new-varaibles-age-elo-rating-dsi}}
+
+\begin{itemize}
+\tightlist
+\item
+  I want to investigate how intra-dyadic differences can explain
+  inter-dyadic differences on tolerances levels during the box
+  experiment
+\item
+  For that I will calculate the age of individuals , their rank using
+  elo rating, and their social bond using the dyadic composite social
+  index
+\item
+  I will use data files from Inkawu Vervet Project (IVP) that contain
+  longterm data as on age, agonistic and affiliative ineractions as for
+  proximity data amon other.
+\end{itemize}
+
+\hypertarget{assessing-age-of-individuals}{%
+\subsection{6.1. Assessing Age of
+Individuals}\label{assessing-age-of-individuals}}
+
+\begin{itemize}
+\tightlist
+\item
+  Female DOB: Use the direct DOB from LH, except for Ouli.
+\item
+  Male DOB: Use FirstRecorded - 4 years unless they have a recorded DOB.
+\item
+  Age Calculation: We'll calculate the ages for both using the DOBs or
+  estimated DOBs.
+\end{itemize}
+
+\hypertarget{age-of-females}{%
+\subsubsection{6.1.2 Age of Females}\label{age-of-females}}
+
+\begin{verbatim}
+##   Code        DOB FirstRecorded AdjustedDOB       Age
+## 1 Ouli       <NA>    2010-11-09  2006-11-09 18.149586
+## 2 Xian 2012-11-05    2012-11-05  2012-11-05 12.159045
+## 3 Piep 2012-01-01    2013-01-18  2012-01-01 13.005058
+## 4 Ginq 2014-10-18    2014-10-18  2014-10-18 10.209655
+## 5 Oort 2015-11-20    2015-11-20  2015-11-20  9.119968
+## 6 Ndaw 2016-02-08    2016-02-08  2016-02-08  8.900936
+## 7 Sirk 2017-10-21    2017-10-21  2017-10-21  7.200695
+## 8 Oerw 2018-11-09    2018-11-09  2018-11-09  6.149339
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Female Age-1.pdf}
+
+\hypertarget{age-of-male}{%
+\subsubsection{6.1.3 Age of Male}\label{age-of-male}}
+
+\begin{itemize}
+\item
+  Since most males dispsersed from unkonwn groups we dont have their
+  date of birth. But male usually dispers around 5 years old.
+\item
+  Male DOB: Use FirstRecorded - 5 years, except for a few individuals
+  who have DOB recorded (like Xia and Xin)
+\item
+  Use DOB directly if it exists.
+\item
+  Subtract 5 years from FirstRecorded if DOB is missing.
+\item
+  Calculate age based on AdjustedDOB.
+\item
+  Output a table with the relevant columns and create a graph * similar
+  to the one you had for the females.
+\item
+  \textbf{NOTE FOR UPDATE}, \textbf{the individual with the code Buk,
+  short for BukuBuku died on the 12 of september 2024}
+\end{itemize}
+
+\begin{verbatim}
+##   Code        DOB FirstRecorded AdjustedDOB       Age
+## 1  Sey 2014-01-01    2014-12-31  2014-01-01 11.003648
+## 2  Xia 2016-11-14    2016-11-14  2016-11-14  8.134322
+## 3  Nge 2016-11-18    2016-11-18  2016-11-18  8.123370
+## 4  Kom       <NA>    2017-09-04  2012-09-04 12.328795
+## 5  Pom 2017-10-19    2017-10-19  2017-10-19  7.206171
+## 6  Xin 2017-01-01    2017-10-20  2017-01-01  8.002902
+## 7  Sho       <NA>    2020-10-13  2015-10-13  9.224009
+## 8  Buk       <NA>    2021-05-11  2016-05-11  8.646310
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Male Age-1.pdf}
+
+\hypertarget{dyadic-age-difference}{%
+\subsubsection{6.1.4 Dyadic Age
+Difference}\label{dyadic-age-difference}}
+
+\begin{itemize}
+\tightlist
+\item
+  Age Comparison: Calculate the age for both males and females based on
+  their estimated or recorded DOB.
+\item
+  Lets explore male femalée ages before calculating differences between
+  dyads
+\end{itemize}
+
+\begin{verbatim}
+##    Code        DOB FirstRecorded AdjustedDOB       Age Gender
+## 1  Ouli       <NA>    2010-11-09  2006-11-09 18.149586 Female
+## 2  Xian 2012-11-05    2012-11-05  2012-11-05 12.159045 Female
+## 3  Piep 2012-01-01    2013-01-18  2012-01-01 13.005058 Female
+## 4  Ginq 2014-10-18    2014-10-18  2014-10-18 10.209655 Female
+## 5  Oort 2015-11-20    2015-11-20  2015-11-20  9.119968 Female
+## 6  Ndaw 2016-02-08    2016-02-08  2016-02-08  8.900936 Female
+## 7  Sirk 2017-10-21    2017-10-21  2017-10-21  7.200695 Female
+## 8  Oerw 2018-11-09    2018-11-09  2018-11-09  6.149339 Female
+## 9   Sey 2014-01-01    2014-12-31  2014-01-01 11.003648   Male
+## 10  Xia 2016-11-14    2016-11-14  2016-11-14  8.134322   Male
+## 11  Nge 2016-11-18    2016-11-18  2016-11-18  8.123370   Male
+## 12  Kom       <NA>    2017-09-04  2012-09-04 12.328795   Male
+## 13  Pom 2017-10-19    2017-10-19  2017-10-19  7.206171   Male
+## 14  Xin 2017-01-01    2017-10-20  2017-01-01  8.002902   Male
+## 15  Sho       <NA>    2020-10-13  2015-10-13  9.224009   Male
+## 16  Buk       <NA>    2021-05-11  2016-05-11  8.646310   Male
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Age in male and female-1.pdf}
+
+\hypertarget{absolute-age-difference}{%
+\subsubsection{6.1.5 Absolute Age
+Difference}\label{absolute-age-difference}}
+
+\begin{itemize}
+\item
+  We are going to calculate the raw differnce of agin between each male
+  and female in the dyad displaying the absolute age difference ordered
+\item
+  Before that i will create a variable called DyadData with information
+  the each dyad
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 8 x 6
+##   Dyad     Male  Female MaleAge FemaleAge AgeDifference
+##   <chr>    <chr> <chr>    <dbl>     <dbl>         <dbl>
+## 1 Sey Sirk Sey   Sirk     11.0       7.20         3.80 
+## 2 Xia Piep Xia   Piep      8.13     13.0          4.87 
+## 3 Nge Oerw Nge   Oerw      8.12      6.15         1.97 
+## 4 Sho Ginq Sho   Ginq      9.22     10.2          0.986
+## 5 Xin Ouli Xin   Ouli      8.00     18.1         10.1  
+## 6 Buk Ndaw Buk   Ndaw      8.65      8.90         0.255
+## 7 Kom Oort Kom   Oort     12.3       9.12         3.21 
+## 8 Pom Xian Pom   Xian      7.21     12.2          4.95
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Absolute Age Difference-1.pdf}
+
+\hypertarget{relative-age-difference}{%
+\subsubsection{6.1.6 Relative Age
+Difference}\label{relative-age-difference}}
+
+\begin{itemize}
+\tightlist
+\item
+  (Check if necessary) We are going to normalize the average age of to
+  ID in a dyad
+\end{itemize}
+
+\includegraphics{BEX2223_files/figure-latex/Relative Age Difference-1.pdf}
+
+\hypertarget{in-order-to-compare-the-age-difference-accross-dyads-we-are-going-to-calculate-the-z-scores-of-the-aboslute-age}{%
+\subsubsection{6.1.7 In order to compare the age difference accross
+dyads we are going to calculate the z-scores of the aboslute
+age}\label{in-order-to-compare-the-age-difference-accross-dyads-we-are-going-to-calculate-the-z-scores-of-the-aboslute-age}}
+
+\includegraphics{BEX2223_files/figure-latex/zscores age-1.pdf}
+
+\hypertarget{age-direction}{%
+\subsubsection{6.1.7 Age direction}\label{age-direction}}
+
+\begin{itemize}
+\tightlist
+\item
+  For further analysis we may consider if the male or female was older
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 8 x 4
+##   Male  Female AgeDifference AgeDirection
+##   <chr> <chr>          <dbl> <chr>       
+## 1 Sey   Sirk           3.80  Male Older  
+## 2 Xia   Piep           4.87  Female Older
+## 3 Nge   Oerw           1.97  Male Older  
+## 4 Sho   Ginq           0.986 Female Older
+## 5 Xin   Ouli          10.1   Female Older
+## 6 Buk   Ndaw           0.255 Female Older
+## 7 Kom   Oort           3.21  Male Older  
+## 8 Pom   Xian           4.95  Female Older
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Age direction-1.pdf}
+
+\hypertarget{age-hypothesis}{%
+\subsubsection{6.1.8 Age Hypothesis}\label{age-hypothesis}}
+
+\begin{itemize}
+\tightlist
+\item
+  A. Age Hypothesis: \textbf{We expect that the higher the age
+  difference in a dyad, the less likely they are to reach tolerance
+  compared to dyad with a smaller difference. In addition we will check
+  if there is an effect of Age Direction (Wether the male or the female
+  is older)}
+\end{itemize}
+
+\hypertarget{creation-of-binomial-tolerance}{%
+\paragraph{6.1.8.1 Creation of Binomial
+tolerance}\label{creation-of-binomial-tolerance}}
+
+\begin{itemize}
+\tightlist
+\item
+  In order to check the effect of age on tolerance I will create a
+  dichotomic variable displaying \textbf{1 if there is tolerance} and
+  \textbf{0 if there is not tolerance}
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 8 x 6
+##   Dyad     TotalTrials ToleranceCount NoToleranceCount ToleranceProportion
+##   <chr>          <int>          <dbl>            <dbl>               <dbl>
+## 1 Buk Ndaw         258            145              113               0.562
+## 2 Kom Oort         367            305               62               0.831
+## 3 Nge Oerw         182            121               61               0.665
+## 4 Pom Xian         257            171               86               0.665
+## 5 Sey Sirk         586            401              185               0.684
+## 6 Sho Ginq         281            158              123               0.562
+## 7 Xia Piep         603            473              130               0.784
+## 8 Xin Ouli         185            108               77               0.584
+## # i 1 more variable: NoToleranceProportion <dbl>
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/visualization of tolerance rates-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/visualization of tolerance rates-2.pdf}
+
+\hypertarget{section-1}{%
+\subsection{}\label{section-1}}
+
+\begin{verbatim}
+## # A tibble: 8 x 10
+##   Dyad     Male  Female AgeDifference AgeDirection TotalTrials ToleranceCount
+##   <chr>    <chr> <chr>          <dbl> <chr>              <int>          <dbl>
+## 1 Sey Sirk Sey   Sirk           3.80  Male Older           586            401
+## 2 Xia Piep Xia   Piep           4.87  Female Older         603            473
+## 3 Nge Oerw Nge   Oerw           1.97  Male Older           182            121
+## 4 Sho Ginq Sho   Ginq           0.986 Female Older         281            158
+## 5 Xin Ouli Xin   Ouli          10.1   Female Older         185            108
+## 6 Buk Ndaw Buk   Ndaw           0.255 Female Older         258            145
+## 7 Kom Oort Kom   Oort           3.21  Male Older           367            305
+## 8 Pom Xian Pom   Xian           4.95  Female Older         257            171
+## # i 3 more variables: NoToleranceCount <dbl>, ToleranceProportion <dbl>,
+## #   NoToleranceProportion <dbl>
+\end{verbatim}
+
+\begin{verbatim}
+## tibble [8 x 10] (S3: tbl_df/tbl/data.frame)
+##  $ Dyad                 : chr [1:8] "Sey Sirk" "Xia Piep" "Nge Oerw" "Sho Ginq" ...
+##  $ Male                 : chr [1:8] "Sey" "Xia" "Nge" "Sho" ...
+##  $ Female               : chr [1:8] "Sirk" "Piep" "Oerw" "Ginq" ...
+##  $ AgeDifference        : num [1:8] 3.803 4.871 1.974 0.986 10.147 ...
+##  $ AgeDirection         : chr [1:8] "Male Older" "Female Older" "Male Older" "Female Older" ...
+##  $ TotalTrials          : int [1:8] 586 603 182 281 185 258 367 257
+##  $ ToleranceCount       : num [1:8] 401 473 121 158 108 145 305 171
+##  $ NoToleranceCount     : num [1:8] 185 130 61 123 77 113 62 86
+##  $ ToleranceProportion  : num [1:8] 0.684 0.784 0.665 0.562 0.584 ...
+##  $ NoToleranceProportion: num [1:8] 0.316 0.216 0.335 0.438 0.416 ...
+\end{verbatim}
+
+\hypertarget{age-tolerance}{%
+\subsubsection{6.1.9 Age \& Tolerance}\label{age-tolerance}}
+
+\begin{itemize}
+\tightlist
+\item
+  I want to test wether age can predict tolerance and if there is an
+  effect of age direction. In addition maybe track the effect of both
+  Age difference and direction on tolerance
+\end{itemize}
+
+\hypertarget{section-2}{%
+\paragraph{6.1.9.1}\label{section-2}}
+
+\begin{itemize}
+\tightlist
+\item
+  Model 1: Absolute age difference \textasciitilde{} tolerance
+\end{itemize}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Absolute age difference \& tolerance-1.pdf}
+
+\begin{verbatim}
+## 
+##  Pearson's product-moment correlation
+## 
+## data:  dyad_summary$AgeDifference and dyad_summary$ToleranceProportion
+## t = 0.19274, df = 6, p-value = 0.8535
+## alternative hypothesis: true correlation is not equal to 0
+## 95 percent confidence interval:
+##  -0.6628703  0.7420961
+## sample estimates:
+##        cor 
+## 0.07844459
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ToleranceProportion ~ AgeDifference, data = dyad_summary)
+## 
+## Residuals:
+##       Min        1Q    Median        3Q       Max 
+## -0.099630 -0.096714 -0.001366  0.041322  0.165240 
+## 
+## Coefficients:
+##               Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)   0.657686   0.062557  10.513 4.35e-05 ***
+## AgeDifference 0.002536   0.013155   0.193    0.854    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1076 on 6 degrees of freedom
+## Multiple R-squared:  0.006154,   Adjusted R-squared:  -0.1595 
+## F-statistic: 0.03715 on 1 and 6 DF,  p-value: 0.8535
+\end{verbatim}
+
+\begin{itemize}
+\item
+  We are going to conduct a Spearman's rank correlation because we don't
+  have a normal distribution and this methods considers the order of the
+  data
+\item
+  Comparing with Previous Results Earlier Pearson's Correlation:
+  Correlation Coefficient (r): Approximately 0.0784 P-value: 0.8535
+  Interpretation: No significant linear relationship. Spearman's
+  Correlation: Correlation Coefficient (rho): 0.4286 P-value: 0.2992
+  Interpretation: Suggests a moderate monotonic relationship but not
+  statistically significant. Why the Difference? Pearson's Correlation:
+  Measures linear relationships. Sensitive to outliers and requires
+  normally distributed variables. Spearman's Correlation: Measures
+  monotonic relationships. Less sensitive to outliers and does not
+  require normal distribution.
+\end{itemize}
+
+\begin{verbatim}
+## 
+##  Spearman's rank correlation rho
+## 
+## data:  dyad_summary$AgeDifference and dyad_summary$ToleranceProportion
+## S = 48, p-value = 0.2992
+## alternative hypothesis: true rho is not equal to 0
+## sample estimates:
+##       rho 
+## 0.4285714
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Age Spearman-1.pdf}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Age Spearman-2.pdf}
+
+\begin{itemize}
+\item
+  Using a Spearman correlation we found a spearmans correlation
+  coefficient (rho) which is equal to 0,4285714 indicating a moderate
+  positive association between ranks of age difference and tolerance
+  proportion. It seems that as the age difference increases, the
+  tolerance proportion increases
+\item
+  But looking at the p-value of 0,2992 we can see that the correlation
+  is not statistically significant and there is a 29,92\% probability
+  that the observed correlations occured by chance
+\item
+  X-axis: AgeDifference
+\item
+  Y-axis:
+\item
+  The correlation coefficient (0.0784) is very weak
+\item
+  Also the p.value, 0.8535 is not significant
+\item
+  It seems that they are not significant correlation between age
+  difference and tolerance proportion
+\end{itemize}
+
+\hypertarget{section-3}{%
+\paragraph{6.1.9.2}\label{section-3}}
+
+\begin{itemize}
+\tightlist
+\item
+  Model 2: Age direction \textasciitilde{} tolerance
+\end{itemize}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/Age direction \& Tolerance-1.pdf}
+\includegraphics{BEX2223_files/figure-latex/Age direction \& Tolerance-2.pdf}
+
+\begin{verbatim}
+## 
+##  Welch Two Sample t-test
+## 
+## data:  ToleranceProportion by AgeDirection
+## t = -1.4071, df = 4.5304, p-value = 0.2242
+## alternative hypothesis: true difference in means between group Female Older and group Male Older is not equal to 0
+## 95 percent confidence interval:
+##  -0.27457658  0.08425425
+## sample estimates:
+## mean in group Female Older   mean in group Male Older 
+##                  0.6315716                  0.7267327
+\end{verbatim}
+
+*p-value of 0.2242 suggests that there is no significant difference in
+tolerance proportions between dyads where the male is older and those
+where the female is older at the conventional alpha level of 0.05.
+
+\hypertarget{section-4}{%
+\paragraph{6.1.9.3}\label{section-4}}
+
+\begin{itemize}
+\item
+  Model 3: Absolute age + Age direction \textasciitilde{} tolerance
+\item
+  First lets do a regression model
+\end{itemize}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ToleranceProportion ~ AgeDifference + AgeDirection, 
+##     data = dyad_summary)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7        8 
+## -0.04738  0.14899 -0.05564 -0.04934 -0.08396 -0.04513  0.10302  0.02944 
+## 
+## Coefficients:
+##                        Estimate Std. Error t value Pr(>|t|)    
+## (Intercept)            0.605582   0.069737   8.684 0.000335 ***
+## AgeDifference          0.006127   0.012566   0.488 0.646498    
+## AgeDirectionMale Older 0.102800   0.075076   1.369 0.229212    
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1005 on 5 degrees of freedom
+## Multiple R-squared:  0.2772, Adjusted R-squared:  -0.01193 
+## F-statistic: 0.9588 on 2 and 5 DF,  p-value: 0.4442
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/ABsolute age + Age direction \& Tolerance-1.pdf}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/ABsolute age + Age direction \& Tolerance-2.pdf}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = ToleranceProportion ~ AgeDifference * AgeDirection, 
+##     data = dyad_summary)
+## 
+## Residuals:
+##        1        2        3        4        5        6        7        8 
+## -0.06620  0.14940 -0.03185 -0.05146 -0.08012 -0.04772  0.09805  0.02991 
+## 
+## Coefficients:
+##                                      Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)                          0.608345   0.077844   7.815  0.00145 **
+## AgeDifference                        0.005475   0.014107   0.388  0.71769   
+## AgeDirectionMale Older               0.030261   0.272127   0.111  0.91681   
+## AgeDifference:AgeDirectionMale Older 0.023947   0.085541   0.280  0.79340   
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 0.1113 on 4 degrees of freedom
+## Multiple R-squared:  0.2911, Adjusted R-squared:  -0.2406 
+## F-statistic: 0.5475 on 3 and 4 DF,  p-value: 0.676
+\end{verbatim}
+
+\begin{verbatim}
+## `geom_smooth()` using formula = 'y ~ x'
+\end{verbatim}
+
+\includegraphics{BEX2223_files/figure-latex/ABsolute age + Age direction \& Tolerance-3.pdf}
+
+\begin{itemize}
+\tightlist
+\item
+  Check of model assumptiuons: Residuals vs.~Fitted: Check for linearity
+  and homoscedasticity. Normal Q-Q Plot: Assess normality of residuals.
+  Scale-Location Plot: Check for homoscedasticity. Residuals
+  vs.~Leverage: Identify influential observations.
+\end{itemize}
+
+\hypertarget{age-conclusion}{%
+\paragraph{6.1.9.4 Age Conclusion}\label{age-conclusion}}
+
+\begin{itemize}
+\tightlist
+\item
+  It seems that both age difference and age direction within dyads re
+  not significant and do not predict tolerance rates differences
+\item
+  This may come from the very small sample but we will try to explain
+  tolerance with other factors as rank and intial social bond
+\end{itemize}
+
+\hypertarget{age-class-for-elo-rating-calculations}{%
+\paragraph{6.1.9.5 Age Class for Elo Rating
+Calculations}\label{age-class-for-elo-rating-calculations}}
+
+\hypertarget{elo-rating}{%
+\subsection{6.2 Elo Rating}\label{elo-rating}}
+
+\begin{itemize}
+\item
+  In order to calculate the Elo Rating, I will have to create different
+  files
+
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    \textbf{FinalAgonistic} using the files
+    \textbf{Agonistic2016-2023.csv, Agonistic.csv and Focal.csv}
+  \item
+    \textbf{WinnerLoser} using the newly created
+    \textbf{FinalAgonistic.csv} and \textbf{IVP Life
+    history\_180424.csv}
+  \item
+    \textbf{Elo rating} using presence matrices from the files
+    \textbf{AK2020-2024.csv, BD2020-2024.csv, KB2020-2024.csv,
+    NH2020-2024.csv} and ** WinnerLoser.csv**
+  \end{enumerate}
+\item
+  As males and females hierarchy are distinct I will have to calculate
+  their hierarchies separately
+\item
+  Speciffically for these codes I may have seqcheck() and elo.seq()
+  functions errors as: -First interaction occurred before presence
+  (approx) meaning that there's already an interaction recorded before
+  the male was added into that group in the life history
+
+  \begin{itemize}
+  \tightlist
+  \item
+    In these cases I will have to either change the presence file
+    manually or get rid of interactions before his first presence date.
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{creation-of-final-agonistic}{%
+\subsubsection{6.2.1 Creation of Final
+Agonistic}\label{creation-of-final-agonistic}}
+
+\begin{itemize}
+\item
+  I will now create FinalAgonistic.csv using Agonistic data from 2016 to
+  2023 and maybe the latest agonistic file until May 2023. Also I Focal
+  data from June 2022 until the latest focals (date to check)
+\item
+  \textbf{FinalAgonistic.csv} will combine the above input files after
+  filtering one-on-one interactions (excluding support interactions). It
+  will involve cleaning and merging the raw data from agonistic
+  interactions and focals to prepare it for the winner-loser
+  calculations.
+\item
+  I will use the information of each first experiment day to know when
+  to stop the elo calculations. For each dyad I will take the beggining
+  of the month of the experiment.
+\item
+  \textbf{BD1 \textgreater{} SEPT 2022}
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \tightlist
+  \item
+    Sey Sirk : 14.09.2022
+  \item
+    Xia Piep : 16.09.2022
+  \item
+    Nge Oerw : 22.09.2022
+  \item
+    Xin Ouli : 27.09.2022
+  \end{enumerate}
+\item
+  \textbf{AK \textgreater{} SEPT 2022}
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \setcounter{enumi}{4}
+  \tightlist
+  \item
+    Sho Ginq : 27.09.2022
+  \item
+    Buk Ndaw : 29.09.2022
+  \end{enumerate}
+\item
+  \textbf{BD2 \textgreater{} DEC 2022}
+
+  \begin{enumerate}
+  \def\labelenumi{\alph{enumi}.}
+  \setcounter{enumi}{7}
+  \tightlist
+  \item
+    Kom Oort : 12.12.2022
+  \end{enumerate}
+\item
+  \textbf{NH \textgreater{} MAR 2023}
+
+  \begin{enumerate}
+  \def\labelenumi{\roman{enumi}.}
+  \tightlist
+  \item
+    Pom Xian : 10.03.2023
+  \end{enumerate}
+\item
+  Also, because the lastest dyad starts it's first trial after the
+  \textbf{10.03.2023} I will remove all the elo data after this date
+\item
+  Note that male and female hierarchy are not comparable on the same
+  scale in vervet monkeys so I will have to conduct 8 Elo Ration
+  calcuations
+\item
+  \begin{enumerate}
+  \def\labelenumi{\arabic{enumi}.}
+  \tightlist
+  \item
+    BD1, Will calculate elo for all females in BD group so we can
+    extract the ones of \textbf{Sirk, Piep, Oerw, Ouli} while for males
+    we will look at the rank of \textbf{Sey, Xia, Nge, Xin}I will
+    calculate their elo using the presence data and winner looser data
+    until the \textbf{13.10.2022}
+  \item
+    BD2 will calculate again elo for males and females using the data
+    untill the \textbf{11.12.2022} to extract the elo of \textbf{Kom and
+    Oort} before their first trial day
+  \item
+    For AK, the elo will be calculated in once using the data untill the
+    \textbf{26.09.2022} to then extract rank for females \textbf{Ginq,
+    Ndaw} and males \textbf{Buk, Sho}
+  \item
+    Last Elo calculations for males and females in NH will use data
+    until the \textbf{09.03.23} to extract rank of female \textbf{Xian}
+    and Male\textbf{Pom} \#\#\# 6.2 Female Elo Ratings
+  \end{enumerate}
+\end{itemize}
+
+\hypertarget{elo-ratings}{%
+\subsubsection{6.3Elo Ratings}\label{elo-ratings}}
+
+\hypertarget{select-final-dataset-export-for-manipulation}{%
+\section{SELECT FINAL DATASET \& EXPORT FOR
+MANIPULATION}\label{select-final-dataset-export-for-manipulation}}
+
+\begin{itemize}
+\tightlist
+\item
+  Here are the New Variables to Add -MAge and FAge: Male and female ages
+  in years. -AgeDiff: Absolute difference between MAge and FAge.
+  -IEloDiff: Absolute difference between male and female Elo
+  quartiles.\\
+  -Binomial Variables (Tol, Agg, NotApp): Based on your criteria.
+  -Existing variables in BexClean: ``Date'', ``Month'', ``DyadDay'',
+  ``Trial'', ``Time'', ``Period'', ``Male'', ``Female'', ``Dyad'',
+  ``DyadDistance'', ``Proximity'', ``DyadResponse'',
+  ``SpecialBehaviour'', ``Context'', ``ToleranceBinomial''
+\end{itemize}
+
+\begin{verbatim}
+## # A tibble: 8 x 10
+##   Dyad     Male  Female AgeDifference AgeDirection TotalTrials ToleranceCount
+##   <chr>    <chr> <chr>          <dbl> <chr>              <int>          <dbl>
+## 1 Sey Sirk Sey   Sirk           3.80  Male Older           586            401
+## 2 Xia Piep Xia   Piep           4.87  Female Older         603            473
+## 3 Nge Oerw Nge   Oerw           1.97  Male Older           182            121
+## 4 Sho Ginq Sho   Ginq           0.986 Female Older         281            158
+## 5 Xin Ouli Xin   Ouli          10.1   Female Older         185            108
+## 6 Buk Ndaw Buk   Ndaw           0.255 Female Older         258            145
+## 7 Kom Oort Kom   Oort           3.21  Male Older           367            305
+## 8 Pom Xian Pom   Xian           4.95  Female Older         257            171
+## # i 3 more variables: NoToleranceCount <dbl>, ToleranceProportion <dbl>,
+## #   NoToleranceProportion <dbl>
+\end{verbatim}
+
+\begin{itemize}
+\tightlist
+\item
+  Dyad,IEloDiff, IZDSi, AgeDiff, Date, DyadDay, DyadTrial, Resp, Tol,
+  Agg, NoApp, EloSex
+\end{itemize}
+
+*MAge, FAge,MElo, FElo,
+
+\begin{itemize}
+\tightlist
+\item
+  IDsi mus be calculated using the same amount of time before 1st trial
+  (ex. 60 days before 1st date of trial/dyad)
+\item
+  Elo Diff, must have the same requirement as IDSI for amount of data
+  taken in account
+\item
+  Tol, Agg and NoApp will be binomial variables for Tolerance,
+  Aggression and Not approaching
+\end{itemize}
+
+\hypertarget{research-question}{%
+\section{RESEARCH QUESTION}\label{research-question}}
+
+\begin{itemize}
+\item
+  Variations in Age, Rank, IDSI, and IEloDiff and time spent together
+  (amount of trials on a set period/in general) can explain differneces
+  in tolerance (aggression/not approaching?!) rates in a forced
+  proximity box experiment conducted in wild vervet monkeys
+\item
+  The effects may be moderated by /\textgreater{} Seasonality, Male
+  tenure, Female pregnancy
+\item
+  \ldots{}
+\item
+  Lower variations in age and rank and higher inital social bonds and
+  overall amount of time spent otgether leads to higher rates of
+  tolerance
+\end{itemize}
+
+\hypertarget{statistical-test}{%
+\section{STATISTICAL TEST}\label{statistical-test}}
+
+\begin{itemize}
+\tightlist
+\item
+  glmer
+\item
+  \{lmerTest\} / pTol \textasciitilde{} AmountTrial (totalNtrial vs
+  fixed amount each dyad) + AgeDiff + IEloDiff + IDsi +(Day\textbar{}
+  Dyad)
+\end{itemize}
+
+\hypertarget{remarks}{%
+\section{REMARKS}\label{remarks}}
+
+\begin{itemize}
+\tightlist
+\item
+  IDSI and IEloDiff will be fixed (Same value in all the data set/dyad)
+  because we selected only the initial differences in rank and social
+  bonds
+\item
+  If Tolerance is a proportion it is a bound value btw 1 or 0, beta
+  regression ca be used for bound value or nbinomal model
+\end{itemize}
+
+\hypertarget{tasks}{%
+\section{TASKS}\label{tasks}}
+
+\begin{itemize}
+\item
+  \begin{quote}
+  Check the evolution of the proportion of tolerance per Dyad
+  \end{quote}
+\item
+  \begin{quote}
+  Create new dataset with set varialbles
+  \end{quote}
+\item
+  \begin{quote}
+  \end{quote}
+\item
+  \begin{quote}
+  Create Dataset and export as CSV
+  \end{quote}
+\item
+  \begin{quote}
+  Pom Elo from a month after experiment maybe since we started
+  experiment as soon as he arrived in Noha
+  \end{quote}
+\item
+  \begin{quote}
+  ElO
+  \end{quote}
+
+  \begin{itemize}
+  \tightlist
+  \item
+    Rank / Similar, MaleHigh, FemaleHigh but mention that diff,
+    hiereachire for male and female elo but because we suppose
+    interaction higer sex and rank
+  \item
+    Diff between quartile values \textgreater{} take absolute difference
+    and the 3 categories to see if inclunece of higher sex /rank
+  \end{itemize}
+\end{itemize}
+
+\hypertarget{questions}{%
+\section{QUESTIONS}\label{questions}}
+
+\begin{itemize}
+\tightlist
+\item
+  Seasonality?
+\item
+  Male Tenure (Years 7 3 cat?) / Female Pregnancy (17= if bb for 3 month
+  = yes if not 0)
+\item
+  Level of habituation, food availability (proxmiity with seasonality),
+  temperature, group size, amount of males in group, previous
+  interactions\ldots.
+\end{itemize}
+
+Paper to read: Factors affecting tolerance persistence after grooming
+interactions in wild female vervet monkeys, Chlorocebus pygerythrus
+
+therotical background Background: How do individual fogr relationship ,
+how does life history diff impact how these relationships
+
+Goal /Cooperation
+
+Evolution of tolerance, creation of relationship, fwhat foactors change
+that, food eovolution of social bonds, goal, group living male female
+realtionhsip, friendhsips
+
+why are picky
+
+Tolerance
 
 \hypertarget{to-sort-not-finished}{%
 \section{TO SORT; NOT FINISHED}\label{to-sort-not-finished}}
@@ -3788,8 +4701,8 @@ done}\label{sections-below-are-here-for-the-organization-of-my-paper-and-will-be
 \subsection{5.Research question \&
 Hypothesis}\label{research-question-hypothesis}}
 
-\hypertarget{research-question}{%
-\subsubsection{Research question}\label{research-question}}
+\hypertarget{research-question-1}{%
+\subsubsection{Research question}\label{research-question-1}}
 
 \begin{itemize}
 \item
@@ -4407,7 +5320,5 @@ Josefien; Michael; Ona; Zonke &
 \{7A4E6639-7387-7648-88EC-7FD27A0F258A\} \\
 \bottomrule
 \end{longtable}
-
-```beforeNA
 
 \end{document}
