@@ -154,251 +154,342 @@ plot(ctree(factor(Tol) ~  IzELO  + IzDSI +  AgeDiff + Season + VervetSeason + To
 #Selects the best subset of these predictors (main effects and interactions) by optimizing AIC, ensuring the model is neither overfit nor underfit.
 
 
+#MAIN PREDICTORS
+tri1 <- stepAIC(glm(Tol ~ (AgeDiff + IzDSI + IzELO + VervetSeason)^2, 
+                   family = binomial, data = BexFinal))
+  #Final model = Tol ~ AgeDiff + IzDSI + IzELO + VervetSeason + AgeDiff:IzDSI + AgeDiff:VervetSeason + IzDSI:VervetSeason
 
-tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + IzELO + VervetSeason)^2, 
+#MAIN PREDICTORS WTH SEASON (INSTEAD OF V.SEASON)
+tri1season <- stepAIC(glm(Tol ~ (AgeDiff + IzDSI + IzELO + Season)^2, 
+                    family = binomial, data = BexFinal))
+
+#MAIN + SECONDARY PREDICTORS
+tri2 <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + IzELO + HigherElo + VervetSeason)^2,
+                 family = binomial, data = BexFinal))
+
+#MAIN + ALL PREDICTORS
+tri3 <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + IzELO + HigherElo + VervetSeason + TenureYears + BB)^2, 
                    family = binomial, data = BexFinal))
   
-  # BEST MODEL WITH AIC 1
-  #Tol ~ AgeDiff + AgeDir + IzELO + VervetSeason + AgeDiff:IzELO + AgeDiff:VervetSeason
-  
-
-
-tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + BB + TenureYears + IzELO + IzDSI+HigherElo+
-                            VervetSeason + BirthGp), binomial, data= BexFinal)) 
-  # BEST MODEL WITH AIC 2
-  # Tol ~ AgeDiff + AgeDir + TenureYears + IzELO + IzDSI + HigherElo + VervetSeason
-
-
-tri <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + BB + TenureYears + IzELO + IzDSI+HigherElo+
-                            VervetSeason + BirthGp)^2, binomial, data= BexFinal)) 
-  # BEST MODEL WITH AIC 3
-  # Tol ~ AgeDiff + AgeDir + TenureYears + IzELO + IzDSI + HigherElo + VervetSeason
-
+#MODEULATED MODEL FROM PREVIOUS OUTPUTS
+tri4 <- stepAIC(glm(Tol ~ (AgeDiff + IzELO + IzDSI + VervetSeason + AgeDiff:IzDSI + AgeDiff:VervetSeason + IzELO:VervetSeason)^2,
+                    family = binomial, data = BexFinal))
+#>BEST AIC 
 
 
 #Impact of Variables and Interactions:
   
-  #Significant Variables: AgeDiff, AgeDir, IzELO, and VervetSeason consistently remain in the final models. This suggests their importance in explaining Tol.
-  #Non-Significant Variables:
+  #Significant Variables: AgeDiff, IzELO, IzDSI and VervetSeason consistently remain in the final models. This suggests their importance in explaining Tol.
+  #Non-Significant Variables: BB, Male Tenure, and variations for AgeDir and HigherElo
   #BB was consistently removed, indicating it doesn't significantly explain variation.
   #HigherElo and IzDSI are retained in some runs, but their contributions are marginal.
 
+# Season vs Vervet Season: check which predictor to keep
+
+# Model with VervetSeason
+model.vervet <- glmer(
+  Tol ~ IzELO + AgeDiff + IzDSI + VervetSeason + (1|Dyad) + (1|Date),
+  binomial,
+  data = BexFinal
+)
 
 
+# Model with Season
+model.season <- glmer(
+  Tol ~ IzELO + AgeDiff + IzDSI + Season + (1|Dyad) + (1|Date),
+  binomial,
+  data = BexFinal
+)    
+AIC(model.vervet, model.season)
+anova(model.vervet, model.season)
 
+
+# MAIN PREDICTORS 
 # 1 MODEL BIN1 :
   #ELO, DSI AGEDIFF
-model.bin1 <- glmer(Tol ~ IzELO  +  AgeDiff + IzDSI
+model.mainpred <- glmer(Tol ~ IzELO  + AgeDiff + IzDSI
                   +(1|Dyad) + (1|Date), binomial, data= BexFinal)  # add here all 
-  summary(model.bin1)
-  Anova(model.bin1)
+  summary(model.mainpred)
+  Anova(model.mainpred)
 
-# DHARMA BIN1
-# Model assumptions:
-simulationOutput <- simulateResiduals(fittedModel = model.bin1, plot = F)
-# 1) Overdispersion. no need for binomial models
-testDispersion(model.bin1)
-# 2) Plot, looking for HOMOSCEDASTICITY and outliers
-plot(simulationOutput)
+  # AIC 3058.4
+  # VARIANCE RANDOM EFFECT. 
+  # DATE = 0.29, DYAD = 0.02
+  # SIGNIFICANT VARIABLES 
+  # IZELO***, AGEDIFF*
+  # NOT SIGNIFICANT 
+  # IZDSI
 
 
-
+# MAIN PREDICTORS + SECONDARY PREDICTORS
 # 2 MODEL BIN2 :
-  # HIGHER ELO + AGE DIR
+  # ADDITION OF: HIGHER ELO + AGE DIR
   # KEEP ELO, AGEDIFF
   # REMOVE DSI 
 
   # MODEL BIN2 :
-model.bin2 <- glmer(Tol ~ IzELO  +  AgeDiff + AgeDir + HigherElo
+model.2ndpred <- glmer(Tol ~ IzELO  +  AgeDiff + AgeDir + HigherElo + IzDSI
                     +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-  summary(model.bin2)
-  Anova(model.bin2)
+  summary(model.2ndpred)
+  Anova(model.2ndpred)
+  
+  # AIC 3060.5
+  # VARIANCE RANDOM EFFECT. 
+  # DATE = 0.29, DYAD = 0.14
+  # SIGNIFICANT VARIABLES 
+  # IZELO***, AGEDIFF*
+  # NOT SIGNIFICANT 
+  # IZDSI, AGEDIR, HIGHERELO
 
+  
+ # MAIN PREDICTORS + SECONDARY PREDICTORS + INTERACTIONS
   # MODEL BIN2B :  
-model.bin2B <- glmer(Tol ~ IzELO*HigherElo+ AgeDiff*AgeDir +
+model.bin2B <- glmer(Tol ~ IzELO*HigherElo+ AgeDiff*AgeDir + IzDSI
                       +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-  summary(model.bin2)
-  Anova(model.bin2)
+  summary(model.bin2B)
+  Anova(model.bin2B)
   
-  # MODEL BIN2C
-model.bin2c <- glmer(Tol ~ IzELO + HigherElo+ AgeDiff + AgeDir +
-                         +(1|Dyad) , binomial, data= BexFinal) 
-  summary(model.bin2c)
-  Anova(model.bin2c)
+  # AIC 3052.6
+  # VARIANCE RANDOM EFFECT. 
+  # DATE = 32.962e-01, DYAD = 2.202e-05.929e-10 1.712e-05
+  # SIGNIFICANT VARIABLES 
+  # IZELO***, AGEDIFF**, IzDSI **
+  # HigherEloMale***, IzELo:HigherEloMale*** 
+  # NOT SIGNIFICANT
+  # AGEDIRMALE OLDER, AGEDIFF:AGEDIRMALE OLDER
   
-  # No BIG difference with in MODEL BIN2, MODELBIN2B, MODELBIN2C
+  
+  # N MODEL BIN2BC, IS BETTER MDOEL 
   # IzElo significant
   
-  # DHARMA BIN2
-  # Model assumptions:
-  simulationOutput <- simulateResiduals(fittedModel = model.bin2, plot = F)
-  # 1) Overdispersion. no need for binomial models
-  testDispersion(model.bin2)
-  # 2) Plot, looking for HOMOSCEDASTICITY and outliers
-  plot(simulationOutput)
   
-
-  
-
-  
-
-# 3 MODEL BIN3:
-  # KEEP IZELO
-  # TEST WITH OR WITHOUT AGEDIR
-  # ADD SEASON, VSEASON, TOTALTRIALS + BIRTHGP
-  
-  model.bin3 <- glmer(Tol ~ IzELO + AgeDiff + Season + VervetSeason + BirthGp 
-  +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-summary(model.bin3)
-Anova(model.bin3)
-
-#Dharma check
-# MOD 3
-# Model assumptions:
-simulationOutput <- simulateResiduals(fittedModel = model.bin3, plot = F)
-# 1) Overdispersion. no need for binomial models
-testDispersion(model.bin3)
-# 2) Plot, looking for HOMOSCEDASTICITY and outliers
-plot(simulationOutput)
- 
-  # Final model with significant
-
-    # Model check
-    qqnorm(resid(model.bin))  # outliers
-    plot(model.bin) # homogeneity
-    bwplot(resid(model.bin) ~ VervetSeason, data=BexFinal) # homogeneity
-    xyplot(resid(model.bin) ~ IzDSI, type=c("p", "smooth"), data=BexFinal) # homogeneity
-    qqmath(ranef(model.bin))  # normality
-    simulateResiduals(fittedModel = model.bin, plot = T)
     
-    #Dharma check
-    # MOD 1
-    # Model assumptions:
-    simulationOutput <- simulateResiduals(fittedModel = model.bin, plot = F)
-    # 1) Overdispersion. no need for binomial models
-    testDispersion(model.bin)
-    # 2) Plot, looking for HOMOSCEDASTICITY and outliers
-    plot(simulationOutput)
-    
-    
-    
-    model.bin3 <- glmer(Tol ~ IzELO + AgeDiff + Season + VervetSeason + BirthGp 
-                        +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-    
-    
-    
-# Season vs Vervet Season: check which predictor to keep
-    
-    # Model with VervetSeason
-    model.vervet <- glmer(
-      Tol ~ IzELO + AgeDiff + AgeDir + VervetSeason + (1|Dyad) + (1|Date),
-      binomial,
-      data = BexFinal
-    )
-    
-    # Model with Season
-    model.season <- glmer(
-      Tol ~ IzELO + AgeDiff + AgeDir + Season + (1|Dyad) + (1|Date),
-      binomial,
-      data = BexFinal
-    )
-    
-    # Compare AIC
-    AIC(model.vervet, model.season)
-    # Lower AIC for model.vervet indicates VervetSeason is better
-    
-# 4 MODEL 4:
+# 3 MODEL 3:
   # Adding Gender-Specific Interaction Terms to Model
     # Interactions tested are Agedir*HigherElo + AgeDir*VervetSeason
-    model.bin4 <- glmer(
-      Tol ~ IzELO + AgeDiff + AgeDir + HigherElo + VervetSeason + BirthGp +
+    model.bin3 <- glmer(
+      Tol ~ IzELO + AgeDiff + AgeDir + HigherElo + VervetSeason + 
         AgeDir:HigherElo + AgeDir:VervetSeason + (1|Dyad) + (1|Date),
       binomial,
       data = BexFinal
     )
+    summary(model.bin3)
+    Anova(model.bin3)
+    
+    
+    # AIC 3022.6 (lowest for now) 
+    # VARIANCE RANDOM EFFECT. 
+    # DATE = 0.78, DYAD = 0.06
+    # SIGNIFICANT VARIABLES 
+    # IZELO***, VERVETSEASONS*** AGEDIFF**,
+    # HigherEloMale***, IzELo:HigherEloMale*** 
+    # NOT SIGNIFICANT
+    # IZDSI, AGEDIR, HIGHERELO,AGEDIR:HIGHERELO, AGEDIR:VERVETSEASON
+
+    
+# REMOVAL OF AGEDIR AND ADDITION OF BIRTHGROUP
+#MOD 4
+    model.bin4 <- glmer(Tol ~ IzELO + HigherElo + AgeDiff + VervetSeason + BirthGp 
+                        +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
     summary(model.bin4)
     Anova(model.bin4)
+    # AIC 3010.4 (lowest for now) 
+    # VARIANCE RANDOM EFFECT. 
+    # DATE = 6.933e-02, DYAD = 6.647e-08
+    # SIGNIFICANT VARIABLES 
+    # IZELO***, VERVETSEASONS*** AGEDIFF**, BIRTHGP
+    #
+    # NOT SIGNIFICANT
+    # HIGHERELO
     
     
-    
 
-    #MOD 5
-    model.bin5 <- glmer(Tol ~ IzELO + HigherElo + AgeDiff +AgeDir + VervetSeason + BirthGp 
-                        +(1|Dyad) + (1|Date), binomial, data= BexFinal) 
-    summary(model.bin5)
-    Anova(model.bin5)
-    
-    
-    
+# COMBINED MODEL WITH INTERACTIONS
+# MOD 5 
+  model.bin5 <- glmer(Tol ~  AgeDiff + IzELO + IzDSI + VervetSeason + AgeDiff:VervetSeason + BirthGp
+                             + (1|Date), 
+                              control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                               family = binomial,
+                               data = BexFinal
+  )
 
-  
-plot(effect("IzELO", model.bin), type="response")
-plot(effect("AgeDiff", model.bin))
-plot(effect("IzDSI", model.bin))
-plot(effect("VervetSeason", model.bin))
-
-      
-
-
-
-
-# MOD TEST
-  model.binvlast <- glmer(Tol ~ IzELO + VervetSeason + BirthGp + AgeDir:VervetSeason + 
-                            TenureYears:VervetSeason + IzELO:VervetSeason + (1|Date), binomial, data= BexFinal) 
-summary(model.binvlast)
-Anova(model.binvlast)
-
-# BIN 5
-
-
-model.bin5 <- glmer(formula = Tol ~ AgeDir + TenureYears + IzELO + 
-                          VervetSeason + BirthGp +  AgeDir:VervetSeason + 
-                          TenureYears:VervetSeason + IzELO:VervetSeason
-                        +(1|Dyad)+(TrialDay|Dyad:Date), 
-                        control=glmerControl(optimizer="bobyqa", optCtrl=list(maxfun=100000)),
-                        binomial, data= BexFinal) 
 
 summary(model.bin5)
 Anova(model.bin5)
+# AIC 3004.8 (lowest for now) 
+# VARIANCE RANDOM EFFECT. 
+# DATE = 0.0896
+# SIGNIFICANT VARIABLES 
+# IZELO***, VERVETSEASONS*** AGEDIFF**, BIRTHGP**, AGEDIFF:VERVETSEASON
+#
+# NOT SIGNIFICANT
+# IZDSI
 
 
 
 
 
+# MOD 6
+model.bin6 <- glmer(Tol ~  AgeDiff + IzELO  + VervetSeason + AgeDiff:VervetSeason + BirthGp
+                    + (1|Date), 
+                    control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                    family = binomial,
+                    data = BexFinal
+)
+summary(model.bin6)
+Anova(model.bin6)
+# AIC 3004.0 (lowest for now) 
+# VARIANCE RANDOM EFFECT. 
+# DATE = 0.0675 
+# SIGNIFICANT VARIABLES 
+# IZELO***, VERVETSEASONS*** AGEDIFF**, BIRTHGP**, AGEDIFF:VERVETSEASON*
+#
+# NOT SIGNIFICANT
+#NONE
 
 
-
-# BIN FINAL
-
-# Final Model
-final_model <- glmer(
-  Tol ~ IzDSI:TenureYears + IzELO:AgeDir + VervetSeason + AgeDiff:AgeDir + 
-    AgeDir:VervetSeason + TenureYears:VervetSeason + (1|Date),
-  control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
-  family = binomial,
-  data = BexFinal
+# Model 7
+# Bin 7
+model.bin7 <- glmer(Tol ~ AgeDiff + IzELO + VervetSeason + AgeDiff:IzELO + AgeDiff:VervetSeason + 
+                      IzELO:VervetSeason 
+                    + (1|Date), 
+                    control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                    family = binomial,
+                    data = BexFinal
 )
 
-# Summary of the final model
-summary(final_model)
-Anova(final_model)
+summary(model.bin7)
+anova(model.bin7)
 
+
+
+# Model Bin 8, 
+    # REMOVAL OF BIRTHGP
+    # ADDITION OF INTERACTIONS OF INTEREST
+      # AgeDiff:VervetSeason  
+
+model.bin8 <- glmer(Tol ~  AgeDiff + IzELO  + IzDSI+  VervetSeason + AgeDiff:VervetSeason +IzDSI:TenureYears + TenureYears:VervetSeason + AgeDir:VervetSeason 
+                     + (1|Date), 
+                     control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                     family = binomial,
+                     data = BexFinal
+)
+
+# AIC 3004.7 (lowest for now) 
+# VARIANCE RANDOM EFFECT. 
+# DATE = 0.06601 
+# SIGNIFICANT VARIABLES 
+# IZELO***, VERVETSEASONS***, BIRTHGP, AGEDIFF**
+#  
+# NONE
+
+
+
+
+
+#  MODEL WITH DSI
+  # PREDICTORS: AGEDIFF, IZELO, VERVETSEASON, DSI
+  # INTERACTIONS: AGEDIFF: VERVET SEASON + AGEDIFF:VERVETSEASON + AGEDIFF:IZELO
+
+
+
+
+model.finaldsi <- glmer(Tol ~  AgeDiff + IzELO  + IzDSI + VervetSeason + AgeDiff:VervetSeason + AgeDiff:IzELO
+                     + (1|Date), 
+                     control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                     family = binomial,
+                     data = BexFinal
+)
+summary(model.finaldsi)
+Anova(model.finaldsi)
+
+# AIC 3004.3
+# VARIANCE RANDOM EFFECT
+# DATE: 0.07117
+
+
+
+#########################
+
+
+# FINAL & MODEL
+# PREDICTORS: AGEDIFF, IZELO, VERVETSEASON
+# INTERACTIONS:AGEDIFF:VERVETSEASON + AGEDIFF:IZELO
+
+
+# final model need DSI to be removed
+
+final.model <- glmer(Tol ~  AgeDiff + IzELO + VervetSeason + AgeDiff:VervetSeason + AgeDiff:IzELO 
+                     + (1|Date), 
+                     control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                     family = binomial,
+                     data = BexFinal
+)
+
+summary(final.model)
+Anova(final.model)
+# AIC 3003.0 (lowest for now) 
+# VARIANCE RANDOM EFFECT. 
+# DATE = 0.06912 
+# SIGNIFICANT VARIABLES 
+# IZELO***, VERVETSEASONS***, AGEDIFF**
+# AGEDIFF:IZELO***, AGEDIFF:VERVETSEASON
+# NONE
+
+
+
+# ANOVA TYPE II
 # Analysis of Deviance (Type II Wald Chi-square test)
-Anova(final_model, type = "II")
+Anova(final.model, type = "II")
 
 
 
-# Dispersion Check
-simulationOutput <- simulateResiduals(fittedModel = final_model, plot = FALSE)
-testDispersion(simulationOutput)
+#EFFECT PLOTS
+plot(effect("IzELO", final.model), type="response")
+plot(effect("AgeDiff", final.model))
+plot(effect("VervetSeason", final.model))
+
+# Visualizing interactions
+plot(effect("AgeDiff:VervetSeason", final.model))
+plot(effect("AgeDiff:IzELO", final.model))
+
+
+# Final model with significant
+
+# Model check
+qqnorm(resid(final.model))  # outliers
+plot(final.model) # homogeneity
+bwplot(resid(final.model) ~ VervetSeason, data=BexFinal) # homogeneity
+xyplot(resid(final.model) ~ IzDSI, type=c("p", "smooth"), data=BexFinal) # homogeneity
+qqmath(ranef(final.model))  # normality
+simulateResiduals(fittedModel = final.model, plot = T)
+
+#Dharma check
+# MOD 1
+# Model assumptions:
+simulationOutput <- simulateResiduals(fittedModel = final.model, plot = F)
+# 1) Overdispersion. no need for binomial models
+testDispersion(final.model)
 #The dispersion test ensures there is no overdispersion in the model. A p-value > 0.05 confirms the model is appropriately specified.
-
+# p value of 0.096
 
 # Residual Diagnostics
+# 2) Plot, looking for HOMOSCEDASTICITY and outliers
 plot(simulationOutput)
+
+
+
+
+
+
+
+
+
+
 # Check for homoscedasticity (residuals vs predictors)
 plotResiduals(simulationOutput, form = BexFinal$IzELO)
 plotResiduals(simulationOutput, form = BexFinal$AgeDiff)
+plotResiduals(simulationOutput, form = BexFinal$VervetSeason)
 # Outlier check
 testOutliers(simulationOutput)
 # The residual plots confirm that residuals are evenly distributed (no patterns) and there are no significant outliers (p > 0.05).
@@ -407,7 +498,7 @@ testOutliers(simulationOutput)
 
 # Variance Inflation Factor (VIF)
 vif_model <- lm(
-  Tol ~ IzELO + AgeDir + AgeDiff + VervetSeason + TenureYears,
+  Tol ~ AgeDiff + IzELO + VervetSeason + AgeDiff:VervetSeason + AgeDiff:IzELO,
   data = BexFinal
 )
 vif(vif_model)
@@ -420,55 +511,47 @@ vif(vif_model)
 
 # Null model without random effects for comparison
 null_model <- glm(
-  Tol ~ IzDSI:TenureYears + IzELO:AgeDir + VervetSeason + AgeDiff:AgeDir + 
-    AgeDir:VervetSeason + TenureYears:VervetSeason,
+  Tol ~ AgeDiff + IzELO + VervetSeason + AgeDiff:VervetSeason + AgeDiff:IzELO 
+  , 
   family = binomial,
   data = BexFinal
 )
 
 # Likelihood ratio test for random effect of Date
-anova(final_model, null_model, test = "Chisq")
+anova(final.model, null_model, test = "Chisq")
 
-
-
-
-
-
+####### CORRECT HERE
 # Check random effect correlations
-rePCA_result <- rePCA(final_model)
+rePCA_result <- rePCA(final.model)
 print(rePCA_result)
 plot(rePCA_result)
 
 
-
-
-
-
+##### EXPLANATIONS
 # Calculate R² for fixed and random effects
 library(MuMIn)
-r.squaredGLMM(final_model)
+r.squaredGLMM(final.model)
 
 
 
 
-# Visualizing interactions
-library(effects)
-plot(effect("IzDSI:TenureYears", final_model))
-plot(effect("TenureYears:VervetSeason", final_model))
-plot(effect("AgeDir:VervetSeason", final_model), x.var = "AgeDir")
 
-
-
-
+AgeDiff:VervetSeason + AgeDiff:IzELO 
 
 # post hocs:
 # Post-hoc analyses for interaction effects
 library(emmeans)
-emtrends(final_model, "VervetSeason", var = "TenureYears")
-pairs(emtrends(final_model, "VervetSeason", var = "TenureYears"))
+emtrends(final.model, "VervetSeason", var = "AgeDiff")
+pairs(emtrends(final.model, "VervetSeason", var = "AgeDiff"))
+
+
+emtrends(final.model, "IzELO", var = "AgeDiff")
+pairs(emtrends(final.model, "IzELO", var = "AgeDiff"))
+
+
 
 # Pairwise comparisons for IzELO across VervetSeason
-pairs(emmeans(final_model, "IzELO", by = "VervetSeason"))
+pairs(emmeans(final.model, "AgeDiff", by = "IzElo"))
 
 
 
@@ -478,7 +561,7 @@ pairs(emmeans(final_model, "IzELO", by = "VervetSeason"))
 
 
 
-
+###### UPDATE RESULTS
 
 #Significant Effects
 #Main Effects:
@@ -499,4 +582,4 @@ pairs(emmeans(final_model, "IzELO", by = "VervetSeason"))
 
 
 
-#
+
