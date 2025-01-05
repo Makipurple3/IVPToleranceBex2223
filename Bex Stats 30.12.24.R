@@ -520,23 +520,14 @@ null_model <- glm(
 # Likelihood ratio test for random effect of Date
 anova(final.model, null_model, test = "Chisq")
 
-####### CORRECT HERE
-# Check random effect correlations
-rePCA_result <- rePCA(final.model)
-print(rePCA_result)
-plot(rePCA_result)
 
 
-##### EXPLANATIONS
 # Calculate R² for fixed and random effects
 library(MuMIn)
 r.squaredGLMM(final.model)
 
 
 
-
-
-AgeDiff:VervetSeason + AgeDiff:IzELO 
 
 # post hocs:
 # Post-hoc analyses for interaction effects
@@ -551,12 +542,12 @@ pairs(emtrends(final.model, "IzELO", var = "AgeDiff"))
 
 
 # Pairwise comparisons for IzELO across VervetSeason
-pairs(emmeans(final.model, "AgeDiff", by = "IzElo"))
+pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
 
 
 
-
+#The results indicate that AgeDiff interacts significantly with VervetSeason and IzELO to influence tolerance, with differences across seasons and dominance ranks.
 
 
 
