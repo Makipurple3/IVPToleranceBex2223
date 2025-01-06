@@ -1,9 +1,12 @@
+packageVersion("EloRating")
 
 
 # AGE & CLASS
 
 # Load necessary packages
 library(data.table)
+library(dplyr)
+
 
 # Import data
 LHdata <- read.csv("/Users/maki/Desktop/Master Thesis/Josies Codes/IVP Life history_180424.csv", 
@@ -82,6 +85,8 @@ LHdata %>%
 
 
 
+LHdata %>% filter(Code %in% dyad_ids) %>% select(Code, Age, AgeClass)%>%
+  print()
 
 
 

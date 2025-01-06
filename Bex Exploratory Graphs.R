@@ -1,6 +1,12 @@
 # Load libraries
 library(ggplot2)
 library(dplyr)
+library(gridExtra)
+library(gt)
+packageVersion("vctrs")
+library(lubridate) # For date manipulation
+
+
 
 #OPEN BEXFINAL
 BexFinal <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexFinal.csv")
@@ -27,6 +33,25 @@ TrialSummary <- BexFinal %>%
 # Display the summary table in the console
 TrialSummary
 
+# Create a table plot
+
+
+# Create a styled table
+# Create a styled table
+TrialSummary %>%
+  gt() %>%
+  tab_header(
+    title = "Trial Summary",
+    subtitle = "Total Trials per Dyad"
+  ) %>%
+  cols_label(
+    Dyad = "Dyad",
+    Male = "Male",
+    Female = "Female",
+    BirthGp = "Birth Group",
+    TotalTrials = "Total Trials"
+  )
+
 # Check the mean value
 mean_trials <- mean(TrialSummary$TotalTrials, na.rm = TRUE) # Recalculate mean ignoring NAs
 
@@ -46,12 +71,14 @@ ggplot(TrialSummary, aes(x = reorder(Dyad, -TotalTrials), y = TotalTrials, fill 
   theme(axis.text.x = element_text(angle = 45, hjust = 1))
 
 
+# AMount of days of trial
+
+# Create the summary table with max TrialDay
 
 
 
 
-
-# Table Dyad x DyadResponse
+# Table Dyad x DyadResponse frequency
 
 # Graph Dyad X DyadResponse
 
@@ -59,3 +86,12 @@ ggplot(TrialSummary, aes(x = reorder(Dyad, -TotalTrials), y = TotalTrials, fill 
 
 # Graph evolution date, dyad + display seasons
 
+#TOLERANCE
+  # BAR PLOTS OF TOLERANCE VS NO TOLERANCE PER DYAD
+
+
+
+
+
+
+# Distance x Tolerance

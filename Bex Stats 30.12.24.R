@@ -175,7 +175,10 @@ tri3 <- stepAIC(glm(Tol ~ (AgeDiff + AgeDir + IzELO + HigherElo + VervetSeason +
 tri4 <- stepAIC(glm(Tol ~ (AgeDiff + IzELO + IzDSI + VervetSeason + AgeDiff:IzDSI + AgeDiff:VervetSeason + IzELO:VervetSeason)^2,
                     family = binomial, data = BexFinal))
 #>BEST AIC 
-
+#>
+# Tests
+tri5 <-stepAIC(glm(Tol ~  ( IzELO + VervetSeason  + AgeDir + HigherElo+ AgeDiff:IzELO + IzELO:VervetSeason + AgeDiff:VervetSeason +AgeDiff:IzELO:VervetSeason)^2,
+                    family = binomial, data = BexFinal))
 
 #Impact of Variables and Interactions:
   
@@ -374,6 +377,8 @@ model.bin8 <- glmer(Tol ~  AgeDiff + IzELO  + IzDSI+  VervetSeason + AgeDiff:Ver
                      family = binomial,
                      data = BexFinal
 )
+summary(model.bin8)
+anova(model.bin8)
 
 # AIC 3004.7 (lowest for now) 
 # VARIANCE RANDOM EFFECT. 
@@ -385,7 +390,50 @@ model.bin8 <- glmer(Tol ~  AgeDiff + IzELO  + IzDSI+  VervetSeason + AgeDiff:Ver
 
 
 
+# Model Bin 9, 
+# REMOVAL OF 
+# ADDITION OF INTERACTIONS OF INTEREST
+#  
 
+model.bin9 <- glmer(Tol ~  AgeDiff + IzELO + VervetSeason  + AgeDiff:IzELO:VervetSeason
+                    + (1|Date), 
+                    control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                    family = binomial,
+                    data = BexFinal
+)
+summary(model.bin9)
+anova(model.bin9)
+
+
+# AIC
+# VARIANCE RANDOM EFFECT. 
+# DATE = 
+# SIGNIFICANT VARIABLES 
+#  
+
+
+#mod10
+model.bin10 <- glmer(Tol ~ IzELO + VervetSeason + AgeDiff + BirthGp  + BB:VervetSeason + IzDSI:TenureYears +(1|Date), 
+                     control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                     family = binomial,
+                     data = BexFinal
+)
+summary(model.bin10)
+anova(model.bin10)
+
+
+# mod11
+model.11 <- glmer(Tol ~  AgeDiff + IzELO  + IzDSI + VervetSeason + BirthGp +AgeDiff:VervetSeason +AgeDiff:IzELO
+                        + (1|Date), 
+                        control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 100000)),
+                        family = binomial,
+                        data = BexFinal
+)
+
+summary(model.11)
+anova(model.11)
+
+##################
 
 #  MODEL WITH DSI
   # PREDICTORS: AGEDIFF, IZELO, VERVETSEASON, DSI
@@ -489,7 +537,7 @@ plot(simulationOutput)
 # Check for homoscedasticity (residuals vs predictors)
 plotResiduals(simulationOutput, form = BexFinal$IzELO)
 plotResiduals(simulationOutput, form = BexFinal$AgeDiff)
-plotResiduals(simulationOutput, form = BexFinal$VervetSeason)
+plotResiduals(simulationOutput, form = BexFinal$VervetSeason) 
 # Outlier check
 testOutliers(simulationOutput)
 # The residual plots confirm that residuals are evenly distributed (no patterns) and there are no significant outliers (p > 0.05).
@@ -546,7 +594,7 @@ pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
 
 
-
+ 
 #The results indicate that AgeDiff interacts significantly with VervetSeason and IzELO to influence tolerance, with differences across seasons and dominance ranks.
 
 

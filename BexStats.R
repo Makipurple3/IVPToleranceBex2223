@@ -1,3 +1,6 @@
+RStudio.Version()
+
+
 # Load libraries
 library(dplyr)
 library(ggplot2)
