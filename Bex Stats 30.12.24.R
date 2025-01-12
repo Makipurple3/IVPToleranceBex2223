@@ -126,6 +126,7 @@ cdplot(factor(Tol) ~  TotalTrials, data = BexFinal)
 cdplot(factor(Tol) ~  IzELO, data = BexFinal)
 cdplot(factor(Tol) ~  AgeDiff, data = BexFinal)
 cdplot(factor(Tol) ~  Season, data = BexFinal)
+cdplot(factor(Tol) ~  VervetSeason, data = BexFinal)
 cdplot(factor(Tol) ~  TenureYears, data = BexFinal)
 
 #cdplot(factor(Tol) ~  HigherElo, data = BexFinal)
@@ -476,7 +477,7 @@ final.model <- glmer(Tol ~  AgeDiff + IzELO + VervetSeason + AgeDiff:VervetSeaso
 
 summary(final.model)
 Anova(final.model)
-# AIC 3003.0 (lowest for now) 
+# AIC 3004.0 (lowest for now) 
 # VARIANCE RANDOM EFFECT. 
 # DATE = 0.06912 
 # SIGNIFICANT VARIABLES 
@@ -622,3 +623,49 @@ pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
 
 
+# AGE DIFF
+
+# Calculate range
+age_diff_range <- range(BexFinal$AgeDiff, na.rm = TRUE)
+
+# Calculate mean
+age_diff_mean <- mean(BexFinal$AgeDiff, na.rm = TRUE)
+
+# Calculate standard deviation
+age_diff_sd <- sd(BexFinal$AgeDiff, na.rm = TRUE)
+
+# Display results
+list(
+  Range = age_diff_range,
+  Mean = age_diff_mean,
+  StandardDeviation = age_diff_sd
+)
+
+
+# AGE DIR
+# Calculate range
+table(BexFinal$Dyad, BexFinal$AgeDir)
+
+#ELO
+
+range(BexFinal$IzELO)
+mean(BexFinal$IzELO)
+sd(BexFinal$IzELO)
+
+table(BexFinal$Dyad, BexFinal$IzELO)
+table(BexFinal$Dyad, BexFinal$HigherElo) 
+
+
+# DSI
+range(BexFinal$IzDSI)
+mean(BexFinal$IzDSI)
+sd(BexFinal$IzDSI)
+
+#TENURE YEARS
+range(BexFinal$TenureYears)
+mean(BexFinal$TenureYears)
+sd(BexFinal$TenureYears)
+
+
+#BB
+table(BexFinal$Dyad,BexFinal$BB)
