@@ -369,6 +369,7 @@ Anova(final.model, type = "II")
 
 
 
+
 #EFFECT PLOTS
 plot(effect("IzELO", final.model), type="response")
 plot(effect("AgeDiff", final.model))
@@ -455,6 +456,14 @@ r.squaredGLMM(final.model)
 
 
 # post hocs:
+# post hocs for single effects
+pairs(emmeans(final.model, ~ VervetSeason))
+
+emmeans(final.model, ~ IzELO)
+emmeans(final.model, ~ AgeDiff)
+
+
+
 # Post-hoc analyses for interaction effects
 library(emmeans)
 emtrends(final.model, "VervetSeason", var = "AgeDiff")
@@ -465,9 +474,10 @@ emtrends(final.model, "IzELO", var = "AgeDiff")
 pairs(emtrends(final.model, "IzELO", var = "AgeDiff"))
 
 
-
 # Pairwise comparisons for IzELO across VervetSeason
 pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
+
+
 
 
 
@@ -477,25 +487,7 @@ pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
 
 
-###### UPDATE RESULTS
-
-#Significant Effects
-#Main Effects:
-#IzDSI:TenureYears (p < 0.05): Longer tenures with higher dominance scores significantly increase tolerance.
-#VervetSeason (p < 0.001): Mating and winter seasons show higher tolerance compared to summer and baby seasons.
-#IzELO:AgeDir (p < 0.001): Rank effects (IzELO) interact with age differences to influence tolerance.
-#Interactions:
-#TenureYears:VervetSeason (p < 0.001): Seasonal changes moderate the effect of tenure on tolerance.
-#Non-Significant Effects
-#AgeDirMale Older:VervetSeasonWinter and AgeDirMale Older:VervetSeasonBaby (p > 0.1): These could be removed to simplify the model, but they align structurally with other interactions.
-
-#AIC = 3003.3: Indicates a well-fitting model. Lower than alternative models, so this is a good choice.
-#Dispersion Test: No overdispersion (p > 0.05).
-#Residual Diagnostics: No issues with homoscedasticity, normality, or outliers.
-#Random Effects: The contribution of Date is small but helps account for temporal variability.Variance for Date is 0.07563, suggesting that while the random effect for Date is small, it slightly contributes to the model fit.
-
-#Median residuals are close to zero, and the distribution appears balanced, with no extreme outliers affecting the model's performance.
-
+#BOX PLOT SEASON TOL Y X V SEAS, ONE P
 
 
 
@@ -509,5 +501,57 @@ pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
     AIC(model.vervet, model.season, model.mainpred, model.2ndpred , model.bin2B, model.bin3, model.bin5, model.bin6, model.bin7, model.bin8, model.bin9, model.bin10, model.11, model.12, final.model, model.finaldsi)
 
 anova(model.vervet, model.season, model.mainpred, model.2ndpred , model.bin2B, model.bin3, model.bin5, model.bin6, model.bin7, model.bin8, model.bin9, model.bin10, model.11, model.12, final.model, model.finaldsi)
+
+
+# Correction in graphs
+library(effects)
+
+# Effect of IzELO (Quartile rank difference)
+plot(
+  effect("IzELO", final.model),
+  type = "response",
+  main = "Predicted effect of difference of rank on tolerance",
+  ylab = "Tolerance",
+  xlab = "Quartile rank difference"
+)
+
+# Effect of AgeDiff (Difference of age within the dyad)
+plot(
+  effect("AgeDiff", final.model),
+  main = "Predicted effect of age difference on tolerance",
+  ylab = "Tolerance",
+  xlab = "Difference of age within the dyad"
+)
+
+# Effect of VervetSeason (Vervet Ecological Seasons)
+plot(
+  effect("VervetSeason", final.model),
+  main = "Predicted effect of vervet ecological seasons on tolerance",
+  ylab = "Tolerance",
+  xlab = "Vervet Ecological Seasons"
+)
+
+# Interaction: AgeDiff and VervetSeason
+plot(
+  effect("AgeDiff:VervetSeason", final.model),
+  main = "Predicted effect of interaction of age difference and vervet ecological seasons",
+  ylab = "Tolerance",
+  xlab = "Difference of age within the dyad"
+)
+
+# Interaction: AgeDiff and IzELO
+plot(
+  effect("AgeDiff:IzELO", final.model),
+  main = "Predicted effect of interaction of age and rank difference",
+  ylab = "Tolerance",
+  xlab = "Difference of age within the dyad"
+)
+
+
+
+
+
+
+
 
 

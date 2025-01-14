@@ -577,6 +577,8 @@ r.squaredGLMM(final.model)
 
 
 
+Inter1 <- emtrends(final.model, "IzELO", var = "AgeDiff")
+summary(Inter1)
 
 # post hocs:
 # Post-hoc analyses for interaction effects
