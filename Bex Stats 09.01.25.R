@@ -478,8 +478,10 @@ pairs(emtrends(final.model, "IzELO", var = "AgeDiff"))
 pairs(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
 
+library(emmeans)
+regrid(emmeans(final.model, "AgeDiff", by = "IzELO"))
 
-
+regrid(emmeans(final.model, "IzELO", by = "AgeDiff"))
 
 
 #The results indicate that AgeDiff interacts significantly with VervetSeason and IzELO to influence tolerance, with differences across seasons and dominance ranks.
@@ -550,8 +552,165 @@ plot(
 
 
 
+# PREDICTED GRAPH
 
 
 
 
 
+
+
+
+
+
+
+# Load required library
+library(emmeans)
+
+# Specify ranges of AgeDiff and IzELO
+predictions <- emmeans(final.model, ~ AgeDiff * IzELO, 
+                       at = list(AgeDiff = seq(min(AgeDiff), max(AgeDiff), by = step),
+                                 IzELO = seq(min_IzELO, max_IzELO, by = step)))
+
+# Back-transform estimates to probabilities (optional with regrid)
+probabilities <- regrid(predictions)
+
+# View results
+print(probabilities)
+
+
+
+
+
+# TABLE AND OUTPUTS
+# MAKE TABLE
+
+# Load necessary libraries
+# Key interaction effects summary
+summary_interactions <- data.frame(
+  Predictor = c(
+    "Age Difference * Rank (Quartile Difference)",
+    "Age Difference * Season (Summer)",
+    "Age Difference * Season (Mating)",
+    "Age Difference * Season (Winter)",
+    "Age Difference * Season (Baby)"
+  ),
+  Estimate = c(0.15405, -0.3262, 0.27367, 0.14168, 0.22687),
+  SE = c(0.04971, 0.1340, 0.13816, 0.13406, 0.13446),
+  `z-value` = c(3.099, -2.435, 1.981, 1.057, 1.687),
+  `p-value` = c("0.002", "0.015", "0.048", "0.291", "0.092"),
+  `95% CI` = c(
+    "[0.056, 0.252]",
+    "[-0.590, -0.0627]",
+    "[0.001, 0.546]",
+    "[-0.120, 0.403]",
+    "[-0.038, 0.491]"
+  )
+)
+
+# Generate the table
+kable(summary_interactions, caption = "Table 3. Key Interaction Effects Summary", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>%
+  column_spec(1, bold = TRUE) %>%
+  row_spec(0, bold = TRUE)
+
+
+# BETTER ? TABLE OF RESULTS:# Load necessary libraries
+library(kableExtra)
+library(emmeans)
+library(effects)
+
+# Key interaction effects summary
+summary_interactions <- data.frame(
+  Predictor = c(
+    "Age Difference * Rank (Quartile Difference)",
+    "Age Difference * Season (Summer)",
+    "Age Difference * Season (Mating)",
+    "Age Difference * Season (Winter)",
+    "Age Difference * Season (Baby)"
+  ),
+  Estimate = c(0.15405, -0.3262, 0.27367, 0.14168, 0.22687),
+  SE = c(0.04971, 0.1340, 0.13816, 0.13406, 0.13446),
+  `z-value` = c(3.099, -2.435, 1.981, 1.057, 1.687),
+  `p-value` = c("0.002", "0.015", "0.048", "0.291", "0.092"),
+  `95% CI` = c(
+    "[0.056, 0.252]",
+    "[-0.590, -0.0627]",
+    "[0.001, 0.546]",
+    "[-0.120, 0.403]",
+    "[-0.038, 0.491]"
+  )
+)
+
+# Generate the table
+kable(summary_interactions, caption = "Table of Key Interaction Effects Summary", booktabs = TRUE) %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>%
+  column_spec(1, bold = TRUE) %>%
+  row_spec(0, bold = TRUE)
+
+# Simplified explanatory notes
+# "Interaction effects for Age Difference, Rank, and Vervet Seasons were analyzed to understand their influence on tolerance."
+
+# Generate clean interaction plots using `emmeans`
+# Model: Replace `final.model` with your model object
+interaction_age_season <- emtrends(final.model, "VervetSeason", var = "AgeDiff")
+interaction_age_rank <- emtrends(final.model, "IzELO", var = "AgeDiff")
+
+# Plot interaction for Age Difference * VervetSeason
+plot(interaction_age_season, type = "response", main = "Age Difference * VervetSeason Interaction")
+
+# Plot interaction for Age Difference * Rank (IzELO)
+plot(interaction_age_rank, type = "response", main = "Age Difference * Rank Interaction (IzELO)")
+
+
+
+
+
+# TEST 3
+
+
+# Load required libraries
+library(knitr)
+library(kableExtra)
+
+# Define improved summary table with professional headers
+summary_interactions <- data.frame(
+  Predictor = c(
+    "Age Difference * Rank (Quartile Difference)",
+    "Age Difference * Season (Summer)",
+    "Age Difference * Season (Mating)",
+    "Age Difference * Season (Winter)",
+    "Age Difference * Season (Baby)"
+  ),
+  Chi_Square = c(9.603, 7.750, 7.750, 7.750, 7.750), # Placeholder values
+  Numerator_df = c(1, 3, 3, 3, 3),
+  Denominator_df = c(2706, 2706, 2706, 2706, 2706),
+  F_Value = c(3.099, -2.435, 1.981, 1.057, 1.687),
+  p_value = c("0.002", "0.015", "0.048", "0.291", "0.092"),
+  CI_95 = c(
+    "[0.056, 0.252]",
+    "[-0.590, -0.0627]",
+    "[0.001, 0.546]",
+    "[-0.120, 0.403]",
+    "[-0.038, 0.491]"
+  )
+)
+
+# Generate professional table
+kable(
+  summary_interactions,
+  caption = "Summary of interaction on Tolerance",
+  col.names = c(
+    "Predictor",
+    "Chi-Square",
+    "degree of freedom",
+    "Denominator df",
+    "F-Value",
+    "p-value",
+    "95% Confidence Interval"
+  ),
+  booktabs = TRUE
+) %>%
+  kable_styling(latex_options = c("striped", "hold_position")) %>%
+  column_spec(1, bold = TRUE) %>%
+  row_spec(0, bold = TRUE)
