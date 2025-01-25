@@ -15,6 +15,8 @@ library(lme4)
 library(emmeans)
 
 
+
+
 # OPEN BEXFINAL
 BexFinal <- read.csv("/Users/maki/Desktop/Master Thesis/BEX 2223 Master Thesis Maung Kyaw/IVPToleranceBex2223/BexFinal.csv")
 colnames(BexFinal)
@@ -23,11 +25,12 @@ colnames(BexFinal)
 BexFinal <- BexFinal %>%
   mutate(Date = as.Date(Date, format = "%Y-%m-%d"))
 
+
 # Higher ELO states which of male or femlae has a higher Elo, the same has been done for
 # Since they are only 4 quartiles ,1,2,3,4, we will asses the follwoing way,
 # Using MEloQ and FEloQ we will rate the higher rating individual, is the higher quartile individual is Male then we have MaleHigh if female higher the FemaleHigh
 # Age Diff that gives the direction (male or female) for the older ID in dyad
-
+BexFinal$Date <- as.Date(BexFinal$Date) 
 
 # UPDATES AND CREATION OF COLUMNS IN BEXFINAL
 #MAX TRIAL DAY
@@ -37,29 +40,23 @@ BexFinal <- BexFinal %>%
   group_by(Dyad, Date) %>%
   mutate(MaxTrialDay = max(TrialDay)) %>%
   ungroup()
-# SEASONS
-# Add a "Season" column based on the Date
-BexFinal <- BexFinal %>%
-  mutate(Season = case_when(
-    month(Date) %in% c(9, 10, 11) ~ "Spring",
-    month(Date) %in% c(12, 1, 2) ~ "Summer",
-    month(Date) %in% c(3, 4, 5) ~ "Autumn",
-    month(Date) %in% c(6, 7, 8) ~ "Winter",
-    TRUE ~ NA_character_  # Handles missing or invalid dates
-  ))
+
 # VERVET SEASONS
+BexFinal$Date <- as.Date(BexFinal$Date, format = "%Y-%m-%d")
+
 # Ass a vervet sweasons with amting season and bb season
-# Create "VervetSeason" based on months
 BexFinal <- BexFinal %>%
-  mutate(VervetSeason = case_when(
-    month(Date) %in% c(1, 2, 3) ~ "Summer",
-    month(Date) %in% c(4, 5, 6) ~ "Mating",
-    month(Date) %in% c(7, 8, 9) ~ "Winter",
-    month(Date) %in% c(10, 11, 12) ~ "Baby",
-    TRUE ~ NA_character_  # Default for missing dates
-  ))
-# Change format Season & Vevert Season
-BexFinal$Season <- factor(BexFinal$Season, levels = c("Winter", "Spring",  "Summer", "Autumn"), ordered = F)
+  mutate(
+    SeasonYear = case_when(
+      month(Date) %in% c(1, 2, 3) ~ paste0("Summer-", year(Date)),
+      month(Date) %in% c(4, 5, 6) ~ paste0("Mating-", year(Date)),
+      month(Date) %in% c(7, 8, 9) ~ paste0("Winter-", year(Date)),
+      month(Date) %in% c(10, 11, 12) ~ paste0("Baby-", year(Date)),
+      TRUE ~ NA_character_
+    )
+  )
+
+
 # Change format Season & Vevert Season
 BexFinal$VervetSeason <- factor(BexFinal$VervetSeason, levels = c("Summer","Mating", "Winter","Baby"), ordered = F)
 # Ensure Date column is properly recognized as a Date type
@@ -71,6 +68,33 @@ BexFinal$AgeDir <- as.factor(BexFinal$AgeDir)
 # If you make it a factor, it sees 1 as a seperate group (like NH for example) from 2 (as if it was BD), but they're not, it's increasing
 BexFinal$Dyad <- as.factor(BexFinal$Dyad)
 BexFinal$Date <- as.Date(BexFinal$Date) # You changed this into a factor, don't do that!!!
+
+
+
+
+# Calculate and print date ranges for each VervetSeason
+date_ranges <- BexFinal %>%
+  group_by(VervetSeason) %>%
+  summarize(
+    StartDate = min(Date, na.rm = TRUE),
+    EndDate = max(Date, na.rm = TRUE),
+    .groups = "drop"
+  )
+print(date_ranges)
+
+
+date_ranges <- BexFinal %>%
+  group_by(SeasonYear) %>%
+  summarize(
+    StartDate = min(Date, na.rm = TRUE),
+    EndDate = max(Date, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+print(date_ranges)
+
+
+
 
 ## Evolution of tolerance over time ####
 # Make AgeDiff pos if male is older, neg if Fem is older
@@ -109,7 +133,28 @@ m0 <- glmer(Tol ~ DyadDay * (IzDSI + IzELO + AgeDiff + AgeDir + HigherElo) + Ver
             family = binomial(link = "logit"),
             data = BexFinal)
 
+
+##################################################################################################################################
+# NOT USE MODEL MX 
+
+
+mx <- glmer(Tol ~ VervetSeason + DyadDay*( IzELO + AgeDiff:BB:IzDSI ) +
+              (1|Date), 
+            control = glmerControl(optimizer = "bobyqa", optCtrl = list(maxfun = 2e5)),
+            family = binomial(link = "logit"),
+            data = BexFinal)
+
+summary(mx)
+Anova(mx)
+vif(mx)
+plot(allEffects(mx))
 # Why Season and not VervetSeason?
+##################################################################################################################################
+
+
+
+
+
 
 #you can follow your reasoning for the best fixed effects but with the random effect which is not subject to negotiation, 
 #it must be (DyadDay|Dyad:Date) at least and if possible also with (1|Dyad) in addition. which corresponds to: 
@@ -132,9 +177,12 @@ plot(effect("BirthGp", m0)) # Tolerance is different between groups, with highes
 plot(effect("DyadDay:IzDSI", m0)) # Tolerance increases over time, but mainly for dyads with the lowest startig DSI
 # When DSI is already high, tolerance decreases (maybe because it just couldn't increase more? Interesting to see the raw data!)
 plot(effect("BB", m0)) # Tolerance increases over time, especially when females have a baby
-# Elo, AgeDir, HigherElo  and BB present have no effect on tolerance.
+s# Elo, AgeDir, HigherElo  and BB present have no effect on tolerance.
 # AgeDiff, Elo, AgeDir and HigherElo have no effect on the increase of tolerance over time.
 # No different effects of AgeDiff or ELO over different seasons.
+
+
+
 
 test(emtrends(m0, pairwise ~ IzDSI, var="DyadDay")) # If you want to describe different slopes here, you have to 
 # categorize IzDSI. I don't think it's necessary, you can just describe what you see (increase in tolerance is highest when initial DSI is lowest)
@@ -259,22 +307,256 @@ BexFinal <- BexFinal %>%
     )
   )
 
-# Plot directly using linear model (lm)
+# Calculate overall mean tolerance
+overall_mean <- BexFinal %>%
+  summarize(MeanTol = mean(Tol, na.rm = TRUE)) %>%
+  pull(MeanTol)
+
+# Calculate and print date ranges for each VervetSeason
+date_ranges <- BexFinal %>%
+  group_by(VervetSeason) %>%
+  summarize(
+    StartDate = min(Date, na.rm = TRUE),
+    EndDate = max(Date, na.rm = TRUE),
+    .groups = "drop"
+  )
+print(date_ranges)
+
+
+
+
+
+
+
+
+# Plot: Tolerance Levels per Month within Vervet Ecological Seasons
 ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
-  geom_smooth(method = "lm", se = FALSE, size = 1.2) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.2) +  # Seasonal trends
+  geom_hline(aes(yintercept = overall_mean, linetype = "Tolerance Mean"), color = "black", size = 1) +  # Mean line
   labs(
     title = "Tolerance Levels per Month within Vervet Ecological Seasons",
     x = "Month in Season (1 = Start, 3 = End)",
     y = "Tolerance Levels",
-    color = "Vervet Ecological Season"
+    color = "Vervet Ecological Season",
+    linetype = NULL  # Remove linetype title
   ) +
   scale_x_continuous(breaks = c(1, 2, 3), labels = c("Month 1", "Month 2", "Month 3")) +
+  scale_linetype_manual(values = c("dashed")) +  # Dashed line in legend
   theme_minimal() +
   theme(
-    axis.text.x = element_text(angle = 45, hjust = 1),
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
     legend.title = element_text(size = 12),
     legend.text = element_text(size = 10)
   )
+
+
+
+# Combined Plot with Distinct Markers for Each Season
+# Plot: Continuous Evolution of Tolerance by Vervet Seasons
+ggplot(BexFinal, aes(x = Date, y = Tol, color = VervetSeason, group = VervetSeason)) +
+  geom_smooth(method = "lm", se = TRUE, size = 1.2) +  # Trendlines with confidence intervals
+  geom_hline(yintercept = overall_mean, linetype = "dashed", color = "black", size = 1.2, aes(linetype = "Tolerance Mean")) +  # Overall mean
+  labs(
+    title = "Continuous Evolution of Tolerance Levels by Vervet Ecological Seasons",
+    x = "Date",
+    y = "Tolerance Levels",
+    color = "Vervet Ecological Season",
+    linetype = "Legend"
+  ) +
+  scale_x_date(
+    date_labels = "%b %Y",
+    date_breaks = "3 months"
+  ) +
+  scale_linetype_manual(values = c("Tolerance Mean" = "dashed")) +  # Ensure dashed line in the legend
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10)
+  )
+
+
+
+
+
+
+
+# Calculate date ranges for each VervetSeason
+date_ranges <- BexFinal %>%
+  group_by(VervetSeason) %>%
+  summarize(
+    StartDate = min(Date, na.rm = TRUE),
+    EndDate = max(Date, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+# Display the date ranges
+print(date_ranges)
+library(ggplot2)
+library(dplyr)
+library(lubridate)
+
+# Add SeasonYear for clarity in winters across years
+BexFinal <- BexFinal %>%
+  mutate(
+    SeasonYear = case_when(
+      month(Date) %in% c(1, 2, 3) ~ paste0("Summer-", year(Date)),
+      month(Date) %in% c(4, 5, 6) ~ paste0("Mating-", year(Date)),
+      month(Date) %in% c(7, 8, 9) & year(Date) == 2022 ~ "Winter-2022",
+      month(Date) %in% c(7, 8, 9) & year(Date) == 2023 ~ "Winter-2023",
+      month(Date) %in% c(10, 11, 12) ~ paste0("Baby-", year(Date)),
+      TRUE ~ NA_character_
+    ),
+    VervetSeason = factor(
+      case_when(
+        month(Date) %in% c(1, 2, 3) ~ "Summer (Jan-Mar)",
+        month(Date) %in% c(4, 5, 6) ~ "Mating Season (Apr-Jun)",
+        month(Date) %in% c(7, 8, 9) ~ "Winter (Jul-Sep)",
+        month(Date) %in% c(10, 11, 12) ~ "Birth Period (Oct-Dec)",
+        TRUE ~ NA_character_
+      ),
+      levels = c("Summer (Jan-Mar)", "Mating Season (Apr-Jun)", "Winter (Jul-Sep)", "Birth Period (Oct-Dec)")
+    ),
+    MonthInSeason = case_when(
+      month(Date) %in% c(1, 4, 7, 10) ~ 1,
+      month(Date) %in% c(2, 5, 8, 11) ~ 2,
+      month(Date) %in% c(3, 6, 9, 12) ~ 3
+    )
+  )
+
+# Calculate overall mean tolerance
+overall_mean <- BexFinal %>%
+  summarize(MeanTol = mean(Tol, na.rm = TRUE)) %>%
+  pull(MeanTol)
+
+# Calculate date ranges for each SeasonYear
+date_ranges <- BexFinal %>%
+  group_by(SeasonYear) %>%
+  summarize(
+    StartDate = min(Date, na.rm = TRUE),
+    EndDate = max(Date, na.rm = TRUE),
+    .groups = "drop"
+  )
+
+print(date_ranges)
+
+
+
+
+# Calculate overall mean tolerance
+overall_mean <- BexFinal %>%
+  summarize(MeanTol = mean(Tol, na.rm = TRUE)) %>%
+  pull(MeanTol)
+
+# Plot: Tolerance Levels per Month within Vervet Ecological Seasons
+ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
+  geom_smooth(method = "lm", se = FALSE, size = 1.2) +  # Seasonal trends
+  geom_hline(aes(yintercept = overall_mean, linetype = "Tolerance Mean"), color = "black", size = 1) +  # Mean line
+  labs(
+    title = "Tolerance Levels per Month within Vervet Ecological Seasons",
+    x = "Month in Season (1 = Start, 3 = End)",
+    y = "Tolerance Levels",
+    color = "Vervet Ecological Season",
+    linetype = NULL  # Remove linetype title
+  ) +
+  scale_x_continuous(breaks = c(1, 2, 3), labels = c("Month 1", "Month 2", "Month 3")) +
+  scale_linetype_manual(values = c("dashed")) +  # Dashed line in legend
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 12),
+    legend.text = element_text(size = 10)
+  )
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+library(ggplot2)
+library(dplyr)
+
+# Define season ranges with updated colors
+season_highlights <- tibble(
+  Season = c("Winter (2022)", "Birth Period", "Summer", "Mating", "Winter (2023)"),
+  StartDate = as.Date(c("2022-09-14", "2022-10-04", "2023-01-18", "2023-04-05", "2023-07-06")),
+  EndDate = as.Date(c("2022-09-30", "2022-12-23", "2023-03-24", "2023-06-29", "2023-09-13")),
+  Color = c("#4f81bd", "#9c27b0", "#ffa500", "#e91e63", "#4f81bd")  # Blue, Pink, Orange, Pink, Blue
+)
+
+# Plot with smoothed tolerance and shaded seasons
+ggplot(BexFinal, aes(x = Date, y = Tol)) +
+  # Add background rectangles with spacing between colors
+  geom_rect(
+    data = season_highlights,
+    aes(
+      xmin = StartDate,
+      xmax = EndDate,
+      ymin = -Inf,
+      ymax = Inf,
+      fill = Season
+    ),
+    inherit.aes = FALSE,
+    alpha = 0.15,  # Adjust transparency for subtle effect
+    color = "white",  # White borders between colors
+    linewidth = 0.5  # Adjust border thickness
+  ) +
+  # Add a smooth black line for tolerance
+  geom_smooth(method = "loess", se = TRUE, color = "black", size = 1.5) +
+  # Add dashed red line for the overall mean tolerance
+  geom_hline(yintercept = overall_mean, linetype = "dashed", color = "red", size = 1.2) +
+  labs(
+    title = "Smoothed Overall Evolution of Tolerance Over Time",
+    subtitle = "Shaded areas represent Vervet Ecological Seasons",
+    x = "Date",
+    y = "Mean Tolerance",
+    fill = "Ecological Seasons"
+  ) +
+  scale_x_date(
+    date_labels = "%b %Y",
+    date_breaks = "2 months",
+    expand = expansion(mult = c(0.01, 0.01))  # Add spacing on the x-axis
+  ) +
+  scale_fill_manual(values = season_highlights$Color) +  # Apply custom colors
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 14, face = "bold"),
+    legend.text = element_text(size = 12),
+    panel.grid.major = element_line(color = "grey90"),
+    panel.grid.minor = element_blank(),
+    panel.background = element_rect(fill = "white")
+  )
+
 
 
 
@@ -379,3 +661,216 @@ ggplot(BexFinal, aes(x = Date, y = Tol, color = EloDiffCat, group = EloDiffCat))
     panel.grid.major = element_line(size = 0.5),  # Enhance grid visibility
     panel.grid.minor = element_blank()
   ) 
+
+
+
+# TABLE RESULTS
+
+library(car)
+anova_table <- Anova(m0, type = "II")
+print(anova_table)
+
+
+random_effects <- as.data.frame(VarCorr(m0))
+print(random_effects)
+
+
+library(knitr)
+kable(result_table, caption = "GLMM Fixed Effects Results")
+kable(as.data.frame(anova_table), caption = "ANOVA Results for Fixed Effects")
+kable(random_effects, caption = "Random Effects Variance Components")
+
+
+
+library(emmeans)
+posthoc_seasons <- emmeans(m0, pairwise ~ VervetSeason, adjust = "bonferroni")
+summary(posthoc_seasons$contrasts)
+
+
+
+library(lme4)
+library(parameters)
+
+# Extract model parameters
+model_parameters <- parameters::model_parameters(m0)
+
+# Convert to data frame and round to 3 decimals
+result_table <- as.data.frame(model_parameters)
+result_table <- result_table[, c("Parameter", "Coefficient", "SE", "z", "p")]
+names(result_table) <- c("Predictor", "Estimate", "Std.Error", "z-value", "p-value")
+
+# Round values to 3 decimal places
+result_table <- transform(result_table,
+                          Estimate = round(Estimate, 3),
+                          Std.Error = round(Std.Error, 3),
+                          `z-value` = round(`z-value`, 3),
+                          `p-value` = round(`p-value`, 3))
+
+# Display the table
+result_table
+
+
+
+
+
+
+# Load required libraries
+library(lme4)
+library(parameters)
+library(emmeans)
+library(kableExtra)
+library(car)
+
+# Extract model parameters (fixed effects)
+model_parameters <- parameters::model_parameters(m0)
+
+# Extract random effects
+random_effects <- as.data.frame(VarCorr(m0))
+random_effects <- data.frame(
+  Group = random_effects$grp,
+  Variance = random_effects$vcov,
+  SD = random_effects$sdcor
+)
+
+# Extract ANOVA results for fixed effects
+anova_results <- car::Anova(m0, type = "II")
+anova_results <- as.data.frame(anova_results)
+anova_results <- data.frame(
+  Predictor = rownames(anova_results),
+  Chisq = anova_results$Chisq,
+  Df = anova_results$Df,
+  p_value = anova_results$`Pr(>Chisq)`,
+  Significance = ifelse(anova_results$`Pr(>Chisq)` < 0.001, "***",
+                        ifelse(anova_results$`Pr(>Chisq)` < 0.01, "**",
+                               ifelse(anova_results$`Pr(>Chisq)` < 0.05, "*",
+                                      ifelse(anova_results$`Pr(>Chisq)` < 0.1, ".", ""))))
+)
+
+# Perform post-hoc pairwise comparisons for VervetSeason
+posthoc_seasons <- emmeans(m0, pairwise ~ VervetSeason, adjust = "bonferroni")
+posthoc_results <- as.data.frame(summary(posthoc_seasons$contrasts))
+posthoc_results <- data.frame(
+  Contrast = posthoc_results$contrast,
+  Estimate = posthoc_results$estimate,
+  SE = posthoc_results$SE,
+  z_value = posthoc_results$z.ratio,
+  p_value = posthoc_results$p.value,
+  Significance = ifelse(posthoc_results$p.value < 0.001, "***",
+                        ifelse(posthoc_results$p.value < 0.01, "**",
+                               ifelse(posthoc_results$p.value < 0.05, "*",
+                                      ifelse(posthoc_results$p.value < 0.1, ".", ""))))
+)
+
+# Styling for Fixed Effects Table
+fixed_effects_table <- model_parameters[, c("Parameter", "Coefficient", "SE", "z", "p")]
+colnames(fixed_effects_table) <- c("Predictor", "Estimate", "Std.Error", "z-value", "p-value")
+fixed_effects_table <- fixed_effects_table %>%
+  mutate(Significance = ifelse(`p-value` < 0.001, "***",
+                               ifelse(`p-value` < 0.01, "**",
+                                      ifelse(`p-value` < 0.05, "*",
+                                             ifelse(`p-value` < 0.1, ".", ""))))) %>%
+  kbl(caption = "GLMM Fixed Effects Results", format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, font_size = 14)
+
+# Styling for Random Effects Table
+random_effects_table <- random_effects %>%
+  kbl(caption = "Random Effects Variance Components", format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, font_size = 14)
+
+# Styling for ANOVA Table
+anova_table <- anova_results %>%
+  kbl(caption = "ANOVA Results for Fixed Effects", format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, font_size = 14)
+
+# Styling for Post-hoc Comparisons Table
+posthoc_table <- posthoc_results %>%
+  kbl(caption = "Post-hoc Pairwise Comparisons for VervetSeason", format = "html") %>%
+  kable_styling(bootstrap_options = c("striped", "hover", "condensed"), full_width = F, font_size = 14)
+
+# Print tables
+print(fixed_effects_table)
+print(random_effects_table)
+print(anova_table)
+print(posthoc_table)
+
+
+
+
+
+
+# Load necessary libraries
+library(dplyr)
+library(knitr)
+library(kableExtra)
+library(lme4)
+library(parameters)
+library(emmeans)
+library(car)
+
+# Extract model parameters (fixed effects)
+model_parameters <- parameters::model_parameters(m0)
+
+# Rename the predictors
+predictor_names <- c(
+  "VervetSeasonWinter" = "Winter (Ecological Season)",
+  "VervetSeasonMating" = "Mating (Ecological Season)",
+  "IzELO" = "Rank Difference",
+  "AgeDiff" = "Age Difference",
+  "DyadDay:IzDSI" = "Interaction x Initial Social Bond",
+  "BirthGpBD" = "Birth Group BD",
+  "BBYes" = "Presence of Baby",
+  "BirthGpNH" = "Birth Group NH"
+)
+
+# Apply renaming to the Parameter column
+model_parameters$Parameter <- predictor_names[model_parameters$Parameter]
+
+# Filter significant and marginally significant effects
+significant_fixed_effects <- model_parameters %>%
+  filter(p < 0.1) %>% # Keep rows with p-values < 0.1
+  select(Parameter, Coefficient, SE, z, p) %>% # Select relevant columns
+  mutate(
+    Significance = case_when(
+      p < 0.001 ~ "***",
+      p < 0.01 ~ "**",
+      p < 0.05 ~ "*",
+      p < 0.1 ~ ".",
+      TRUE ~ ""
+    )
+  )
+
+# Rename columns for better clarity
+colnames(significant_fixed_effects) <- c(
+  "Predictor", "Estimate", "Std.Error", "z-value", "p-value", "Significance"
+)
+
+# Sort by p-value for better presentation
+significant_fixed_effects <- significant_fixed_effects %>%
+  arrange(`p-value`)
+
+# Generate the table with custom styling
+significant_table <- significant_fixed_effects %>%
+  kbl(
+    caption = "Significant and Marginally Significant Fixed Effects (Ordered by Significance)",
+    format = "html",
+    digits = 4
+  ) %>%
+  kable_styling(
+    bootstrap_options = c("striped", "hover", "condensed"),
+    full_width = FALSE,
+    font_size = 16
+  ) %>%
+  row_spec(
+    which(significant_fixed_effects$Significance %in% c("***", "**", "*")), # Highlight significant
+    background = "#b3e6cc"
+  ) %>%
+  row_spec(
+    which(significant_fixed_effects$Significance == "."), # Highlight marginally significant
+    background = "#fef5e6"
+  ) %>%
+  column_spec(1, bold = TRUE) %>% # Bold the Predictor column
+  column_spec(2:6, width = "1.5in") # Adjust column widths
+
+# Print the styled table
+print(significant_table)
+
