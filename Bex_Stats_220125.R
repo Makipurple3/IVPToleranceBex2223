@@ -490,27 +490,16 @@ ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
 
 
 
-
-
-
-
-
-
-
-library(ggplot2)
-library(dplyr)
-
-# Define season ranges with updated colors
+# Update color palette for the seasons
 season_highlights <- tibble(
   Season = c("Winter (2022)", "Birth Period", "Summer", "Mating", "Winter (2023)"),
-  StartDate = as.Date(c("2022-09-14", "2022-10-04", "2023-01-18", "2023-04-05", "2023-07-06")),
-  EndDate = as.Date(c("2022-09-30", "2022-12-23", "2023-03-24", "2023-06-29", "2023-09-13")),
-  Color = c("#4f81bd", "#9c27b0", "#ffa500", "#e91e63", "#4f81bd")  # Blue, Pink, Orange, Pink, Blue
+  StartDate = as.Date(c("2022-09-01", "2022-10-01", "2023-01-01", "2023-04-01", "2023-07-01")),
+  EndDate = as.Date(c("2022-09-30", "2022-12-31", "2023-03-31", "2023-06-30", "2023-09-30")),
+  Color = c("#4f81bd", "#66cdaa", "#ffa500", "#ff69b4", "#9370db")  # New color palette
 )
 
-# Plot with smoothed tolerance and shaded seasons
+# Plot with new colors
 ggplot(BexFinal, aes(x = Date, y = Tol)) +
-  # Add background rectangles with spacing between colors
   geom_rect(
     data = season_highlights,
     aes(
@@ -521,13 +510,11 @@ ggplot(BexFinal, aes(x = Date, y = Tol)) +
       fill = Season
     ),
     inherit.aes = FALSE,
-    alpha = 0.15,  # Adjust transparency for subtle effect
-    color = "white",  # White borders between colors
-    linewidth = 0.5  # Adjust border thickness
+    alpha = 0.15,
+    color = "white",
+    linewidth = 0.5
   ) +
-  # Add a smooth black line for tolerance
   geom_smooth(method = "loess", se = TRUE, color = "black", size = 1.5) +
-  # Add dashed red line for the overall mean tolerance
   geom_hline(yintercept = overall_mean, linetype = "dashed", color = "red", size = 1.2) +
   labs(
     title = "Smoothed Overall Evolution of Tolerance Over Time",
@@ -539,9 +526,9 @@ ggplot(BexFinal, aes(x = Date, y = Tol)) +
   scale_x_date(
     date_labels = "%b %Y",
     date_breaks = "2 months",
-    expand = expansion(mult = c(0.01, 0.01))  # Add spacing on the x-axis
+    expand = expansion(mult = c(0.01, 0.01))
   ) +
-  scale_fill_manual(values = season_highlights$Color) +  # Apply custom colors
+  scale_fill_manual(values = season_highlights$Color) +
   theme_minimal() +
   theme(
     plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
@@ -554,14 +541,9 @@ ggplot(BexFinal, aes(x = Date, y = Tol)) +
     legend.text = element_text(size = 12),
     panel.grid.major = element_line(color = "grey90"),
     panel.grid.minor = element_blank(),
-    panel.background = element_rect(fill = "white")
+    panel.background = element_rect(fill = "white"),
+    legend.position = "top"
   )
-
-
-
-
-
-
 
 
 
@@ -611,11 +593,6 @@ ggplot(BexFinal, aes(x = Date, y = IzELO, color = EloDiffCat)) +
 
 
 
-
-
-library(ggplot2)
-library(dplyr)
-
 library(ggplot2)
 library(dplyr)
 library(scales)  # For date formatting
@@ -647,10 +624,10 @@ ggplot(BexFinal, aes(x = Date, y = Tol, color = EloDiffCat, group = EloDiffCat))
     date_labels = "%b %Y", 
     date_breaks = "3 months"
   ) +  # Adjust x-axis labels
-  theme_minimal(base_family = "serif") +  # Use academic serif font
+  theme_minimal(base_family = "Arial") +  # Updated academic serif font
   theme(
-    plot.title = element_text(size = 22, face = "bold", hjust = 0.5),  # Larger, centered title
-    plot.subtitle = element_text(size = 16, hjust = 0.5),  # Subtitle for context
+    plot.title = element_text(size = 24, face = "bold", hjust = 0.5),  # Larger, centered title
+    plot.subtitle = element_text(size = 18, hjust = 0.5),  # Subtitle for context
     axis.title.x = element_text(size = 16, face = "bold"),
     axis.title.y = element_text(size = 16, face = "bold"),
     axis.text.x = element_text(angle = 45, hjust = 1, size = 14),
@@ -660,9 +637,92 @@ ggplot(BexFinal, aes(x = Date, y = Tol, color = EloDiffCat, group = EloDiffCat))
     legend.position = "right",  # Legend on the right
     panel.grid.major = element_line(size = 0.5),  # Enhance grid visibility
     panel.grid.minor = element_blank()
-  ) 
+  )
 
 
+
+
+# GRAPHS NON SIGNIFICANT
+
+
+# AGE DIFFERENCE
+plot1 <- ggplot(BexFinal, aes(x = AgeDiff, y = Tol)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE, color = "blue") +
+  labs(
+    title = "Effect of Age Difference on Tolerance",
+    x = "Age Difference",
+    y = "Tolerance"
+  ) +
+  theme_minimal(base_family = "Arial")
+
+
+
+# AGE DIRECTION
+# Age Direction Effect Over Time
+plot_age_dir <- ggplot(BexFinal, aes(x = Date, y = Tol, color = AgeDir, group = AgeDir)) +
+  geom_smooth(method = "lm", se = TRUE, size = 1.2) +
+  labs(
+    title = "Effect of Age Direction on Tolerance Over Time",
+    x = "Date",
+    y = "Tolerance",
+    color = "Older Individual"
+  ) +
+  scale_color_manual(values = c("steelblue", "hotpink")) +  # Custom colors for M and F
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12)
+  )
+
+
+
+
+# DSI
+ggplot(BexFinal, aes(x = DyadDay, y = Tol, color = IzDSI)) +
+  geom_point(alpha = 0.6) +
+  geom_smooth(method = "lm", se = TRUE) +
+  labs(
+    title = "Interaction Between Experimental Day and Initial Social Bonds",
+    x = "Experimental Day",
+    y = "Tolerance",
+    color = "Initial Social Bond (IzDSI)"
+  ) +
+  theme_minimal(base_family = "Arial")
+
+
+
+
+# Baby Presence Effect Over Time
+ ggplot(BexFinal, aes(x = Date, y = Tol, color = BB, group = BB)) +
+  geom_smooth(method = "lm", se = TRUE, size = 1.2) +
+  labs(
+    title = "Effect of Baby Presence on Tolerance Over Time",
+    x = "Date",
+    y = "Tolerance",
+    color = "Baby Presence"
+  ) +
+  scale_color_manual(values = c("darkorange", "darkblue")) +  # Custom colors
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12)
+  )
+
+
+# Combine plots into a grid layout
+plot1 + plot2 + plot3 + plot4 +
+  plot_layout(ncol = 2) & 
+  theme(plot.title = element_text(size = 16, face = "bold"))
+
+
+#TABELS
 
 # TABLE RESULTS
 
