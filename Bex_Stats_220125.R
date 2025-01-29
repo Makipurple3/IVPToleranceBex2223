@@ -45,16 +45,16 @@ BexFinal <- BexFinal %>%
 BexFinal$Date <- as.Date(BexFinal$Date, format = "%Y-%m-%d")
 
 # Ass a vervet sweasons with amting season and bb season
+# Ass a vervet sweasons with amting season and bb season
+# Create "VervetSeason" based on months
 BexFinal <- BexFinal %>%
-  mutate(
-    SeasonYear = case_when(
-      month(Date) %in% c(1, 2, 3) ~ paste0("Summer-", year(Date)),
-      month(Date) %in% c(4, 5, 6) ~ paste0("Mating-", year(Date)),
-      month(Date) %in% c(7, 8, 9) ~ paste0("Winter-", year(Date)),
-      month(Date) %in% c(10, 11, 12) ~ paste0("Baby-", year(Date)),
-      TRUE ~ NA_character_
-    )
-  )
+  mutate(VervetSeason = case_when(
+    month(Date) %in% c(1, 2, 3) ~ "Summer",
+    month(Date) %in% c(4, 5, 6) ~ "Mating",
+    month(Date) %in% c(7, 8, 9) ~ "Winter",
+    month(Date) %in% c(10, 11, 12) ~ "Baby",
+    TRUE ~ NA_character_  # Default for missing dates
+  ))
 
 
 # Change format Season & Vevert Season
@@ -82,16 +82,6 @@ date_ranges <- BexFinal %>%
   )
 print(date_ranges)
 
-
-date_ranges <- BexFinal %>%
-  group_by(SeasonYear) %>%
-  summarize(
-    StartDate = min(Date, na.rm = TRUE),
-    EndDate = max(Date, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-print(date_ranges)
 
 
 
@@ -188,6 +178,8 @@ test(emtrends(m0, pairwise ~ IzDSI, var="DyadDay")) # If you want to describe di
 # categorize IzDSI. I don't think it's necessary, you can just describe what you see (increase in tolerance is highest when initial DSI is lowest)
 test(emtrends(m0, pairwise ~ BB, var="DyadDay")) # Significant increase of tolerance for females with baby, not for females without baby
 
+# categorize IzDSI. I don't think it's necessary, you can just describe what you see (increase in tolerance is highest when initial DSI is lowest)
+test(emtrends(m0, pairwise ~ IzELO, var="DyadDay")) # Significant increase of tolerance for females with baby, not for females without baby
 
 # Model assumptions:
 simulationOutput <- simulateResiduals(fittedModel = m0, plot = F)
@@ -276,16 +268,7 @@ ggplot(BexFinal, aes(x = Date, y = Tol, color = Dyad)) +
 
 
 
-
-
-
-
-
-
-
-
-library(ggplot2)
-library(dplyr)
+# VERVET SEASONS
 
 # Example: Creating Vervet Ecological Season and Month in Season directly from Date
 BexFinal <- BexFinal %>%
@@ -355,54 +338,7 @@ ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
 
 
 
-# Combined Plot with Distinct Markers for Each Season
-# Plot: Continuous Evolution of Tolerance by Vervet Seasons
-ggplot(BexFinal, aes(x = Date, y = Tol, color = VervetSeason, group = VervetSeason)) +
-  geom_smooth(method = "lm", se = TRUE, size = 1.2) +  # Trendlines with confidence intervals
-  geom_hline(yintercept = overall_mean, linetype = "dashed", color = "black", size = 1.2, aes(linetype = "Tolerance Mean")) +  # Overall mean
-  labs(
-    title = "Continuous Evolution of Tolerance Levels by Vervet Ecological Seasons",
-    x = "Date",
-    y = "Tolerance Levels",
-    color = "Vervet Ecological Season",
-    linetype = "Legend"
-  ) +
-  scale_x_date(
-    date_labels = "%b %Y",
-    date_breaks = "3 months"
-  ) +
-  scale_linetype_manual(values = c("Tolerance Mean" = "dashed")) +  # Ensure dashed line in the legend
-  theme_minimal() +
-  theme(
-    plot.title = element_text(size = 18, face = "bold", hjust = 0.5),
-    axis.title.x = element_text(size = 14, face = "bold"),
-    axis.title.y = element_text(size = 14, face = "bold"),
-    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
-    axis.text.y = element_text(size = 12),
-    legend.title = element_text(size = 12),
-    legend.text = element_text(size = 10)
-  )
 
-
-
-
-
-
-
-# Calculate date ranges for each VervetSeason
-date_ranges <- BexFinal %>%
-  group_by(VervetSeason) %>%
-  summarize(
-    StartDate = min(Date, na.rm = TRUE),
-    EndDate = max(Date, na.rm = TRUE),
-    .groups = "drop"
-  )
-
-# Display the date ranges
-print(date_ranges)
-library(ggplot2)
-library(dplyr)
-library(lubridate)
 
 # Add SeasonYear for clarity in winters across years
 BexFinal <- BexFinal %>%
@@ -451,10 +387,7 @@ print(date_ranges)
 
 
 
-# Calculate overall mean tolerance
-overall_mean <- BexFinal %>%
-  summarize(MeanTol = mean(Tol, na.rm = TRUE)) %>%
-  pull(MeanTol)
+
 
 # Plot: Tolerance Levels per Month within Vervet Ecological Seasons
 ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
@@ -486,7 +419,7 @@ ggplot(BexFinal, aes(x = MonthInSeason, y = Tol, color = VervetSeason)) +
 
 
 
-
+# SMOOTHED VERVET SEASON
 
 
 
@@ -550,45 +483,73 @@ ggplot(BexFinal, aes(x = Date, y = Tol)) +
 
 
 
-
-
-
+# SEASONS
+# Load necessary libraries
 library(ggplot2)
 library(dplyr)
 
-# Categorize scaled Elo differences (IzELO)
+# Example dataset for BexFinal (binary Tol variable)
+BexFinal <- tibble(
+  Date = seq(as.Date("2022-09-01"), as.Date("2023-09-30"), by = "days"),
+  Tol = sample(c(0, 1), size = 395, replace = TRUE, prob = c(0.3, 0.7)) # Binary variable
+)
+
+# Create a "Season" variable
 BexFinal <- BexFinal %>%
   mutate(
-    EloDiffCat = case_when(
-      IzELO <= quantile(IzELO, 0.33, na.rm = TRUE) ~ "Small",
-      IzELO > quantile(IzELO, 0.33, na.rm = TRUE) & IzELO <= quantile(IzELO, 0.66, na.rm = TRUE) ~ "Average",
-      IzELO > quantile(IzELO, 0.66, na.rm = TRUE) ~ "Big"
+    Season = case_when(
+      Date >= as.Date("2022-09-01") & Date <= as.Date("2022-09-30") ~ "Winter (2022)",
+      Date >= as.Date("2022-10-01") & Date <= as.Date("2022-12-31") ~ "Birth Period",
+      Date >= as.Date("2023-01-01") & Date <= as.Date("2023-03-31") ~ "Summer",
+      Date >= as.Date("2023-04-01") & Date <= as.Date("2023-06-30") ~ "Mating",
+      Date >= as.Date("2023-07-01") & Date <= as.Date("2023-09-30") ~ "Winter (2023)"
     )
   )
 
-# Plot 1: Scaled Elo Differences by DyadDay
-ggplot(BexFinal, aes(x = DyadDay, y = IzELO, color = EloDiffCat)) +
-  geom_smooth(method = "lm", se = FALSE, size = 1.2) +
+# Create a boxplot for Tol by Season
+ggplot(BexFinal, aes(x = Season, y = Tol, fill = Season)) +
+  geom_boxplot(alpha = 0.7, color = "black", outlier.size = 2, outlier.shape = 21) +
+  stat_summary(fun = mean, geom = "point", shape = 19, size = 3, color = "red") + # Add mean as a red dot
   labs(
-    title = "Evolution of Scaled Elo Differences by DyadDay",
-    x = "Dyad Day",
-    y = "Scaled Elo Difference",
-    color = "Elo Difference Category"
+    title = "Seasonal Differences in Tolerance (Tol)",
+    subtitle = "Boxplot of Tolerance Levels by Ecological Season",
+    x = "Season",
+    y = "Tolerance (Proportion of 1s)",
+    fill = "Season"
   ) +
-  theme_minimal()
-
-# Plot 2: Scaled Elo Differences by Date
-ggplot(BexFinal, aes(x = Date, y = IzELO, color = EloDiffCat)) +
-  geom_smooth(method = "lm", se = FALSE, size = 1.2) +
-  labs(
-    title = "Evolution of Scaled Elo Differences by Date",
-    x = "Date",
-    y = "Scaled Elo Difference",
-    color = "Elo Difference Category"
+  scale_fill_manual(
+    values = c(
+      "Winter (2022)" = "#4f81bd",
+      "Birth Period" = "#66cdaa",
+      "Summer" = "#ffa500",
+      "Mating" = "#ff69b4",
+      "Winter (2023)" = "#9370db"
+    )
   ) +
-  theme_minimal()
+  theme_minimal() +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5),
+    axis.title.x = element_text(size = 14, face = "bold"),
+    axis.title.y = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.position = "none" # Remove legend since seasons are already on x-axis
+  )
 
 
+
+
+
+
+
+
+
+
+
+
+
+# ELO
 
 
 
@@ -641,14 +602,140 @@ ggplot(BexFinal, aes(x = Date, y = Tol, color = EloDiffCat, group = EloDiffCat))
 
 
 
+#ELO BOX PLOT
+library(ggplot2)
+library(dplyr)
+
+# Categorize Elo differences with updated labels
+BexFinal <- BexFinal %>%
+  mutate(
+    EloDiffCat = case_when(
+      IzELO <= quantile(IzELO, 0.33, na.rm = TRUE) ~ "Low (Q1)",
+      IzELO > quantile(IzELO, 0.33, na.rm = TRUE) & IzELO <= quantile(IzELO, 0.66, na.rm = TRUE) ~ "Mid (Q2)",
+      IzELO > quantile(IzELO, 0.66, na.rm = TRUE) ~ "High (Q3)"
+    )
+  )
+BexFinal_filtered <- BexFinal_filtered %>%
+  mutate(IzELO = factor(IzELO, levels = c("Low (Q1)", "Mid (Q2)", "High (Q3)")))
+table(BexFinal_filtered$IzELO)
+
+
+# Create an improved boxplot
+ggplot(BexFinal, aes(x = EloDiffCat, y = Tol, fill = EloDiffCat)) +
+  geom_boxplot(outlier.size = 3, outlier.shape = 21, outlier.fill = "black", alpha = 0.7, color = "black") +
+  labs(
+    title = "Effect of Rank Difference on Tolerance",
+    x = "Rank Difference Category",
+    y = "Tolerance Probability",
+    fill = "Rank Difference"
+  ) +
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 22, face = "bold", hjust = 0.5),
+    axis.title.x = element_text(size = 18, face = "bold"),
+    axis.title.y = element_text(size = 18, face = "bold"),
+    axis.text.x = element_text(size = 14, face = "bold"),
+    axis.text.y = element_text(size = 14),
+    legend.title = element_text(size = 16, face = "bold"),
+    legend.text = element_text(size = 14),
+    legend.position = "right",
+    panel.grid.major = element_line(size = 0.5, color = "gray"),
+    panel.grid.minor = element_blank()
+  ) +
+  scale_fill_manual(
+    values = c("Low (Q1)" = "#D55E00", "Mid (Q2)" = "#0072B2", "High (Q3)" = "#009E73"),
+    guide = guide_legend(title = "Rank Difference")
+  ) +
+  coord_cartesian(ylim = c(0, 1))  # Adjust y-axis for better clarity
+
+
+
+
+
+# ELO BOXPLOTS
+library(ggplot2)
+library(dplyr)
+
+# Check if EloDiffCat is missing and create it if necessary
+if (!"EloDiffCat" %in% colnames(BexFinal)) {
+  # Categorize Elo differences into Low (Q1), Mid (Q2), High (Q3)
+  BexFinal <- BexFinal %>%
+    mutate(
+      EloDiffCat = case_when(
+        IzELO <= quantile(IzELO, 0.33, na.rm = TRUE) ~ "Low (Q1)",
+        IzELO > quantile(IzELO, 0.33, na.rm = TRUE) & IzELO <= quantile(IzELO, 0.66, na.rm = TRUE) ~ "Mid (Q2)",
+        IzELO > quantile(IzELO, 0.66, na.rm = TRUE) ~ "High (Q3)"
+      )
+    )
+}
+
+# Reorder Elo categories to ensure proper axis order
+
+library(ggplot2)
+library(dplyr)
+
+# Check if EloDiffCat is missing and create it if necessary
+if (!"EloDiffCat" %in% colnames(BexFinal)) {
+  # Categorize Elo differences into Low (Q1), Mid (Q2), High (Q3)
+  BexFinal <- BexFinal %>%
+    mutate(
+      EloDiffCat = case_when(
+        IzELO <= quantile(IzELO, 0.33, na.rm = TRUE) ~ "Low (Q1)",
+        IzELO > quantile(IzELO, 0.33, na.rm = TRUE) & IzELO <= quantile(IzELO, 0.66, na.rm = TRUE) ~ "Mid (Q2)",
+        IzELO > quantile(IzELO, 0.66, na.rm = TRUE) ~ "High (Q3)"
+      )
+    )
+}
+
+# Reorder Elo categories to ensure proper axis order
+BexFinal <- BexFinal %>%
+  mutate(
+    EloDiffCat = factor(EloDiffCat, levels = c("Low (Q1)", "Mid (Q2)", "High (Q3)"))
+  )
+
+# Create a readable boxplot with appropriate scaling and outlier handling
+ggplot(BexFinal, aes(x = EloDiffCat, y = Tol, fill = EloDiffCat)) +
+  geom_boxplot(
+    outlier.shape = 21, outlier.color = "black", outlier.fill = "red", outlier.size = 2,
+    alpha = 0.8, color = "black", width = 0.6
+  ) +
+  labs(
+    title = "Effect of Rank Difference on Tolerance",
+    subtitle = "Boxplot showing tolerance probabilities by rank categories",
+    x = "Rank Difference Category",
+    y = "Tolerance Probability",
+    fill = "Rank Difference"
+  ) +
+  scale_y_continuous(
+    limits = c(0, 1),  # Ensure scale is appropriate for probability
+    breaks = seq(0, 1, by = 0.1)
+  ) +
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 20, face = "bold", hjust = 0.5),
+    plot.subtitle = element_text(size = 16, hjust = 0.5),
+    axis.title.x = element_text(size = 16, face = "bold"),
+    axis.title.y = element_text(size = 16, face = "bold"),
+    axis.text.x = element_text(size = 14, face = "bold"),
+    axis.text.y = element_text(size = 14),
+    legend.title = element_text(size = 16, face = "bold"),
+    legend.text = element_text(size = 14),
+    legend.position = "none",  # Remove legend for simplicity
+    panel.grid.major = element_line(size = 0.5, color = "gray"),
+    panel.grid.minor = element_blank()
+  ) +
+  scale_fill_manual(
+    values = c("Low (Q1)" = "#D55E00", "Mid (Q2)" = "#0072B2", "High (Q3)" = "#009E73")
+  )
+
 
 # GRAPHS NON SIGNIFICANT
 
 
 # AGE DIFFERENCE
-plot1 <- ggplot(BexFinal, aes(x = AgeDiff, y = Tol)) +
+Agediffplot <- ggplot(BexFinal, aes(x = AgeDiff, y = Tol)) +
   geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", se = TRUE, color = "blue") +
+  geom_smooth(method = "lm", se = TRUE, color = "skyblue") +
   labs(
     title = "Effect of Age Difference on Tolerance",
     x = "Age Difference",
@@ -660,7 +747,7 @@ plot1 <- ggplot(BexFinal, aes(x = AgeDiff, y = Tol)) +
 
 # AGE DIRECTION
 # Age Direction Effect Over Time
-plot_age_dir <- ggplot(BexFinal, aes(x = Date, y = Tol, color = AgeDir, group = AgeDir)) +
+Agedirplot <- ggplot(BexFinal, aes(x = Date, y = Tol, color = AgeDir, group = AgeDir)) +
   geom_smooth(method = "lm", se = TRUE, size = 1.2) +
   labs(
     title = "Effect of Age Direction on Tolerance Over Time",
@@ -668,7 +755,7 @@ plot_age_dir <- ggplot(BexFinal, aes(x = Date, y = Tol, color = AgeDir, group = 
     y = "Tolerance",
     color = "Older Individual"
   ) +
-  scale_color_manual(values = c("steelblue", "hotpink")) +  # Custom colors for M and F
+  scale_color_manual(values = c("hotpink", "steelblue")) +  # Custom colors for M and F
   theme_minimal(base_family = "Arial") +
   theme(
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
@@ -680,24 +767,46 @@ plot_age_dir <- ggplot(BexFinal, aes(x = Date, y = Tol, color = AgeDir, group = 
 
 
 
-
 # DSI
-ggplot(BexFinal, aes(x = DyadDay, y = Tol, color = IzDSI)) +
-  geom_point(alpha = 0.6) +
-  geom_smooth(method = "lm", se = TRUE) +
-  labs(
-    title = "Interaction Between Experimental Day and Initial Social Bonds",
-    x = "Experimental Day",
-    y = "Tolerance",
-    color = "Initial Social Bond (IzDSI)"
-  ) +
-  theme_minimal(base_family = "Arial")
+# Categorize IzDSI into Small, Average, and High
+BexFinal <- BexFinal %>%
+  mutate(
+    BondCategory = case_when(
+      IzDSI <= quantile(IzDSI, 0.33, na.rm = TRUE) ~ "Small Bond",
+      IzDSI > quantile(IzDSI, 0.33, na.rm = TRUE) & IzDSI <= quantile(IzDSI, 0.66, na.rm = TRUE) ~ "Average Bond",
+      IzDSI > quantile(IzDSI, 0.66, na.rm = TRUE) ~ "High Bond"
+    )
+  )
 
+# DSI Plot
+# Updated DSI Plot with Date
+Dsiplot <- ggplot(BexFinal, aes(x = Date, y = Tol, color = BondCategory, group = BondCategory)) +
+  geom_smooth(method = "lm", se = TRUE, size = 1.2) +  # Add smooth trendlines
+  labs(
+    title = "Effect of Initial Social Bonds on Tolerance Over Time",
+    x = "Date",
+    y = "Tolerance",
+    color = "Initial Social Bond"
+  ) +
+  scale_x_date(
+    date_labels = "%b %Y", 
+    date_breaks = "3 months"
+  ) +  # Format x-axis for better readability
+  scale_color_manual(values = c("turquoise", "darkgreen")) +  # Custom colors
+  theme_minimal(base_family = "Arial") +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 45, hjust = 1, size = 12),
+    axis.text.y = element_text(size = 12),
+    legend.title = element_text(size = 14),
+    legend.text = element_text(size = 12)
+  )
 
 
 
 # Baby Presence Effect Over Time
- ggplot(BexFinal, aes(x = Date, y = Tol, color = BB, group = BB)) +
+Bbplot <- ggplot(BexFinal, aes(x = Date, y = Tol, color = BB, group = BB)) +
   geom_smooth(method = "lm", se = TRUE, size = 1.2) +
   labs(
     title = "Effect of Baby Presence on Tolerance Over Time",
@@ -705,7 +814,7 @@ ggplot(BexFinal, aes(x = DyadDay, y = Tol, color = IzDSI)) +
     y = "Tolerance",
     color = "Baby Presence"
   ) +
-  scale_color_manual(values = c("darkorange", "darkblue")) +  # Custom colors
+  scale_color_manual(values = c("darkorange", "purple")) +  # Custom colors
   theme_minimal(base_family = "Arial") +
   theme(
     plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
@@ -715,11 +824,29 @@ ggplot(BexFinal, aes(x = DyadDay, y = Tol, color = IzDSI)) +
     legend.text = element_text(size = 12)
   )
 
+library(patchwork)
 
 # Combine plots into a grid layout
-plot1 + plot2 + plot3 + plot4 +
-  plot_layout(ncol = 2) & 
-  theme(plot.title = element_text(size = 16, face = "bold"))
+combined_plot <- (Agediffplot | Agedirplot) / (Dsiplot | Bbplot) +
+  plot_annotation(
+    title = "Overview of Borderline Effects on Tolerance",
+    theme = theme(
+      plot.title = element_text(size = 20, face = "bold", hjust = 0.5)
+    )
+  )
+
+# Display the combined plot
+print(combined_plot)
+
+
+
+
+
+
+
+
+
+
 
 
 #TABELS
@@ -820,6 +947,7 @@ posthoc_results <- data.frame(
                                ifelse(posthoc_results$p.value < 0.05, "*",
                                       ifelse(posthoc_results$p.value < 0.1, ".", ""))))
 )
+posthoc_seasons
 
 # Styling for Fixed Effects Table
 fixed_effects_table <- model_parameters[, c("Parameter", "Coefficient", "SE", "z", "p")]
@@ -858,62 +986,73 @@ print(posthoc_table)
 
 
 
+
+
+
+
+
+
+
+
 # Load necessary libraries
 library(dplyr)
 library(knitr)
 library(kableExtra)
-library(lme4)
-library(parameters)
-library(emmeans)
-library(car)
 
-# Extract model parameters (fixed effects)
-model_parameters <- parameters::model_parameters(m0)
-
-# Rename the predictors
-predictor_names <- c(
-  "VervetSeasonWinter" = "Winter (Ecological Season)",
-  "VervetSeasonMating" = "Mating (Ecological Season)",
-  "IzELO" = "Rank Difference",
-  "AgeDiff" = "Age Difference",
-  "DyadDay:IzDSI" = "Interaction x Initial Social Bond",
-  "BirthGpBD" = "Birth Group BD",
-  "BBYes" = "Presence of Baby",
-  "BirthGpNH" = "Birth Group NH"
+# Manually create the ANOVA results data frame with correct labels
+anova_results <- data.frame(
+  Predictor = c(
+    "Days in Experiment", 
+    "Initial Social Bond", 
+    "Rank Difference", 
+    "Age Difference", 
+    "Sext of Oldest", 
+    "Sex of Highest Ranking ", 
+    "Ecological Season", 
+    "Birth Group", 
+    "Presence of Baby", 
+    "Days x Initial Social Bond", 
+    "Days x Rank Difference", 
+    "Days x Age Difference", 
+    "Days x Direction of Age", 
+    "Days x Direction of Elo"
+  ),
+  Chisq = c(
+    0.5934467, 0.1388194, 13.5758921, 2.8091961, 3.7066799, 0.0345311, 
+    30.9552229, 4.2143259, 2.8140843, 3.1101316, 2.5862454, 0.4195461, 
+    0.0935229, 0.0045412
+  ),
+  Df = c(1, 1, 1, 1, 1, 1, 3, 2, 1, 1, 1, 1, 1, 1),
+  p_value = c(
+    0.4410894, 0.7094575, 0.0002291, 0.0937253, 0.0541951, 0.8525816, 
+    0.0000009, 0.1215824, 0.0934402, 0.0778067, 0.1077956, 0.5171636, 
+    0.7597454, 0.9462723
+  )
 )
 
-# Apply renaming to the Parameter column
-model_parameters$Parameter <- predictor_names[model_parameters$Parameter]
-
-# Filter significant and marginally significant effects
-significant_fixed_effects <- model_parameters %>%
-  filter(p < 0.1) %>% # Keep rows with p-values < 0.1
-  select(Parameter, Coefficient, SE, z, p) %>% # Select relevant columns
+# Add significance labels
+anova_results <- anova_results %>%
   mutate(
     Significance = case_when(
-      p < 0.001 ~ "***",
-      p < 0.01 ~ "**",
-      p < 0.05 ~ "*",
-      p < 0.1 ~ ".",
+      p_value < 0.001 ~ "***",
+      p_value < 0.01 ~ "**",
+      p_value < 0.05 ~ "*",
+      p_value < 0.1 ~ ".",
       TRUE ~ ""
     )
   )
 
-# Rename columns for better clarity
-colnames(significant_fixed_effects) <- c(
-  "Predictor", "Estimate", "Std.Error", "z-value", "p-value", "Significance"
-)
+# Filter only significant and borderline rows (p < 0.1) and order by significance
+filtered_results <- anova_results %>%
+  filter(p_value < 0.1) %>%
+  arrange(p_value)
 
-# Sort by p-value for better presentation
-significant_fixed_effects <- significant_fixed_effects %>%
-  arrange(`p-value`)
-
-# Generate the table with custom styling
-significant_table <- significant_fixed_effects %>%
+# Create a styled HTML table
+anova_table <- filtered_results %>%
   kbl(
-    caption = "Significant and Marginally Significant Fixed Effects (Ordered by Significance)",
+    caption = "Significant and Borderline ANOVA Results (p < 0.1)",
     format = "html",
-    digits = 4
+    align = "lccc"
   ) %>%
   kable_styling(
     bootstrap_options = c("striped", "hover", "condensed"),
@@ -921,16 +1060,89 @@ significant_table <- significant_fixed_effects %>%
     font_size = 16
   ) %>%
   row_spec(
-    which(significant_fixed_effects$Significance %in% c("***", "**", "*")), # Highlight significant
-    background = "#b3e6cc"
+    which(filtered_results$Significance == "***"),
+    background = "#d9f2d9" # Light green for highly significant
   ) %>%
   row_spec(
-    which(significant_fixed_effects$Significance == "."), # Highlight marginally significant
-    background = "#fef5e6"
+    which(filtered_results$Significance == "."),
+    background = "#f0f0f0" # Light gray for borderline
   ) %>%
-  column_spec(1, bold = TRUE) %>% # Bold the Predictor column
-  column_spec(2:6, width = "1.5in") # Adjust column widths
+  column_spec(1, bold = TRUE) %>%
+  column_spec(2:4, width = "1.5in")
 
-# Print the styled table
-print(significant_table)
+# Print the table
+print(anova_table)
+
+
+
+
+library(webshot)
+library(kableExtra)
+
+# Save the table as an HTML file
+save_kable(
+  kable(anova_table, format = "html", 
+        caption = "Significant and Borderline ANOVA Results (p < 0.1)") %>%
+    kable_styling(bootstrap_options = c("striped", "hover", "condensed"),
+                  full_width = FALSE, 
+                  font_size = 14),
+  file = "anova_results.html"
+)
+
+# Take a screenshot of the table as a PNG
+webshot("anova_results.html", "anova_results.png")
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+# Calculate proportions and standard deviations per dyad
+dyad_summary <- BexFinal %>%
+  group_by(Dyad = as.factor(paste(MaleID, FemaleID, sep = "-"))) %>%  # Create a unique dyad identifier
+  summarize(
+    Proportion = mean(Tol, na.rm = TRUE),
+    SD = sd(Tol, na.rm = TRUE),
+    Count = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(Proportion)  # Arrange dyads by increasing proportion
+
+# Bar plot: Proportion of tolerance per dyad
+barplot_dyad <- ggplot(dyad_summary, aes(x = reorder(Dyad, Proportion), y = Proportion)) +
+  geom_col(fill = "skyblue", alpha = 0.7) +
+  geom_errorbar(aes(ymin = Proportion - SD, ymax = Proportion + SD), width = 0.2, color = "black") +
+  labs(
+    title = "Proportion of Tolerance per Dyad",
+    x = "Dyad",
+    y = "Proportion of Tolerance"
+  ) +
+  theme_minimal(base_size = 14) +
+  theme(
+    plot.title = element_text(size = 16, face = "bold", hjust = 0.5),
+    axis.title = element_text(size = 14, face = "bold"),
+    axis.text.x = element_text(angle = 90, hjust = 1, size = 10),  # Rotate dyad labels for clarity
+    axis.text.y = element_text(size = 12)
+  )
+
+# Display the plot
+print(barplot_dyad)
+
+
+
 
